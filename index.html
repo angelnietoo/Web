@@ -50,12 +50,12 @@
         h1 {
             font-size: 3.5em;
             color: #4caf50;
-            margin-top: 50px; /* Ajustado para mover el título hacia abajo */
+            margin-top: 50px;
             margin-bottom: 30px;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.6), 0 0 30px rgba(76, 175, 80, 0.4);
             letter-spacing: 2px;
             text-transform: uppercase;
-            animation: fadeInTitle 1s ease-out; /* Añadida animación para el título */
+            animation: fadeInTitle 1s ease-out;
         }
 
         /* Animación del título */
@@ -159,6 +159,11 @@
             margin-top: 20px;
             font-style: italic;
         }
+        
+        /* Ocultar las listas inicialmente */
+        .ejercicios {
+            display: none;
+        }
     </style>
 </head>
 
@@ -169,19 +174,59 @@
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
-        <ul>
-            <li><a href="ciudades.xml" class="button">Ejercicio 1</a></li>
-            <li><a href="hechos_historicos.xml" class="button">Ejercicio 2</a></li>
-        </ul>
+        <!-- Botones para seleccionar Tema -->
+        <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
+        <button class="button" id="btnTema2">Tema 2: HTML</button>
 
-        <h2>TEMA 2: HTML</h2>
-        <ul>
-            <li><a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a></li>
-            <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a></li>
-            <li><a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a></li>
-        </ul>
+        <!-- Contenido de Ejercicios para el Tema 1 -->
+        <div id="tema1" class="ejercicios">
+            <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
+            <ul>
+                <li><a href="ciudades.xml" class="button">Ejercicio 1</a></li>
+                <li><a href="hechos_historicos.xml" class="button">Ejercicio 2</a></li>
+            </ul>
+        </div>
+
+        <!-- Contenido de Ejercicios para el Tema 2 -->
+        <div id="tema2" class="ejercicios">
+            <h2>TEMA 2: HTML</h2>
+            <ul>
+                <li><a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a></li>
+                <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a></li>
+                <li><a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a></li>
+            </ul>
+        </div>
     </div>
+
+    <script>
+        // Obtener los botones de tema
+        const btnTema1 = document.getElementById('btnTema1');
+        const btnTema2 = document.getElementById('btnTema2');
+
+        // Obtener las secciones de los temas
+        const tema1 = document.getElementById('tema1');
+        const tema2 = document.getElementById('tema2');
+
+        // Función para mostrar un tema y ocultar el otro
+        function mostrarTema(tema) {
+            if (tema === 'tema1') {
+                tema1.style.display = 'block';
+                tema2.style.display = 'none';
+            } else if (tema === 'tema2') {
+                tema2.style.display = 'block';
+                tema1.style.display = 'none';
+            }
+        }
+
+        // Añadir eventos a los botones
+        btnTema1.addEventListener('click', () => {
+            mostrarTema('tema1');
+        });
+
+        btnTema2.addEventListener('click', () => {
+            mostrarTema('tema2');
+        });
+    </script>
 
 </body>
 
