@@ -6,14 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
     <style>
-        /* Estilo base */
+        /* Estilo global */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #1c1c1c; /* Fondo negro/gris oscuro */
-            color: #e0e0e0; /* Texto claro para contrastar con fondo oscuro */
+            background-color: #1c1c1c;
+            color: #e0e0e0;
             margin: 0;
-            padding: 0;
-            height: 100vh; /* La página ocupa toda la altura de la ventana */
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,7 +22,7 @@
             max-width: 800px;
             width: 100%;
             padding: 20px;
-            background-color: #2c2c2c; /* Fondo gris oscuro para el contenedor */
+            background-color: #2c2c2c;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
@@ -31,38 +30,38 @@
 
         h1 {
             font-size: 2.5em;
-            color: #4f8bcf; /* Azul claro para el título */
+            color: #4f8bcf;
             margin-bottom: 20px;
         }
 
         h2 {
-            color: #ffffff; /* Blanco para los subtítulos */
-            margin-top: 30px;
+            color: #fff;
             font-size: 1.7em;
+            margin-top: 30px;
         }
 
         p {
             font-size: 1.1em;
-            color: #bbb; /* Gris claro para el texto de los párrafos */
+            color: #bbb;
             margin-bottom: 20px;
         }
 
-        /* Estilo de los botones */
+        /* Estilo de botones */
         .button {
             display: inline-block;
             padding: 12px 24px;
             margin: 10px 0;
-            background-color: #4f8bcf; /* Azul claro para el fondo del botón */
+            background-color: #4f8bcf;
             color: white;
             text-align: center;
             text-decoration: none;
             border-radius: 5px;
             font-size: 1.1em;
-            transition: transform 0.3s, background-color 0.3s;
+            transition: background-color 0.3s, transform 0.3s;
         }
 
         .button:hover {
-            background-color: #3f7fbf; /* Azul más oscuro al pasar el ratón */
+            background-color: #3f7fbf;
             transform: translateY(-3px);
         }
 
@@ -70,10 +69,10 @@
             transform: translateY(1px);
         }
 
-        /* Estilo de las listas de temas */
+        /* Listas sin estilo */
         ul {
-            list-style-type: none;
-            padding-left: 0;
+            list-style: none;
+            padding: 0;
             margin: 0;
         }
 
@@ -81,27 +80,10 @@
             margin: 15px 0;
         }
 
-        /* Animación de aparición de los botones */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .button {
-            animation: fadeIn 0.8s ease-out;
-        }
-
         /* Estilo del enlace para evitar subrayado */
         a {
             text-decoration: none;
         }
-
     </style>
 </head>
 <body>
@@ -113,22 +95,14 @@
 
         <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
         <ul>
-            <li>
-                <a href="ejercicio1.html" class="button">Ejercicio 1: Enlace a otra página</a>
-            </li>
-            <li>
-                <a href="ejercicio2.html" class="button">Ejercicio 2: Enlace a otra página</a>
-            </li>
+            <li><a href="ejercicio1.html" class="button">Ejercicio 1: Enlace a otra página</a></li>
+            <li><a href="ejercicio2.html" class="button">Ejercicio 2: Enlace a otra página</a></li>
         </ul>
 
         <h2>TEMA 2: HTML</h2>
         <ul>
-            <li>
-                <a href="EJ2_Imagenes.html" class="button">Ejercicio 1: Listas</a>
-            </li>
-            <li>
-                <a href="EJ3_Horario.html" class="button">Ejercicio 2: Horario</a>
-            </li>
+            <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 1: Listas</a></li>
+            <li><a href="EJ3_Horario.html" class="button">Ejercicio 2: Horario</a></li>
         </ul>
     </div>
 
