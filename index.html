@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,56 +18,76 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            background: linear-gradient(45deg, #1e1e1e, #121212);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            padding: 20px;
+            padding: 40px;
             background-color: #2b2b2b;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
             text-align: center;
             position: relative;
             z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h1 {
-            font-size: 3em;
-            color: #4caf50; /* Verde claro */
-            margin-bottom: 20px;
+            font-size: 3.5em;
+            color: #4caf50;
+            margin-bottom: 30px;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.6), 0 0 30px rgba(76, 175, 80, 0.4);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         h2 {
             color: #fff;
-            font-size: 1.8em;
-            margin-top: 30px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            font-size: 2em;
+            margin-top: 40px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            font-weight: bold;
         }
 
         p {
-            font-size: 1.1em;
+            font-size: 1.2em;
             color: #bbb;
-            margin-bottom: 20px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+            margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
 
         /* Estilo de botones */
         .button {
             display: inline-block;
-            padding: 12px 24px;
-            margin: 10px 0;
-            background: linear-gradient(45deg, #4caf50, #388e3c); /* Verde */
+            padding: 14px 28px;
+            margin: 12px 10px;
+            background: linear-gradient(45deg, #4caf50, #388e3c);
             color: white;
             text-align: center;
             text-decoration: none;
             border-radius: 50px;
             font-size: 1.2em;
+            font-weight: bold;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
             transition: all 0.4s ease;
+            letter-spacing: 1px;
         }
 
         .button::before {
@@ -84,9 +105,9 @@
         }
 
         .button:hover {
-            background: linear-gradient(45deg, #388e3c, #4caf50); /* Verde */
-            transform: scale(1.05);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+            background: linear-gradient(45deg, #388e3c, #4caf50);
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
         }
 
         .button:hover::before {
@@ -103,24 +124,35 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            text-align: left;
         }
 
         li {
-            margin: 20px 0;
+            margin: 18px 0;
+            font-size: 1.1em;
         }
 
         /* Estilo del enlace para evitar subrayado */
         a {
             text-decoration: none;
         }
+
+        /* Estilo de la pequeña sección de autor */
+        .author {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-top: 20px;
+            font-style: italic;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="container">
         <h1>Índice de Ejercicios</h1>
-        <p><strong>ÁNGEL NIETO CORDERO</strong></p>
-        <p><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
+        <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
+        <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
         <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
         <ul>
@@ -131,10 +163,11 @@
         <h2>TEMA 2: HTML</h2>
         <ul>
             <li><a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a></li>
-            <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imagenes</a></li>
+            <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a></li>
             <li><a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a></li>
         </ul>
     </div>
 
 </body>
+
 </html>
