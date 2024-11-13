@@ -9,41 +9,47 @@
         /* Estilo global */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #1c1c1c;
+            background-color: #121212;
             color: #e0e0e0;
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
         .container {
             max-width: 800px;
             width: 100%;
             padding: 20px;
-            background-color: #2c2c2c;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            background-color: #2b2b2b;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            font-size: 2.5em;
-            color: #4f8bcf;
+            font-size: 3em;
+            color: #00bcd4;
             margin-bottom: 20px;
+            text-shadow: 0 0 15px rgba(0, 188, 212, 0.6), 0 0 30px rgba(0, 188, 212, 0.4);
         }
 
         h2 {
             color: #fff;
-            font-size: 1.7em;
+            font-size: 1.8em;
             margin-top: 30px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         p {
             font-size: 1.1em;
             color: #bbb;
             margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
         }
 
         /* Estilo de botones */
@@ -51,22 +57,45 @@
             display: inline-block;
             padding: 12px 24px;
             margin: 10px 0;
-            background-color: #4f8bcf;
+            background: linear-gradient(45deg, #00bcd4, #3f7fbf);
             color: white;
             text-align: center;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1em;
-            transition: background-color 0.3s, transform 0.3s;
+            border-radius: 50px;
+            font-size: 1.2em;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s ease;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+            opacity: 0;
         }
 
         .button:hover {
-            background-color: #3f7fbf;
-            transform: translateY(-3px);
+            background: linear-gradient(45deg, #3f7fbf, #00bcd4);
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .button:hover::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .button:active {
-            transform: translateY(1px);
+            transform: scale(0.98);
         }
 
         /* Listas sin estilo */
@@ -77,7 +106,7 @@
         }
 
         li {
-            margin: 15px 0;
+            margin: 20px 0;
         }
 
         /* Estilo del enlace para evitar subrayado */
@@ -95,13 +124,13 @@
 
         <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
         <ul>
-            <li><a href="ejercicio1.html" class="button">Ejercicio 1: Enlace a otra página</a></li>
-            <li><a href="ejercicio2.html" class="button">Ejercicio 2: Enlace a otra página</a></li>
+            <li><a href=".html" class="button">Ejercicio 1: Enlace a otra página</a></li>
+            <li><a href="actividad2.html" class="button">Ejercicio 2: Enlace a otra página</a></li>
         </ul>
 
         <h2>TEMA 2: HTML</h2>
         <ul>
-            <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 1: Listas</a></li>
+            <li><a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a></li>
             <li><a href="EJ3_Horario.html" class="button">Ejercicio 2: Horario</a></li>
         </ul>
     </div>
