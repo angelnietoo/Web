@@ -6,50 +6,128 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
     <style>
+        /* Estilo base */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f9;
         }
+
         h1 {
-            color: #333;
+            font-size: 2em;
+            color: #4A90E2;
+            text-align: center;
         }
+
         h2 {
-            color: #5a5a5a;
+            color: #555;
+            margin-top: 30px;
+            font-size: 1.5em;
         }
+
+        p {
+            font-size: 1.1em;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Estilo de los botones */
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        /* Estilo de las listas de temas */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        li {
+            margin: 15px 0;
+        }
+
+        /* Animación de aparición de los botones */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .button {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Estilos adicionales */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo del enlace para evitar subrayado */
         a {
-            color: #0077cc;
             text-decoration: none;
         }
-        a:hover {
-            text-decoration: underline;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin: 10px 0;
-        }
+
     </style>
 </head>
 <body>
 
-    <h1>Índice de Ejercicios</h1>
-    <p><strong>Ángel Nieto Cordero</strong></p>
-    <p><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
+    <div class="container">
+        <h1>Índice de Ejercicios</h1>
+        <p><strong>NOMBRE y APELLIDOS</strong></p>
+        <p><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-    <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
-    <ul>
-        <li><a href="ejercicio1.html">Ejercicio 1: Enlace a otra página</a></li>
-        <li><a href="ejercicio2.html">Ejercicio 2</a></li>
-    </ul>
+        <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
+        <ul>
+            <li>
+                <a href="ejercicio1.html" class="button">Ejercicio 1: Enlace a otra página</a>
+            </li>
+            <li>
+                <a href="ejercicio2.html" class="button">Ejercicio 2: Enlace a otra página</a>
+            </li>
+        </ul>
 
-    <h2>TEMA 2: HTML</h2>
-    <ul>
-        <li><a href="EJ1_Estructura del texto.html">Listas</a></li>
-        <li><a href="ejercicio4.html">EJ3_Horario.html: Horario</a></li>
-    </ul>
+        <h2>TEMA 2: HTML</h2>
+        <ul>
+            <li>
+                <a href="ejercicio3.html" class="button">Ejercicio 1: Listas</a>
+            </li>
+            <li>
+                <a href="ejercicio4.html" class="button">Ejercicio 2: Horario</a>
+            </li>
+        </ul>
+    </div>
 
 </body>
 </html>
