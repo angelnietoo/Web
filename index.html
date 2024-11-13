@@ -50,10 +50,25 @@
         h1 {
             font-size: 3.5em;
             color: #4caf50;
+            margin-top: 50px; /* Ajustado para mover el título hacia abajo */
             margin-bottom: 30px;
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.6), 0 0 30px rgba(76, 175, 80, 0.4);
             letter-spacing: 2px;
             text-transform: uppercase;
+            animation: fadeInTitle 1s ease-out; /* Añadida animación para el título */
+        }
+
+        /* Animación del título */
+        @keyframes fadeInTitle {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
