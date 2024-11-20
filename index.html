@@ -164,6 +164,19 @@
         .ejercicios {
             display: none;
         }
+
+        /* Diseño de tres columnas */
+        .columnas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+            gap: 20px; /* Espacio entre columnas */
+            text-align: center;
+        }
+
+        .columnas a {
+            display: block;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -181,22 +194,22 @@
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
             <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
-            <ul>
-                <li><a href="ciudades.xml" class="button">Ejercicio 1</a></li>
-                <li><a href="hechos_historicos.xml" class="button">Ejercicio 2</a></li>
-            </ul>
+            <div class="columnas">
+                <a href="ciudades.xml" class="button">Ejercicio 1</a>
+                <a href="hechos_historicos.xml" class="button">Ejercicio 2</a>
+            </div>
         </div>
 
         <!-- Contenido de Ejercicios para el Tema 2 -->
         <div id="tema2" class="ejercicios">
             <h2>TEMA 2: HTML</h2>
-            <ul>
-                <li><a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a></li>
-                <li><a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a></li>
-                <li><a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a></li>
-                <li><a href="ActividadResuelta_2.6.html" class="button">Ejercicio 4: Frames</a></li>
-                <li><a href="Formulario.html" class="button">Ejercicio 5: Formulario</a></li>
-            </ul>
+            <div class="columnas">
+                <a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a>
+                <a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a>
+                <a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a>
+                <a href="ActividadResuelta_2.6.html" class="button">Ejercicio 4: Frames</a>
+                <a href="Formulario.html" class="button">Ejercicio 5: Formulario</a>
+            </div>
         </div>
     </div>
 
@@ -229,7 +242,5 @@
             mostrarTema('tema2');
         });
     </script>
-
 </body>
-
 </html>
