@@ -105,17 +105,6 @@
             letter-spacing: 1px;
         }
 
-        /* Cambiar el estilo de los botones de los temas específicos */
-        #btnTema1, #btnTema2 {
-            background-color: #555; /* Gris oscuro */
-            border-radius: 0; /* Hacerlo cuadrado */
-            padding: 15px 30px; /* Asegurar que el padding sea uniforme */
-        }
-
-        #btnTema1:hover, #btnTema2:hover {
-            background-color: #666; /* Gris más oscuro al pasar el ratón */
-        }
-
         .button::before {
             content: '';
             position: absolute;
@@ -243,3 +232,16 @@
                 tema1.style.display = 'none';
             }
         }
+
+        // Añadir eventos a los botones
+        btnTema1.addEventListener('click', () => {
+            mostrarTema('tema1');
+        });
+
+        btnTema2.addEventListener('click', () => {
+            mostrarTema('tema2');
+        });
+    </script>
+
+</body>
+</html>
