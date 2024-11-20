@@ -1,71 +1,198 @@
 <!DOCTYPE html>
 <html lang="es">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
     <style>
+        /* Estilo global */
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(45deg, #1e1e1e, #121212);
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
             color: #e0e0e0;
+            margin: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(45deg, #1e1e1e, #121212);
         }
+
         .container {
             max-width: 900px;
+            width: 100%;
             padding: 40px;
             background-color: #2b2b2b;
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
             text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
         }
-        h1, h2 {
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
             color: #4caf50;
-            margin: 20px 0;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.6), 0 0 30px rgba(76, 175, 80, 0.4);
+            letter-spacing: 2px;
             text-transform: uppercase;
+            animation: fadeInTitle 1s ease-out;
         }
+
+        /* Animación del título */
+        @keyframes fadeInTitle {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #fff;
+            font-size: 2em;
+            margin-top: 40px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #bbb;
+            margin-bottom: 30px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Estilo de botones */
         .button {
             display: inline-block;
             padding: 14px 28px;
-            margin: 12px;
+            margin: 12px 10px;
             background: linear-gradient(45deg, #4caf50, #388e3c);
             color: white;
+            text-align: center;
+            text-decoration: none;
             border-radius: 50px;
             font-size: 1.2em;
-            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
         }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
         .button:hover {
             background: linear-gradient(45deg, #388e3c, #4caf50);
             transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
         }
-        .columnas {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-top: 20px;
+
+        .button:hover::before {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
+
+        .button:active {
+            transform: scale(0.98);
+        }
+
+        /* Listas sin estilo */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        li {
+            margin: 18px 0;
+            font-size: 1.1em;
+        }
+
+        /* Estilo del enlace para evitar subrayado */
         a {
             text-decoration: none;
         }
+
+        /* Estilo de la pequeña sección de autor */
+        .author {
+            font-size: 1.2em;
+            color: #ccc;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        /* Ocultar las listas inicialmente */
+        .ejercicios {
+            display: none;
+        }
+
+        /* Diseño de tres columnas */
+        .columnas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+            gap: 20px; /* Espacio entre columnas */
+            text-align: center;
+        }
+
+        .columnas a {
+            display: block;
+            text-align: center;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="container">
         <h1>Índice de Ejercicios</h1>
-        <p><strong>ÁNGEL NIETO CORDERO</strong><br><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
-        
-        <button class="button" onclick="mostrarTema('tema1')">Tema 1: Introducción al lenguaje de marcas</button>
-        <button class="button" onclick="mostrarTema('tema2')">Tema 2: HTML</button>
+        <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
+        <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <div id="tema1" style="display:none">
+        <!-- Botones para seleccionar Tema -->
+        <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
+        <button class="button" id="btnTema2">Tema 2: HTML</button>
+
+        <!-- Contenido de Ejercicios para el Tema 1 -->
+        <div id="tema1" class="ejercicios">
             <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
             <div class="columnas">
                 <a href="ciudades.xml" class="button">Ejercicio 1</a>
@@ -73,7 +200,8 @@
             </div>
         </div>
 
-        <div id="tema2" style="display:none">
+        <!-- Contenido de Ejercicios para el Tema 2 -->
+        <div id="tema2" class="ejercicios">
             <h2>TEMA 2: HTML</h2>
             <div class="columnas">
                 <a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a>
@@ -86,11 +214,34 @@
     </div>
 
     <script>
-        function mostrarTema(tema) {
-            document.getElementById('tema1').style.display = tema === 'tema1' ? 'block' : 'none';
-            document.getElementById('tema2').style.display = tema === 'tema2' ? 'block' : 'none';
-        }
-    </script>
+        // Obtener los botones de tema
+        const btnTema1 = document.getElementById('btnTema1');
+        const btnTema2 = document.getElementById('btnTema2');
 
+        // Obtener las secciones de los temas
+        const tema1 = document.getElementById('tema1');
+        const tema2 = document.getElementById('tema2');
+
+        // Función para mostrar un tema y ocultar el otro
+        function mostrarTema(tema) {
+            if (tema === 'tema1') {
+                tema1.style.display = 'block';
+                tema2.style.display = 'none';
+            } else if (tema === 'tema2') {
+                tema2.style.display = 'block';
+                tema1.style.display = 'none';
+            }
+        }
+
+        // Añadir eventos a los botones
+        btnTema1.addEventListener('click', () => {
+            mostrarTema('tema1');
+        });
+
+        btnTema2.addEventListener('click', () => {
+            mostrarTema('tema2');
+        });
+    </script>
+    
 </body>
 </html>
