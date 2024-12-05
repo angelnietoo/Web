@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Currículum Vitae - Ángel Nieto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Estilo global */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #121212; /* Fondo oscuro */
-            color: #e0e0e0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f7f7f7; /* Fondo claro */
+            color: #333;
             margin: 0;
             display: flex;
             justify-content: flex-start;
@@ -19,35 +20,38 @@
 
         /* Sidebar */
         .sidebar {
-            width: 250px;
-            background-color: #2d3436; /* Fondo verde oscuro para la barra lateral */
+            width: 280px;
+            background-color: #2c3e50; /* Fondo oscuro para la barra lateral */
             color: white;
-            padding: 20px;
+            padding: 30px;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+            border-top-right-radius: 20px;
+            border-bottom-right-radius: 20px;
         }
 
         .sidebar h1 {
             text-align: center;
-            font-size: 26px;
+            font-size: 30px;
             margin-bottom: 10px;
-            color: #4caf50; /* Verde brillante para el nombre */
+            color: #f39c12; /* Naranja brillante para el nombre */
+            font-weight: 600;
         }
 
         .sidebar p {
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             margin: 10px 0;
-            color: #bdc3c7; /* Gris suave para los subtítulos */
+            color: #ecf0f1; /* Gris suave para los subtítulos */
         }
 
         .sidebar .contact-info p {
             margin: 10px 0;
             font-size: 14px;
-            color: #ccc; /* Gris claro para la información de contacto */
+            color: #bdc3c7; /* Gris claro para la información de contacto */
         }
 
         .sidebar .photo {
@@ -56,7 +60,8 @@
             border-radius: 50%;
             overflow: hidden;
             margin: 0 auto 20px;
-            border: 3px solid #4caf50; /* Borde verde brillante */
+            border: 4px solid #f39c12; /* Borde naranja brillante */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Sombra alrededor de la foto */
         }
 
         .sidebar .photo img {
@@ -67,24 +72,27 @@
 
         /* CV Container */
         .cv-container {
-            margin-left: 270px; /* Ancho del sidebar */
-            padding: 30px;
+            margin-left: 320px; /* Ancho del sidebar */
+            padding: 40px;
             width: 75%;
-            background-color: #1e1e1e; /* Fondo oscuro para el contenido */
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            background-color: #ffffff; /* Fondo blanco para el contenido */
+            box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1); /* Sombra más fuerte */
             border-radius: 10px;
+            max-width: 1200px;
+            overflow-y: auto;
         }
 
         h2 {
-            margin-top: 30px;
-            color: #4caf50; /* Título verde brillante */
-            font-size: 22px;
-            border-bottom: 2px solid #4caf50;
-            padding-bottom: 5px;
+            margin-top: 20px;
+            color: #f39c12; /* Título naranja brillante */
+            font-size: 24px;
+            font-weight: 600;
+            border-bottom: 2px solid #f39c12;
+            padding-bottom: 10px;
         }
 
-        p {
-            color: #bdc3c7;
+        p, ul {
+            color: #7f8c8d; /* Gris oscuro */
             font-size: 16px;
         }
 
@@ -94,20 +102,31 @@
         }
 
         ul li {
-            margin: 8px 0;
+            margin: 10px 0;
             font-size: 16px;
-            color: #dcdcdc; /* Color más suave para los elementos de lista */
+            color: #34495e; /* Color más suave para los elementos de lista */
         }
 
         ul li strong {
-            color: #4caf50; /* Resaltar las instituciones o cargos con verde */
+            color: #2ecc71; /* Verde para resaltar */
         }
 
         footer {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 40px;
             font-size: 14px;
             color: #bdc3c7;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        /* Información de la barra lateral */
+        .information ul li {
+            margin: 15px 0;
+        }
+
+        .information ul li strong {
+            color: #f39c12; /* Resaltar con color naranja */
         }
 
         /* Responsive Design */
@@ -116,13 +135,13 @@
                 width: 100%;
                 position: relative;
                 height: auto;
+                border-radius: 0;
             }
             .cv-container {
                 margin-left: 0;
                 width: 100%;
             }
         }
-
     </style>
 </head>
 <body>
@@ -139,7 +158,7 @@
         <div class="information">
             <h2>Información</h2>
             <ul>
-                <li><strong>Carnet de conducir:</strong> Sí</li>
+                <li><strong>Carnet de conducir:</strong> B y A1</li>
                 <li><strong>Vehículo propio:</strong> Sí</li>
                 <li><strong>Disponibilidad horaria:</strong> Mañanas</li>
             </ul>
