@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículum Vitae</title>
+    <title>Currículum Vitae - Ángel Nieto</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
@@ -27,6 +27,7 @@
         .sidebar h1 {
             text-align: center;
             font-size: 24px;
+            margin-bottom: 10px;
         }
 
         .sidebar p {
@@ -44,7 +45,7 @@
             height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            margin: 0 auto;
+            margin: 0 auto 20px;
         }
 
         .sidebar .photo img {
@@ -62,6 +63,9 @@
         h2 {
             margin-top: 30px;
             color: #333;
+            font-size: 22px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
         }
 
         p {
@@ -83,6 +87,20 @@
             text-align: center;
             margin-top: 30px;
             font-size: 14px;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            .cv-container {
+                margin-left: 0;
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -108,18 +126,18 @@
         <div class="section">
             <h2>Formación</h2>
             <ul>
-                <li>Sistemas Microinformáticos y Redes (2021)</li>
-                <li>Máster en Marketing Digital (2006 - 2007)</li>
-                <li>Grado en Marketing (2001 - 2005)</li>
+                <li><strong>Sistemas Microinformáticos y Redes</strong> (2021)</li>
+                <li><strong>Máster en Marketing Digital</strong> (2006 - 2007)</li>
+                <li><strong>Grado en Marketing</strong> (2001 - 2005)</li>
             </ul>
         </div>
 
         <div class="section">
             <h2>Experiencia</h2>
             <ul>
-                <li>PRACTICAS (2024) - Prácticas en centros de formación.</li>
-                <li>BORCELLE (2010) - Marketing Manager</li>
-                <li>FAUJECT (2012-2021) - Marketing Manager</li>
+                <li><strong>PRACTICAS</strong> (2024) - Prácticas en centros de formación.</li>
+                <li><strong>BORCELLE</strong> (2010) - Marketing Manager</li>
+                <li><strong>FAUJECT</strong> (2012-2021) - Marketing Manager</li>
             </ul>
         </div>
 
@@ -136,8 +154,8 @@
         <div class="section">
             <h2>Idiomas</h2>
             <ul>
-                <li>Español: Nativo</li>
-                <li>Inglés: Avanzado</li>
+                <li><strong>Español:</strong> Nativo</li>
+                <li><strong>Inglés:</strong> Avanzado</li>
             </ul>
         </div>
 
