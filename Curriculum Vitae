@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curriculum Vitae</title>
+    <link rel="stylesheet" href="Curriculum Vitae.css">
+</head>
+<body id="body" class="body">
+    <div id="box" class="box">
+        <div class="container1">
+            <img class="pfp" src="img/pfp.jpg" alt="">
+            <div class="text-header">
+                <p class="name">Gonzalo de la Rosa</p>
+                <p id="curriculum" class="curriculum">Curriculum vitae</p>
+            </div>
+            <div class="buttons-header">
+                <button id="download-btn" class="button"><img id="download" class="download" src="img/download.png" alt=""></button>
+                <button class="button" id="theme"><img id="sun" class="sun" src="img/sun.png" alt=""></button>
+                <a target="_blank" href="https://github.com/GdelaRosa05"><button class="button"><img id="github" class="github" src="img/github.png" alt=""></button></a>
+            </div>
+        </div>
+        <div class="container2">
+            <div id="box1" class="box1">
+                <div id="contacto" class="contacto">
+                    <div class="head-data">
+                        <img class="contact-icon" src="img/contacto.png" alt="">
+                        <p class="text-contacto">Contacto</p>
+                    </div>
+                    <div class="body-box1">
+                        <p class="data-title">Teléfono</p>
+                        <p class="data">622 015 976</p>
+                        <p class="data-title">Correo</p>
+                        <p class="data">angel.nietoo2006@gmail.com</p>
+                    </div>
+                </div>
+
+                <div id="idiomas" class="idiomas">
+                    <div class="head-data">
+                        <img class="language-icon" src="img/language.png" alt="">
+                        <p class="name">Idiomas</p>
+                    </div>
+                    <div class="body-box1">
+                        <p class="data-title">Español</p>
+                        <p class="data">Nativo</p>
+                        <p class="data-title">Inglés</p>
+                        <p class="data">Comprensión: C1</p>
+                        <p class="data">Comunicación verbal: C1</p>
+                        <p class="data">Escrito: B2</p>
+                        <p class="data-title">Catalán</p>
+                        <p class="data">Comprensión: C1</p>
+                        <p class="data">Comunicación verbal: B2</p>
+                        <p class="data">Escrito: B1</p>
+                    </div>
+                </div>
+            </div>
+            <div class="box2">
+                <div id="personal" class="personal">
+                    <div class="box2-head-data">
+                        <div class="box2-img">
+                            <img class="personal-icon" src="img/personal.png" alt="">
+                        </div>
+                        <div class="box2-header-text">
+                            <p class="box2-name">Información personal</p>
+                            <p class="box2-data">Detalles básicos</p>
+                        </div>
+                    </div>
+                    <div class="box2-body">
+                        <div class="row">
+                            <p class="box2-data2-title">Nombre:</p>
+                            <p class="box2-data2">Ángel Nieto Cordero</p>
+                        </div>
+                        <div class="row">
+                            <p class="box2-data2-title">Fecha de nacimiento:</p>
+                            <p class="box2-data2">18/11/2006</p>
+                        </div>
+                        <div class="row">
+                            <p class="box2-data2-title">DNI:</p>
+                            <p class="box2-data2">55083571C</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="experiencia" class="experiencia">
+                    <div class="box2-head-data">
+                        <div class="box2-img">
+                            <img class="personal-icon" src="img/experiencia.png" alt="">
+                        </div>
+                        <div class="box2-header-text">
+                            <p class="box2-name">Experiencia laboral</p>
+                            <p class="box2-data">Trayectoria profesional</p>
+                        </div>
+                    </div>
+                    <div class="box2-body">
+                        <div class="row">
+                            <p class="box2-data2-title">Hostelería:</p>
+                            <p class="box2-data2">Restaurante La Gambuza - 3 meses (verano 2024)</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="estudios" class="estudios">
+                    <div class="box2-head-data">
+                        <div class="box2-img">
+                            <img class="personal-icon" src="img/estudios.png" alt="">
+                        </div>
+                        <div class="box2-header-text">
+                            <p class="box2-name">Formación académica</p>
+                            <p class="box2-data">Educación y certificaciones</p>
+                        </div>
+                    </div>
+                    <div class="box2-body">
+                        <div class="row">
+                            <p class="box2-data2-title">Estudios en curso: FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
+                        </div>
+                        <div class="row">
+                            <p style="margin-left: 15px;" class="box2-data2">- Configuración y gestión de sistemas informáticos.</p>
+                        </div>
+                        <div class="row">
+                            <p style="margin-left: 15px;" class="box2-data2">- Administración de servidores y bases de datos.</p>
+                        </div>
+                        <div class="row">
+                            <p style="margin-left: 15px;" class="box2-data2">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
+                        </div>
+                        <div class="row">
+                            <p style="margin-left: 15px;" class="box2-data2">- Desarrollo de aplicaciones web con acceso a datos.</p>
+                        </div>
+                        <div class="row">
+                            <p style="margin-top: 10px;" class="box2-data2-title">Estudios finalizados: Bachillerato tecnológico - IES Francisco Javier Uriarte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
