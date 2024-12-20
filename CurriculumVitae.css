@@ -1,32 +1,73 @@
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    line-height: 1.6;
 }
+
 .container {
     max-width: 800px;
-    margin: 20px auto;
-    background: #fff;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-h1, h2 {
-    color: #333;
-}
-.section {
+
+header {
+    text-align: center;
     margin-bottom: 20px;
 }
-.section-title {
-    margin-bottom: 10px;
-    color: #555;
+
+header h1 {
+    font-size: 2.5em;
+    color: #4caf50;
+    margin-bottom: 5px;
 }
-ul {
-    list-style-type: none;
+
+header p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+section h2 {
+    font-size: 1.8em;
+    color: #333;
+    border-bottom: 2px solid #4caf50;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.skills ul, .experience ul, .education ul, .contact ul {
+    list-style: none;
     padding: 0;
 }
-li {
-    margin-bottom: 5px;
+
+.skills li, .experience li, .education li, .contact li {
+    margin-bottom: 10px;
+}
+
+.skills li {
+    font-size: 1.1em;
+}
+
+.contact li {
+    font-size: 1em;
+}
+
+h3 {
+    font-size: 1.3em;
+    color: #4caf50;
+    margin: 5px 0;
+}
+
+p {
+    font-size: 1em;
+    color: #555;
 }
