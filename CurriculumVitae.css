@@ -1,79 +1,564 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
+.body{
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(34, 34, 34);
+    color: white;
+    transition: 0.2s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
+.body-light{
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(240, 240, 240);
+    color: white;
+    transition: 0.2s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.box{
+    width: 40%;
+    height: 875px;
+    background-color: rgb(34, 34, 34);
+    border-radius: 40px;
+    border: 8px solid rgb(78, 78, 78);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.box-light{
+    width: 40%;
+    height: 875px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 40px;
+    border: 8px solid rgb(228, 228, 228);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    transition: 0.2s;
+}
+
+.container1{
+    width: 95%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.pfp{
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    margin-left: 10px;
+    margin-right: 15px;
+}
+
+.name{
+    font-weight: bold;
+}
+
+.curriculum{
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.322);
+    font-size: 14px;
+    margin-top: -15px;
+    transition: 0.2s;
+}
+
+.curriculum-light{
+    font-weight: bold;
+    color: rgb(110, 110, 110);
+    font-size: 14px;
+    margin-top: -15px;
+    transition: 0.2s;
+}
+
+.text-header{
+    width: 60%;
+}
+
+.buttons-header{
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    width: 40px;
+    height: 40px;
+    border: none;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 5px;
+    cursor: pointer;
+    background-color: rgba(211, 255, 134, 0.151);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Header Styles */
-header {
-    text-align: center;
-    margin-bottom: 20px;
+.button-light{
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: rgb(228, 228, 228);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-header h1 {
-    font-size: 2.5em;
-    color: #4caf50;
-    margin-bottom: 5px;
+.download{
+    width: 20px;
+    height: 20px;
 }
 
-header p {
-    font-size: 1.2em;
-    color: #666;
+.sun{
+    width: 20px;
+    height: 20px;
 }
 
-/* Section Styles */
-section {
-    margin-bottom: 20px;
+.github{
+    width: 25px;
+    height: 25px;
 }
 
-section h2 {
-    font-size: 1.8em;
-    color: #333;
-    border-bottom: 2px solid #4caf50;
-    padding-bottom: 5px;
+.container2{
+    width: 95%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box1{
+    width: 35%;
+    height: 100%;
+    background-color: rgba(211, 255, 134, 0.151);
+    border-radius: 30px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.2s;
+}
+
+.box1-light{
+    width: 35%;
+    height: 100%;
+    background-color: rgb(228, 228, 228);
+    border-radius: 30px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: 0.2s;
+}
+
+.contacto{
+    width: 80%;
+}
+
+.idiomas{
+    width: 80%;
+}
+
+.head-data{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 25px;
+    background-color: #fdf2da;
+    color: black;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.head-data-light{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 25px;
+    background-color: rgb(240, 240, 240);
+    color: black;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.contact-icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.language-icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 10px;
+}
+
+.text-contacto{
+    font-weight: bold;
+}
+
+.data{
+    color: rgba(255, 255, 255, 0.555);
+    font-size: 14px;
+    margin-top: -10px;
+    transition: 0.2s;
+}
+
+.data-light{
+    color: rgb(138, 138, 138);
+    font-size: 14px;
+    margin-top: -10px;
+    transition: 0.2s;
+}
+
+.box2{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.box2-head-data{
+    display: flex;
+}
+
+.box2-name{
+    font-weight: bold;
+}
+
+.box2-data{
+    color: rgba(255, 255, 255, 0.555);
+    font-size: 14px;
+    margin-top: -12px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.box2-data-light{
+    color: rgb(138, 138, 138);
+    font-size: 14px;
+    margin-top: -12px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.box2-img{
+    width: 50px;
+    height: 50px;
+    background-color: #fdf2da;
+    border-radius: 15px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.box2-img-light{
+    width: 50px;
+    height: 50px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 15px;
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.box2-body{
+    margin-top: 10px;
+}
+
+.row{
+    display: flex;
+}
+
+.box2-data2-title{
+    color: white;
+    margin-top: -10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    transition: 0.2s;
+}
+
+.box2-data2-title-light{
+    color: black;
+    margin-top: -10px;
+    margin-left: 15px;
+    margin-right: 15px;
+    transition: 0.2s;
+}
+
+.box2-data2{
+    color: rgba(255, 255, 255, 0.555);
+    margin-top: -10px;
+    margin-left: -5px;
+    font-size: 15px;
+    margin-right: 15px;
+    transition: 0.2s;
+}
+
+.box2-data2-light{
+    color: rgb(138, 138, 138);
+    margin-top: -10px;
+    margin-left: -5px;
+    font-size: 15px;
+    margin-right: 15px;
+    transition: 0.2s;
+}
+
+.personal{
+    width: 100%;
+    height: 25%;
+    background-color: rgba(156, 156, 156, 0.103);
     margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
-/* Lists in Sections */
-.skills ul, .experience ul, .education ul, .contact ul {
-    list-style: none;
-    padding: 0;
-}
-
-.skills li, .experience li, .education li, .contact li {
+.personal-light{
+    width: 100%;
+    height: 25%;
+    background-color: rgb(228, 228, 228);
     margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
-.skills li {
-    font-size: 1.1em;
+.personal-icon{
+    width: 23px;
+    height: 23px;
 }
 
-.contact li {
-    font-size: 1em;
+.experiencia{
+    width: 100%;
+    height: 25%;
+    background-color: rgba(156, 156, 156, 0.103);
+    margin: 10px;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
-/* Subtitles */
-h3 {
-    font-size: 1.3em;
-    color: #4caf50;
-    margin: 5px 0;
+.experiencia-light{
+    width: 100%;
+    height: 25%;
+    background-color: rgb(228, 228, 228);
+    margin: 10px;
+    border-radius: 20px;
+    transition: 0.2s;
 }
 
-/* Paragraph Text */
-p {
-    font-size: 1em;
-    color: #555;
+.estudios{
+    width: 100%;
+    height: 45%;
+    background-color: rgba(156, 156, 156, 0.103);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+.estudios-light{
+    width: 100%;
+    height: 45%;
+    background-color: rgb(228, 228, 228);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    transition: 0.2s;
+}
+
+@media (max-width: 672px) {
+    .container2{
+        flex-direction: column;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box1, .box1-light{
+        width: 95%;
+        height: 30%;
+        flex-direction: row;
+    }
+
+    .pfp{
+        width: 60px;
+        height: 60px;
+    }
+
+    .curriculum, .curriculum-light{
+        font-size: 12px;
+    }
+
+    .name{
+        font-size: 13px;
+    }
+
+    .box, .box-light {
+        width: 100%;
+    }
+
+    .box2-name, .box2-data{
+        font-size: 12px
+    }
+
+    .contacto, .idiomas{
+        margin-bottom: 30px
+    }
+
+    .head-data, .head-data-light{
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+    }
+
+    .data, .data-light{
+        font-size: 12px;
+    }
+
+    .contact-icon, .language-icon{
+        padding: 10px;
+        margin: 0;
+    }
+    
+    .head-data p, .head-data-light p{
+        display: none;
+    }
+
+    .personal{
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    .box2-data2-title, .box2-data2-title-light{
+        font-size: 12px;
+        margin-right: 15px
+    }
+
+    .box2-data2, .box2-data2-light{
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 673px) and (max-width: 755px) {
+    .box {
+        width: 100%;
+    }
+
+    .box-light {
+        width: 100%;
+    }
+
+    .data, .data-light{
+        font-size: 14px;
+    }
+
+    .box2-data2-title, .box2-data2-title-light{
+        font-size: 14px;
+        margin-right: 15px
+    }
+
+    .box2-data2, .box2-data2-light{
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 756px) and (max-width: 817px) {
+    .box {
+        width: 95%;
+    }
+
+    .box-light {
+        width: 95%;
+    }
+}
+
+@media (min-width: 818px) and (max-width: 931px) {
+    .box {
+        width: 85%;
+    }
+
+    .box-light {
+        width: 85%;
+    }
+}
+
+@media (min-width: 932px) and (max-width: 1083px) {
+    .box {
+        width: 75%;
+    }
+
+    .box-light {
+        width: 75%;
+    }
+}
+
+@media (min-width: 1084px) and (max-width: 1298px) {
+    .box {
+        width: 64%;
+    }
+
+    .box-light {
+        width: 64%;
+    }
+}
+
+@media (min-width: 1299px) and (max-width: 1443px) {
+    .box {
+        width: 54%;
+    }
+
+    .box-light {
+        width: 54%;
+    }
+}
+
+@media (min-width: 1444px) and (max-width: 1650px) {
+    .box {
+        width: 48%;
+    }
+
+    .box-light {
+        width: 48%;
+    }
 }
