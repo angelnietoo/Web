@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
     
 <head>
@@ -191,9 +191,6 @@
         <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
         <button class="button" id="btnTema2">Tema 2: HTML</button>
 
-        <!-- Botón de Curriculum Vitae -->
-        <button class="button" id="btnCV">Curriculum Vitae</button>
-
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
             <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
@@ -223,7 +220,6 @@
         // Obtener los botones de tema
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
-        const btnCV = document.getElementById('btnCV');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
@@ -247,12 +243,6 @@
 
         btnTema2.addEventListener('click', () => {
             mostrarTema('tema2');
-        });
-
-        // Acción para el botón Curriculum Vitae
-        btnCV.addEventListener('click', () => {
-            // Esto puede redirigir a una página o mostrar información
-            window.location.href = "cv.html"; // Aquí puedes colocar el enlace a tu CV
         });
     </script>
 
