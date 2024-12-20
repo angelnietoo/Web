@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
     background-color: rgb(34, 34, 34);
-    color: rgb(255, 255, 255);
+    color: white;
     transition: 0.2s;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
