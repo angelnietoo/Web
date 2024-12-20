@@ -191,8 +191,8 @@
         <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
         <button class="button" id="btnTema2">Tema 2: HTML</button>
 
-        <!-- Botón de Curriculum Vitae (ahora con un enlace) -->
-        <a href="Curriculum Vitae.html" class="button">Curriculum Vitae</a>
+        <!-- Botón de Curriculum Vitae como botón (no un enlace) -->
+        <button class="button" id="btnCV">Curriculum Vitae</button>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
@@ -249,10 +249,9 @@
             mostrarTema('tema2');
         });
 
-        // Acción para el botón Curriculum Vitae
+        // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
-            // Esto puede redirigir a una página o mostrar información
-            window.location.href = "cv.html"; // Aquí puedes colocar el enlace a tu CV
+            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
         });
     </script>
 
