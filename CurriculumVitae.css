@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
@@ -9,13 +10,14 @@ body {
 
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Header Styles */
 header {
     text-align: center;
     margin-bottom: 20px;
@@ -32,6 +34,7 @@ header p {
     color: #666;
 }
 
+/* Section Styles */
 section {
     margin-bottom: 20px;
 }
@@ -44,6 +47,7 @@ section h2 {
     margin-bottom: 10px;
 }
 
+/* Lists in Sections */
 .skills ul, .experience ul, .education ul, .contact ul {
     list-style: none;
     padding: 0;
@@ -61,12 +65,14 @@ section h2 {
     font-size: 1em;
 }
 
+/* Subtitles */
 h3 {
     font-size: 1.3em;
     color: #4caf50;
     margin: 5px 0;
 }
 
+/* Paragraph Text */
 p {
     font-size: 1em;
     color: #555;
