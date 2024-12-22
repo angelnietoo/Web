@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae</title>
     <style>
-        /* Reseteo de márgenes y paddings */
+        /* Reset de márgenes y padding */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Estilos globales */
+        /* Estilos generales del body */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a; /* Fondo oscuro negro */
+            background-color: #1a1a1a; /* Fondo oscuro */
             color: #ffffff; /* Texto blanco */
             line-height: 1.6;
             padding: 20px;
@@ -25,19 +25,19 @@
         #box {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: #2b2b2b; /* Fondo más oscuro para el contenedor */
+            background-color: #2b2b2b; /* Fondo del contenedor principal */
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             padding: 30px;
         }
 
-        /* Contenedor superior */
+        /* Contenedor superior con foto y botones */
         .container1 {
             display: flex;
             justify-content: space-between;
-            padding: 20px;
             align-items: center;
-            border-bottom: 2px solid #444; /* Línea gris oscura */
+            margin-bottom: 20px;
+            border-bottom: 2px solid #444;
         }
 
         .pfp {
@@ -75,16 +75,15 @@
             height: 25px;
         }
 
-        /* Contenedor de la información */
+        /* Estilo para las secciones de contacto, idiomas, experiencia, etc. */
         .container2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            padding: 20px;
         }
 
-        /* Estilos para cada caja (información personal, experiencia, etc.) */
-        .box1, .box2 {
+        /* Sección de contacto */
+        .box {
             padding: 20px;
             background-color: #333;
             border-radius: 10px;
@@ -173,67 +172,51 @@
                 grid-template-columns: 1fr; /* Apilar las columnas en pantallas pequeñas */
             }
 
-            .box1, .box2 {
+            .box {
                 width: 100%;
                 margin-bottom: 20px;
             }
-        }
-
-        /* Botones y iconos */
-        .button {
-            padding: 10px;
-            background-color: #3498db; /* Azul brillante */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .button img {
-            margin-right: 8px;
-        }
-
-        .button:hover {
-            background-color: #2980b9; /* Azul más oscuro en hover */
         }
     </style>
 </head>
 <body id="body" class="body">
     <div id="box" class="box">
+        <!-- Encabezado del Curriculum -->
         <div class="container1">
-            <img class="pfp" src="Foto.JPG" alt="">
+            <img class="pfp" src="Foto.JPG" alt="Foto de Ángel Nieto">
             <div class="text-header">
                 <p class="name">Ángel Nieto</p>
-                <p id="curriculum" class="curriculum">Curriculum vitae</p>
+                <p id="curriculum" class="curriculum">Curriculum Vitae</p>
             </div>
             <div class="buttons-header">
-                <button id="download-btn" class="button"><img id="download" class="download" src="download.png" alt=""></button>
-                <button class="button" id="theme"><img id="sun" class="sun" src="img/sun.png" alt=""></button>
-                <a target="_blank" href="https://github.com/GdelaRosa05"><button class="button"><img id="github" class="github" src="imagen_github.png" alt=""></button></a>
+                <button id="download-btn" class="button"><img id="download" class="download" src="download.png" alt="Descargar"></button>
+                <button class="button" id="theme"><img id="sun" class="sun" src="img/sun.png" alt="Cambiar tema"></button>
+                <a target="_blank" href="https://github.com/GdelaRosa05">
+                    <button class="button"><img id="github" class="github" src="imagen_github.png" alt="GitHub"></button>
+                </a>
             </div>
         </div>
 
+        <!-- Información del curriculum -->
         <div class="container2">
-            <div id="box1" class="box1">
-                <div id="contacto" class="contacto">
-                    <div class="head-data">
-                        <img class="contact-icon" src="img/contacto.png" alt="">
-                        <p class="text-contacto">Contacto</p>
-                    </div>
-                    <div class="body-box1">
-                        <p class="data-title">Teléfono</p>
-                        <p class="data">622 015 976</p>
-                        <p class="data-title">Correo</p>
-                        <p class="data">angel.nietoo2006@gmail.com</p>
-                    </div>
+            <!-- Sección de Contacto -->
+            <div class="box">
+                <div class="head-data">
+                    <img class="contact-icon" src="img/contacto.png" alt="Ícono de contacto">
+                    <p class="text-contacto">Contacto</p>
+                </div>
+                <div class="body-box1">
+                    <p class="data-title">Teléfono</p>
+                    <p class="data">622 015 976</p>
+                    <p class="data-title">Correo</p>
+                    <p class="data">angel.nietoo2006@gmail.com</p>
                 </div>
             </div>
 
-            <div id="idiomas" class="idiomas">
+            <!-- Sección de Idiomas -->
+            <div class="box">
                 <div class="head-data">
-                    <img class="language-icon" src="img/language.png" alt="">
+                    <img class="language-icon" src="img/language.png" alt="Ícono de idiomas">
                     <p class="name">Idiomas</p>
                 </div>
                 <div class="body-box1">
@@ -250,10 +233,11 @@
                 </div>
             </div>
 
-            <div id="personal" class="personal">
+            <!-- Sección de Información Personal -->
+            <div class="box">
                 <div class="box2-head-data">
                     <div class="box2-img">
-                        <img class="personal-icon" src="img/personal.png" alt="">
+                        <img class="personal-icon" src="img/personal.png" alt="Ícono de información personal">
                     </div>
                     <div class="box2-header-text">
                         <p class="box2-name">Información personal</p>
@@ -276,10 +260,11 @@
                 </div>
             </div>
 
-            <div id="experiencia" class="experiencia">
+            <!-- Sección de Experiencia -->
+            <div class="box">
                 <div class="box2-head-data">
                     <div class="box2-img">
-                        <img class="personal-icon" src="img/experiencia.png" alt="">
+                        <img class="personal-icon" src="img/experiencia.png" alt="Ícono de experiencia laboral">
                     </div>
                     <div class="box2-header-text">
                         <p class="box2-name">Experiencia laboral</p>
@@ -294,10 +279,11 @@
                 </div>
             </div>
 
-            <div id="estudios" class="estudios">
+            <!-- Sección de Formación Académica -->
+            <div class="box">
                 <div class="box2-head-data">
                     <div class="box2-img">
-                        <img class="personal-icon" src="img/estudios.png" alt="">
+                        <img class="personal-icon" src="img/estudios.png" alt="Ícono de estudios">
                     </div>
                     <div class="box2-header-text">
                         <p class="box2-name">Formación académica</p>
@@ -306,7 +292,8 @@
                 </div>
                 <div class="box2-body">
                     <div class="row">
-                        <p class="box2-data2-title">Estudios en curso: FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
+                        <p class="box2-data2-title">Estudios en curso:</p>
+                        <p class="box2-data2">FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
                     </div>
                     <div class="row">
                         <p style="margin-left: 15px;" class="box2-data2">- Configuración y gestión de sistemas informáticos.</p>
@@ -315,8 +302,14 @@
                         <p style="margin-left: 15px;" class="box2-data2">- Administración de servidores y bases de datos.</p>
                     </div>
                     <div class="row">
+                        <p style="margin-left: 15px;" class="box2-data2">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
+                    </div>
+                    <div class="row">
+                        <p style="margin-left: 15px;" class="box2-data2">- Desarrollo de aplicaciones web con acceso a datos.</p>
+                    </div>
+                    <div class="row">
                         <p class="box2-data2-title">Estudios anteriores:</p>
-                        <p class="box2-data2">Educación Secundaria Obligatoria - IES La Mirandilla</p>
+                        <p class="box2-data2">Bachillerato tecnológico - IES Safa San Luis Gonzaga</p>
                     </div>
                 </div>
             </div>
