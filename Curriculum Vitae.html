@@ -4,7 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae</title>
-    <link rel="stylesheet" href="CurriculumVitae.css">
+    <style>
+        /* Reseteo de márgenes y paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilos globales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* Contenedor principal */
+        #box {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Contenedor superior */
+        .container1 {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            align-items: center;
+            border-bottom: 2px solid #e1e1e1;
+        }
+
+        .pfp {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .text-header {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .curriculum {
+            font-size: 1.2rem;
+            color: #777;
+        }
+
+        .buttons-header button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .buttons-header button img {
+            width: 25px;
+            height: 25px;
+        }
+
+        /* Estilos del contenedor de la información */
+        .container2 {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .box1, .box2 {
+            width: 48%;
+        }
+
+        /* Estilos de las secciones de información */
+        .head-data {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-icon, .language-icon, .personal-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .text-contacto, .name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .data-title {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .data {
+            font-size: 1rem;
+            color: #777;
+            margin-left: 15px;
+        }
+
+        /* Estilos para los títulos de las secciones */
+        .box2-head-data {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .box2-header-text {
+            margin-left: 10px;
+        }
+
+        .box2-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .box2-data {
+            font-size: 1.1rem;
+            color: #777;
+        }
+
+        /* Estilos para la información personal, experiencia, estudios */
+        .box2-body .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .box2-data2-title {
+            font-size: 1rem;
+            color: #333;
+            font-weight: bold;
+            width: 50%;
+        }
+
+        .box2-data2 {
+            font-size: 1rem;
+            color: #555;
+            width: 50%;
+        }
+
+        .row p {
+            margin-bottom: 5px;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 768px) {
+            .container2 {
+                flex-direction: column;
+            }
+
+            .box1, .box2 {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Botones y iconos */
+        .button {
+            padding: 10px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .button img {
+            margin-right: 8px;
+        }
+
+        .button:hover {
+            background-color: #357ab7;
+        }
+
+        /* Fondo de la página */
+        #body {
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body id="body" class="body">
     <div id="box" class="box">
