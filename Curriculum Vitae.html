@@ -125,14 +125,34 @@
             margin-left: 15px;
         }
 
-        /* Estilos de contacto, idiomas, experiencia y educación */
-        .contact .contact-item, .languages .language-item, .experience .experience-item, .education .education-item, .personal .personal-item {
+        /* Ajustes para los cajones de idiomas y formación académica */
+        .row-two {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .languages, .education {
+            flex: 1;
+            margin-right: 15px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .languages:last-child, .education:last-child {
+            margin-right: 0;
+        }
+
+        /* Estilos de idiomas, experiencia, formación académica */
+        .languages .language-item, .education .education-item {
             margin-bottom: 8px;
         }
 
         /* Ajustes para dispositivos móviles */
         @media (max-width: 768px) {
-            .row {
+            .row, .row-two {
                 flex-direction: column;
             }
 
@@ -208,54 +228,49 @@
             </div>
         </div>
 
-        <!-- Sección de Idiomas -->
-        <div class="section languages">
-            <h2>Idiomas</h2>
-            <div class="language-item">
-                <p class="data-title">Español:</p>
-                <p class="data">Nativo</p>
+        <!-- Fila con Idiomas y Formación Académica -->
+        <div class="row-two">
+            <!-- Sección de Idiomas -->
+            <div class="languages">
+                <h2>Idiomas</h2>
+                <div class="language-item">
+                    <p class="data-title">Español:</p>
+                    <p class="data">Nativo</p>
+                </div>
+                <div class="language-item">
+                    <p class="data-title">Inglés:</p>
+                    <p class="data">Comprensión: C1</p>
+                    <p class="data">Comunicación verbal: C1</p>
+                    <p class="data">Escrito: B2</p>
+                </div>
+                <div class="language-item">
+                    <p class="data-title">Catalán:</p>
+                    <p class="data">Comprensión: C1</p>
+                    <p class="data">Comunicación verbal: B2</p>
+                    <p class="data">Escrito: B1</p>
+                </div>
             </div>
-            <div class="language-item">
-                <p class="data-title">Inglés:</p>
-                <p class="data">Comprensión: C1</p>
-                <p class="data">Comunicación verbal: C1</p>
-                <p class="data">Escrito: B2</p>
-            </div>
-            <div class="language-item">
-                <p class="data-title">Catalán:</p>
-                <p class="data">Comprensión: C1</p>
-                <p class="data">Comunicación verbal: B2</p>
-                <p class="data">Escrito: B1</p>
+
+            <!-- Sección de Formación Académica -->
+            <div class="education">
+                <h2>Formación Académica</h2>
+                <div class="education-item">
+                    <p class="data-title">Estudios en curso:</p>
+                    <p class="data">FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
+                </div>
+                <div class="education-item">
+                    <p class="data">- Configuración y gestión de sistemas informáticos.</p>
+                    <p class="data">- Administración de servidores y bases de datos.</p>
+                    <p class="data">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
+                    <p class="data">- Desarrollo de aplicaciones web con acceso a datos.</p>
+                </div>
+                <div class="education-item">
+                    <p class="data-title">Estudios finalizados:</p>
+                    <p class="data">Bachillerato tecnológico - IES Safa San Luis Gonzaga</p>
+                </div>
             </div>
         </div>
 
-        <!-- Sección de Experiencia -->
-        <div class="section experience">
-            <h2>Experiencia Laboral</h2>
-            <div class="experience-item">
-                <p class="data-title">Hostelería:</p>
-                <p class="data">Restaurante La Gambuza - 3 meses (verano 2024)</p>
-            </div>
-        </div>
-
-        <!-- Sección de Formación Académica -->
-        <div class="section education">
-            <h2>Formación Académica</h2>
-            <div class="education-item">
-                <p class="data-title">Estudios en curso:</p>
-                <p class="data">FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
-            </div>
-            <div class="education-item">
-                <p class="data">- Configuración y gestión de sistemas informáticos.</p>
-                <p class="data">- Administración de servidores y bases de datos.</p>
-                <p class="data">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
-                <p class="data">- Desarrollo de aplicaciones web con acceso a datos.</p>
-            </div>
-            <div class="education-item">
-                <p class="data-title">Estudios finalizados:</p>
-                <p class="data">Bachillerato tecnológico - IES Safa San Luis Gonzaga</p>
-            </div>
-        </div>
     </div>
 </body>
 </html>
