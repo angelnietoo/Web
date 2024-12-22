@@ -75,17 +75,16 @@
             height: 25px;
         }
 
-        /* Estilos del contenedor de la información */
+        /* Contenedor de la información */
         .container2 {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             padding: 20px;
-            flex-wrap: wrap;
         }
 
+        /* Estilos para cada caja (información personal, experiencia, etc.) */
         .box1, .box2 {
-            width: 48%;
-            margin-bottom: 20px;
             padding: 20px;
             background-color: #333;
             border-radius: 10px;
@@ -171,7 +170,7 @@
         /* Estilos responsivos */
         @media (max-width: 768px) {
             .container2 {
-                flex-direction: column;
+                grid-template-columns: 1fr; /* Apilar las columnas en pantallas pequeñas */
             }
 
             .box1, .box2 {
@@ -215,6 +214,7 @@
                 <a target="_blank" href="https://github.com/GdelaRosa05"><button class="button"><img id="github" class="github" src="imagen_github.png" alt=""></button></a>
             </div>
         </div>
+
         <div class="container2">
             <div id="box1" class="box1">
                 <div id="contacto" class="contacto">
@@ -249,86 +249,78 @@
                     <p class="data">Escrito: B1</p>
                 </div>
             </div>
+
+            <div id="personal" class="personal">
+                <div class="box2-head-data">
+                    <div class="box2-img">
+                        <img class="personal-icon" src="img/personal.png" alt="">
+                    </div>
+                    <div class="box2-header-text">
+                        <p class="box2-name">Información personal</p>
+                        <p class="box2-data">Detalles básicos</p>
+                    </div>
+                </div>
+                <div class="box2-body">
+                    <div class="row">
+                        <p class="box2-data2-title">Nombre:</p>
+                        <p class="box2-data2">Ángel Nieto Cordero</p>
+                    </div>
+                    <div class="row">
+                        <p class="box2-data2-title">Fecha de nacimiento:</p>
+                        <p class="box2-data2">18/11/2006</p>
+                    </div>
+                    <div class="row">
+                        <p class="box2-data2-title">DNI:</p>
+                        <p class="box2-data2">55083571C</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="box2">
-                <div id="personal" class="personal">
-                    <div class="box2-head-data">
-                        <div class="box2-img">
-                            <img class="personal-icon" src="img/personal.png" alt="">
-                        </div>
-                        <div class="box2-header-text">
-                            <p class="box2-name">Información personal</p>
-                            <p class="box2-data">Detalles básicos</p>
-                        </div>
+            <div id="experiencia" class="experiencia">
+                <div class="box2-head-data">
+                    <div class="box2-img">
+                        <img class="personal-icon" src="img/experiencia.png" alt="">
                     </div>
-                    <div class="box2-body">
-                        <div class="row">
-                            <p class="box2-data2-title">Nombre:</p>
-                            <p class="box2-data2">Ángel Nieto Cordero</p>
-                        </div>
-                        <div class="row">
-                            <p class="box2-data2-title">Fecha de nacimiento:</p>
-                            <p class="box2-data2">18/11/2006</p>
-                        </div>
-                        <div class="row">
-                            <p class="box2-data2-title">DNI:</p>
-                            <p class="box2-data2">55083571C</p>
-                        </div>
+                    <div class="box2-header-text">
+                        <p class="box2-name">Experiencia laboral</p>
+                        <p class="box2-data">Trayectoria profesional</p>
                     </div>
                 </div>
-                <div id="experiencia" class="experiencia">
-                    <div class="box2-head-data">
-                        <div class="box2-img">
-                            <img class="personal-icon" src="img/experiencia.png" alt="">
-                        </div>
-                        <div class="box2-header-text">
-                            <p class="box2-name">Experiencia laboral</p>
-                            <p class="box2-data">Trayectoria profesional</p>
-                        </div>
-                    </div>
-                    <div class="box2-body">
-                        <div class="row">
-                            <p class="box2-data2-title">Hostelería:</p>
-                            <p class="box2-data2">Restaurante La Gambuza - 3 meses (verano 2024)</p>
-                        </div>
+                <div class="box2-body">
+                    <div class="row">
+                        <p class="box2-data2-title">Hostelería:</p>
+                        <p class="box2-data2">Restaurante La Gambuza - 3 meses (verano 2024)</p>
                     </div>
                 </div>
-                <div id="estudios" class="estudios">
-                    <div class="box2-head-data">
-                        <div class="box2-img">
-                            <img class="personal-icon" src="img/estudios.png" alt="">
-                        </div>
-                        <div class="box2-header-text">
-                            <p class="box2-name">Formación académica</p>
-                            <p class="box2-data">Educación y certificaciones</p>
-                        </div>
+            </div>
+
+            <div id="estudios" class="estudios">
+                <div class="box2-head-data">
+                    <div class="box2-img">
+                        <img class="personal-icon" src="img/estudios.png" alt="">
                     </div>
-                    <div class="box2-body">
-                        <div class="row">
-                            <p class="box2-data2-title">Estudios en curso: FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
-                        </div>
-                        <div class="row">
-                            <p style="margin-left: 15px;" class="box2-data2">- Configuración y gestión de sistemas informáticos.</p>
-                        </div>
-                        <div class="row">
-                            <p style="margin-left: 15px;" class="box2-data2">- Administración de servidores y bases de datos.</p>
-                        </div>
-                        <div class="row">
-                            <p style="margin-left: 15px;" class="box2-data2">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
-                        </div>
-                        <div class="row">
-                            <p style="margin-left: 15px;" class="box2-data2">- Desarrollo de aplicaciones web con acceso a datos.</p>
-                        </div>
-                        <div class="row">
-                            <p style="margin-top: 10px;" class="box2-data2-title">Estudios finalizados: Bachillerato tecnológico - IES Safa San Luis Gonzaga</p>
-                        </div>
+                    <div class="box2-header-text">
+                        <p class="box2-name">Formación académica</p>
+                        <p class="box2-data">Educación y certificaciones</p>
+                    </div>
+                </div>
+                <div class="box2-body">
+                    <div class="row">
+                        <p class="box2-data2-title">Estudios en curso: FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
+                    </div>
+                    <div class="row">
+                        <p style="margin-left: 15px;" class="box2-data2">- Configuración y gestión de sistemas informáticos.</p>
+                    </div>
+                    <div class="row">
+                        <p style="margin-left: 15px;" class="box2-data2">- Administración de servidores y bases de datos.</p>
+                    </div>
+                    <div class="row">
+                        <p class="box2-data2-title">Estudios anteriores:</p>
+                        <p class="box2-data2">Educación Secundaria Obligatoria - IES La Mirandilla</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
