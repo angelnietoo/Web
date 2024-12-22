@@ -18,12 +18,12 @@
             background-color: #1a1a1a; /* Fondo oscuro */
             color: #ffffff; /* Texto blanco */
             line-height: 1.6;
-            padding: 20px;
+            padding: 30px;
         }
 
         /* Contenedor principal */
-        #box {
-            max-width: 1200px;
+        .container {
+            max-width: 1100px;
             margin: 0 auto;
             background-color: #2b2b2b; /* Fondo del contenedor principal */
             border-radius: 10px;
@@ -31,288 +31,215 @@
             padding: 30px;
         }
 
-        /* Contenedor superior con foto y botones */
-        .container1 {
+        /* Encabezado con foto y datos básicos */
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
             border-bottom: 2px solid #444;
+            padding-bottom: 20px;
         }
 
-        .pfp {
+        .header .pfp {
             width: 120px;
             height: 120px;
             border-radius: 50%;
             object-fit: cover;
+            margin-right: 20px;
         }
 
-        .text-header {
+        .header .info {
             flex-grow: 1;
-            text-align: center;
         }
 
-        .name {
+        .header .info .name {
             font-size: 2rem;
             font-weight: bold;
             color: #ffffff;
         }
 
-        .curriculum {
+        .header .info .title {
             font-size: 1.2rem;
             color: #bdc3c7; /* Gris claro */
         }
 
-        .buttons-header button {
+        .header .social-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .social-buttons button {
             background: none;
             border: none;
             cursor: pointer;
-            margin: 0 10px;
+            margin-left: 10px;
         }
 
-        .buttons-header button img {
+        .header .social-buttons img {
             width: 25px;
             height: 25px;
         }
 
-        /* Estilo para las secciones de contacto, idiomas, experiencia, etc. */
-        .container2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        /* Sección de contacto */
-        .box {
+        /* Secciones del curriculum */
+        .section {
+            margin-bottom: 30px;
             padding: 20px;
             background-color: #333;
             border-radius: 10px;
             border: 1px solid #444;
-            text-align: left; /* Alineación a la izquierda */
         }
 
-        .head-data {
-            display: flex;
-            align-items: center;
+        .section h2 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .section p, .section .data-title {
+            font-size: 1rem;
+            color: #bdc3c7;
             margin-bottom: 10px;
         }
 
-        .contact-icon, .language-icon, .personal-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
-
-        .text-contacto, .name {
-            font-size: 1.2rem;
+        .section .data-title {
             font-weight: bold;
             color: #ffffff;
         }
 
-        .data-title {
-            font-size: 1.1rem;
-            color: #ecf0f1;
-            margin-top: 10px;
-        }
-
-        .data {
-            font-size: 1rem;
-            color: #bdc3c7;
+        .section .data {
             margin-left: 15px;
         }
 
-        /* Estilos para los títulos de las secciones */
-        .box2-head-data {
-            display: flex;
-            align-items: center;
+        /* Estilos de contacto, idiomas, experiencia y educación */
+        .contact, .languages, .experience, .education, .personal {
+            margin-bottom: 20px;
+        }
+
+        .contact .contact-item, .languages .language-item, .experience .experience-item, .education .education-item, .personal .personal-item {
             margin-bottom: 10px;
-        }
-
-        .box2-header-text {
-            margin-left: 10px;
-        }
-
-        .box2-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #ffffff;
-        }
-
-        .box2-data {
-            font-size: 1.1rem;
-            color: #bdc3c7;
-        }
-
-        /* Estilos para la información personal, experiencia, estudios */
-        .box2-body .row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .box2-data2-title {
-            font-size: 1rem;
-            color: #ffffff;
-            font-weight: bold;
-            width: 50%;
-        }
-
-        .box2-data2 {
-            font-size: 1rem;
-            color: #bdc3c7;
-            width: 50%;
-        }
-
-        .row p {
-            margin-bottom: 5px;
         }
 
         /* Estilos responsivos */
         @media (max-width: 768px) {
-            .container2 {
-                grid-template-columns: 1fr; /* Apilar las columnas en pantallas pequeñas */
+            .header {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .box {
-                width: 100%;
+            .header .pfp {
+                margin-bottom: 15px;
+            }
+
+            .section {
                 margin-bottom: 20px;
             }
         }
     </style>
 </head>
 <body id="body" class="body">
-    <div id="box" class="box">
-        <!-- Encabezado del Curriculum -->
-        <div class="container1">
+    <div class="container">
+        <!-- Encabezado con nombre y foto -->
+        <div class="header">
             <img class="pfp" src="Foto.JPG" alt="Foto de Ángel Nieto">
-            <div class="text-header">
+            <div class="info">
                 <p class="name">Ángel Nieto</p>
-                <p id="curriculum" class="curriculum">Curriculum Vitae</p>
+                <p class="title">Curriculum Vitae</p>
             </div>
-            <div class="buttons-header">
-                <button id="download-btn" class="button"><img id="download" class="download" src="download.png" alt="Descargar"></button>
-                <button class="button" id="theme"><img id="sun" class="sun" src="img/sun.png" alt="Cambiar tema"></button>
+            <div class="social-buttons">
+                <button id="download-btn" class="button">
+                    <img id="download" class="download" src="download.png" alt="Descargar">
+                </button>
+                <button id="theme" class="button">
+                    <img id="sun" class="sun" src="img/sun.png" alt="Cambiar tema">
+                </button>
                 <a target="_blank" href="https://github.com/GdelaRosa05">
-                    <button class="button"><img id="github" class="github" src="imagen_github.png" alt="GitHub"></button>
+                    <button class="button">
+                        <img id="github" class="github" src="imagen_github.png" alt="GitHub">
+                    </button>
                 </a>
             </div>
         </div>
 
-        <!-- Información del curriculum -->
-        <div class="container2">
-            <!-- Sección de Contacto -->
-            <div class="box">
-                <div class="head-data">
-                    <img class="contact-icon" src="img/contacto.png" alt="Ícono de contacto">
-                    <p class="text-contacto">Contacto</p>
-                </div>
-                <div class="body-box1">
-                    <p class="data-title">Teléfono</p>
-                    <p class="data">622 015 976</p>
-                    <p class="data-title">Correo</p>
-                    <p class="data">angel.nietoo2006@gmail.com</p>
-                </div>
+        <!-- Sección de Contacto -->
+        <div class="section contact">
+            <h2>Contacto</h2>
+            <div class="contact-item">
+                <p class="data-title">Teléfono:</p>
+                <p class="data">622 015 976</p>
             </div>
-
-            <!-- Sección de Idiomas -->
-            <div class="box">
-                <div class="head-data">
-                    <img class="language-icon" src="img/language.png" alt="Ícono de idiomas">
-                    <p class="name">Idiomas</p>
-                </div>
-                <div class="body-box1">
-                    <p class="data-title">Español</p>
-                    <p class="data">Nativo</p>
-                    <p class="data-title">Inglés</p>
-                    <p class="data">Comprensión: C1</p>
-                    <p class="data">Comunicación verbal: C1</p>
-                    <p class="data">Escrito: B2</p>
-                    <p class="data-title">Catalán</p>
-                    <p class="data">Comprensión: C1</p>
-                    <p class="data">Comunicación verbal: B2</p>
-                    <p class="data">Escrito: B1</p>
-                </div>
+            <div class="contact-item">
+                <p class="data-title">Correo:</p>
+                <p class="data">angel.nietoo2006@gmail.com</p>
             </div>
+        </div>
 
-            <!-- Sección de Información Personal -->
-            <div class="box">
-                <div class="box2-head-data">
-                    <div class="box2-img">
-                        <img class="personal-icon" src="img/personal.png" alt="Ícono de información personal">
-                    </div>
-                    <div class="box2-header-text">
-                        <p class="box2-name">Información personal</p>
-                        <p class="box2-data">Detalles básicos</p>
-                    </div>
-                </div>
-                <div class="box2-body">
-                    <div class="row">
-                        <p class="box2-data2-title">Nombre:</p>
-                        <p class="box2-data2">Ángel Nieto Cordero</p>
-                    </div>
-                    <div class="row">
-                        <p class="box2-data2-title">Fecha de nacimiento:</p>
-                        <p class="box2-data2">18/11/2006</p>
-                    </div>
-                    <div class="row">
-                        <p class="box2-data2-title">DNI:</p>
-                        <p class="box2-data2">55083571C</p>
-                    </div>
-                </div>
+        <!-- Sección de Idiomas -->
+        <div class="section languages">
+            <h2>Idiomas</h2>
+            <div class="language-item">
+                <p class="data-title">Español:</p>
+                <p class="data">Nativo</p>
             </div>
-
-            <!-- Sección de Experiencia -->
-            <div class="box">
-                <div class="box2-head-data">
-                    <div class="box2-img">
-                        <img class="personal-icon" src="img/experiencia.png" alt="Ícono de experiencia laboral">
-                    </div>
-                    <div class="box2-header-text">
-                        <p class="box2-name">Experiencia laboral</p>
-                        <p class="box2-data">Trayectoria profesional</p>
-                    </div>
-                </div>
-                <div class="box2-body">
-                    <div class="row">
-                        <p class="box2-data2-title">Hostelería:</p>
-                        <p class="box2-data2">Restaurante La Gambuza - 3 meses (verano 2024)</p>
-                    </div>
-                </div>
+            <div class="language-item">
+                <p class="data-title">Inglés:</p>
+                <p class="data">Comprensión: C1</p>
+                <p class="data">Comunicación verbal: C1</p>
+                <p class="data">Escrito: B2</p>
             </div>
+            <div class="language-item">
+                <p class="data-title">Catalán:</p>
+                <p class="data">Comprensión: C1</p>
+                <p class="data">Comunicación verbal: B2</p>
+                <p class="data">Escrito: B1</p>
+            </div>
+        </div>
 
-            <!-- Sección de Formación Académica -->
-            <div class="box">
-                <div class="box2-head-data">
-                    <div class="box2-img">
-                        <img class="personal-icon" src="img/estudios.png" alt="Ícono de estudios">
-                    </div>
-                    <div class="box2-header-text">
-                        <p class="box2-name">Formación académica</p>
-                        <p class="box2-data">Educación y certificaciones</p>
-                    </div>
-                </div>
-                <div class="box2-body">
-                    <div class="row">
-                        <p class="box2-data2-title">Estudios en curso:</p>
-                        <p class="box2-data2">FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
-                    </div>
-                    <div class="row">
-                        <p style="margin-left: 15px;" class="box2-data2">- Configuración y gestión de sistemas informáticos.</p>
-                    </div>
-                    <div class="row">
-                        <p style="margin-left: 15px;" class="box2-data2">- Administración de servidores y bases de datos.</p>
-                    </div>
-                    <div class="row">
-                        <p style="margin-left: 15px;" class="box2-data2">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
-                    </div>
-                    <div class="row">
-                        <p style="margin-left: 15px;" class="box2-data2">- Desarrollo de aplicaciones web con acceso a datos.</p>
-                    </div>
-                    <div class="row">
-                        <p class="box2-data2-title">Estudios finalizados:</p>
-                        <p class="box2-data2">Bachillerato tecnológico - IES Safa San Luis Gonzaga</p>
-                    </div>
-                </div>
+        <!-- Sección de Información Personal -->
+        <div class="section personal">
+            <h2>Información Personal</h2>
+            <div class="personal-item">
+                <p class="data-title">Nombre:</p>
+                <p class="data">Ángel Nieto Cordero</p>
+            </div>
+            <div class="personal-item">
+                <p class="data-title">Fecha de nacimiento:</p>
+                <p class="data">18/11/2006</p>
+            </div>
+            <div class="personal-item">
+                <p class="data-title">DNI:</p>
+                <p class="data">55083571C</p>
+            </div>
+        </div>
+
+        <!-- Sección de Experiencia -->
+        <div class="section experience">
+            <h2>Experiencia Laboral</h2>
+            <div class="experience-item">
+                <p class="data-title">Hostelería:</p>
+                <p class="data">Restaurante La Gambuza - 3 meses (verano 2024)</p>
+            </div>
+        </div>
+
+        <!-- Sección de Formación Académica -->
+        <div class="section education">
+            <h2>Formación Académica</h2>
+            <div class="education-item">
+                <p class="data-title">Estudios en curso:</p>
+                <p class="data">FP superior de Desarrollo de Aplicaciones Web - IES Mar de Cádiz</p>
+            </div>
+            <div class="education-item">
+                <p class="data">- Configuración y gestión de sistemas informáticos.</p>
+                <p class="data">- Administración de servidores y bases de datos.</p>
+                <p class="data">- Aplicación de medidas de seguridad en sistemas y servicios.</p>
+                <p class="data">- Desarrollo de aplicaciones web con acceso a datos.</p>
+            </div>
+            <div class="education-item">
+                <p class="data-title">Estudios finalizados:</p>
+                <p class="data">Bachillerato tecnológico - IES Safa San Luis Gonzaga</p>
             </div>
         </div>
     </div>
