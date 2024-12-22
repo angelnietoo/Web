@@ -81,13 +81,25 @@
             height: 20px;
         }
 
-        /* Secciones del curriculum */
+        /* Sección con Contacto e Información Personal al lado */
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo de los cajones (contacto e info personal) */
         .section {
-            margin-bottom: 15px;
+            flex: 1;
+            margin-right: 15px;
             padding: 15px;
             background-color: #333;
             border-radius: 8px;
             border: 1px solid #444;
+        }
+
+        .section:last-child {
+            margin-right: 0;
         }
 
         .section h2 {
@@ -120,6 +132,10 @@
 
         /* Ajustes para dispositivos móviles */
         @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+            }
+
             .header {
                 flex-direction: column;
                 align-items: center;
@@ -159,16 +175,36 @@
             </div>
         </div>
 
-        <!-- Sección de Contacto -->
-        <div class="section contact">
-            <h2>Contacto</h2>
-            <div class="contact-item">
-                <p class="data-title">Teléfono:</p>
-                <p class="data">622 015 976</p>
+        <!-- Fila con Contacto e Información Personal -->
+        <div class="row">
+            <!-- Sección de Contacto -->
+            <div class="section contact">
+                <h2>Contacto</h2>
+                <div class="contact-item">
+                    <p class="data-title">Teléfono:</p>
+                    <p class="data">622 015 976</p>
+                </div>
+                <div class="contact-item">
+                    <p class="data-title">Correo:</p>
+                    <p class="data">angel.nietoo2006@gmail.com</p>
+                </div>
             </div>
-            <div class="contact-item">
-                <p class="data-title">Correo:</p>
-                <p class="data">angel.nietoo2006@gmail.com</p>
+
+            <!-- Sección de Información Personal -->
+            <div class="section personal">
+                <h2>Información Personal</h2>
+                <div class="personal-item">
+                    <p class="data-title">Nombre:</p>
+                    <p class="data">Ángel Nieto Cordero</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Fecha de nacimiento:</p>
+                    <p class="data">18/11/2006</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">DNI:</p>
+                    <p class="data">55083571C</p>
+                </div>
             </div>
         </div>
 
@@ -190,23 +226,6 @@
                 <p class="data">Comprensión: C1</p>
                 <p class="data">Comunicación verbal: B2</p>
                 <p class="data">Escrito: B1</p>
-            </div>
-        </div>
-
-        <!-- Sección de Información Personal -->
-        <div class="section personal">
-            <h2>Información Personal</h2>
-            <div class="personal-item">
-                <p class="data-title">Nombre:</p>
-                <p class="data">Ángel Nieto Cordero</p>
-            </div>
-            <div class="personal-item">
-                <p class="data-title">Fecha de nacimiento:</p>
-                <p class="data">18/11/2006</p>
-            </div>
-            <div class="personal-item">
-                <p class="data-title">DNI:</p>
-                <p class="data">55083571C</p>
             </div>
         </div>
 
