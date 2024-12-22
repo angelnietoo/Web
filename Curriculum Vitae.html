@@ -80,13 +80,18 @@
             display: flex;
             justify-content: space-between;
             padding: 20px;
+            flex-wrap: wrap;
         }
 
         .box1, .box2 {
             width: 48%;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            border: 1px solid #444;
         }
 
-        /* Estilos de las secciones de información */
         .head-data {
             display: flex;
             align-items: center;
@@ -194,11 +199,6 @@
         .button:hover {
             background-color: #2980b9; /* Azul más oscuro en hover */
         }
-
-        /* Fondo de la página */
-        #body {
-            background-color: #1a1a1a;
-        }
     </style>
 </head>
 <body id="body" class="body">
@@ -229,26 +229,28 @@
                         <p class="data">angel.nietoo2006@gmail.com</p>
                     </div>
                 </div>
+            </div>
 
-                <div id="idiomas" class="idiomas">
-                    <div class="head-data">
-                        <img class="language-icon" src="img/language.png" alt="">
-                        <p class="name">Idiomas</p>
-                    </div>
-                    <div class="body-box1">
-                        <p class="data-title">Español</p>
-                        <p class="data">Nativo</p>
-                        <p class="data-title">Inglés</p>
-                        <p class="data">Comprensión: C1</p>
-                        <p class="data">Comunicación verbal: C1</p>
-                        <p class="data">Escrito: B2</p>
-                        <p class="data-title">Catalán</p>
-                        <p class="data">Comprensión: C1</p>
-                        <p class="data">Comunicación verbal: B2</p>
-                        <p class="data">Escrito: B1</p>
-                    </div>
+            <div id="idiomas" class="idiomas">
+                <div class="head-data">
+                    <img class="language-icon" src="img/language.png" alt="">
+                    <p class="name">Idiomas</p>
+                </div>
+                <div class="body-box1">
+                    <p class="data-title">Español</p>
+                    <p class="data">Nativo</p>
+                    <p class="data-title">Inglés</p>
+                    <p class="data">Comprensión: C1</p>
+                    <p class="data">Comunicación verbal: C1</p>
+                    <p class="data">Escrito: B2</p>
+                    <p class="data-title">Catalán</p>
+                    <p class="data">Comprensión: C1</p>
+                    <p class="data">Comunicación verbal: B2</p>
+                    <p class="data">Escrito: B1</p>
                 </div>
             </div>
+            </div>
+
             <div class="box2">
                 <div id="personal" class="personal">
                     <div class="box2-head-data">
