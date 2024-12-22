@@ -18,17 +18,17 @@
             background-color: #1a1a1a; /* Fondo oscuro */
             color: #ffffff; /* Texto blanco */
             line-height: 1.6;
-            padding: 30px;
+            padding: 20px;
         }
 
         /* Contenedor principal */
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #2b2b2b; /* Fondo del contenedor principal */
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            padding: 20px;
         }
 
         /* Encabezado con foto y datos básicos */
@@ -37,13 +37,13 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            border-bottom: 2px solid #444;
-            padding-bottom: 20px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
         }
 
         .header .pfp {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
             object-fit: cover;
             margin-right: 20px;
@@ -54,20 +54,19 @@
         }
 
         .header .info .name {
-            font-size: 2rem;
+            font-size: 1.7rem;
             font-weight: bold;
             color: #ffffff;
         }
 
         .header .info .title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #bdc3c7; /* Gris claro */
         }
 
         .header .social-buttons {
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
 
         .header .social-buttons button {
@@ -78,31 +77,31 @@
         }
 
         .header .social-buttons img {
-            width: 25px;
-            height: 25px;
+            width: 20px;
+            height: 20px;
         }
 
         /* Secciones del curriculum */
         .section {
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 15px;
+            padding: 15px;
             background-color: #333;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #444;
         }
 
         .section h2 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: #ffffff;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #444;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
             padding-bottom: 5px;
         }
 
         .section p, .section .data-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #bdc3c7;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .section .data-title {
@@ -115,15 +114,11 @@
         }
 
         /* Estilos de contacto, idiomas, experiencia y educación */
-        .contact, .languages, .experience, .education, .personal {
-            margin-bottom: 20px;
-        }
-
         .contact .contact-item, .languages .language-item, .experience .experience-item, .education .education-item, .personal .personal-item {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        /* Estilos responsivos */
+        /* Ajustes para dispositivos móviles */
         @media (max-width: 768px) {
             .header {
                 flex-direction: column;
@@ -131,11 +126,11 @@
             }
 
             .header .pfp {
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
 
-            .section {
-                margin-bottom: 20px;
+            .header .social-buttons {
+                margin-top: 10px;
             }
         }
     </style>
