@@ -391,12 +391,20 @@
         // Función para cambiar el tema de oscuro a claro
         const themeButton = document.getElementById("theme");
         const body = document.body;
+        const sunIcon = document.getElementById("sun");
+
+        // Al cargar la página, aseguramos que el tema oscuro esté activado por defecto
+        window.addEventListener("load", () => {
+            // Si no está activado el tema claro, se deja el oscuro por defecto
+            if (!body.classList.contains("light-theme")) {
+                sunIcon.src = "sun.png"; // El sol para el tema oscuro
+            }
+        });
 
         themeButton.addEventListener("click", () => {
             body.classList.toggle("light-theme");
 
             // Cambiar la imagen del icono dependiendo del tema
-            const sunIcon = document.getElementById("sun");
             if (body.classList.contains("light-theme")) {
                 sunIcon.src = "moon.png"; // Reemplaza con la imagen de luna para tema claro
             } else {
