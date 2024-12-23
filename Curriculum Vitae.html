@@ -19,13 +19,6 @@
             color: #ffffff; /* Texto blanco */
             line-height: 1.6;
             padding: 20px;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* Estilos cuando se cambia a tema claro */
-        body.light {
-            background-color: #f4f4f4; /* Fondo claro */
-            color: #333; /* Texto oscuro */
         }
 
         /* Contenedor principal */
@@ -36,13 +29,6 @@
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             padding: 20px;
-            transition: background-color 0.3s;
-        }
-
-        /* Estilos cuando el tema es claro */
-        .container.light {
-            background-color: #ffffff; /* Fondo blanco */
-            color: #333; /* Texto oscuro */
         }
 
         /* Encabezado con foto y datos básicos */
@@ -246,6 +232,26 @@
             margin-bottom: 8px;
         }
 
+        /* Estilos para el tema claro */
+        .light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .light-theme .container {
+            background-color: #f4f4f4;
+        }
+
+        .light-theme .section, .light-theme .languages, .light-theme .education,
+        .light-theme .about-me, .light-theme .objectives {
+            background-color: #e0e0e0;
+        }
+
+        .light-theme .section h2, .light-theme .languages h2, .light-theme .education h2,
+        .light-theme .about-me h2, .light-theme .objectives h2 {
+            color: #000000;
+        }
+
         /* Ajustes para dispositivos móviles */
         @media (max-width: 768px) {
             .row, .row-two {
@@ -268,7 +274,7 @@
     </style>
 </head>
 <body id="body" class="body">
-    <div class="container" id="container">
+    <div class="container">
         <!-- Encabezado con nombre y foto -->
         <div class="header">
             <img class="pfp" src="Foto.JPG" alt="Foto de Ángel Nieto">
@@ -382,12 +388,20 @@
     </div>
 
     <script>
-        // Cambiar entre temas oscuro y claro
-        document.getElementById('theme').addEventListener('click', function() {
-            var body = document.getElementById('body');
-            var container = document.getElementById('container');
-            body.classList.toggle('light');
-            container.classList.toggle('light');
+        // Función para cambiar el tema de oscuro a claro
+        const themeButton = document.getElementById("theme");
+        const body = document.body;
+
+        themeButton.addEventListener("click", () => {
+            body.classList.toggle("light-theme");
+
+            // Cambiar la imagen del icono dependiendo del tema
+            const sunIcon = document.getElementById("sun");
+            if (body.classList.contains("light-theme")) {
+                sunIcon.src = "moon.png"; // Reemplaza con la imagen de luna para tema claro
+            } else {
+                sunIcon.src = "sun.png"; // Reemplaza con la imagen de sol para tema oscuro
+            }
         });
     </script>
 </body>
