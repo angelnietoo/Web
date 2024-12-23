@@ -31,6 +31,207 @@
             padding: 20px;
         }
 
+        /* Encabezado con foto y datos básicos */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+        }
+
+        .header .pfp {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .header .info {
+            flex-grow: 1;
+        }
+
+        .header .info .name {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .header .info .title {
+            font-size: 1.1rem;
+            color: #bdc3c7; /* Gris claro */
+        }
+
+        /* Sección con botones en cubitos */
+        .header .social-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .header .social-buttons button {
+            background: #333;
+            border: 1px solid #444;
+            cursor: pointer;
+            margin-left: 10px;
+            width: 50px; /* Tamaño más grande */
+            height: 50px; /* Tamaño más grande */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        /* Estilo de las imágenes dentro de los botones */
+        .header .social-buttons img {
+            width: 30px; /* Tamaño más grande */
+            height: 30px; /* Tamaño más grande */
+        }
+
+        /* Animación cuando el ratón pasa sobre el cubo */
+        .header .social-buttons button:hover {
+            transform: scale(1.2);
+            background-color: #444;
+        }
+
+        /* Resto del código igual a antes... */
+        /* Sección con Contacto e Información Personal */
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo de los cajones (contacto e info personal) */
+        .section {
+            flex: 1;
+            margin-right: 15px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .section:last-child {
+            margin-right: 0;
+        }
+
+        .section h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .section p, .section .data-title {
+            font-size: 0.95rem;
+            color: #bdc3c7;
+            margin-bottom: 8px;
+        }
+
+        .section .data-title {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .section .data {
+            margin-left: 15px;
+        }
+
+        /* Ajustes para los cajones de idiomas y formación académica */
+        .row-two {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .languages, .education {
+            flex: 1;
+            margin-right: 15px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .languages:last-child, .education:last-child {
+            margin-right: 0;
+        }
+
+        /* Estilos de idiomas, experiencia, formación académica */
+        .languages .language-item, .education .education-item {
+            margin-bottom: 8px;
+        }
+
+        /* Sección de Experiencia Laboral */
+        .experience {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+            margin-top: 20px;
+        }
+
+        .experience h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .experience-item {
+            margin-bottom: 8px;
+        }
+
+        /* Sección de Sobre mí */
+        .about-me {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Añadido para igualar el espacio con otros cajones */
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .about-me h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .about-me p {
+            color: #bdc3c7;
+            margin-bottom: 8px;
+        }
+
+        /* Sección de Objetivos */
+        .objectives {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .objectives h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 5px;
+        }
+
+        .objectives p {
+            color: #bdc3c7;
+            margin-bottom: 8px;
+        }
+
         /* Estilos para el tema claro */
         .light-theme {
             background-color: #ffffff;
@@ -89,7 +290,7 @@
                     </button>
                 </a>
                 <button id="theme" class="button">
-                    <img id="sun" class="sun" src="sun.png" alt="Cambiar tema">
+                    <img id="sun" class="sun" src="img/sun.png" alt="Cambiar tema">
                 </button>
                 <a target="_blank" href="https://github.com/angelnietoo">
                     <button class="button">
@@ -105,28 +306,97 @@
             <p>Tengo 18 años y actualmente estoy estudiando un grado superior de Desarrollo de Aplicaciones Web. Aunque no tengo experiencia laboral todavía, me considero una persona responsable y comprometida con lo que hago. Tengo muchas ganas de aprender y crecer en un trabajo, y estoy dispuesto a afrontar cualquier desafío que se me presente.</p>
         </div>
 
-        <!-- Resto de contenido aquí... -->
+        <!-- Fila con Contacto e Información Personal -->
+        <div class="row">
+            <!-- Sección de Contacto -->
+            <div class="section contact">
+                <h2>Contacto</h2>
+                <div class="contact-item">
+                    <p class="data-title">Teléfono:</p>
+                    <p class="data">622 015 976</p>
+                </div>
+                <div class="contact-item">
+                    <p class="data-title">Correo:</p>
+                    <p class="data">angel.nietoo2006@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <p class="data-title">Dirección:</p>
+                    <p class="data">Calle Milagros Muñoz Gil</p>
+                </div>
+            </div>
 
+            <!-- Sección de Información Personal -->
+            <div class="section personal">
+                <h2>Información Personal</h2>
+                <div class="personal-item">
+                    <p class="data-title">Nombre:</p>
+                    <p class="data">Ángel Nieto Cordero</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Fecha de nacimiento:</p>
+                    <p class="data">18/11/2006</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Carnet de Conducir:</p>
+                    <p class="data">A1</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Vehículo Propio:</p>
+                    <p class="data">Sí</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Disponibilidad:</p>
+                    <p class="data">Mañanas y tardes</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila con Idiomas y Formación Académica -->
+        <div class="row-two">
+            <!-- Idiomas -->
+            <div class="languages">
+                <h2>Idiomas</h2>
+                <div class="language-item">
+                    <p class="data-title">Español:</p>
+                    <p class="data">Nativo</p>
+                </div>
+                <div class="language-item">
+                    <p class="data-title">Inglés:</p>
+                    <p class="data">Equivalente a Bachillerato (B2)</p>
+                </div>
+            </div>
+
+            <!-- Formación Académica -->
+            <div class="education">
+                <h2>Formación Académica</h2>
+                <div class="education-item">
+                    <p class="data-title">Educación Secundaria Obligatoria:</p>
+                    <p class="data">2018/2022 - Centro de estudios Safa San Luis Gonzaga</p>
+                </div>
+                <div class="education-item">
+                    <p class="data-title">Bachillerato de Ciencias Tecnológicas:</p>
+                    <p class="data">2022/2024 - Safa San Luis</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Objetivos -->
+        <div class="objectives">
+            <h2>Objetivos</h2>
+            <p>Formar parte de una empresa donde pueda aplicar todos mis conocimientos para beneficiar a la compañía, y tener la oportunidad de alcanzar mis objetivos a mediano y largo plazo, así como crecer tanto personal como profesionalmente.</p>
+        </div>
     </div>
 
     <script>
         // Función para cambiar el tema de oscuro a claro
         const themeButton = document.getElementById("theme");
         const body = document.body;
-        const sunIcon = document.getElementById("sun");
-
-        // Al cargar la página, aseguramos que el tema oscuro esté activado por defecto
-        window.addEventListener("load", () => {
-            // Al cargar la página, aseguramos que el icono del sol se muestre para el tema oscuro
-            if (!body.classList.contains("light-theme")) {
-                sunIcon.src = "sun.png"; // El sol para el tema oscuro
-            }
-        });
 
         themeButton.addEventListener("click", () => {
             body.classList.toggle("light-theme");
 
             // Cambiar la imagen del icono dependiendo del tema
+            const sunIcon = document.getElementById("sun");
             if (body.classList.contains("light-theme")) {
                 sunIcon.src = "moon.png"; // Reemplaza con la imagen de luna para tema claro
             } else {
