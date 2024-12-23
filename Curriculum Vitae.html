@@ -232,6 +232,26 @@
             margin-bottom: 8px;
         }
 
+        /* Estilos para el tema claro */
+        .light-theme {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .light-theme .container {
+            background-color: #f4f4f4;
+        }
+
+        .light-theme .section, .light-theme .languages, .light-theme .education,
+        .light-theme .about-me, .light-theme .objectives {
+            background-color: #e0e0e0;
+        }
+
+        .light-theme .section h2, .light-theme .languages h2, .light-theme .education h2,
+        .light-theme .about-me h2, .light-theme .objectives h2 {
+            color: #000000;
+        }
+
         /* Ajustes para dispositivos móviles */
         @media (max-width: 768px) {
             .row, .row-two {
@@ -366,5 +386,23 @@
             <p>Formar parte de una empresa donde pueda aplicar todos mis conocimientos para beneficiar a la compañía, y tener la oportunidad de alcanzar mis objetivos a mediano y largo plazo, así como crecer tanto personal como profesionalmente.</p>
         </div>
     </div>
+
+    <script>
+        // Función para cambiar el tema de oscuro a claro
+        const themeButton = document.getElementById("theme");
+        const body = document.body;
+
+        themeButton.addEventListener("click", () => {
+            body.classList.toggle("light-theme");
+
+            // Cambiar la imagen del icono dependiendo del tema
+            const sunIcon = document.getElementById("sun");
+            if (body.classList.contains("light-theme")) {
+                sunIcon.src = "img/moon.png"; // Reemplaza con la imagen de luna para tema claro
+            } else {
+                sunIcon.src = "img/sun.png"; // Reemplaza con la imagen de sol para tema oscuro
+            }
+        });
+    </script>
 </body>
 </html>
