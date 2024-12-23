@@ -1,54 +1,43 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curriculum Vitae</title>
     <style>
-        /* Variables CSS para facilitar cambios globales */
-        :root {
-            --fondo-oscuro: #1a1a1a;
-            --fondo-claro: #ffffff;
-            --fondo-secundario: #2b2b2b;
-            --fondo-secundario-claro: #f4f4f4;
-            --color-texto: #ffffff;
-            --color-texto-claro: #000000;
-            --gris-claro: #bdc3c7;
-            --borde: #444;
-            --transicion: 0.3s ease;
-            --radio-borde: 8px;
-        }
-
+        /* Reset de márgenes y padding */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* Estilos generales del body */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: var(--fondo-oscuro);
-            color: var(--color-texto);
+            background-color: #1a1a1a; /* Fondo oscuro */
+            color: #ffffff; /* Texto blanco */
             line-height: 1.6;
             padding: 20px;
-            transition: background-color var(--transicion), color var(--transicion);
         }
 
+        /* Contenedor principal */
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background-color: var(--fondo-secundario);
-            border-radius: var(--radio-borde);
+            background-color: #2b2b2b; /* Fondo del contenedor principal */
+            border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
             padding: 20px;
         }
 
+        /* Encabezado con foto y datos básicos */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
-            border-bottom: 1px solid var(--borde);
+            border-bottom: 1px solid #444;
             padding-bottom: 15px;
         }
 
@@ -60,69 +49,174 @@
             margin-right: 20px;
         }
 
+        .header .info {
+            flex-grow: 1;
+        }
+
         .header .info .name {
             font-size: 1.7rem;
             font-weight: bold;
+            color: #ffffff;
         }
 
         .header .info .title {
             font-size: 1.1rem;
-            color: var(--gris-claro);
+            color: #bdc3c7; /* Gris claro */
+        }
+
+        /* Sección con botones en cubitos */
+        .header .social-buttons {
+            display: flex;
+            align-items: center;
         }
 
         .header .social-buttons button {
-            background: var(--fondo-secundario);
-            border: 1px solid var(--borde);
+            background: #333;
+            border: 1px solid #444;
             cursor: pointer;
             margin-left: 10px;
-            width: 50px;
-            height: 50px;
+            width: 50px; /* Tamaño más grande */
+            height: 50px; /* Tamaño más grande */
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 5px;
-            transition: transform var(--transicion), background-color var(--transicion);
+            transition: transform 0.3s ease, background-color 0.3s ease;
         }
 
+        /* Estilo de las imágenes dentro de los botones */
+        .header .social-buttons img {
+            width: 30px; /* Tamaño más grande */
+            height: 30px; /* Tamaño más grande */
+        }
+
+        /* Animación cuando el ratón pasa sobre el cubo */
         .header .social-buttons button:hover {
             transform: scale(1.2);
-            background-color: var(--borde);
+            background-color: #444;
         }
 
-        .header .social-buttons img {
-            width: 30px;
-            height: 30px;
+        /* Resto del código igual a antes... */
+        /* Sección con Contacto e Información Personal */
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
+        /* Estilo de los cajones (contacto e info personal) */
         .section {
             flex: 1;
             margin-right: 15px;
             padding: 15px;
-            background-color: var(--fondo-secundario);
-            border-radius: var(--radio-borde);
-            border: 1px solid var(--borde);
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
         }
 
-        .section h2 {
-            font-size: 1.5rem;
+        .section:last-child {
+            margin-right: 0;
+        }
+
+        /* Títulos de todas las secciones (h2) */
+        .section h2, .languages h2, .education h2, .about-me h2, .objectives h2 {
+            font-size: 1.5rem;  /* Tamaño de fuente uniforme */
+            color: #ffffff;
             margin-bottom: 10px;
-            border-bottom: 1px solid var(--borde);
+            border-bottom: 1px solid #444;
             padding-bottom: 5px;
         }
 
-        .section p {
+        .section p, .section .data-title {
             font-size: 0.95rem;
-            color: var(--gris-claro);
+            color: #bdc3c7;
             margin-bottom: 8px;
         }
 
+        .section .data-title {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .section .data {
+            margin-left: 15px;
+        }
+
+        /* Ajustes para los cajones de idiomas y formación académica */
+        .row-two {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .languages, .education {
+            flex: 1;
+            margin-right: 15px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .languages:last-child, .education:last-child {
+            margin-right: 0;
+        }
+
+        /* Estilos de idiomas, experiencia, formación académica */
+        .languages .language-item, .education .education-item {
+            margin-bottom: 8px;
+        }
+
+        /* Sección de Experiencia Laboral */
+        .experience {
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+            margin-top: 20px;
+        }
+
+        .experience-item {
+            margin-bottom: 8px;
+        }
+
+        /* Sección de Sobre mí */
+        .about-me {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Añadido para igualar el espacio con otros cajones */
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .about-me p {
+            color: #bdc3c7;
+            margin-bottom: 8px;
+        }
+
+        /* Sección de Objetivos */
+        .objectives {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #333;
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        .objectives p {
+            color: #bdc3c7;
+            margin-bottom: 8px;
+        }
+
+        /* Estilos para el tema claro */
         .light-theme {
-            background-color: var(--fondo-claro);
-            color: var(--color-texto-claro);
+            background-color: #ffffff;
+            color: #000000;
         }
 
         .light-theme .container {
-            background-color: var(--fondo-secundario-claro);
+            background-color: #f4f4f4;
         }
 
         .light-theme .section, .light-theme .languages, .light-theme .education,
@@ -132,9 +226,10 @@
 
         .light-theme .section h2, .light-theme .languages h2, .light-theme .education h2,
         .light-theme .about-me h2, .light-theme .objectives h2 {
-            color: var(--color-texto-claro);
+            color: #000000;
         }
 
+        /* Ajustes para dispositivos móviles */
         @media (max-width: 768px) {
             .row, .row-two {
                 flex-direction: column;
@@ -155,7 +250,7 @@
         }
     </style>
 </head>
-<body id="body">
+<body id="body" class="body">
     <div class="container">
         <!-- Encabezado con nombre y foto -->
         <div class="header">
@@ -165,17 +260,18 @@
                 <p class="title">Curriculum Vitae</p>
             </div>
             <div class="social-buttons">
+                <!-- Botón de descarga -->
                 <a href="Curriculum_Vitae.pdf" download="Curriculum_Vitae.pdf">
-                    <button>
-                        <img src="download.png" alt="Descargar CV">
+                    <button id="download-btn" class="button">
+                        <img id="download" class="download" src="download.png" alt="Descargar">
                     </button>
                 </a>
-                <button id="theme">
-                    <img id="sun" src="img/sun.png" alt="Cambiar tema">
+                <button id="theme" class="button">
+                    <img id="sun" class="sun" src="img/sun.png" alt="Cambiar tema">
                 </button>
-                <a href="https://github.com/angelnietoo" target="_blank">
-                    <button>
-                        <img src="imagen_github.png" alt="GitHub">
+                <a target="_blank" href="https://github.com/angelnietoo">
+                    <button class="button">
+                        <img id="github" class="github" src="imagen_github.png" alt="GitHub">
                     </button>
                 </a>
             </div>
@@ -184,65 +280,113 @@
         <!-- Sobre mí -->
         <div class="about-me">
             <h2>Sobre mí</h2>
-            <p>Tengo 18 años y actualmente estoy estudiando un grado superior de Desarrollo de Aplicaciones Web...</p>
+            <p>Tengo 18 años y actualmente estoy estudiando un grado superior de Desarrollo de Aplicaciones Web. Aunque no tengo experiencia laboral todavía, me considero una persona responsable y comprometida con lo que hago. Tengo muchas ganas de aprender y crecer en un trabajo, y estoy dispuesto a afrontar cualquier desafío que se me presente.</p>
         </div>
 
-        <!-- Contacto e Información Personal -->
+        <!-- Fila con Contacto e Información Personal -->
         <div class="row">
-            <div class="section">
+            <!-- Sección de Contacto -->
+            <div class="section contact">
                 <h2>Contacto</h2>
-                <p><strong>Teléfono:</strong> 622 015 976</p>
-                <p><strong>Correo:</strong> angel.nietoo2006@gmail.com</p>
-                <p><strong>Dirección:</strong> Calle Milagros Muñoz Gil</p>
+                <div class="contact-item">
+                    <p class="data-title">Teléfono:</p>
+                    <p class="data">622 015 976</p>
+                </div>
+                <div class="contact-item">
+                    <p class="data-title">Correo:</p>
+                    <p class="data">angel.nietoo2006@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <p class="data-title">Dirección:</p>
+                    <p class="data">Calle Milagros Muñoz Gil</p>
+                </div>
             </div>
-            <div class="section">
+
+            <!-- Sección de Información Personal -->
+            <div class="section personal">
                 <h2>Información Personal</h2>
-                <p><strong>Nombre:</strong> Ángel Nieto Cordero</p>
-                <p><strong>Fecha de nacimiento:</strong> 18/11/2006</p>
-                <p><strong>Carnet de Conducir:</strong> A1</p>
-                <p><strong>Vehículo Propio:</strong> Sí</p>
-                <p><strong>Disponibilidad:</strong> Mañanas y tardes</p>
+                <div class="personal-item">
+                    <p class="data-title">Nombre:</p>
+                    <p class="data">Ángel Nieto Cordero</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Fecha de nacimiento:</p>
+                    <p class="data">18/11/2006</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Carnet de Conducir:</p>
+                    <p class="data">A1</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Vehículo Propio:</p>
+                    <p class="data">Sí</p>
+                </div>
+                <div class="personal-item">
+                    <p class="data-title">Disponibilidad:</p>
+                    <p class="data">Mañanas y tardes</p>
+                </div>
             </div>
         </div>
 
-        <!-- Idiomas y Formación Académica -->
+        <!-- Fila con Idiomas y Formación Académica -->
         <div class="row-two">
+            <!-- Idiomas -->
             <div class="languages">
                 <h2>Idiomas</h2>
-                <p><strong>Español:</strong> Nativo</p>
-                <p><strong>Inglés:</strong> B2 (Equivalente a Bachillerato)</p>
+                <div class="language-item">
+                    <p class="data-title">Español:</p>
+                    <p class="data">Nativo</p>
+                </div>
+                <div class="language-item">
+                    <p class="data-title">Inglés:</p>
+                    <p class="data">Equivalente a Bachillerato (B2)</p>
+                </div>
             </div>
+
+            <!-- Formación Académica -->
             <div class="education">
                 <h2>Formación Académica</h2>
-                <p><strong>ESO:</strong> 2018/2022 - Centro Safa San Luis Gonzaga</p>
-                <p><strong>Bachillerato de Ciencias:</strong> 2022/2024 - Safa San Luis</p>
+                <div class="education-item">
+                    <p class="data-title">Educación Secundaria Obligatoria:</p>
+                    <p class="data">2018/2022 - Centro de estudios Safa San Luis Gonzaga</p>
+                </div>
+                <div class="education-item">
+                    <p class="data-title">Bachillerato de Ciencias Tecnológicas:</p>
+                    <p class="data">2022/2024 - Safa San Luis</p>
+                </div>
             </div>
         </div>
 
         <!-- Objetivos -->
         <div class="objectives">
             <h2>Objetivos</h2>
-            <p>Formar parte de una empresa donde pueda aplicar mis conocimientos y crecer profesionalmente.</p>
+            <p>Formar parte de una empresa donde pueda aplicar todos mis conocimientos para beneficiar a la compañía, y tener la oportunidad de alcanzar mis objetivos a mediano y largo plazo, así como crecer tanto personal como profesionalmente.</p>
         </div>
     </div>
 
     <script>
+        // Función para cambiar el tema de oscuro a claro
         const themeButton = document.getElementById("theme");
         const body = document.body;
         const sunIcon = document.getElementById("sun");
 
-        // Persistencia de tema
+        // Al cargar la página, aseguramos que el tema oscuro esté activado por defecto
         window.addEventListener("load", () => {
-            if (localStorage.getItem("theme") === "light") {
-                body.classList.add("light-theme");
-                sunIcon.src = "moon.png";
+            // Si no está activado el tema claro, se deja el oscuro por defecto
+            if (!body.classList.contains("light-theme")) {
+                sunIcon.src = "sun.png"; // El sol para el tema oscuro
             }
         });
 
         themeButton.addEventListener("click", () => {
             body.classList.toggle("light-theme");
-            sunIcon.src = body.classList.contains("light-theme") ? "moon.png" : "sun.png";
-            localStorage.setItem("theme", body.classList.contains("light-theme") ? "light" : "dark");
+
+            // Cambiar la imagen del icono dependiendo del tema
+            if (body.classList.contains("light-theme")) {
+                sunIcon.src = "moon.png"; // Reemplaza con la imagen de luna para tema claro
+            } else {
+                sunIcon.src = "sun.png"; // Reemplaza con la imagen de sol para tema oscuro
+            }
         });
     </script>
 </body>
