@@ -19,7 +19,7 @@
     height: 100vh;
     background-color: #eeeeee;
   
-  /* Center the item */
+  /* Aquí centramos el item */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +33,7 @@
     border-radius: 1rem;
     color: #fff;
   
-  /* Center the text */
+  /* Y aquí reseteamos el texto */
     display: flex;
     justify-content: center;
     align-items: center;
