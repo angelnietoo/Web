@@ -40,6 +40,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    /* Para crecer/reducir el item */
+    flex-grow: 5;
+    flex-shrink: 1;
+    flex-basis: auto;
+
+    /* Manera más abreviada de hacerlo */
+    /* flex: 1 1 auto; */
 }
     </style>
 </head>
