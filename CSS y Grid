@@ -29,7 +29,7 @@
 .item {
     height: 100px;
     width: 200px;
-    background: #fb6942;
+    background: #ff9c3f;
     border-radius: 1rem;
     color: #fff;
   
@@ -40,13 +40,8 @@
 }
     </style>
 </head>
-<body id="body" class="body">
-    <div class="container">
-        <!-- Encabezado con nombre y foto -->
-            </div>
             <div class="container">
                 <div class="item">Item</div>
               </div>
     </div>
-</body>
 </html>
