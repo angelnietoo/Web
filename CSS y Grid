@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     /* Cambio de dirección a las columnas */
     flex-direction: column;
     gap: 5px
