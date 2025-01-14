@@ -29,7 +29,7 @@
 .item {
     height: 100px;
     width: 200px;
-    background: #ff9c3f;
+    background: #ff7b00;
     border-radius: 1rem;
     color: #fff;
   
