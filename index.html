@@ -177,6 +177,19 @@
             display: block;
             text-align: center;
         }
+
+        /* Contenedor de botones de los temas */
+        .botones-temas {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        /* Ajustes para mejorar la estética de los botones de tema */
+        .botones-temas .button {
+            margin: 0 10px;
+        }
+
     </style>
 </head>
 
@@ -187,12 +200,14 @@
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <!-- Botones para seleccionar Tema -->
-        <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
-        <button class="button" id="btnTema2">Tema 2: HTML</button>
-        <button class="button" id="btnTema3">Tema 3</button>
+        <!-- Contenedor de botones de los temas -->
+        <div class="botones-temas">
+            <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
+            <button class="button" id="btnTema2">Tema 2: HTML</button>
+            <button class="button" id="btnTema3">Tema 3</button>
+        </div>
 
-        <!-- Botón de Curriculum Vitae como botón (no un enlace) -->
+        <!-- Botón de Curriculum Vitae -->
         <button class="button" id="btnCV">Curriculum Vitae</button>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
