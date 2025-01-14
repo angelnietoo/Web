@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curriculum Vitae</title>
-    <style>
-        * {
+* {
     /* Reset CSS */
     margin: 0;
     padding: 0;
@@ -38,15 +31,3 @@
     justify-content: center;
     align-items: center;
 }
-    </style>
-</head>
-<body id="body" class="body">
-    <div class="container">
-        <!-- Encabezado con nombre y foto -->
-            </div>
-            <div class="container">
-                <div class="item">Item</div>
-              </div>
-    </div>
-</body>
-</html>
