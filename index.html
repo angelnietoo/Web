@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
     
 <head>
@@ -177,6 +177,19 @@
             display: block;
             text-align: center;
         }
+
+        /* Contenedor de botones de los temas */
+        .botones-temas {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        /* Ajustes para mejorar la estética de los botones de tema */
+        .botones-temas .button {
+            margin: 0 10px;
+        }
+
     </style>
 </head>
 
@@ -187,11 +200,14 @@
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <!-- Botones para seleccionar Tema -->
-        <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
-        <button class="button" id="btnTema2">Tema 2: HTML</button>
+        <!-- Contenedor de botones de los temas -->
+        <div class="botones-temas">
+            <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
+            <button class="button" id="btnTema2">Tema 2: HTML</button>
+            <button class="button" id="btnTema3">Tema 3</button>
+        </div>
 
-        <!-- Botón de Curriculum Vitae como botón (no un enlace) -->
+        <!-- Botón de Curriculum Vitae -->
         <button class="button" id="btnCV">Curriculum Vitae</button>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
@@ -217,26 +233,40 @@
                 <a href="Examen.html" class="button">Examen</a>
             </div>
         </div>
+
+        <!-- Contenido de Ejercicios para el Tema 3 (CSS y Grid) -->
+        <div id="tema3" class="ejercicios">
+            <h2>TEMA 3: CSS y Grid</h2>
+            <a href="CSS y Grid.html" class="button">Ejercicio CSS y Grid</a>
+        </div>
     </div>
 
     <script>
         // Obtener los botones de tema
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
+        const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
         const tema2 = document.getElementById('tema2');
+        const tema3 = document.getElementById('tema3');
 
-        // Función para mostrar un tema y ocultar el otro
+        // Función para mostrar un tema y ocultar los otros
         function mostrarTema(tema) {
             if (tema === 'tema1') {
                 tema1.style.display = 'block';
                 tema2.style.display = 'none';
+                tema3.style.display = 'none';
             } else if (tema === 'tema2') {
                 tema2.style.display = 'block';
                 tema1.style.display = 'none';
+                tema3.style.display = 'none';
+            } else if (tema === 'tema3') {
+                tema3.style.display = 'block';
+                tema1.style.display = 'none';
+                tema2.style.display = 'none';
             }
         }
 
@@ -247,6 +277,10 @@
 
         btnTema2.addEventListener('click', () => {
             mostrarTema('tema2');
+        });
+
+        btnTema3.addEventListener('click', () => {
+            mostrarTema('tema3');
         });
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
