@@ -94,33 +94,5 @@
     
     <div class="item" onclick="calculateResult()" style="grid-column: span 4;">=</div>
 </div>
-
-<script>
-    // Función para añadir texto a la pantalla
-    function appendToScreen(value) {
-        const screen = document.getElementById("screen");
-        if (screen.innerText === "0" && value !== '.') {
-            screen.innerText = value;
-        } else {
-            screen.innerText += value;
-        }
-    }
-
-    // Función para limpiar la pantalla
-    function clearScreen() {
-        document.getElementById("screen").innerText = "0";
-    }
-
-    // Función para calcular el resultado
-    function calculateResult() {
-        const screen = document.getElementById("screen");
-        try {
-            screen.innerText = eval(screen.innerText); // Utilizamos eval para hacer los cálculos
-        } catch (e) {
-            screen.innerText = "Error";
-        }
-    }
-</script>
-
 </body>
 </html>
