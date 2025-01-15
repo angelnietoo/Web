@@ -15,86 +15,53 @@
 
         /* Contenedor de la calculadora */
         .container {
-            width: 320px;  /* Ajustamos el tamaño del contenedor */
-            background-color: #333333;  /* Fondo oscuro */
+            padding: 20px;
+            height: 100vh;
+            background-color: #ffe693;
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-            grid-template-rows: repeat(5, 1fr); /* 5 filas */
-            gap: 10px;
+            gap: 10px;  /* Espacio más pequeño entre los botones */
             justify-items: center;
             align-items: center;
-            border-radius: 10px; /* Bordes redondeados */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
-            height: 400px; /* Altura fija */
-            padding: 20px;
-            margin: 0 auto; /* Centrado horizontal */
+            max-width: 400px; /* Ancho máximo para que no crezca demasiado */
+            margin: 0 auto;
         }
 
         /* Estilo de los botones */
         .item {
-            height: 60px;
-            width: 60px;
-            background-color: #d1d9e6; /* Fondo gris claro */
+            height: 70px;
+            width: 70px;
+            background-color: #ff7b00;
             border-radius: 1rem;
-            color: #333333;
+            color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             font-size: 24px;
-            transition: background-color 0.3s, transform 0.1s;
+            transition: background-color 0.3s;
         }
 
         .item:hover {
-            background-color: #b0b7c2;
+            background-color: #ff5722;
         }
 
         .item:active {
-            background-color: #9ea1b2;
-            transform: scale(0.95);
-        }
-
-        /* Botones de operadores */
-        .operator {
-            background-color: #6fa3ef;
-            color: white;
-        }
-
-        .operator:hover {
-            background-color: #5e91db;
-        }
-
-        .operator:active {
-            background-color: #4f81b3;
-        }
-
-        /* Botón de "C" */
-        .clear {
-            background-color: #ff4f5b;
-            color: white;
-        }
-
-        .clear:hover {
-            background-color: #e74c3c;
-        }
-
-        .clear:active {
-            background-color: #c0392b;
+            background-color: #ff3d00;
         }
 
         /* Pantalla de la calculadora */
         .screen {
-            grid-column: span 4; /* Hace que la pantalla ocupe toda la fila superior */
+            grid-column: span 4;
             height: 80px;
-            background-color: #2d2d2d;
+            background-color: #fff;
             border-radius: 1rem;
-            color: #fff;
+            color: #000;
             display: flex;
             justify-content: flex-end;
             align-items: center;
             padding: 10px;
             font-size: 32px;
-            margin-bottom: 10px; /* Espacio debajo de la pantalla */
         }
     </style>
 </head>
@@ -108,24 +75,24 @@
     <div class="item" onclick="appendToScreen('7')">7</div>
     <div class="item" onclick="appendToScreen('8')">8</div>
     <div class="item" onclick="appendToScreen('9')">9</div>
-    <div class="item operator" onclick="appendToScreen('/')">/</div>
+    <div class="item" onclick="appendToScreen('/')">/</div>
     
     <div class="item" onclick="appendToScreen('4')">4</div>
     <div class="item" onclick="appendToScreen('5')">5</div>
     <div class="item" onclick="appendToScreen('6')">6</div>
-    <div class="item operator" onclick="appendToScreen('*')">*</div>
+    <div class="item" onclick="appendToScreen('*')">*</div>
     
     <div class="item" onclick="appendToScreen('1')">1</div>
     <div class="item" onclick="appendToScreen('2')">2</div>
     <div class="item" onclick="appendToScreen('3')">3</div>
-    <div class="item operator" onclick="appendToScreen('-')">-</div>
+    <div class="item" onclick="appendToScreen('-')">-</div>
     
     <div class="item" onclick="appendToScreen('0')">0</div>
     <div class="item" onclick="appendToScreen('.')">.</div>
-    <div class="item clear" onclick="clearScreen()">C</div>
-    <div class="item operator" onclick="appendToScreen('+')">+</div>
+    <div class="item" onclick="clearScreen()">C</div>
+    <div class="item" onclick="appendToScreen('+')">+</div>
     
-    <div class="item operator" onclick="calculateResult()" style="grid-column: span 4;">=</div>
+    <div class="item" onclick="calculateResult()" style="grid-column: span 4;">=</div>
 </div>
 
 <script>
