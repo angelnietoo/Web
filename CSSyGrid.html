@@ -17,13 +17,13 @@
         .container {
             padding: 20px;
             height: 100vh;
-            background-color: #ffe693;
+            background-color: #f3f4f6;  /* Fondo suave y neutro */
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-            gap: 10px;  /* Espacio más pequeño entre los botones */
+            gap: 10px;
             justify-items: center;
             align-items: center;
-            max-width: 400px; /* Ancho máximo para que no crezca demasiado */
+            max-width: 400px;
             margin: 0 auto;
         }
 
@@ -31,32 +31,61 @@
         .item {
             height: 70px;
             width: 70px;
-            background-color: #ff7b00;
+            background-color: #d1d9e6; /* Fondo gris claro para números */
             border-radius: 1rem;
-            color: #ffffff;
+            color: #333333;  /* Texto oscuro */
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             font-size: 24px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.1s;
         }
 
         .item:hover {
-            background-color: #ff5722;
+            background-color: #b0b7c2; /* Gris un poco más oscuro al pasar el mouse */
         }
 
         .item:active {
-            background-color: #ff3d00;
+            background-color: #9ea1b2; /* Gris más oscuro al hacer clic */
+            transform: scale(0.95); /* Efecto de "presionar" el botón */
+        }
+
+        /* Botones de operadores */
+        .operator {
+            background-color: #6fa3ef; /* Azul suave para operadores */
+            color: white;
+        }
+
+        .operator:hover {
+            background-color: #5e91db;
+        }
+
+        .operator:active {
+            background-color: #4f81b3;
+        }
+
+        /* Botón de "C" */
+        .clear {
+            background-color: #ff4f5b; /* Rojo suave para "C" */
+            color: white;
+        }
+
+        .clear:hover {
+            background-color: #e74c3c;
+        }
+
+        .clear:active {
+            background-color: #c0392b;
         }
 
         /* Pantalla de la calculadora */
         .screen {
             grid-column: span 4;
             height: 80px;
-            background-color: #fff;
+            background-color: #2d2d2d; /* Fondo oscuro para la pantalla */
             border-radius: 1rem;
-            color: #000;
+            color: #fff; /* Texto blanco */
             display: flex;
             justify-content: flex-end;
             align-items: center;
@@ -75,24 +104,24 @@
     <div class="item" onclick="appendToScreen('7')">7</div>
     <div class="item" onclick="appendToScreen('8')">8</div>
     <div class="item" onclick="appendToScreen('9')">9</div>
-    <div class="item" onclick="appendToScreen('/')">/</div>
+    <div class="item operator" onclick="appendToScreen('/')">/</div>
     
     <div class="item" onclick="appendToScreen('4')">4</div>
     <div class="item" onclick="appendToScreen('5')">5</div>
     <div class="item" onclick="appendToScreen('6')">6</div>
-    <div class="item" onclick="appendToScreen('*')">*</div>
+    <div class="item operator" onclick="appendToScreen('*')">*</div>
     
     <div class="item" onclick="appendToScreen('1')">1</div>
     <div class="item" onclick="appendToScreen('2')">2</div>
     <div class="item" onclick="appendToScreen('3')">3</div>
-    <div class="item" onclick="appendToScreen('-')">-</div>
+    <div class="item operator" onclick="appendToScreen('-')">-</div>
     
     <div class="item" onclick="appendToScreen('0')">0</div>
     <div class="item" onclick="appendToScreen('.')">.</div>
-    <div class="item" onclick="clearScreen()">C</div>
-    <div class="item" onclick="appendToScreen('+')">+</div>
+    <div class="item clear" onclick="clearScreen()">C</div>
+    <div class="item operator" onclick="appendToScreen('+')">+</div>
     
-    <div class="item" onclick="calculateResult()" style="grid-column: span 4;">=</div>
+    <div class="item operator" onclick="calculateResult()" style="grid-column: span 4;">=</div>
 </div>
 
 <script>
