@@ -15,27 +15,28 @@
 
         /* Contenedor de la calculadora */
         .container {
-            padding: 20px;
-            width: 280px;  /* Ancho fijo */
+            width: 320px;  /* Ajustamos el tamaño del contenedor */
             background-color: #333333;  /* Fondo oscuro */
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+            grid-template-rows: repeat(5, 1fr); /* 5 filas */
             gap: 10px;
             justify-items: center;
             align-items: center;
             border-radius: 10px; /* Bordes redondeados */
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
-            height: 380px; /* Altura fija */
+            height: 400px; /* Altura fija */
+            padding: 20px;
             margin: 0 auto; /* Centrado horizontal */
         }
 
         /* Estilo de los botones */
         .item {
-            height: 60px;  /* Botones más pequeños */
-            width: 60px;   /* Botones más pequeños */
+            height: 60px;
+            width: 60px;
             background-color: #d1d9e6; /* Fondo gris claro */
             border-radius: 1rem;
-            color: #333333;  /* Texto oscuro */
+            color: #333333;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -93,6 +94,7 @@
             align-items: center;
             padding: 10px;
             font-size: 32px;
+            margin-bottom: 10px; /* Espacio debajo de la pantalla */
         }
     </style>
 </head>
