@@ -16,23 +16,24 @@
         /* Contenedor de la calculadora */
         .container {
             padding: 20px;
-            height: 400px; /* Ajustamos la altura de la calculadora */
-            width: 320px;  /* Ancho fijo para que parezca una calculadora física */
-            background-color: #333333;  /* Fondo oscuro similar a la carcasa de la calculadora */
+            width: 280px;  /* Ancho fijo */
+            background-color: #333333;  /* Fondo oscuro */
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 4 columnas */
             gap: 10px;
             justify-items: center;
             align-items: center;
-            border-radius: 10px; /* Bordes redondeados para simular la forma de una calculadora */
+            border-radius: 10px; /* Bordes redondeados */
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+            height: 380px; /* Altura fija */
+            margin: 0 auto; /* Centrado horizontal */
         }
 
         /* Estilo de los botones */
         .item {
-            height: 70px;
-            width: 70px;
-            background-color: #d1d9e6; /* Fondo gris claro para números */
+            height: 60px;  /* Botones más pequeños */
+            width: 60px;   /* Botones más pequeños */
+            background-color: #d1d9e6; /* Fondo gris claro */
             border-radius: 1rem;
             color: #333333;  /* Texto oscuro */
             display: flex;
@@ -44,17 +45,17 @@
         }
 
         .item:hover {
-            background-color: #b0b7c2; /* Gris un poco más oscuro al pasar el mouse */
+            background-color: #b0b7c2;
         }
 
         .item:active {
-            background-color: #9ea1b2; /* Gris más oscuro al hacer clic */
-            transform: scale(0.95); /* Efecto de "presionar" el botón */
+            background-color: #9ea1b2;
+            transform: scale(0.95);
         }
 
         /* Botones de operadores */
         .operator {
-            background-color: #6fa3ef; /* Azul suave para operadores */
+            background-color: #6fa3ef;
             color: white;
         }
 
@@ -68,7 +69,7 @@
 
         /* Botón de "C" */
         .clear {
-            background-color: #ff4f5b; /* Rojo suave para "C" */
+            background-color: #ff4f5b;
             color: white;
         }
 
@@ -82,11 +83,11 @@
 
         /* Pantalla de la calculadora */
         .screen {
-            grid-column: span 4;
+            grid-column: span 4; /* Hace que la pantalla ocupe toda la fila superior */
             height: 80px;
-            background-color: #2d2d2d; /* Fondo oscuro para la pantalla */
+            background-color: #2d2d2d;
             border-radius: 1rem;
-            color: #fff; /* Texto blanco */
+            color: #fff;
             display: flex;
             justify-content: flex-end;
             align-items: center;
