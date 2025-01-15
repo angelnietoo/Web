@@ -16,15 +16,16 @@
         /* Contenedor de la calculadora */
         .container {
             padding: 20px;
-            height: 100vh;
-            background-color: #f3f4f6;  /* Fondo suave y neutro */
+            height: 400px; /* Ajustamos la altura de la calculadora */
+            width: 320px;  /* Ancho fijo para que parezca una calculadora física */
+            background-color: #333333;  /* Fondo oscuro similar a la carcasa de la calculadora */
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 4 columnas */
             gap: 10px;
             justify-items: center;
             align-items: center;
-            max-width: 400px;
-            margin: 0 auto;
+            border-radius: 10px; /* Bordes redondeados para simular la forma de una calculadora */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
         }
 
         /* Estilo de los botones */
