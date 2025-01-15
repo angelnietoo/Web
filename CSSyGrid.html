@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSSyGrid</title>
+    <title>Calculadora Funcional</title>
     <style>
         * {
             margin: 0;
@@ -13,36 +13,23 @@
             font-size: 18px;
         }
 
-        /* Título */
-        h1 {
-            text-align: center;
-            margin-bottom: 0px;
-            margin-top: 20px;
-            color: #000000;
-            background-color: #ffe693;
-
-        }
-
         /* Contenedor de la calculadora */
         .container {
             padding: 20px;
             height: 100vh;
             background-color: #ffe693;
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-            justify-content: center;
+            grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+            gap: 15px;
+            justify-items: center;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            row-gap: 5px;
-            column-gap: 25px;
         }
 
         /* Estilo de los botones */
         .item {
-            height: 100px;
-            width: 200px;
-            background: #ff7b00;
+            height: 80px;
+            width: 80px;
+            background-color: #ff7b00;
             border-radius: 1rem;
             color: #ffffff;
             display: flex;
@@ -50,33 +37,88 @@
             align-items: center;
             cursor: pointer;
             font-size: 24px;
+            transition: background-color 0.3s;
         }
 
         .item:hover {
             background-color: #ff5722;
         }
+
+        /* Pantalla de la calculadora */
+        .screen {
+            grid-column: span 4;
+            height: 80px;
+            background-color: #fff;
+            border-radius: 1rem;
+            color: #000;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 10px;
+            font-size: 32px;
+        }
+
+        .item:active {
+            background-color: #ff3d00;
+        }
     </style>
 </head>
 <body>
-    <!-- Título de la calculadora -->
-    <h1>CALCULADORA</h1>
+
+<div class="container">
+    <!-- Pantalla donde se muestran los cálculos -->
+    <div class="screen" id="screen">0</div>
     
-    <!-- Contenedor de la calculadora -->
-    <div class="container">
-        <div class="item">1</div>
-        <div class="item">2</div>
-        <div class="item">3</div>
-        <div class="item">4</div>
-        <div class="item">5</div>
-        <div class="item">6</div>
-        <div class="item">7</div>
-        <div class="item">8</div>
-        <div class="item">9</div>
-        <div class="item">*</div>
-        <div class="item">-</div>
-        <div class="item">+</div>
-        <div class="item">/</div>
-        <div class="item">=</div>
-    </div>
+    <!-- Botones de la calculadora -->
+    <div class="item" onclick="appendToScreen('7')">7</div>
+    <div class="item" onclick="appendToScreen('8')">8</div>
+    <div class="item" onclick="appendToScreen('9')">9</div>
+    <div class="item" onclick="appendToScreen('/')">/</div>
+    
+    <div class="item" onclick="appendToScreen('4')">4</div>
+    <div class="item" onclick="appendToScreen('5')">5</div>
+    <div class="item" onclick="appendToScreen('6')">6</div>
+    <div class="item" onclick="appendToScreen('*')">*</div>
+    
+    <div class="item" onclick="appendToScreen('1')">1</div>
+    <div class="item" onclick="appendToScreen('2')">2</div>
+    <div class="item" onclick="appendToScreen('3')">3</div>
+    <div class="item" onclick="appendToScreen('-')">-</div>
+    
+    <div class="item" onclick="appendToScreen('0')">0</div>
+    <div class="item" onclick="appendToScreen('.')">.</div>
+    <div class="item" onclick="clearScreen()">C</div>
+    <div class="item" onclick="appendToScreen('+')">+</div>
+    
+    <div class="item" onclick="calculateResult()" style="grid-column: span 4;">=</div>
+</div>
+
+<script>
+    // Función para añadir texto a la pantalla
+    function appendToScreen(value) {
+        const screen = document.getElementById("screen");
+        if (screen.innerText === "0" && value !== '.') {
+            screen.innerText = value;
+        } else {
+            screen.innerText += value;
+        }
+    }
+
+    // Función para limpiar la pantalla
+    function clearScreen() {
+        document.getElementById("screen").innerText = "0";
+    }
+
+    // Función para calcular el resultado
+    function calculateResult() {
+        const screen = document.getElementById("screen");
+        try {
+            screen.innerText = eval(screen.innerText); // Utilizamos eval para hacer los cálculos
+        } catch (e) {
+            screen.innerText = "Error";
+        }
+    }
+</script>
+
 </body>
 </html>
