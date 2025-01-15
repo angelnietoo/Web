@@ -6,71 +6,74 @@
     <title>CSSyGrid</title>
     <style>
         * {
-    /* Reset CSS */
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-    font-size: 18px;
-}
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+        }
 
-.container {
-    padding: 20px;
-    height: 100vh;
-    background-color: #ffe693;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  
-    /*  Gap  */
-    gap: 25px;
-  
-    /* Gaps específicos */
-    row-gap: 5px; /* Espacio de altura entre items */
-    column-gap: 25px; /* Espacio entre items */
-    
-    /* Manera corta de hacerlo */
-    /*gap: 25px 75px; */
-}
+        /* Título */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ff7b00;
+        }
 
-.item {
-    height: 100px;
-    width: 200px;
-    background: #ff7b00;
-    border-radius: 1rem;
-    color: #ffffff;
-  
-  /* Y aquí reseteamos el texto */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+        /* Contenedor de la calculadora */
+        .container {
+            padding: 20px;
+            height: 100vh;
+            background-color: #ffe693;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            row-gap: 5px;
+            column-gap: 25px;
+        }
 
-    /* Para crecer/reducir el item */
-    flex-grow: 5;
-    flex-shrink: 1;
-    flex-basis: auto;
+        /* Estilo de los botones */
+        .item {
+            height: 100px;
+            width: 200px;
+            background: #ff7b00;
+            border-radius: 1rem;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+        }
 
-    /* Manera más abreviada de hacerlo */
-    /* flex: 1 1 auto; */
-}
+        .item:hover {
+            background-color: #ff5722;
+        }
     </style>
 </head>
-<div class="container">
-    <div class="item">1</div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
-    <div class="item">5</div>
-    <div class="item">6</div>
-    <div class="item">7</div>
-    <div class="item">8</div>
-    <div class="item">9</div>
-    <div class="item">*</div>
-    <div class="item">-</div>
-    <div class="item">+</div>
-    <div class="item">/</div>
-    <div class="item">Enter</div>
-</div>
+<body>
+    <!-- Título de la calculadora -->
+    <h1>Calculadora</h1>
+    
+    <!-- Contenedor de la calculadora -->
+    <div class="container">
+        <div class="item">1</div>
+        <div class="item">2</div>
+        <div class="item">3</div>
+        <div class="item">4</div>
+        <div class="item">5</div>
+        <div class="item">6</div>
+        <div class="item">7</div>
+        <div class="item">8</div>
+        <div class="item">9</div>
+        <div class="item">*</div>
+        <div class="item">-</div>
+        <div class="item">+</div>
+        <div class="item">/</div>
+        <div class="item">Enter</div>
+    </div>
+</body>
 </html>
