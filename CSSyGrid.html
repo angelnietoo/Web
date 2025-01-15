@@ -20,15 +20,15 @@
             background-color: #ffe693;
             display: grid;
             grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-            gap: 15px;
+            gap: 5px;  /* Menor espacio entre botones */
             justify-items: center;
             align-items: center;
         }
 
         /* Estilo de los botones */
         .item {
-            height: 80px;
-            width: 80px;
+            height: 70px;
+            width: 70px;
             background-color: #ff7b00;
             border-radius: 1rem;
             color: #ffffff;
@@ -44,6 +44,10 @@
             background-color: #ff5722;
         }
 
+        .item:active {
+            background-color: #ff3d00;
+        }
+
         /* Pantalla de la calculadora */
         .screen {
             grid-column: span 4;
@@ -56,10 +60,6 @@
             align-items: center;
             padding: 10px;
             font-size: 32px;
-        }
-
-        .item:active {
-            background-color: #ff3d00;
         }
     </style>
 </head>
