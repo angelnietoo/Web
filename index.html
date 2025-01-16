@@ -190,11 +190,6 @@
             margin: 0 10px;
         }
 
-        /* Botón "Temas" arriba del CV */
-        #btnTemas {
-            margin-top: -20px;
-        }
-
     </style>
 </head>
 
@@ -205,7 +200,10 @@
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <!-- Botón "Temas" que aparece arriba del Curriculum Vitae -->
+        <!-- Botón de Curriculum Vitae -->
+        <button class="button" id="btnCV">Curriculum Vitae</button>
+
+        <!-- Botón "Temas" debajo del Curriculum Vitae -->
         <button class="button" id="btnTemas">Temas</button>
 
         <!-- Contenedor de botones de los temas (inicialmente ocultos) -->
@@ -214,9 +212,6 @@
             <button class="button" id="btnTema2">Tema 2: HTML</button>
             <button class="button" id="btnTema3">Tema 3</button>
         </div>
-
-        <!-- Botón de Curriculum Vitae -->
-        <button class="button" id="btnCV">Curriculum Vitae</button>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
@@ -283,9 +278,9 @@
         // Toggle la visibilidad de los botones de los temas al hacer clic en "Temas"
         btnTemas.addEventListener('click', () => {
             if (temasContainer.style.display === 'none' || temasContainer.style.display === '') {
-                temasContainer.style.display = 'flex'; // Mostrar los botones de los temas
+                temasContainer.style.display = 'flex';
             } else {
-                temasContainer.style.display = 'none'; // Ocultar los botones de los temas
+                temasContainer.style.display = 'none';
             }
         });
 
@@ -304,7 +299,7 @@
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+            window.location.href = "Curriculum Vitae.html";
         });
     </script>
 
