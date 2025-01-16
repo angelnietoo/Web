@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: auto;
+            overflow: auto; /* Permitir desplazamiento */
             background: linear-gradient(45deg, #1e1e1e, #121212);
         }
 
@@ -88,9 +88,7 @@
 
         /* Estilo de botones */
         .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
             padding: 14px 28px;
             margin: 12px 10px;
             background: linear-gradient(45deg, #4caf50, #388e3c);
@@ -161,7 +159,7 @@
             margin-top: 20px;
             font-style: italic;
         }
-
+        
         /* Ocultar las listas inicialmente */
         .ejercicios {
             display: none;
