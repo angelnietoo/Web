@@ -180,7 +180,7 @@
 
         /* Contenedor de botones de los temas */
         .botones-temas {
-            display: flex;
+            display: none; /* Inicialmente ocultos */
             justify-content: space-around;
             margin-bottom: 30px;
         }
@@ -208,8 +208,8 @@
         <!-- Botón "Temas" que aparece arriba de Curriculum Vitae -->
         <button class="button" id="btnTemas">Temas</button>
 
-        <!-- Contenedor de botones de los temas -->
-        <div class="botones-temas">
+        <!-- Contenedor de botones de los temas (inicialmente ocultos) -->
+        <div class="botones-temas" id="temasContainer">
             <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
             <button class="button" id="btnTema2">Tema 2: HTML</button>
             <button class="button" id="btnTema3">Tema 3</button>
@@ -250,12 +250,13 @@
     </div>
 
     <script>
-        // Obtener los botones de tema
+        // Obtener los botones de tema y el botón "Temas"
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
         const btnTemas = document.getElementById('btnTemas');
+        const temasContainer = document.getElementById('temasContainer');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
@@ -279,7 +280,12 @@
             }
         }
 
-        // Añadir eventos a los botones
+        // Mostrar los botones de los temas al hacer clic en "Temas"
+        btnTemas.addEventListener('click', () => {
+            temasContainer.style.display = 'flex'; // Mostrar los botones de los temas
+        });
+
+        // Añadir eventos a los botones de los temas
         btnTema1.addEventListener('click', () => {
             mostrarTema('tema1');
         });
@@ -295,13 +301,6 @@
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
             window.location.href = "Curriculum Vitae.html"; // Redirige a la página
-        });
-
-        // Acción para el botón "Temas"
-        btnTemas.addEventListener('click', () => {
-            // Aquí se podría agregar una acción para mostrar los temas
-            // Por ejemplo, podrías mostrar/ocultar los botones de los temas si es necesario.
-            alert('Los temas ya están disponibles abajo.');
         });
     </script>
 
