@@ -198,12 +198,12 @@
     <div class="container">
         <h1>Índice de Ejercicios</h1>
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
-        <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
+        <p class="author"><strong>LENGUAJE DE MARCAS 1º DAW</strong></p>
 
         <!-- Contenedor de botones de los temas -->
         <div class="botones-temas">
-            <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
-            <button class="button" id="btnTema2">Tema 2: HTML</button>
+            <button class="button" id="btnTema1">Tema 1</button>
+            <button class="button" id="btnTema2">Tema 2</button>
             <button class="button" id="btnTema3">Tema 3</button>
         </div>
 
@@ -253,34 +253,33 @@
         const tema2 = document.getElementById('tema2');
         const tema3 = document.getElementById('tema3');
 
-        // Función para mostrar un tema y ocultar los otros
-        function mostrarTema(tema) {
-            if (tema === 'tema1') {
-                tema1.style.display = 'block';
-                tema2.style.display = 'none';
-                tema3.style.display = 'none';
-            } else if (tema === 'tema2') {
-                tema2.style.display = 'block';
-                tema1.style.display = 'none';
-                tema3.style.display = 'none';
-            } else if (tema === 'tema3') {
-                tema3.style.display = 'block';
+        // Función para alternar la visibilidad de un tema
+        function toggleTema(tema) {
+            const temaElemento = document.getElementById(tema);
+
+            // Verificar si el tema ya está visible, si lo está, ocultarlo
+            if (temaElemento.style.display === 'block') {
+                temaElemento.style.display = 'none';
+            } else {
+                // Si no está visible, ocultar todos los demás temas y mostrar el seleccionado
                 tema1.style.display = 'none';
                 tema2.style.display = 'none';
+                tema3.style.display = 'none';
+                temaElemento.style.display = 'block';
             }
         }
 
-        // Añadir eventos a los botones
+        // Añadir eventos a los botones de los temas
         btnTema1.addEventListener('click', () => {
-            mostrarTema('tema1');
+            toggleTema('tema1');
         });
 
         btnTema2.addEventListener('click', () => {
-            mostrarTema('tema2');
+            toggleTema('tema2');
         });
 
         btnTema3.addEventListener('click', () => {
-            mostrarTema('tema3');
+            toggleTema('tema3');
         });
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
