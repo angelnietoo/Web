@@ -190,6 +190,11 @@
             margin: 0 10px;
         }
 
+        /* Botón "Temas" arriba del CV */
+        #btnTemas {
+            margin-top: -20px;
+        }
+
     </style>
 </head>
 
@@ -199,6 +204,9 @@
         <h1>Índice de Ejercicios</h1>
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
+
+        <!-- Botón "Temas" que aparece arriba de Curriculum Vitae -->
+        <button class="button" id="btnTemas">Temas</button>
 
         <!-- Contenedor de botones de los temas -->
         <div class="botones-temas">
@@ -247,6 +255,7 @@
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
+        const btnTemas = document.getElementById('btnTemas');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
@@ -286,6 +295,13 @@
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
             window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+        });
+
+        // Acción para el botón "Temas"
+        btnTemas.addEventListener('click', () => {
+            // Aquí se podría agregar una acción para mostrar los temas
+            // Por ejemplo, podrías mostrar/ocultar los botones de los temas si es necesario.
+            alert('Los temas ya están disponibles abajo.');
         });
     </script>
 
