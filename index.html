@@ -205,7 +205,7 @@
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <!-- Botón "Temas" que aparece arriba de Curriculum Vitae -->
+        <!-- Botón "Temas" que aparece arriba del Curriculum Vitae -->
         <button class="button" id="btnTemas">Temas</button>
 
         <!-- Contenedor de botones de los temas (inicialmente ocultos) -->
@@ -280,9 +280,13 @@
             }
         }
 
-        // Mostrar los botones de los temas al hacer clic en "Temas"
+        // Toggle la visibilidad de los botones de los temas al hacer clic en "Temas"
         btnTemas.addEventListener('click', () => {
-            temasContainer.style.display = 'flex'; // Mostrar los botones de los temas
+            if (temasContainer.style.display === 'none' || temasContainer.style.display === '') {
+                temasContainer.style.display = 'flex'; // Mostrar los botones de los temas
+            } else {
+                temasContainer.style.display = 'none'; // Ocultar los botones de los temas
+            }
         });
 
         // Añadir eventos a los botones de los temas
