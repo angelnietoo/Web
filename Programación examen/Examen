@@ -1,0 +1,303 @@
+package Examenes;
+
+import java.util.Scanner;
+
+public class Examen1 {
+
+	public static void main(String[] args) {
+
+		// TODO Auto-generated method stub
+
+
+
+		/*
+
+		 * Enunciado:
+
+		 * 
+
+		 * Realizar un programa en java que haga los siguientes cálculos.
+
+		 * Leerá un conjunto de numero videojuegos de teclado, con los siguientes datos:
+
+		 * Nombre
+
+		 * Precio
+
+		 * Categoría (Aventura, plataformas, Terror, Shooter)
+
+		 * Stock
+
+		 * Plataforma (switch, xbox, playstation, pc)
+
+		 * Puntuación (entre 1 y 10)
+
+		 * 
+
+		 * El usuario introducirá primero la cantidad de videojuegos que va a introducir por teclado.
+
+		 * Y con dichos datos comprobará los siguiente una vez leídos todos los datos:
+
+		 * 
+
+		 *(((-La media de precio y el nombre del videojuego más caro y más barato.))) 
+
+		 *
+
+		 *(((-Mostrar el nombre de los juegos de switch que sean de aventura o
+
+		 * aquellos cuya puntuación sea superior a 9 y cuesten mas de 39 euros)))
+
+		 * 
+
+		 *(((-Mostrará el Stock total de los juegos de playstation)))
+
+		 *
+
+		 *(((-Según se leen los datos se comprobará que los valores de categoría y plataforma
+
+		 * están dentro de los valores posibles entre paréntesis, sino se le seguirá pidiendo
+
+		 * dicho dato hasta que introduzca un valor correcto.)))
+
+		 * 
+
+		 *(((-Cuando el nombre de un producto empieze por z y tenga stock inferior a 10 y
+
+		 * puntuación superior a 6, guardará su nombre en un array y mostrará al final la lista
+
+		 * de productos sin stock a pedir de nuevo.)))
+
+		 * 
+
+		 * La correcta lectura y cada uno de los apartados tienen valores iguales, se utilizará la rúbrica
+
+		 * de classroom para valorar el exámen.
+
+		 */
+
+		
+
+		//Variables
+
+		Scanner sc = new Scanner(System.in);
+
+		String nombre = "";
+
+		String plataforma = "";
+
+		String categoria = "";
+
+		double precio = 0;
+
+		int stock = 0;
+
+		int punt = 0;
+
+		int numJuegos = 0;
+
+		//Variables Condicion 1:
+
+		double mediaPrecio = 0;
+
+		int maxPrecio = Integer.MIN_VALUE;
+
+		int minPrecio = Integer.MAX_VALUE;
+
+		String juegoCaro = "";
+
+		String juegoBarato = "";
+
+		//Variables Condicion 3:
+
+		int sumStock = 0;
+
+		//Variables Condicion 5:
+
+		String[] ListaJuegos;
+
+		String[] ListaJuegosStock;
+
+		
+
+		
+
+		
+
+		//Introduccion de numero de juegos por teclado
+
+		System.out.print("Introduzca cuantos juegos quiere introducir: ");
+
+		numJuegos = sc.nextInt();
+
+		
+
+		ListaJuegos = new String [numJuegos];
+
+		ListaJuegosStock = new String [numJuegos];
+
+		//Creacion del bucle para introducir los datos de todos los juegos y Condicion 4:
+
+		for (int i = 0; i < numJuegos; i++) {
+
+			
+
+			System.out.println("Nombre del juego " + (i+1) + "(espacios con un (.)" + ": ");
+
+			nombre = sc.next();
+
+			
+
+			System.out.println("Precio del juego " + (i+1) + ": ");
+
+			precio = sc.nextDouble();
+
+			
+
+			do {
+
+			System.out.println("Categoria del juego " + (i+1) + "(Aventura, Plataformas, Terror o Shooter)" + ": ");
+
+			categoria = sc.next();
+
+			
+
+			}while (!categoria.equalsIgnoreCase("aventura") && !categoria.equalsIgnoreCase("plataformas") && !categoria.equalsIgnoreCase("terror") && !categoria.equalsIgnoreCase("shooter"));
+
+			
+
+			System.out.println("Stock del juego " + (i+1) + ": ");
+
+			stock = sc.nextInt();
+
+			
+
+			do {
+
+			System.out.println("Plataforma del juego " + (i+1) + "(Switch, PlayStatios, Xbox o PC)"+ ": ");
+
+			plataforma = sc.next();
+
+				
+
+			}while (!plataforma.equalsIgnoreCase("switch") && !plataforma.equalsIgnoreCase("playstation") && !plataforma.equalsIgnoreCase("play") && !plataforma.equalsIgnoreCase("xbox") && !plataforma.equalsIgnoreCase("pc"));
+
+			
+
+			do {
+
+			System.out.println("Puntuacion del juego " + (i+1) + ": ");	
+
+			punt = sc.nextInt();
+
+			
+
+			}while (punt < 0 || punt > 10);
+
+			
+
+			//Condicion 1 (valores maximos y minimos):
+
+			
+
+			mediaPrecio += precio;
+
+			
+
+			if (precio > maxPrecio) {
+
+				maxPrecio = (int) precio;
+
+				juegoCaro = nombre;
+
+			}
+
+			
+
+			if (precio < minPrecio) {
+
+				minPrecio = (int) precio;
+
+				juegoBarato = nombre;
+
+			}
+
+			
+
+			//Condicion 2:
+
+			if ((plataforma.equalsIgnoreCase("switch") && categoria.equalsIgnoreCase("aventura")) || (punt > 9 && precio > 39)) {
+
+				System.out.println(nombre);
+
+			}
+
+			
+
+			//Condicion 3:
+
+			if (plataforma.equalsIgnoreCase("playstation") || plataforma.equalsIgnoreCase("play")) {
+
+				sumStock += stock;
+
+			}
+
+			
+
+			//Condicion 5:
+
+			if (nombre.charAt(0) == 'z' && stock < 10 && punt > 6) {
+
+				ListaJuegos[i] = nombre;
+
+			}
+
+			
+
+			if (stock == 0) {
+
+				ListaJuegosStock[i] = nombre;
+
+			}
+
+		}
+
+		//Muestra de resultados: 
+
+		mediaPrecio = mediaPrecio/numJuegos;
+
+		
+
+		System.out.println("El precio maximo es: " + maxPrecio);
+
+		System.out.println("El juego con el precio maximo es: " + juegoCaro);
+
+		System.out.println("El precio minimo es: " + minPrecio);
+
+		System.out.println("El juego con el precio minimo es: " + juegoBarato);
+
+		System.out.println("La media de los precios es: " + mediaPrecio);
+
+		System.out.println("El stock total de los juegos de Play es: " + sumStock);
+
+		
+
+		System.out.println("LISTA DE JUEGOS SIN STOCK:");
+
+		for (int i = 0; i < ListaJuegosStock.length; i++) {
+
+			if (ListaJuegosStock[i] != null) {
+
+				System.out.println(ListaJuegosStock[i]);
+
+			}
+
+		}
+
+		
+
+		sc.close();
+
+	}
+
+}
