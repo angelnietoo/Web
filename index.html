@@ -1,292 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
+    <title>Índice de Ejercicios - Lenguaje de Marcas</title>
     <style>
-        /* Estilo global */
+        /* Estilo base */
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+            font-family: 'Verdana', sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
             margin: 0;
-            height: 100vh;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: auto; /* Permitir desplazamiento */
-            background: linear-gradient(45deg, #1e1e1e, #121212);
+            height: 100vh;
+            overflow: hidden;
         }
 
         .container {
-            max-width: 900px;
-            width: 100%;
-            padding: 40px;
-            background-color: #2b2b2b;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+            width: 90%;
+            max-width: 800px;
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
             text-align: center;
-            position: relative;
-            z-index: 1;
-            animation: fadeIn 1s ease-out;
-        }
-
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         h1 {
-            font-size: 3.5em;
-            color: #4caf50;
-            margin-top: 50px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px rgba(76, 175, 80, 0.6), 0 0 30px rgba(76, 175, 80, 0.4);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: fadeInTitle 1s ease-out;
-        }
-
-        /* Animación del título */
-        @keyframes fadeInTitle {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            color: #58a6ff;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #30363d;
+            padding-bottom: 0.5rem;
         }
 
         h2 {
-            color: #fff;
-            font-size: 2em;
-            margin-top: 40px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-            font-weight: bold;
+            color: #8b949e;
+            font-size: 1.8rem;
+            margin-top: 1.5rem;
         }
 
-        p {
-            font-size: 1.2em;
-            color: #bbb;
-            margin-bottom: 30px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Estilo de botones */
         .button {
             display: inline-block;
-            padding: 14px 28px;
-            margin: 12px 10px;
-            background: linear-gradient(45deg, #4caf50, #388e3c);
-            color: white;
-            text-align: center;
+            margin: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background-color: #238636;
+            color: #ffffff;
             text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2em;
+            font-size: 1rem;
             font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
-            letter-spacing: 1px;
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.6s ease;
-            opacity: 0;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
         }
 
         .button:hover {
-            background: linear-gradient(45deg, #388e3c, #4caf50);
-            transform: scale(1.1);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
-        }
-
-        .button:hover::before {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            background-color: #2ea043;
+            transform: scale(1.05);
         }
 
         .button:active {
-            transform: scale(0.98);
+            background-color: #196c2e;
+            transform: scale(0.95);
         }
 
-        /* Listas sin estilo */
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-        }
-
-        li {
-            margin: 18px 0;
-            font-size: 1.1em;
-        }
-
-        /* Estilo del enlace para evitar subrayado */
-        a {
-            text-decoration: none;
-        }
-
-        /* Estilo de la pequeña sección de autor */
-        .author {
-            font-size: 1.2em;
-            color: #ccc;
-            margin-top: 20px;
-            font-style: italic;
-        }
-        
-        /* Ocultar las listas inicialmente */
-        .ejercicios {
+        .content {
             display: none;
+            margin-top: 1rem;
         }
 
-        /* Diseño de tres columnas */
-        .columnas {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-            gap: 20px; /* Espacio entre columnas */
-            text-align: center;
-        }
-
-        .columnas a {
+        .content.active {
             display: block;
-            text-align: center;
         }
 
-        /* Contenedor de botones de los temas */
-        .botones-temas {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #8b949e;
         }
-
-        /* Ajustes para mejorar la estética de los botones de tema */
-        .botones-temas .button {
-            margin: 0 10px;
-        }
-
     </style>
 </head>
 
 <body>
-
     <div class="container">
         <h1>Índice de Ejercicios</h1>
-        <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
-        <p class="author"><strong>LENGUAJE DE MARCAS 1º DAW</strong></p>
+        <p><strong>Ángel Nieto Cordero - Lenguaje de Marcas 1º DAW</strong></p>
 
-        <!-- Contenedor de botones de los temas -->
-        <div class="botones-temas">
-            <button class="button" id="btnTema1">Tema 1</button>
-            <button class="button" id="btnTema2">Tema 2</button>
-            <button class="button" id="btnTema3">Tema 3</button>
+        <div>
+            <button class="button" data-target="tema1">Tema 1</button>
+            <button class="button" data-target="tema2">Tema 2</button>
+            <button class="button" data-target="tema3">Tema 3</button>
+            <button class="button" onclick="location.href='Curriculum Vitae.html'">Curriculum Vitae</button>
         </div>
 
-        <!-- Botón de Curriculum Vitae -->
-        <button class="button" id="btnCV">Curriculum Vitae</button>
-
-        <!-- Contenido de Ejercicios para el Tema 1 -->
-        <div id="tema1" class="ejercicios">
-            <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
-            <div class="columnas">
-                <a href="ciudades.xml" class="button">Ejercicio 1</a>
-                <a href="hechos_historicos.xml" class="button">Ejercicio 2</a>
-            </div>
+        <div id="tema1" class="content">
+            <h2>Tema 1: Introducción al Lenguaje de Marcas</h2>
+            <p>Ejercicios relacionados con XML.</p>
+            <a href="ciudades.xml" class="button">Ejercicio 1</a>
+            <a href="hechos_historicos.xml" class="button">Ejercicio 2</a>
         </div>
 
-        <!-- Contenido de Ejercicios para el Tema 2 -->
-        <div id="tema2" class="ejercicios">
-            <h2>TEMA 2: HTML</h2>
-            <div class="columnas">
-                <a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a>
-                <a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a>
-                <a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a>
-                <a href="ActividadResuelta_2.6.html" class="button">Ejercicio 4: Frames</a>
-                <a href="Formulario.html" class="button">Ejercicio 5: Formulario</a>
-                <a href="Ejercicio6.html" class="button">Ejercicio 6: Estructura del cuerpo</a>
-                <a href="CV Ángel Nieto.html" class="button">Ejercicio 7: Curriculum</a>
-                <a href="Examen.html" class="button">Examen</a>
-            </div>
+        <div id="tema2" class="content">
+            <h2>Tema 2: HTML</h2>
+            <p>Ejercicios prácticos de HTML.</p>
+            <a href="EJ1_Listas.html" class="button">Listas</a>
+            <a href="EJ2_Imagenes.html" class="button">Imágenes</a>
+            <a href="EJ3_Horario.html" class="button">Horario</a>
         </div>
 
-        <!-- Contenido de Ejercicios para el Tema 3 (CSS y Grid) -->
-        <div id="tema3" class="ejercicios">
-            <h2>TEMA 3: CSS y Grid</h2>
-            <a href="CSSyGrid.html" class="button">Ejercicio CSS y Grid</a>
+        <div id="tema3" class="content">
+            <h2>Tema 3: CSS y Grid</h2>
+            <p>Ejercicios avanzados sobre diseño.</p>
+            <a href="CSSyGrid.html" class="button">CSS y Grid</a>
         </div>
     </div>
 
+    <footer>
+        &copy; 2025 Ángel Nieto Cordero. Todos los derechos reservados.
+    </footer>
+
     <script>
-        // Obtener los botones de tema
-        const btnTema1 = document.getElementById('btnTema1');
-        const btnTema2 = document.getElementById('btnTema2');
-        const btnTema3 = document.getElementById('btnTema3');
-        const btnCV = document.getElementById('btnCV');
+        // Función para alternar contenidos
+        document.querySelectorAll('.button[data-target]').forEach(button => {
+            button.addEventListener('click', () => {
+                const target = button.getAttribute('data-target');
 
-        // Obtener las secciones de los temas
-        const tema1 = document.getElementById('tema1');
-        const tema2 = document.getElementById('tema2');
-        const tema3 = document.getElementById('tema3');
+                document.querySelectorAll('.content').forEach(section => {
+                    section.classList.remove('active');
+                });
 
-        // Función para alternar la visibilidad de un tema
-        function toggleTema(tema) {
-            const temaElemento = document.getElementById(tema);
-
-            // Verificar si el tema ya está visible, si lo está, ocultarlo
-            if (temaElemento.style.display === 'block') {
-                temaElemento.style.display = 'none';
-            } else {
-                // Si no está visible, ocultar todos los demás temas y mostrar el seleccionado
-                tema1.style.display = 'none';
-                tema2.style.display = 'none';
-                tema3.style.display = 'none';
-                temaElemento.style.display = 'block';
-            }
-        }
-
-        // Añadir eventos a los botones de los temas
-        btnTema1.addEventListener('click', () => {
-            toggleTema('tema1');
-        });
-
-        btnTema2.addEventListener('click', () => {
-            toggleTema('tema2');
-        });
-
-        btnTema3.addEventListener('click', () => {
-            toggleTema('tema3');
-        });
-
-        // Acción para el botón Curriculum Vitae (Redirigir a la página)
-        btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+                if (target) {
+                    document.getElementById(target).classList.add('active');
+                }
+            });
         });
     </script>
-
 </body>
+
 </html>
