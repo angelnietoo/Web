@@ -180,7 +180,7 @@
 
         /* Contenedor de botones de los temas */
         .botones-temas {
-            display: none; /* Inicialmente ocultos */
+            display: flex;
             justify-content: space-around;
             margin-bottom: 30px;
         }
@@ -200,18 +200,15 @@
         <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
         <p class="author"><strong>LENGUAJE DE MARCAS 1 DAW</strong></p>
 
-        <!-- Botón de Curriculum Vitae -->
-        <button class="button" id="btnCV">Curriculum Vitae</button>
-
-        <!-- Botón "Temas" debajo del Curriculum Vitae -->
-        <button class="button" id="btnTemas">Temas</button>
-
-        <!-- Contenedor de botones de los temas (inicialmente ocultos) -->
-        <div class="botones-temas" id="temasContainer">
+        <!-- Contenedor de botones de los temas -->
+        <div class="botones-temas">
             <button class="button" id="btnTema1">Tema 1: Introducción al lenguaje de marcas</button>
             <button class="button" id="btnTema2">Tema 2: HTML</button>
             <button class="button" id="btnTema3">Tema 3</button>
         </div>
+
+        <!-- Botón de Curriculum Vitae -->
+        <button class="button" id="btnCV">Curriculum Vitae</button>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
@@ -245,13 +242,11 @@
     </div>
 
     <script>
-        // Obtener los botones de tema y el botón "Temas"
+        // Obtener los botones de tema
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
-        const btnTemas = document.getElementById('btnTemas');
-        const temasContainer = document.getElementById('temasContainer');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
@@ -275,16 +270,7 @@
             }
         }
 
-        // Toggle la visibilidad de los botones de los temas al hacer clic en "Temas"
-        btnTemas.addEventListener('click', () => {
-            if (temasContainer.style.display === 'none' || temasContainer.style.display === '') {
-                temasContainer.style.display = 'flex';
-            } else {
-                temasContainer.style.display = 'none';
-            }
-        });
-
-        // Añadir eventos a los botones de los temas
+        // Añadir eventos a los botones
         btnTema1.addEventListener('click', () => {
             mostrarTema('tema1');
         });
@@ -299,7 +285,7 @@
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html";
+            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
         });
     </script>
 
