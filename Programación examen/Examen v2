@@ -1,0 +1,141 @@
+import java.util.Scanner;
+
+public class GestionCoches {
+
+    public static void main(String[] args) {
+        // Crear el scanner para leer los datos desde el teclado
+        Scanner scanner = new Scanner(System.in);
+
+        // Leer la cantidad de coches que se van a registrar
+        System.out.print("¿Cuántos coches deseas introducir? ");
+        int n = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer
+
+        // Crear arreglos para almacenar los datos de los coches
+        String[] modelos = new String[n];
+        String[] marcas = new String[n];
+        String[] categorias = new String[n];
+        int[] stock = new int[n];
+        int[] potencias = new int[n];
+        String[] colores = new String[n];
+
+        // Arreglo para guardar los deportivos sin stock y con potencia superior a 200cv
+        String[] deportivosSinStock = new String[n];
+        int countDeportivosSinStock = 0;  // Contador de deportivos sin stock
+
+        // Leer los datos de los coches
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nCoche " + (i + 1));
+
+            // Leer modelo
+            System.out.print("Modelo: ");
+            modelos[i] = scanner.nextLine();
+
+            // Leer marca
+            System.out.print("Marca: ");
+            marcas[i] = scanner.nextLine();
+
+            // Validación para la categoría
+            String categoria;
+            do {
+                System.out.print("Categoría (TodoTerreno, Deportivo, Utilitario): ");
+                categoria = scanner.nextLine();
+            } while (!categoria.equalsIgnoreCase("TodoTerreno") && 
+                     !categoria.equalsIgnoreCase("Deportivo") && 
+                     !categoria.equalsIgnoreCase("Utilitario"));
+            categorias[i] = categoria;
+
+            // Leer stock
+            System.out.print("Stock: ");
+            stock[i] = scanner.nextInt();
+
+            // Leer potencia
+            System.out.print("Potencia (en caballos de vapor - cv): ");
+            potencias[i] = scanner.nextInt();
+
+            // Validación para el color
+            String color;
+            do {
+                System.out.print("Color (rojo, blanco, negro, azul): ");
+                color = scanner.next();
+            } while (!color.equalsIgnoreCase("rojo") && 
+                     !color.equalsIgnoreCase("blanco") && 
+                     !color.equalsIgnoreCase("negro") && 
+                     !color.equalsIgnoreCase("azul"));
+            colores[i] = color;
+
+            scanner.nextLine();  // Limpiar buffer para la próxima lectura
+        }
+
+        // 1. Mostrar los deportivos con stock 0 y potencia > 200cv
+        for (int i = 0; i < n; i++) {
+            if (categorias[i].equalsIgnoreCase("Deportivo") && stock[i] == 0 && potencias[i] > 200) {
+                deportivosSinStock[countDeportivosSinStock] = modelos[i] + " " + marcas[i];  // Guardar coche
+                countDeportivosSinStock++;  // Incrementar contador
+            }
+        }
+
+        // Mostrar los deportivos sin stock
+        System.out.println("\nDeportivos sin stock y potencia > 200cv:");
+        for (int i = 0; i < countDeportivosSinStock; i++) {
+            System.out.println("- " + deportivosSinStock[i]);
+        }
+
+        // 2. Contar la cantidad de coches por categoría
+        int countTodoTerreno = 0, countDeportivo = 0, countUtilitario = 0;
+        for (int i = 0; i < n; i++) {
+            switch (categorias[i].toLowerCase()) {
+                case "todoterreno":
+                    countTodoTerreno++;
+                    break;
+                case "deportivo":
+                    countDeportivo++;
+                    break;
+                case "utilitario":
+                    countUtilitario++;
+                    break;
+            }
+        }
+
+        // Mostrar el total de coches por categoría
+        System.out.println("\nCantidad de coches por categoría:");
+        System.out.println("TodoTerreno: " + countTodoTerreno);
+        System.out.println("Deportivo: " + countDeportivo);
+        System.out.println("Utilitario: " + countUtilitario);
+
+        // 3. Mostrar los modelos y marcas de coches con potencia entre 60 y 100cv y color amarillo, rojo o negro
+        System.out.println("\nModelos y marcas con potencia entre 60 y 100cv y color amarillo, rojo o negro:");
+        for (int i = 0; i < n; i++) {
+            if (potencias[i] >= 60 && potencias[i] <= 100 && 
+                (colores[i].equalsIgnoreCase("amarillo") || colores[i].equalsIgnoreCase("rojo") || colores[i].equalsIgnoreCase("negro"))) {
+                System.out.println("- " + modelos[i] + " " + marcas[i]);
+            }
+        }
+
+        // 4. Mostrar stock total de los coches de marca Citroen, y el Citroen más caro y menos potente
+        int stockTotalCitroen = 0;
+        double maxPrecioCitroen = -1;
+        int minPotenciaCitroen = Integer.MAX_VALUE;
+        String citroenMasCaro = "", citroenMenosPotente = "";
+
+        for (int i = 0; i < n; i++) {
+            if (marcas[i].equalsIgnoreCase("Citroen")) {
+                stockTotalCitroen += stock[i];  // Acumulamos el stock
+                if (potencias[i] < minPotenciaCitroen) {
+                    minPotenciaCitroen = potencias[i];
+                    citroenMenosPotente = modelos[i] + " " + marcas[i];  // Guardamos el Citroen menos potente
+                }
+                // Suponiendo que el precio es proporcional a la potencia (esto es solo un ejemplo, ya que no se pide precio explícito)
+                if (potencias[i] > maxPrecioCitroen) {
+                    maxPrecioCitroen = potencias[i];
+                    citroenMasCaro = modelos[i] + " " + marcas[i];  // Guardamos el Citroen más caro
+                }
+            }
+        }
+
+        // Mostrar la información de Citroen
+        System.out.println("\nStock total de coches Citroen: " + stockTotalCitroen);
+        System.out.println("Citroen más caro: " + citroenMasCaro);
+        System.out.println("Citroen menos potente: " + citroenMenosPotente);
+    }
+}

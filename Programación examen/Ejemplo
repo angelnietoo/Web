@@ -1,0 +1,109 @@
+import java.util.Scanner;
+
+public class TiendaDeLibros {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Leer la cantidad de libros
+        System.out.print("¿Cuántos libros deseas registrar? ");
+        int n = scanner.nextInt();
+        scanner.nextLine();  // Limpiar el buffer
+        
+        // Definir arreglos para almacenar los datos
+        String[] titulos = new String[n];
+        double[] precios = new double[n];
+        String[] categorias = new String[n];
+        int[] stock = new int[n];
+        String[] editoriales = new String[n];
+        int[] valoraciones = new int[n];
+        
+        // Leer los datos de los libros
+        for (int i = 0; i < n; i++) {
+            System.out.println("\nLibro " + (i + 1));
+            
+            System.out.print("Título: ");
+            titulos[i] = scanner.nextLine();
+            
+            System.out.print("Precio: ");
+            precios[i] = scanner.nextDouble();
+            
+            // Validación de categoría
+            String categoria;
+            do {
+                System.out.print("Categoría (Ficción, Ciencia, Historia, Fantasía): ");
+                categoria = scanner.next();
+            } while (!categoria.equalsIgnoreCase("Ficción") && 
+                     !categoria.equalsIgnoreCase("Ciencia") && 
+                     !categoria.equalsIgnoreCase("Historia") && 
+                     !categoria.equalsIgnoreCase("Fantasía"));
+            categorias[i] = categoria;
+            
+            System.out.print("Stock: ");
+            stock[i] = scanner.nextInt();
+            
+            // Validación de editorial
+            String editorial;
+            do {
+                System.out.print("Editorial (Penguin, HarperCollins, Random House, Planeta): ");
+                editorial = scanner.next();
+            } while (!editorial.equalsIgnoreCase("Penguin") && 
+                     !editorial.equalsIgnoreCase("HarperCollins") && 
+                     !editorial.equalsIgnoreCase("Random House") && 
+                     !editorial.equalsIgnoreCase("Planeta"));
+            editoriales[i] = editorial;
+            
+            System.out.print("Valoración (1-10): ");
+            valoraciones[i] = scanner.nextInt();
+            scanner.nextLine();  // Limpiar buffer
+        }
+        
+        // Calcular la media del precio
+        double sumaPrecios = 0;
+        double maxPrecio = precios[0];
+        double minPrecio = precios[0];
+        String libroCaro = titulos[0];
+        String libroBarato = titulos[0];
+        
+        for (int i = 0; i < n; i++) {
+            sumaPrecios += precios[i];
+            if (precios[i] > maxPrecio) {
+                maxPrecio = precios[i];
+                libroCaro = titulos[i];
+            }
+            if (precios[i] < minPrecio) {
+                minPrecio = precios[i];
+                libroBarato = titulos[i];
+            }
+        }
+        
+        double mediaPrecio = sumaPrecios / n;
+        System.out.println("\nMedia de precio de los libros: " + mediaPrecio);
+        System.out.println("Libro más caro: " + libroCaro + " (Precio: " + maxPrecio + ")");
+        System.out.println("Libro más barato: " + libroBarato + " (Precio: " + minPrecio + ")");
+        
+        // Mostrar los libros de la categoría Ciencia con precio > 20 y valoración > 8
+        System.out.println("\nLibros de Ciencia con precio > 20 y valoración > 8:");
+        for (int i = 0; i < n; i++) {
+            if (categorias[i].equalsIgnoreCase("Ciencia") && precios[i] > 20 && valoraciones[i] > 8) {
+                System.out.println("- " + titulos[i]);
+            }
+        }
+        
+        // Mostrar el stock total de los libros de la editorial Penguin
+        int stockTotalPenguin = 0;
+        for (int i = 0; i < n; i++) {
+            if (editoriales[i].equalsIgnoreCase("Penguin")) {
+                stockTotalPenguin += stock[i];
+            }
+        }
+        System.out.println("\nStock total de los libros de Penguin: " + stockTotalPenguin);
+        
+        // Guardar y mostrar los libros que empiecen con 'A', tengan stock < 5 y valoración > 7
+        System.out.println("\nLibros a reordenar (Título empieza con 'A', stock < 5 y valoración > 7):");
+        for (int i = 0; i < n; i++) {
+            if (titulos[i].toLowerCase().startsWith("a") && stock[i] < 5 && valoraciones[i] > 7) {
+                System.out.println("- " + titulos[i]);
+            }
+        }
+    }
+}
