@@ -273,38 +273,42 @@
   </style>
 </head>
 <body>
+
+  <!-- Barra de navegación -->
   <header>
     <nav>
       <div class="logo">
         <h1>Brújula Social</h1>
       </div>
       <ul class="menu">
-        <li><a href="#">Inicio</a></li>
-        <li><a href="#">Nosotros</a></li>
-        <li><a href="#">Servicios</a></li>
-        <li><a href="#">Blog</a></li>
-        <li><a href="#">Contacto</a></li>
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
   </header>
 
-  <section class="hero">
+  <!-- Hero Section -->
+  <section id="inicio" class="hero">
     <div class="hero-content">
       <h2>Impulsa tu impacto social</h2>
       <p>Conoce nuestras soluciones innovadoras para tu comunidad.</p>
-      <a href="#" class="cta-btn">Únete Ahora</a>
+      <a href="#contacto" class="cta-btn">Únete Ahora</a>
     </div>
   </section>
 
-  <section class="about">
+  <!-- Sobre Nosotros -->
+  <section id="nosotros" class="about">
     <div class="container">
       <h2>¿Quiénes somos?</h2>
       <p>En Brújula Social, trabajamos para transformar el impacto social a través de ideas creativas y estrategias efectivas. Nos enfocamos en generar un cambio positivo en tu comunidad.</p>
-      <p>Nuestra misión es ayudar a organizaciones, empresas y personas a generar un verdadero cambio social mediante la planificación, ejecución y seguimiento de proyectos orientados al bienestar común. Creemos en el poder de las personas y en la capacidad de generar un impacto positivo, por eso, te acompañamos en cada paso del camino.</p>
     </div>
   </section>
 
-  <section class="services">
+  <!-- Servicios -->
+  <section id="servicios" class="services">
     <div class="container">
       <h2>Nuestros Servicios</h2>
       <div class="service-card">
@@ -322,7 +326,8 @@
     </div>
   </section>
 
-  <section class="testimonials">
+  <!-- Testimonios -->
+  <section id="testimonios" class="testimonials">
     <h2>Testimonios</h2>
     <div class="testimonial-card">
       <p>"Brújula Social nos ayudó a llevar nuestro proyecto al siguiente nivel. Su enfoque innovador y estratégico fue clave para que alcanzáramos nuestros objetivos."</p>
@@ -334,9 +339,10 @@
     </div>
   </section>
 
-  <section class="contact">
+  <!-- Contacto -->
+  <section id="contacto" class="contact">
     <h2>Contacto</h2>
-    <form action="#" method="POST">
+    <form id="formulario" action="javascript:void(0);" onsubmit="enviarFormulario()">
       <input type="text" name="nombre" placeholder="Tu Nombre" required>
       <input type="email" name="email" placeholder="Tu Email" required>
       <textarea name="mensaje" rows="5" placeholder="Tu Mensaje" required></textarea>
@@ -344,15 +350,25 @@
     </form>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <p>&copy; 2025 Brújula Social. Todos los derechos reservados.</p>
       <ul class="social-icons">
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Instagram</a></li>
+        <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
+        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
       </ul>
     </div>
   </footer>
+
+  <script>
+    // Función para enviar el formulario
+    function enviarFormulario() {
+      alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
+      document.getElementById('formulario').reset();
+    }
+  </script>
+
 </body>
 </html>
