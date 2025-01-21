@@ -13,10 +13,11 @@
     }
 
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       background-color: #f4f4f4;
       color: #333;
       line-height: 1.6;
+      overflow-x: hidden; /* Evitar desplazamiento horizontal */
     }
 
     /* Estilo del header */
@@ -36,8 +37,15 @@
     }
 
     header nav .logo img {
-      width: 150px; /* Ajusta el tamaño del logo según sea necesario */
-      height: auto;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%; /* Hace el logo redondo */
+      border: 3px solid #ffbf00; /* Borde dorado para resaltar el logo */
+      transition: transform 0.3s ease; /* Transición al hacer hover */
+    }
+
+    header nav .logo img:hover {
+      transform: scale(1.1); /* Efecto de agrandar al hacer hover */
     }
 
     header nav .menu {
@@ -53,6 +61,7 @@
       color: white;
       text-decoration: none;
       font-weight: bold;
+      font-size: 1.1rem;
       transition: color 0.3s;
     }
 
@@ -76,6 +85,8 @@
     .hero .hero-content h2 {
       font-size: 3rem;
       margin-bottom: 10px;
+      font-family: 'Arial', sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
     }
 
     .hero .hero-content p {
@@ -84,17 +95,18 @@
     }
 
     .hero .cta-btn {
-      padding: 10px 30px;
+      padding: 12px 40px;
       background-color: #ffbf00;
       color: white;
       text-decoration: none;
       font-size: 1.2rem;
       border-radius: 5px;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     .hero .cta-btn:hover {
       background-color: #ff8a00;
+      transform: translateY(-5px); /* Efecto de desplazamiento al hacer hover */
     }
 
     /* Estilo sección sobre nosotros */
@@ -102,6 +114,7 @@
       padding: 50px 20px;
       background-color: #fff;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
     }
 
     .about .container {
@@ -112,11 +125,13 @@
     .about h2 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+      font-family: 'Arial', sans-serif;
     }
 
     .about p {
       font-size: 1.2rem;
       color: #666;
+      margin-bottom: 20px;
     }
 
     /* Estilo sección de servicios */
@@ -124,6 +139,7 @@
       padding: 50px 20px;
       background-color: #f4f4f4;
       text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .services .container {
@@ -134,6 +150,8 @@
     .services h2 {
       font-size: 2.5rem;
       margin-bottom: 40px;
+      color: #333;
+      font-family: 'Arial', sans-serif;
     }
 
     .service-card {
@@ -142,11 +160,17 @@
       margin: 20px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease; /* Transición al pasar el cursor */
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px); /* Efecto de elevación */
     }
 
     .service-card h3 {
       font-size: 1.8rem;
       margin-bottom: 10px;
+      color: #333;
     }
 
     .service-card p {
@@ -164,6 +188,8 @@
     .testimonials h2 {
       font-size: 2.5rem;
       margin-bottom: 40px;
+      color: #333;
+      font-family: 'Arial', sans-serif;
     }
 
     .testimonial-card {
@@ -278,8 +304,8 @@
   <header>
     <nav>
       <div class="logo">
-        <!-- Logo de Brújula Social -->
-        <img src="LogoBrujula.jpg" alt="Logo de Brújula Social">
+        <!-- Logo redondeado -->
+        <img src="LogoBrujula.png" alt="Logo de Brújula Social">
       </div>
       <ul class="menu">
         <li><a href="#inicio">Inicio</a></li>
@@ -333,6 +359,10 @@
     <div class="testimonial-card">
       <p>"Brújula Social nos ayudó a llevar nuestro proyecto al siguiente nivel. Su enfoque innovador y estratégico fue clave para que alcanzáramos nuestros objetivos."</p>
       <span>María López, Directora de Fundación X</span>
+    </div>
+    <div class="testimonial-card">
+      <p>"Gracias a su capacitación, nuestro equipo está más comprometido y preparado para generar un cambio real en nuestra comunidad. Recomendados al 100%."</p>
+      <span>Carlos Gómez, Líder Comunitario</span>
     </div>
   </section>
 
