@@ -35,9 +35,9 @@
       padding: 0 20px;
     }
 
-    header nav .logo h1 {
-      font-size: 2rem;
-      letter-spacing: 2px;
+    header nav .logo img {
+      width: 150px; /* Ajusta el tamaño del logo según sea necesario */
+      height: auto;
     }
 
     header nav .menu {
@@ -278,7 +278,8 @@
   <header>
     <nav>
       <div class="logo">
-        <h1>Brújula Social</h1>
+        <!-- Logo de Brújula Social -->
+        <img src="LogoBrujula.png" alt="Logo de Brújula Social">
       </div>
       <ul class="menu">
         <li><a href="#inicio">Inicio</a></li>
@@ -333,16 +334,12 @@
       <p>"Brújula Social nos ayudó a llevar nuestro proyecto al siguiente nivel. Su enfoque innovador y estratégico fue clave para que alcanzáramos nuestros objetivos."</p>
       <span>María López, Directora de Fundación X</span>
     </div>
-    <div class="testimonial-card">
-      <p>"Gracias a su capacitación, nuestro equipo está más comprometido y preparado para generar un cambio real en nuestra comunidad. Recomendados al 100%."</p>
-      <span>Carlos Gómez, Líder Comunitario</span>
-    </div>
   </section>
 
   <!-- Contacto -->
   <section id="contacto" class="contact">
     <h2>Contacto</h2>
-    <form id="formulario" action="javascript:void(0);" onsubmit="enviarFormulario()">
+    <form action="#" method="POST">
       <input type="text" name="nombre" placeholder="Tu Nombre" required>
       <input type="email" name="email" placeholder="Tu Email" required>
       <textarea name="mensaje" rows="5" placeholder="Tu Mensaje" required></textarea>
@@ -355,20 +352,12 @@
     <div class="footer-content">
       <p>&copy; 2025 Brújula Social. Todos los derechos reservados.</p>
       <ul class="social-icons">
-        <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
-        <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
-        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Twitter</a></li>
+        <li><a href="#">Instagram</a></li>
       </ul>
     </div>
   </footer>
-
-  <script>
-    // Función para enviar el formulario
-    function enviarFormulario() {
-      alert('¡Gracias por tu mensaje! Nos pondremos en contacto pronto.');
-      document.getElementById('formulario').reset();
-    }
-  </script>
 
 </body>
 </html>
