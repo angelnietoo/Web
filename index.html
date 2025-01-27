@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -159,24 +158,6 @@
             margin-top: 20px;
             font-style: italic;
         }
-        
-        /* Ocultar las listas inicialmente */
-        .ejercicios {
-            display: none;
-        }
-
-        /* Diseño de tres columnas */
-        .columnas {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-            gap: 20px; /* Espacio entre columnas */
-            text-align: center;
-        }
-
-        .columnas a {
-            display: block;
-            text-align: center;
-        }
 
         /* Contenedor de botones de los temas */
         .botones-temas {
@@ -207,8 +188,11 @@
             <button class="button" id="btnTema3">Tema 3</button>
         </div>
 
-        <!-- Botón de Curriculum Vitae -->
-        <button class="button" id="btnCV">Curriculum Vitae</button>
+        <!-- Botones de Curriculum Vitae y Brújula Social -->
+        <div class="botones-temas">
+            <button class="button" id="btnCV">Curriculum Vitae</button>
+            <button class="button" id="btnBrujula">Brújula Social</button>
+        </div>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
@@ -247,6 +231,7 @@
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
+        const btnBrujula = document.getElementById('btnBrujula');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
@@ -285,6 +270,11 @@
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
             window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+        });
+
+        // Acción para el botón Brújula Social (Redirigir a la página)
+        btnBrujula.addEventListener('click', () => {
+            window.location.href = "BrujulaSocial.html"; // Redirige a la página
         });
     </script>
 
