@@ -1,10 +1,10 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brújula Social</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Aquí se añade Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> 
   <style>
     /* Reset de estilo básico */
     * {
@@ -15,7 +15,7 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #e8f7f0; /* Fondo claro y fresco */
+      background-color: #e8f7f0;
       color: #333;
       line-height: 1.6;
       overflow-x: hidden;
@@ -23,12 +23,12 @@
 
     /* Estilo común para todas las secciones */
     section {
-      padding: 50px 20px;
+      padding: 60px 20px;
     }
 
     /* Estilo del header */
     header {
-      background-color: #4b8e8b; /* Verde más suave */
+      background-color: #4b8e8b;
       padding: 20px 0;
       color: white;
     }
@@ -128,19 +128,24 @@
       background-color: white;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
-      margin-bottom: 40px; /* Espacio entre secciones */
+      margin-bottom: 40px;
       border-radius: 8px;
     }
 
-    /* Sección de nosotros */
-    .about .container {
-      max-width: 1100px;
+    .container {
+      max-width: 1200px;
       margin: 0 auto;
     }
 
-    .about h2, .services h2, .testimonials h2 {
+    /* Títulos */
+    h2 {
       font-size: 2.5rem;
       margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 2rem;
+      margin-top: 20px;
     }
 
     /* Servicios */
@@ -149,9 +154,6 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 2rem;
       justify-items: center;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
     }
 
     .service-card {
@@ -164,7 +166,6 @@
       transition: transform 0.3s ease-in-out;
       width: 100%;
       max-width: 350px;
-      margin: 0 auto; /* Centrando las tarjetas */
     }
 
     .service-card:hover {
@@ -205,7 +206,7 @@
       max-width: 500px;
       flex-shrink: 0;
       width: 100%;
-      margin-bottom: 20px; /* Espacio entre testimonios */
+      margin-bottom: 20px;
     }
 
     .testimonial-card p {
@@ -288,6 +289,30 @@
       color: #ffbf00;
     }
 
+    /* Mejora de la responsividad */
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .cta-btn {
+        font-size: 1.1rem;
+        padding: 10px 30px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .service-card {
+        max-width: 90%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -331,6 +356,14 @@
 
       <h3>Valores</h3>
       <p>Compromiso, colaboración, innovación, sostenibilidad y transparencia son los valores que guían cada uno de nuestros proyectos.</p>
+
+      <h3>Nuestros Valores Fundamentales</h3>
+      <p>La asociación Brújula Gabinete Socioeducativo y Psicológico, lleva desde 2014 trabajando con un gran equipo de profesionales de la audición y lenguaje, la pedagogía, la psicología y la orientación familiar.</p>
+      <p>Luchamos por una sociedad en la que todas las personas podamos disfrutar de una vida completa sin barreras sociales, económicas, culturales, ideológicas, etc. Por ello, la inclusión, la solidaridad, la lucha por la igualdad, los derechos humanos y el derecho a la salud mental son nuestros pilares fundamentales.</p>
+      <p>Necesitamos hacer un gran trabajo de sensibilización social incidiendo, sobre todo, en la población infantojuvenil. Crear comunidad y hacer que las personas se sientan valoradas con una red social sólida posibilita que, la persona se empodere y participe en su proyecto personal de manera activa, con el fin de lograr su autonomía.</p>
+      
+      <!-- Foto debajo del texto -->
+      <img src="historiaBS.jpg" alt="Foto de Brújula Social" style="width: 100%; max-width: 600px; margin-top: 20px; border-radius: 8px;">
     </div>
   </section>
 
