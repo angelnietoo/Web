@@ -207,8 +207,11 @@
             <button class="button" id="btnTema3">Tema 3</button>
         </div>
 
-        <!-- Botón de Curriculum Vitae -->
-        <button class="button" id="btnCV">Curriculum Vitae</button>
+        <!-- Contenedor de botones "Curriculum Vitae" y "Brújula Social" -->
+        <div class="botones-temas">
+            <button class="button" id="btnCV">Curriculum Vitae</button>
+            <button class="button" id="btnBrujulaSocial">Brújula Social</button>
+        </div>
 
         <!-- Contenido de Ejercicios para el Tema 1 -->
         <div id="tema1" class="ejercicios">
@@ -247,6 +250,7 @@
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
+        const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
 
         // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
@@ -285,6 +289,11 @@
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
             window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+        });
+
+        // Acción para el botón Brújula Social (Redirigir a la página)
+        btnBrujulaSocial.addEventListener('click', () => {
+            window.location.href = "BrujulaSocial.html"; // Redirige a la página
         });
     </script>
 
