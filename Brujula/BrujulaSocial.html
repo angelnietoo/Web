@@ -144,9 +144,11 @@
     /* Servicios */
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajusta el número de columnas automáticamente */
       gap: 2rem;
-      justify-items: center;
+      justify-items: center; /* Esto centra los elementos dentro de cada celda */
+      align-items: center; /* Centra los elementos verticalmente */
+      text-align: center; /* Centra el texto dentro de cada tarjeta de servicio */
     }
 
     .service-card {
