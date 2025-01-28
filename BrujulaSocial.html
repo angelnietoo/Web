@@ -124,7 +124,7 @@
     }
 
     /* Sección con sombra */
-    .about, .services, .testimonials, .contact {
+    .about, .services, .testimonials, .contact, .faq {
       background-color: white;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       text-align: center;
@@ -146,6 +146,32 @@
     h3 {
       font-size: 2rem;
       margin-top: 20px;
+    }
+
+    /* FAQ Estilo */
+    .faq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .faq-item {
+      background-color: #f7f7f7;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .faq-question {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .faq-answer {
+      font-size: 1rem;
+      color: #555;
     }
 
     /* Servicios */
@@ -329,6 +355,7 @@
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#testimonios">Testimonios</a></li>
         <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#faq">FAQ</a></li>
       </ul>
     </nav>
   </header>
@@ -347,7 +374,6 @@
     <div class="container">
       <h2>¿Quiénes somos?</h2>
       <p>En Brújula Social, trabajamos para transformar el impacto social a través de ideas creativas y estrategias efectivas. Nos enfocamos en generar un cambio positivo en tu comunidad.</p>
-
       <h3>Misión</h3>
       <p>Brújula Social tiene como misión fomentar el desarrollo y bienestar de las comunidades a través de soluciones innovadoras que generen un impacto real y positivo.</p>
 
@@ -357,7 +383,7 @@
       <h3>Valores</h3>
       <p>Compromiso, colaboración, innovación, sostenibilidad y transparencia son los valores que guían cada uno de nuestros proyectos.</p>
 
-      <h3>Nuestros Valores Fundamentales</h3>
+      <h3>Historia</h3>
       <p>La asociación Brújula Gabinete Socioeducativo y Psicológico, lleva desde 2014 trabajando con un gran equipo de profesionales de la audición y lenguaje, la pedagogía, la psicología y la orientación familiar.</p>
       <p>Luchamos por una sociedad en la que todas las personas podamos disfrutar de una vida completa sin barreras sociales, económicas, culturales, ideológicas, etc. Por ello, la inclusión, la solidaridad, la lucha por la igualdad, los derechos humanos y el derecho a la salud mental son nuestros pilares fundamentales.</p>
       <p>Necesitamos hacer un gran trabajo de sensibilización social incidiendo, sobre todo, en la población infantojuvenil. Crear comunidad y hacer que las personas se sientan valoradas con una red social sólida posibilita que, la persona se empodere y participe en su proyecto personal de manera activa, con el fin de lograr su autonomía.</p>
@@ -429,16 +455,38 @@
     </form>
   </section>
 
+  <!-- FAQ (Preguntas Frecuentes) -->
+  <section id="faq" class="faq">
+    <div class="container">
+      <h2 class="section-title">Preguntas Frecuentes</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">¿Trabajamos psicología adulta?</div>
+          <div class="faq-answer">Sí, desde Brújula Gabinete Socioeducativo trabajamos con adultos, brindando atención personalizada y apoyo psicológico para el bienestar emocional.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">¿Realizáis informes y diagnósticos específicos?</div>
+          <div class="faq-answer">Sí, desde Brújula Gabinete Socioeducativo realizamos informes y diagnósticos específicos en el área educativa y psicológica.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">¿Puedo acceder a tus servicios desde cualquier parte del mundo?</div>
+          <div class="faq-answer">Sí, nuestros servicios están disponibles tanto presencialmente como a través de plataformas digitales para brindar atención a personas en cualquier parte del mundo.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">¿Cuánto dura una consulta psicológica?</div>
+          <div class="faq-answer">La duración de una consulta psicológica generalmente es de 50 a 60 minutos, dependiendo del tipo de sesión y las necesidades del paciente.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
-    <div class="footer-content">
-      <p>&copy; 2025 Brújula Social. Todos los derechos reservados.</p>
-      <ul class="social-icons">
-        <li><a href="https://www.facebook.com/asociacionbrujula/?locale=es_ES"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-        <li><a href="https://x.com/b_brujula"><i class="fab fa-twitter"></i> Twitter</a></li>
-        <li><a href="https://www.instagram.com/brujulagabinete/"><i class="fab fa-instagram"></i> Instagram</a></li>
-      </ul>
-    </div>
+    <p>&copy; 2025 Brújula Social. Todos los derechos reservados.</p>
+    <ul class="social-icons">
+      <li><a href="https://twitter.com/?lang=es"><i class="fab fa-twitter"></i> Twitter</a></li>
+      <li><a href="https://www.instagram.com/bs.sociosedu/?hl=es"><i class="fab fa-instagram"></i> Instagram</a></li>
+    </ul>
   </footer>
 
 </body>
