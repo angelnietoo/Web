@@ -9,7 +9,7 @@
 </head>
 <body>
   
-<div class="container p-5 my-5 bg-danger text-black border">
+<div class="container p-5 my-5 bg-danger text-dark border">
   <h1>My First Bootstrap Page</h1>
   <p>This container has a red background color, a border, and some extra padding and margins.</p>
 </div>
