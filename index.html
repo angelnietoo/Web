@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: auto; /* Permitir desplazamiento */
+            overflow: auto;
             background: linear-gradient(45deg, #1e1e1e, #121212);
         }
 
@@ -29,7 +30,6 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
             text-align: center;
             position: relative;
-            z-index: 1;
             animation: fadeIn 1s ease-out;
         }
 
@@ -54,20 +54,6 @@
             text-shadow: 0 0 15px rgba(76, 175, 80, 0.6), 0 0 30px rgba(76, 175, 80, 0.4);
             letter-spacing: 2px;
             text-transform: uppercase;
-            animation: fadeInTitle 1s ease-out;
-        }
-
-        /* Animación del título */
-        @keyframes fadeInTitle {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         h2 {
@@ -158,7 +144,7 @@
             margin-top: 20px;
             font-style: italic;
         }
-        
+
         /* Ocultar las listas inicialmente */
         .ejercicios {
             display: none;
@@ -298,4 +284,5 @@
     </script>
 
 </body>
+
 </html>
