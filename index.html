@@ -46,6 +46,15 @@
             }
         }
 
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
         h1 {
             font-size: 3.5em;
             color: #00b0ff; /* Azul brillante */
@@ -54,6 +63,18 @@
             text-shadow: 0 0 15px rgba(0, 176, 255, 0.6), 0 0 30px rgba(0, 176, 255, 0.4);
             letter-spacing: 2px;
             text-transform: uppercase;
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         h2 {
@@ -62,6 +83,7 @@
             margin-top: 40px;
             text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
             font-weight: bold;
+            animation: slideUp 1s ease-out;
         }
 
         p {
@@ -88,6 +110,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
             transition: all 0.4s ease;
             letter-spacing: 1px;
+            animation: bounce 0.6s ease-out;
         }
 
         .button::before {
@@ -148,6 +171,18 @@
         /* Ocultar las listas inicialmente */
         .ejercicios {
             display: none;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Diseño de tres columnas */
@@ -227,7 +262,6 @@
             <h2>TEMA 3: CSS y Grid</h2>
             <a href="CSSyGrid.html" class="button">Ejercicio CSS y Grid</a>
             <a href="Bootstrap_Ej1.html" class="button">Ejercicio Boostrap_1</a>
-            <!-- Añadido el nuevo botón "Ejercicio Bootstrap 2" -->
             <a href="Bootstrap_Ej2.html" class="button">Ejercicio Bootstrap 2</a>
         </div>
     </div>
