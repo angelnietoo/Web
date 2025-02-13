@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de JavaScript Incrustado</title>
+</head>
+<body>
+
+    <h2>Incrustando JavaScript</h2>
+    <p>El siguiente número se muestra mediante JavaScript:</p>
+    
+    <script>
+        "use strict";
+        let una_variable;
+        una_variable = 42;
+        document.write("<p>El valor de la variable es: " + una_variable + "</p>");
+    </script>
+
+</body>
+</html>
