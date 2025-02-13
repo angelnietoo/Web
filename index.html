@@ -229,15 +229,7 @@
             color: #f1f1f1;
         }
 
-        .sidebar .close-btn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-            color: white;
-        }
-
+        /* Botón de abrir la barra lateral */
         .open-sidebar-btn {
             position: absolute;
             top: 20px;
@@ -306,48 +298,43 @@
 
     <!-- Barra lateral -->
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="close-btn" onclick="closeNav()">×</a>
         <a href="#">Enlace 1</a>
         <a href="#">Enlace 2</a>
         <a href="#">Enlace 3</a>
         <a href="#">Enlace 4</a>
     </div>
 
-    <!-- Botón para abrir la barra lateral -->
-    <span class="open-sidebar-btn" onclick="openNav()">☰</span>
+    <!-- Botón para abrir y cerrar la barra lateral -->
+    <span class="open-sidebar-btn" onclick="toggleNav()">☰</span>
 
     <script>
-        // Función para abrir la barra lateral
-        function openNav() {
-            document.getElementById("mySidebar").style.width = "250px";
+        // Función para alternar abrir y cerrar la barra lateral
+        function toggleNav() {
+            const sidebar = document.getElementById("mySidebar");
+            if (sidebar.style.width === "250px") {
+                sidebar.style.width = "0";
+            } else {
+                sidebar.style.width = "250px";
+            }
         }
-
-        // Función para cerrar la barra lateral
-        function closeNav() {
-            document.getElementById("mySidebar").style.width = "0";
-        }
-
-        // Obtener los botones de tema
+        
+        // Función para alternar la visibilidad de un tema
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
         const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
 
-        // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
         const tema2 = document.getElementById('tema2');
         const tema3 = document.getElementById('tema3');
 
-        // Función para alternar la visibilidad de un tema
         function toggleTema(tema) {
             const temaElemento = document.getElementById(tema);
 
-            // Verificar si el tema ya está visible, si lo está, ocultarlo
             if (temaElemento.style.display === 'block') {
                 temaElemento.style.display = 'none';
             } else {
-                // Si no está visible, ocultar todos los demás temas y mostrar el seleccionado
                 tema1.style.display = 'none';
                 tema2.style.display = 'none';
                 tema3.style.display = 'none';
@@ -355,7 +342,6 @@
             }
         }
 
-        // Añadir eventos a los botones de los temas
         btnTema1.addEventListener('click', () => {
             toggleTema('tema1');
         });
@@ -368,14 +354,12 @@
             toggleTema('tema3');
         });
 
-        // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+            window.location.href = "Curriculum Vitae.html";
         });
 
-        // Acción para el botón Brújula Social (Redirigir a la página)
         btnBrujulaSocial.addEventListener('click', () => {
-            window.location.href = "BrujulaSocial.html"; // Redirige a la página
+            window.location.href = "BrujulaSocial.html";
         });
     </script>
 
