@@ -46,6 +46,15 @@
             }
         }
 
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
         h1 {
             font-size: 3.5em;
             color: #00b0ff; /* Azul brillante */
@@ -201,45 +210,6 @@
             margin: 0 10px;
         }
 
-        /* Barra lateral */
-        .sidebar {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            top: 0;
-            right: 0;
-            background-color: #333;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
-            color: white;
-            z-index: 1; /* Asegurarse de que la barra lateral no cubra el contenido */
-        }
-
-        .sidebar a {
-            padding: 8px 8px 8px 32px;
-            text-decoration: none;
-            font-size: 1.5em;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .sidebar a:hover {
-            color: #f1f1f1;
-        }
-
-        /* Botón de abrir la barra lateral */
-        .open-sidebar-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 36px;
-            color: white;
-            cursor: pointer;
-            z-index: 2;
-        }
-
     </style>
 </head>
 
@@ -296,45 +266,28 @@
         </div>
     </div>
 
-    <!-- Barra lateral -->
-    <div id="mySidebar" class="sidebar">
-        <a href="#">Enlace 1</a>
-        <a href="#">Enlace 2</a>
-        <a href="#">Enlace 3</a>
-        <a href="#">Enlace 4</a>
-    </div>
-
-    <!-- Botón para abrir y cerrar la barra lateral -->
-    <span class="open-sidebar-btn" onclick="toggleNav()">☰</span>
-
     <script>
-        // Función para alternar abrir y cerrar la barra lateral
-        function toggleNav() {
-            const sidebar = document.getElementById("mySidebar");
-            if (sidebar.style.width === "250px") {
-                sidebar.style.width = "0";
-            } else {
-                sidebar.style.width = "250px";
-            }
-        }
-        
-        // Función para alternar la visibilidad de un tema
+        // Obtener los botones de tema
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
         const btnCV = document.getElementById('btnCV');
         const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
 
+        // Obtener las secciones de los temas
         const tema1 = document.getElementById('tema1');
         const tema2 = document.getElementById('tema2');
         const tema3 = document.getElementById('tema3');
 
+        // Función para alternar la visibilidad de un tema
         function toggleTema(tema) {
             const temaElemento = document.getElementById(tema);
 
+            // Verificar si el tema ya está visible, si lo está, ocultarlo
             if (temaElemento.style.display === 'block') {
                 temaElemento.style.display = 'none';
             } else {
+                // Si no está visible, ocultar todos los demás temas y mostrar el seleccionado
                 tema1.style.display = 'none';
                 tema2.style.display = 'none';
                 tema3.style.display = 'none';
@@ -342,6 +295,7 @@
             }
         }
 
+        // Añadir eventos a los botones de los temas
         btnTema1.addEventListener('click', () => {
             toggleTema('tema1');
         });
@@ -354,12 +308,14 @@
             toggleTema('tema3');
         });
 
+        // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html";
+            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
         });
 
+        // Acción para el botón Brújula Social (Redirigir a la página)
         btnBrujulaSocial.addEventListener('click', () => {
-            window.location.href = "BrujulaSocial.html";
+            window.location.href = "BrujulaSocial.html"; // Redirige a la página
         });
     </script>
 
