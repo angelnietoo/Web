@@ -8,7 +8,7 @@
 <body>
 
     <h2>Incrustando JavaScript</h2>
-    <p>El siguiente número se muestra mediante JavaScript:</p>
+    <p>Esta es una página web de HTML con JavaScript:</p>
     
     <script>
         "use strict";
@@ -17,5 +17,33 @@
         document.write("<p>El valor de la variable es: " + una_variable + "</p>");
     </script>
 
+    <h2>Decisiones</h2>
+    <script>
+        "use strict";
+        let otra_variable = 30;
+        if (una_variable > otra_variable) {
+            document.write("<p>La primera es mayor que la segunda</p>");
+        } else {
+            document.write("<p>La segunda es mayor que la primera</p>");
+        }
+    </script>
+
+    <h2>Vectores o Arrays</h2>
+    <script>
+        "use strict";
+        /* Una forma de crear un array */
+        let vector_nombres = new Array();
+        vector_nombres[0] = "Juan Perez";
+        vector_nombres[1] = "Pedro Díaz";
+        document.write("<p>El primer nombre es: " + vector_nombres[0] + "</p>");
+
+        /* Otra forma de crearlos */
+        let vector_numeros = new Array(2);
+        vector_numeros[0] = 23;
+        vector_numeros[1] = -45.23;
+        vector_numeros[2] = 45e2;
+        document.write("<p>El primer número es: " + vector_numeros[0] + "</p>");
+    </script>
+    
 </body>
 </html>
