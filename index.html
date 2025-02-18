@@ -225,6 +225,7 @@
             <button class="button" id="btnTema1">Tema 1</button>
             <button class="button" id="btnTema2">Tema 2</button>
             <button class="button" id="btnTema3">Tema 3</button>
+            <button class="button" id="btnTema4">Tema 4</button> <!-- Nuevo botón Tema 4 -->
         </div>
 
         <!-- Contenedor de botones "Curriculum Vitae" y "Brújula Social" -->
@@ -264,6 +265,15 @@
             <a href="Bootstrap_Ej1.html" class="button">Ejercicio Boostrap 1</a>
             <a href="Bootstrap_Ej2.html" class="button">Ejercicio Bootstrap 2</a>
         </div>
+
+        <!-- Contenido de Ejercicios para el Tema 4 (JavaScript) -->
+        <div id="tema4" class="ejercicios">
+            <h2>TEMA 4: JavaScript</h2>
+            <div class="columnas">
+                <a href="ejercicio1.js" class="button">Ejercicio 1</a>
+                <a href="ejercicio2.js" class="button">Ejercicio 2</a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -271,6 +281,7 @@
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
+        const btnTema4 = document.getElementById('btnTema4'); // Nuevo botón Tema 4
         const btnCV = document.getElementById('btnCV');
         const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
 
@@ -278,6 +289,7 @@
         const tema1 = document.getElementById('tema1');
         const tema2 = document.getElementById('tema2');
         const tema3 = document.getElementById('tema3');
+        const tema4 = document.getElementById('tema4'); // Nueva sección para Tema 4
 
         // Función para alternar la visibilidad de un tema
         function toggleTema(tema) {
@@ -291,6 +303,7 @@
                 tema1.style.display = 'none';
                 tema2.style.display = 'none';
                 tema3.style.display = 'none';
+                tema4.style.display = 'none'; // Asegurarse de ocultar Tema 4 si es necesario
                 temaElemento.style.display = 'block';
             }
         }
@@ -306,6 +319,10 @@
 
         btnTema3.addEventListener('click', () => {
             toggleTema('tema3');
+        });
+
+        btnTema4.addEventListener('click', () => { // Evento para Tema 4
+            toggleTema('tema4');
         });
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
