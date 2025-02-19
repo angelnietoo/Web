@@ -1,5 +1,5 @@
 function contarParesImpares() {
-    let numeros = [];
+    let numeros: number[] = [];
     let pares = 0;
     let impares = 0;
     
