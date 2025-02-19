@@ -8,28 +8,28 @@
 <body>
     <h1>Contar Números Pares e Impares</h1>
     <input type="number" id="numeroInput" placeholder="Introduce un número">
-    <button onclick="agregarNumero()">Agregar Número</button>
-    <button onclick="contarParesImpares()">Mostrar Resultados</button>
+    <button onclick="agregarNumero()">Agregar</button>
+    <button onclick="contarParesImpares()">Contar</button>
     <p id="resultado"></p>
     
     <script>
-        let numeros = [];
-        
+        let pares = 0;
+        let impares = 0;
+
         function agregarNumero() {
-            let entrada = document.getElementById("numeroInput").value;
-            let numero = parseInt(entrada);
-            
-            if (!isNaN(numero) && numero !== 0) {
-                numeros.push(numero);
+            let numero = parseInt(document.getElementById("numeroInput").value);
+            if (!isNaN(numero)) {
+                if (numero % 2 === 0) {
+                    pares++;
+                } else {
+                    impares++;
+                }
                 document.getElementById("numeroInput").value = "";
             }
         }
         
         function contarParesImpares() {
-            let pares = numeros.filter(n => n % 2 === 0).length;
-            let impares = numeros.filter(n => n % 2 !== 0).length;
-            
-            document.getElementById("resultado").innerText = `Cantidad de números pares: ${pares}\nCantidad de números impares: ${impares}`;
+            document.getElementById("resultado").innerText = `Pares: ${pares}, Impares: ${impares}`;
         }
     </script>
 </body>
