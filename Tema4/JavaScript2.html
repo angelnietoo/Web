@@ -1,13 +1,20 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sumatorio de un Vector</title>
+    <style>
+        /* Estilo para alinear el botón a la derecha */
+        .recargar-btn {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body>
 
     <h2>Sumatorio de un Vector de 100 Números</h2>
+    
     <script>
         "use strict";
         
@@ -22,6 +29,7 @@
         
         // Mostrar el resultado en la página
         document.write("<p>La suma de los 100 números aleatorios es: " + sumatorio + "</p>");
+        document.write('<button class="recargar-btn" onclick="location.reload()">Nuevo número</button>');
     </script>
     
 </body>
