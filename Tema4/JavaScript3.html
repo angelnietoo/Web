@@ -7,42 +7,29 @@
 </head>
 <body>
     <h1>Contar Números Pares e Impares</h1>
-    <button onclick="contarParesImpares()">Iniciar conteo</button>
+    <input type="number" id="numeroInput" placeholder="Introduce un número">
+    <button onclick="agregarNumero()">Agregar Número</button>
+    <button onclick="contarParesImpares()">Mostrar Resultados</button>
+    <p id="resultado"></p>
+    
     <script>
-        function contarParesImpares() {
-            let numeros = [];
-            let pares = 0;
-            let impares = 0;
+        let numeros = [];
+        
+        function agregarNumero() {
+            let entrada = document.getElementById("numeroInput").value;
+            let numero = parseInt(entrada);
             
-            while (true) {
-                let entrada = prompt("Introduce un número (0 para terminar):");
-                if (entrada === null || entrada.trim() === "") {
-                    continue;
-                }
-                
-                let numero = parseInt(entrada);
-                
-                if (isNaN(numero) || numero === 0) {
-                    break;
-                }
-                
+            if (!isNaN(numero) && numero !== 0) {
                 numeros.push(numero);
-                if (numero % 2 === 0) {
-                    pares++;
-                } else {
-                    impares++;
-                }
+                document.getElementById("numeroInput").value = "";
             }
+        }
+        
+        function contarParesImpares() {
+            let pares = numeros.filter(n => n % 2 === 0).length;
+            let impares = numeros.filter(n => n % 2 !== 0).length;
             
-            if (numeros.length > 0) {
-                console.log("Array de entrada:", numeros);
-                console.log("Cantidad de números pares:", pares);
-                console.log("Cantidad de números impares:", impares);
-                alert(`Cantidad de números pares: ${pares}\nCantidad de números impares: ${impares}`);
-            } else {
-                console.log("No se ingresaron números válidos.");
-                alert("No se ingresaron números válidos.");
-            }
+            document.getElementById("resultado").innerText = `Cantidad de números pares: ${pares}\nCantidad de números impares: ${impares}`;
         }
     </script>
 </body>
