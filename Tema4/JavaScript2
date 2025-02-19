@@ -21,7 +21,7 @@
         let sumatorio = vector_numeros.reduce((acc, num) => acc + num, 0);
         
         // Mostrar el resultado en la página
-        document.write("<p>La suma de los 100 números es: " + sumatorio + "</p>");
+        document.write("<p>La suma de los 100 números aleatorios es: " + sumatorio + "</p>");
     </script>
     
 </body>
