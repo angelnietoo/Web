@@ -16,24 +16,28 @@
 
         while (true) {
             // Solicitar al usuario ingresar un número
-            let numero = prompt("Introduce un número (escribe 0 para terminar):");
+            let numero = prompt("Introduce un número entero (escribe 0 para terminar):");
 
-            // Verificar si el valor ingresado es 0 o no es un número
-            if (numero === "0" || isNaN(numero)) {
-                break;  // Terminar el bucle si el número es 0 o no es un número válido
+            // Validar que el valor ingresado sea un número entero
+            if (numero === "0") {
+                break;  // Terminar el bucle si el número es 0
             }
 
-            // Convertir el valor a un número entero
-            numero = parseInt(numero);
+            // Verificar que el valor ingresado sea un número y sea un número entero
+            if (!isNaN(numero) && Number.isInteger(parseFloat(numero)) && numero.trim() !== "") {
+                numero = parseInt(numero);  // Convertir el valor a un número entero
 
-            // Añadir el número al array
-            numeros.push(numero);
+                // Añadir el número al array
+                numeros.push(numero);
 
-            // Contar pares e impares
-            if (numero % 2 === 0) {
-                pares++;
+                // Contar pares e impares
+                if (numero % 2 === 0) {
+                    pares++;
+                } else {
+                    impares++;
+                }
             } else {
-                impares++;
+                alert("Por favor, ingresa un número entero válido (sin letras ni decimales).");
             }
         }
 
