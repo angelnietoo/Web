@@ -6,6 +6,9 @@
     <title>Contar Pares e Impares</title>
 </head>
 <body>
+    <h1>Contar Números Pares e Impares</h1>
+    <div id="resultado"></div> <!-- Donde se mostrará el array y los resultados -->
+
     <script>
         let numeros = [];
         let pares = 0;
@@ -34,9 +37,12 @@
             }
         }
 
-        // Mostrar los resultados
-        alert(`Array de entrada: [${numeros.join(', ')}]`);
-        alert(`Pares: ${pares}, Impares: ${impares}`);
+        // Mostrar los resultados directamente en la página
+        document.getElementById("resultado").innerHTML = `
+            <p>Array de entrada: [${numeros.join(', ')}]</p>
+            <p>Pares: ${pares}</p>
+            <p>Impares: ${impares}</p>
+        `;
     </script>
 </body>
 </html>
