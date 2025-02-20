@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado</title>
+</head>
+<body>
+    <h2>Calculadora de Potencias</h2>
+    <p id="resultado"></p>
+    <a href="index.html">Volver</a>
+
+    <script>
+        function potenciaRecursiva(base, exp) {
+            if (exp === 0) {
+                return 1;
+            } else if (exp > 0) {
+                return base * potenciaRecursiva(base, exp - 1);
+            } else {
+                return 1 / potenciaRecursiva(base, -exp);
+            }
+        }
+
+        function obtenerParametros() {
+            let params = new URLSearchParams(window.location.search);
+            let numero = parseFloat(params.get("numero"));
+            let exponente = parseInt(params.get("exponente"));
+            
+            if (!isNaN(numero) && !isNaN(exponente)) {
+                let resultado = potenciaRecursiva(numero, exponente);
+                document.getElementById("resultado").innerText = `El resultado de ${numero}^${exponente} es ${resultado}`;
+            } else {
+                document.getElementById("resultado").innerText = "Error en los valores ingresados.";
+            }
+        }
+        
+        obtenerParametros();
+    </script>
+</body>
+</html>
