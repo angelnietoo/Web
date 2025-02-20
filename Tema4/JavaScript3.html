@@ -7,24 +7,33 @@
 </head>
 <body>
     <h1>Contar Números Pares e Impares</h1>
-    <input type="number" id="numeroInput" placeholder="Introduce un número">
+    <input type="number" id="numeroInput" placeholder="Introduce un número" step="1">
     <button onclick="agregarNumero()">Agregar</button>
     <button onclick="contarParesImpares()">Contar</button>
     <p id="resultado"></p>
+    <p id="numeros"></p>
     
     <script>
         let pares = 0;
         let impares = 0;
+        let numeros = [];
 
         function agregarNumero() {
-            let numero = parseInt(document.getElementById("numeroInput").value);
-            if (!isNaN(numero)) {
+            let numero = document.getElementById("numeroInput").value;
+            
+            // Comprobamos si el valor es un número entero
+            if (numero !== "" && Number.isInteger(parseFloat(numero)) && !numero.includes(".")) {
+                numero = parseInt(numero); // Convertir el número a entero
+                numeros.push(numero); // Añadir al array
                 if (numero % 2 === 0) {
                     pares++;
                 } else {
                     impares++;
                 }
-                document.getElementById("numeroInput").value = "";
+                document.getElementById("numeroInput").value = ""; // Limpiar el input
+                document.getElementById("numeros").innerText = `Números ingresados: [${numeros.join(', ')}]`; // Mostrar los números ingresados
+            } else {
+                alert("Por favor, ingresa un número entero.");
             }
         }
         
