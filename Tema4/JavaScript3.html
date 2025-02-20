@@ -7,38 +7,42 @@
 </head>
 <body>
     <h1>Contar Números Pares e Impares</h1>
-    <input type="number" id="numeroInput" placeholder="Introduce un número" step="1">
+    <input type="text" id="numeroInput" placeholder="Introduce un número" />
     <button onclick="agregarNumero()">Agregar</button>
-    <button onclick="contarParesImpares()">Contar</button>
     <p id="resultado"></p>
     <p id="numeros"></p>
     
     <script>
+        let numeros = [];
         let pares = 0;
         let impares = 0;
-        let numeros = [];
 
         function agregarNumero() {
             let numero = document.getElementById("numeroInput").value;
             
-            // Comprobamos si el valor es un número entero
-            if (numero !== "" && Number.isInteger(parseFloat(numero)) && !numero.includes(".")) {
-                numero = parseInt(numero); // Convertir el número a entero
-                numeros.push(numero); // Añadir al array
+            // Comprobamos si el número ingresado es válido
+            if (numero === "0") {
+                finalizarIngreso();
+            } else if (!isNaN(numero) && numero.trim() !== "") {
+                numero = parseInt(numero); // Convertir el valor a un número entero
                 if (numero % 2 === 0) {
                     pares++;
                 } else {
                     impares++;
                 }
+                numeros.push(numero); // Añadir el número al array
                 document.getElementById("numeroInput").value = ""; // Limpiar el input
                 document.getElementById("numeros").innerText = `Números ingresados: [${numeros.join(', ')}]`; // Mostrar los números ingresados
             } else {
-                alert("Por favor, ingresa un número entero.");
+                alert("Por favor, ingresa un número válido.");
             }
         }
-        
-        function contarParesImpares() {
-            document.getElementById("resultado").innerText = `Pares: ${pares}, Impares: ${impares}`;
+
+        function finalizarIngreso() {
+            // Mostrar los números y la cantidad de pares e impares
+            document.getElementById("resultado").innerText = `Array de entrada: [${numeros.join(', ')}]`;
+            document.getElementById("resultado").innerText += `\nPares: ${pares}, Impares: ${impares}`;
+            document.getElementById("numeroInput").disabled = true; // Deshabilitar el input
         }
     </script>
 </body>
