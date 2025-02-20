@@ -6,51 +6,37 @@
     <title>Contar Pares e Impares</title>
 </head>
 <body>
-    <h1>Contar Números Pares e Impares</h1>
-    <input type="text" id="numeroInput" placeholder="Introduce un número" />
-    <button onclick="agregarNumero()">Agregar</button>
-    <p id="resultado"></p>
-    <p id="numeros"></p>
-    
     <script>
         let numeros = [];
         let pares = 0;
         let impares = 0;
 
-        function agregarNumero() {
-            let numero = document.getElementById("numeroInput").value;
-            
-            // Si el número ingresado es 0, finalizar la entrada de datos
-            if (numero === "0") {
-                finalizarIngreso();
-                return;  // Termina la ejecución de la función si el número es 0
+        while (true) {
+            // Solicitar al usuario ingresar un número
+            let numero = prompt("Introduce un número (escribe 0 para terminar):");
+
+            // Verificar si el valor ingresado es 0 o no es un número
+            if (numero === "0" || isNaN(numero)) {
+                break;  // Terminar el bucle si el número es 0 o no es un número válido
             }
 
-            // Si el número es válido, continuar con la operación
-            if (!isNaN(numero) && numero.trim() !== "") {
-                numero = parseInt(numero); // Convertir el valor a un número entero
-                numeros.push(numero); // Añadir el número al array
+            // Convertir el valor a un número entero
+            numero = parseInt(numero);
 
-                // Contar los números pares e impares
-                if (numero % 2 === 0) {
-                    pares++;
-                } else {
-                    impares++;
-                }
+            // Añadir el número al array
+            numeros.push(numero);
 
-                document.getElementById("numeroInput").value = ""; // Limpiar el input
-                document.getElementById("numeros").innerText = `Números ingresados: [${numeros.join(', ')}]`; // Mostrar los números ingresados
+            // Contar pares e impares
+            if (numero % 2 === 0) {
+                pares++;
             } else {
-                alert("Por favor, ingresa un número válido.");
+                impares++;
             }
         }
 
-        function finalizarIngreso() {
-            // Mostrar los números ingresados y los contadores de pares e impares
-            document.getElementById("resultado").innerText = `Array de entrada: [${numeros.join(', ')}]`;
-            document.getElementById("resultado").innerText += `\nPares: ${pares}, Impares: ${impares}`;
-            document.getElementById("numeroInput").disabled = true; // Deshabilitar el input para evitar más entradas
-        }
+        // Mostrar los resultados
+        alert(`Array de entrada: [${numeros.join(', ')}]`);
+        alert(`Pares: ${pares}, Impares: ${impares}`);
     </script>
 </body>
 </html>
