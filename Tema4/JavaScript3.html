@@ -20,17 +20,24 @@
         function agregarNumero() {
             let numero = document.getElementById("numeroInput").value;
             
-            // Comprobamos si el número ingresado es válido
+            // Si el número ingresado es 0, finalizar la entrada de datos
             if (numero === "0") {
                 finalizarIngreso();
-            } else if (!isNaN(numero) && numero.trim() !== "") {
+                return;  // Termina la ejecución de la función si el número es 0
+            }
+
+            // Si el número es válido, continuar con la operación
+            if (!isNaN(numero) && numero.trim() !== "") {
                 numero = parseInt(numero); // Convertir el valor a un número entero
+                numeros.push(numero); // Añadir el número al array
+
+                // Contar los números pares e impares
                 if (numero % 2 === 0) {
                     pares++;
                 } else {
                     impares++;
                 }
-                numeros.push(numero); // Añadir el número al array
+
                 document.getElementById("numeroInput").value = ""; // Limpiar el input
                 document.getElementById("numeros").innerText = `Números ingresados: [${numeros.join(', ')}]`; // Mostrar los números ingresados
             } else {
@@ -39,10 +46,10 @@
         }
 
         function finalizarIngreso() {
-            // Mostrar los números y la cantidad de pares e impares
+            // Mostrar los números ingresados y los contadores de pares e impares
             document.getElementById("resultado").innerText = `Array de entrada: [${numeros.join(', ')}]`;
             document.getElementById("resultado").innerText += `\nPares: ${pares}, Impares: ${impares}`;
-            document.getElementById("numeroInput").disabled = true; // Deshabilitar el input
+            document.getElementById("numeroInput").disabled = true; // Deshabilitar el input para evitar más entradas
         }
     </script>
 </body>
