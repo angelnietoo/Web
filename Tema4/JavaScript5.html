@@ -5,24 +5,40 @@
     <title>Gestor de Vectores</title>
     <style>
         body {
-            margin: 20px; /* Agrega un margen alrededor de toda la página, para que nunca esté muy pegado a cualquier borde */
+            margin: 20px;
             font-family: Arial, sans-serif;
         }
 
         h1 {
-            text-align: center; /* Centramos el encabezado */
+            text-align: center;
         }
 
         #resultado {
-            margin-top: 20px; /*Espacio de arriba del texto*/
-            padding: 10px; /* Espacio dentro del área de texto */
-            border: 1px solid #ccc; /* Un borde a los calculos, para que aparezca metido en un recuadro */
-            background-color: #f9f9f9; /* Color de fondo de los calculos */
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        input[type="text"] {
+            margin-top: 10px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Resultados</h1>
+
+    <!-- Formulario para ingresar los valores del vector -->
+    <label for="vector-input">Ingresa los valores del vector (separados por comas):</label><br>
+    <input type="text" id="vector-input" placeholder="Ej: 5, 10, 8"><br>
+    <button onclick="actualizarVector()">Calcular</button>
+
     <p id="resultado"></p>
 
     <script>
@@ -72,16 +88,24 @@
             }
         };
 
-        // Datos de prueba
-        gestor_vectores.setDatos([5, 10, 8]);
+        // Función para actualizar el vector con los valores ingresados por el usuario
+        function actualizarVector() {
+            const input = document.getElementById("vector-input").value;
+            const vector = input.split(",").map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
 
-        // Mostrar resultados en la página HTML
-        document.getElementById("resultado").innerHTML = `
-            Sumatorio: ${gestor_vectores.getSumatorio()}<br>
-            Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
-            Máximo: ${gestor_vectores.getMaximo()}<br>
-            Mínimo: ${gestor_vectores.getMinimo()}
-        `;
+            if (vector.length > 0) {
+                gestor_vectores.setDatos(vector);
+                // Mostrar los resultados en la página
+                document.getElementById("resultado").innerHTML = `
+                    Sumatorio: ${gestor_vectores.getSumatorio()}<br>
+                    Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
+                    Máximo: ${gestor_vectores.getMaximo()}<br>
+                    Mínimo: ${gestor_vectores.getMinimo()}
+                `;
+            } else {
+                document.getElementById("resultado").innerHTML = "Por favor, ingresa un vector válido.";
+            }
+        }
     </script>
 </body>
 </html>
