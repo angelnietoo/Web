@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Vectores</title>
+</head>
+<body>
+    <h1>Resultados del Gestor de Vectores</h1>
+    <p id="resultado"></p>
+
+    <script>
+        "use strict";
+
+        let gestor_vectores = {
+            vector_numeros: [],
+
+            setDatos: function (vector) {
+                this.vector_numeros = vector;
+            },
+
+            getMedia: function () {
+                let suma = 0;
+                for (let pos in this.vector_numeros) {
+                    suma += this.vector_numeros[pos];
+                }
+                return suma / this.vector_numeros.length;
+            },
+
+            getSumatorio: function () {
+                return this.vector_numeros.reduce((acc, num) => acc + num, 0);
+            },
+
+            getMultiplicacion: function () {
+                return this.vector_numeros.reduce((acc, num) => acc * num, 1);
+            },
+
+            getMaximo: function () {
+                return Math.max(...this.vector_numeros);
+            },
+
+            getMinimo: function () {
+                return Math.min(...this.vector_numeros);
+            }
+        };
+
+        // Datos de prueba
+        let vector_prueba = [5, 10, 8];
+
+        gestor_vectores.setDatos(vector_prueba);
+
+        // Mostrar resultados en la consola
+        console.log("Media:", gestor_vectores.getMedia());
+        console.log("Sumatorio:", gestor_vectores.getSumatorio());
+        console.log("Multiplicación:", gestor_vectores.getMultiplicacion());
+        console.log("Máximo:", gestor_vectores.getMaximo());
+        console.log("Mínimo:", gestor_vectores.getMinimo());
+
+        // Mostrar resultados en la página HTML
+        document.getElementById("resultado").innerHTML = `
+            Media: ${gestor_vectores.getMedia()}<br>
+            Sumatorio: ${gestor_vectores.getSumatorio()}<br>
+            Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
+            Máximo: ${gestor_vectores.getMaximo()}<br>
+            Mínimo: ${gestor_vectores.getMinimo()}
+        `;
+    </script>
+</body>
+</html>
