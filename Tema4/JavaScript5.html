@@ -14,29 +14,51 @@
         let gestor_vectores = {
             vector_numeros: [],
 
-            setDatos(vector) {
+            setDatos: function(vector) {
                 this.vector_numeros = vector;
             },
 
-            getSumatorio() {
-                return this.vector_numeros.reduce((a, b) => a + b, 0);
+            getSumatorio: function() {
+                let suma = 0;
+                for (let i in this.vector_numeros) {
+                    suma += this.vector_numeros[i];
+                }
+                return suma;
             },
 
-            getMultiplicacion() {
-                return this.vector_numeros.reduce((a, b) => a * b, 1);
+            getMultiplicacion: function() {
+                let producto = 1;
+                for (let i in this.vector_numeros) {
+                    producto *= this.vector_numeros[i];
+                }
+                return producto;
             },
 
-            getMaximo() {
-                return Math.max(...this.vector_numeros);
+            getMaximo: function() {
+                let max = this.vector_numeros[0];
+                for (let i in this.vector_numeros) {
+                    if (this.vector_numeros[i] > max) {
+                        max = this.vector_numeros[i];
+                    }
+                }
+                return max;
             },
 
-            getMinimo() {
-                return Math.min(...this.vector_numeros);
+            getMinimo: function() {
+                let min = this.vector_numeros[0];
+                for (let i in this.vector_numeros) {
+                    if (this.vector_numeros[i] < min) {
+                        min = this.vector_numeros[i];
+                    }
+                }
+                return min;
             }
         };
 
+        // Datos de prueba
         gestor_vectores.setDatos([5, 10, 8]);
 
+        // Mostrar resultados en la página HTML
         document.getElementById("resultado").innerHTML = `
             Sumatorio: ${gestor_vectores.getSumatorio()}<br>
             Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
