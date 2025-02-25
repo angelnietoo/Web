@@ -2,11 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Vectores</title>
 </head>
 <body>
-    <h1>Resultados del Gestor de Vectores</h1>
+    <h1>Resultados</h1>
     <p id="resultado"></p>
 
     <script>
@@ -15,50 +14,30 @@
         let gestor_vectores = {
             vector_numeros: [],
 
-            setDatos: function (vector) {
+            setDatos(vector) {
                 this.vector_numeros = vector;
             },
 
-            getMedia: function () {
-                let suma = 0;
-                for (let pos in this.vector_numeros) {
-                    suma += this.vector_numeros[pos];
-                }
-                return suma / this.vector_numeros.length;
+            getSumatorio() {
+                return this.vector_numeros.reduce((a, b) => a + b, 0);
             },
 
-            getSumatorio: function () {
-                return this.vector_numeros.reduce((acc, num) => acc + num, 0);
+            getMultiplicacion() {
+                return this.vector_numeros.reduce((a, b) => a * b, 1);
             },
 
-            getMultiplicacion: function () {
-                return this.vector_numeros.reduce((acc, num) => acc * num, 1);
-            },
-
-            getMaximo: function () {
+            getMaximo() {
                 return Math.max(...this.vector_numeros);
             },
 
-            getMinimo: function () {
+            getMinimo() {
                 return Math.min(...this.vector_numeros);
             }
         };
 
-        // Datos de prueba
-        let vector_prueba = [5, 10, 8];
+        gestor_vectores.setDatos([5, 10, 8]);
 
-        gestor_vectores.setDatos(vector_prueba);
-
-        // Mostrar resultados en la consola
-        console.log("Media:", gestor_vectores.getMedia());
-        console.log("Sumatorio:", gestor_vectores.getSumatorio());
-        console.log("Multiplicación:", gestor_vectores.getMultiplicacion());
-        console.log("Máximo:", gestor_vectores.getMaximo());
-        console.log("Mínimo:", gestor_vectores.getMinimo());
-
-        // Mostrar resultados en la página HTML
         document.getElementById("resultado").innerHTML = `
-            Media: ${gestor_vectores.getMedia()}<br>
             Sumatorio: ${gestor_vectores.getSumatorio()}<br>
             Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
             Máximo: ${gestor_vectores.getMaximo()}<br>
