@@ -34,7 +34,7 @@
 <body>
     <h1>Resultados</h1>
 
-    <!-- Formulario para ingresar los valores del vector -->
+    <!--Formulario para ingresar los valores del vector -->
     <label for="vector-input">Ingresa los valores del vector (separados por comas):</label><br>
     <input type="text" id="vector-input" placeholder="Ej: 5, 10, 8"><br>
     <button onclick="actualizarVector()">Calcular</button>
@@ -87,7 +87,6 @@
                 return min;
             },
 
-            // Función para contar los números impares en el vector
             contarImpares: function() {
                 let contador = 0;
                 for (let i in this.vector_numeros) {
@@ -106,7 +105,7 @@
 
             if (vector.length > 0) {
                 gestor_vectores.setDatos(vector);
-                // Mostrar los resultados en la página
+                // Mostramos los resultados en la página
                 document.getElementById("resultado").innerHTML = `
                     Sumatorio: ${gestor_vectores.getSumatorio()}<br>
                     Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
