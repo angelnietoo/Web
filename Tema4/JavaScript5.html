@@ -85,6 +85,17 @@
                     }
                 }
                 return min;
+            },
+
+            // Función para contar los números impares en el vector
+            contarImpares: function() {
+                let contador = 0;
+                for (let i in this.vector_numeros) {
+                    if (this.vector_numeros[i] % 2 !== 0) {
+                        contador++;
+                    }
+                }
+                return contador;
             }
         };
 
@@ -100,7 +111,8 @@
                     Sumatorio: ${gestor_vectores.getSumatorio()}<br>
                     Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
                     Máximo: ${gestor_vectores.getMaximo()}<br>
-                    Mínimo: ${gestor_vectores.getMinimo()}
+                    Mínimo: ${gestor_vectores.getMinimo()}<br>
+                    Números impares: ${gestor_vectores.contarImpares()}
                 `;
             } else {
                 document.getElementById("resultado").innerHTML = "Por favor, ingresa un vector válido.";
