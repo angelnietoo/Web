@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <title>Gestor de Vectores</title>
     <style>
+        /* Estilos para la página */
         body {
             margin: 20px;
             font-family: Arial, sans-serif;
         }
 
+        /* Estilo para el encabezado (título) */
         h1 {
             text-align: center;
         }
 
+        /* Estilo para el área de resultados (recuadro)*/
         #resultado {
             margin-top: 20px;
             padding: 10px;
@@ -20,11 +23,13 @@
             background-color: #f9f9f9;
         }
 
+        /* Estilo para los textos */
         input[type="text"] {
             margin-top: 10px;
             padding: 5px;
         }
 
+        /* Estilo para los botones */
         button {
             padding: 5px 10px;
             margin-top: 10px;
@@ -32,80 +37,99 @@
     </style>
 </head>
 <body>
+    <!-- Título en la página -->
     <h1>Resultados</h1>
 
-    <!--Formulario para ingresar los valores del vector -->
+    <!-- Etiqueta y campo de entrada para que el usuario ingrese los valores del vector -->
     <label for="vector-input">Ingresa los valores del vector (separados por comas):</label><br>
+    <!-- Campo de texto donde el usuario escribe el vector -->
     <input type="text" id="vector-input" placeholder="Ej: 5, 10, 8"><br>
+    <!-- Botón para ejecutar la acción de calcular los resultados -->
     <button onclick="actualizarVector()">Calcular</button>
 
+    <!-- Área donde se mostrarán los resultados -->
     <p id="resultado"></p>
 
     <script>
-        "use strict";
+        "use strict";  // Habilita el modo estricto en JavaScript para evitar errores comunes
 
+        // Definimos un objeto para gestionar las operaciones sobre el vector
         let gestor_vectores = {
-            vector_numeros: [],
+            vector_numeros: [],  // Almacenará los datos ingresados
 
+            // Método para actualizar el vector con nuevos valores
             setDatos: function(vector) {
                 this.vector_numeros = vector;
             },
 
+
             getSumatorio: function() {
                 let suma = 0;
+                // Recorremos cada número del vector y lo sumamos
                 for (let i in this.vector_numeros) {
                     suma += this.vector_numeros[i];
                 }
-                return suma;
+                return suma;  // Devuelve la suma total
             },
+
 
             getMultiplicacion: function() {
                 let producto = 1;
+                // Recorremos cada número del vector y lo multiplicamos
                 for (let i in this.vector_numeros) {
                     producto *= this.vector_numeros[i];
                 }
-                return producto;
+                return producto;  // Devuelve el producto total
             },
+
 
             getMaximo: function() {
                 let max = this.vector_numeros[0];
+                // Comparamos cada número con el valor máximo actual
                 for (let i in this.vector_numeros) {
                     if (this.vector_numeros[i] > max) {
                         max = this.vector_numeros[i];
                     }
                 }
-                return max;
+                return max;  // Devuelve el valor máximo
             },
+
 
             getMinimo: function() {
                 let min = this.vector_numeros[0];
+                // Comparamos cada número con el valor mínimo actual
                 for (let i in this.vector_numeros) {
                     if (this.vector_numeros[i] < min) {
                         min = this.vector_numeros[i];
                     }
                 }
-                return min;
+                return min;  // Devuelve el valor mínimo
             },
+
 
             contarImpares: function() {
                 let contador = 0;
+                // Comprobamos si cada número es impar (si su resto al dividir entre 2 es diferente de 0).
                 for (let i in this.vector_numeros) {
                     if (this.vector_numeros[i] % 2 !== 0) {
-                        contador++;
+                        contador++;  // Aumentamos el contador cuando es impar
                     }
                 }
-                return contador;
+                return contador;  // Devuelve la cantidad de números impares
             }
         };
 
-        // Función para actualizar el vector con los valores ingresados por el usuario
+        // Función que se ejecuta al hacer clic en el botón "Calcular"
         function actualizarVector() {
-            const input = document.getElementById("vector-input").value;
+            const input = document.getElementById("vector-input").value;  // Obtenemos el valor del campo de texto.
+            // Convertimos la cadena de texto en un vector de números (eliminamos espacios y convertimos cada valor en un número).
             const vector = input.split(",").map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
 
+            // Si el vector tiene al menos un número válido:
             if (vector.length > 0) {
-                gestor_vectores.setDatos(vector);
-                // Mostramos los resultados en la página
+                gestor_vectores.setDatos(vector);  // Actualizamos los datos del gestor de vectores
+
+                // Mostramos los resultados de cada calculo
                 document.getElementById("resultado").innerHTML = `
                     Sumatorio: ${gestor_vectores.getSumatorio()}<br>
                     Multiplicación: ${gestor_vectores.getMultiplicacion()}<br>
@@ -114,6 +138,7 @@
                     Números impares: ${gestor_vectores.contarImpares()}
                 `;
             } else {
+                // Si no se ingresaron datos válidos, mostramos mensaje de error
                 document.getElementById("resultado").innerHTML = "Por favor, ingresa un vector válido.";
             }
         }
