@@ -1,14 +1,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="jquery.js"></script>
-        <script src="ejemplo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <title>Ejemplo botones</title>
         <style>
             div#texto {
                 background-color: yellow;
+                padding: 20px;
+                width: 200px;
             }
         </style>
+        <script>
+            $(document).ready(function() {
+                // Función que se activa cuando se hace clic en el botón "fadeOut"
+                $('#botonizq').click(function() {
+                    $('#texto').fadeOut();
+                });
+
+                // Función que se activa cuando se hace clic en el botón "fadeIn"
+                $('#botonder').click(function() {
+                    $('#texto').fadeIn();
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -18,7 +32,7 @@
         </form>
 
         <div id="texto">
-                Texto texto texto
+            Texto texto texto
         </div>
 
     </body>
