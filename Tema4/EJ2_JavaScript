@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio JavaScript</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .caja {
+            width: 200px;
+            height: 100px;
+            background-color: lightgray;
+            text-align: center;
+            line-height: 100px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        .oculto {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Ejercicio de Ocultar y Mostrar Párrafos</h2>
+
+    <p id="p1">Párrafo 1 (impar)</p>
+    <p id="p2">Párrafo 2 (par)</p>
+    <p id="p3">Párrafo 3 (impar)</p>
+    <p id="p4">Párrafo 4 (par)</p>
+
+    <button onclick="ocultarPares()">Ocultar pares</button>
+    <button onclick="ocultarImpares()">Ocultar impares</button>
+    <button onclick="mostrarPares()">Mostrar pares</button>
+    <button onclick="mostrarImpares()">Mostrar impares</button>
+
+    <h2>Ejercicio de Cambio de Color</h2>
+    <div class="caja" id="caja">Pasa el ratón</div>
+
+    <script>
+        function ocultarPares() {
+            document.getElementById("p2").classList.add("oculto");
+            document.getElementById("p4").classList.add("oculto");
+        }
+
+        function ocultarImpares() {
+            document.getElementById("p1").classList.add("oculto");
+            document.getElementById("p3").classList.add("oculto");
+        }
+
+        function mostrarPares() {
+            document.getElementById("p2").classList.remove("oculto");
+            document.getElementById("p4").classList.remove("oculto");
+        }
+
+        function mostrarImpares() {
+            document.getElementById("p1").classList.remove("oculto");
+            document.getElementById("p3").classList.remove("oculto");
+        }
+
+        // Cambio de color en la caja
+        let caja = document.getElementById("caja");
+
+        caja.addEventListener("mouseover", function() {
+            caja.style.backgroundColor = "lightblue";
+        });
+
+        caja.addEventListener("mouseout", function() {
+            caja.style.backgroundColor = "lightgray";
+        });
+    </script>
+
+</body>
+</html>
