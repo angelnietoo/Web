@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    //Aquí decimos que el button tiene que hacer una acción al hacer click
+  $("button").click(function(){
+
+    //Aquí solo elimina las frases que tengan entre <> una p
+    $("p").hide();
+  });
+});
+</script>
+</head>
+<body>
+
+<h2>This is a heading</h2>
+
+<p>This is a paragraph.</p>
+<p>This is another paragraph.</p>
+
+<button>Click me to hide paragraphs</button>
+
+</body>
+</html>
