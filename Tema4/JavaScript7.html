@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    //Aquí decimos que el button tiene que hacer una acción al hacer click
-  $("button").click(function(){
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        // Acción del botón para ocultar los párrafos
+        $("button").click(function(){
+            $("p").hide();
+        });
 
-    //Aquí solo elimina las frases que tengan entre <> una p
-    $("p").hide();
-  });
-});
-</script>
+        // Cambiar el color de fondo cuando el input recibe o pierde foco
+        $("input").focus(function(){
+            $(this).css("background-color", "yellow");
+        });
+        $("input").blur(function(){
+            $(this).css("background-color", "green");
+        });
+    });
+    </script>
 </head>
 <body>
 
@@ -22,28 +28,7 @@ $(document).ready(function(){
 
 <button>Click me to hide paragraphs</button>
 
-</body>
-</html>
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-  $("input").focus(function(){
-    $(this).css("background-color", "yellow");
-  });
-  $("input").blur(function(){
-    $(this).css("background-color", "green");
-  });
-});
-</script>
-</head>
-<body>
+<br><br>
 
 Name: <input type="text" name="fullname"><br>
 Email: <input type="text" name="email">
