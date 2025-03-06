@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio JavaScript con jQuery</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,51 +27,48 @@
 
     <h2>Ejercicio de Ocultar y Mostrar Párrafos</h2>
 
-    <p id="p1">Párrafo 1 (impar)</p>
-    <p id="p2">Párrafo 2 (par)</p>
-    <p id="p3">Párrafo 3 (impar)</p>
-    <p id="p4">Párrafo 4 (par)</p>
+    <p>Este es el párrafo 1 (impar)</p>
+    <p>Este es el párrafo 2 (par)</p>
+    <p>Este es el párrafo 3 (impar)</p>
+    <p>Este es el párrafo 4 (par)</p>
 
-    <button id="ocultarPares">Ocultar pares</button>
-    <button id="ocultarImpares">Ocultar impares</button>
-    <button id="mostrarPares">Mostrar pares</button>
-    <button id="mostrarImpares">Mostrar impares</button>
+    <button id="ocultarPares">Ocultar párrafos pares</button>
+    <button id="ocultarImpares">Ocultar párrafos impares</button>
+    <button id="mostrarPares">Mostrar párrafos pares</button>
+    <button id="mostrarImpares">Mostrar párrafos impares</button>
 
-    <h2>Ejercicio de Cambio de Color</h2>
+    <h2>Ejercicio de Cambio de Color en Caja</h2>
     <div class="caja" id="caja">Pasa el ratón</div>
 
     <script>
-        $(document).ready(function() {
-            // Ocultar pares
-            $("#ocultarPares").click(function() {
-                $("#p2, #p4").addClass("oculto");
-            });
-
-            // Ocultar impares
-            $("#ocultarImpares").click(function() {
-                $("#p1, #p3").addClass("oculto");
-            });
-
-            // Mostrar pares
-            $("#mostrarPares").click(function() {
-                $("#p2, #p4").removeClass("oculto");
-            });
-
-            // Mostrar impares
-            $("#mostrarImpares").click(function() {
-                $("#p1, #p3").removeClass("oculto");
-            });
-
-            // Cambio de color en la caja
-            $("#caja").hover(
-                function() {
-                    $(this).css("background-color", "lightblue");
-                },
-                function() {
-                    $(this).css("background-color", "lightgray");
-                }
-            );
+    $(document).ready(function(){
+        // Acción del botón para ocultar los párrafos
+        $("#ocultarPares").click(function(){
+            $("p:nth-child(even)").addClass("oculto");
         });
+
+        $("#ocultarImpares").click(function(){
+            $("p:nth-child(odd)").addClass("oculto");
+        });
+
+        $("#mostrarPares").click(function(){
+            $("p:nth-child(even)").removeClass("oculto");
+        });
+
+        $("#mostrarImpares").click(function(){
+            $("p:nth-child(odd)").removeClass("oculto");
+        });
+
+        // Cambio de color en la caja cuando se pasa el ratón
+        $("#caja").hover(
+            function() {
+                $(this).css("background-color", "lightblue");
+            },
+            function() {
+                $(this).css("background-color", "lightgray");
+            }
+        );
+    });
     </script>
 
 </body>
