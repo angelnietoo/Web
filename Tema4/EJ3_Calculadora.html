@@ -1,18 +1,32 @@
-<h1>Calculo del area del triangulo</h1>
-<p>Para calcular el area debes introducir la base y altura.</p>
-<p>Introduce base <input type="text" name="base" class="base"></p>
-<p>Introduce altura <input type="text" name="altura" class="altura"></p>
-<input type="button" class="calcular" value="Calcular">
-<div class="resultado"></div>
-<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(e){
-		$(".calcular").click(function(e){
-			var base, altura, resultado;
-			base=Number($(".base").val());
-			altura=Number($(".altura").val());
-			resultado=1/2*base*altura;
-			$(".resultado").html("<p>El area del triangulo es "+resultado+"</p>");
-		});
-	});
-</script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo del Área del Triángulo</title>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <h1>Cálculo del Área del Triángulo</h1>
+    <p>Para calcular el área, debes introducir la base y la altura.</p>
+    
+    <p>Introduce base <input type="text" name="base" class="base"></p>
+    <p>Introduce altura <input type="text" name="altura" class="altura"></p>
+    
+    <input type="button" class="calcular" value="Calcular">
+    
+    <div class="resultado"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function(e){
+            $(".calcular").click(function(e){
+                var base, altura, resultado;
+                base = Number($(".base").val());
+                altura = Number($(".altura").val());
+                resultado = 1/2 * base * altura;
+                $(".resultado").html("<p>El área del triángulo es " + resultado + "</p>");
+            });
+        });
+    </script>
+</body>
+</html>
