@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -39,21 +39,24 @@
 
     <script>
     $(document).ready(function(){
-        // Acción del botón para ocultar los párrafos
+        // Acción del botón para ocultar los párrafos pares
         $("#ocultarPares").click(function(){
-            $("p:nth-child(even)").hide(); // Ocultar párrafos pares
+            $("p:nth-of-type(even)").hide(); // Ocultar párrafos en posición par
         });
 
+        // Acción del botón para ocultar los párrafos impares
         $("#ocultarImpares").click(function(){
-            $("p:nth-child(odd)").hide(); // Ocultar párrafos impares
+            $("p:nth-of-type(odd)").hide(); // Ocultar párrafos en posición impar
         });
 
+        // Acción del botón para mostrar los párrafos pares
         $("#mostrarPares").click(function(){
-            $("p:nth-child(even)").show(); // Mostrar párrafos pares
+            $("p:nth-of-type(even)").show(); // Mostrar párrafos en posición par
         });
 
+        // Acción del botón para mostrar los párrafos impares
         $("#mostrarImpares").click(function(){
-            $("p:nth-child(odd)").show(); // Mostrar párrafos impares
+            $("p:nth-of-type(odd)").show(); // Mostrar párrafos en posición impar
         });
 
         // Cuando se pase el ratón por encima se cambia el color
