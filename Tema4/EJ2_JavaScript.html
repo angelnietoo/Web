@@ -18,9 +18,6 @@
             margin-top: 20px;
             transition: background-color 0.5s;
         }
-        .oculto {
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -44,19 +41,19 @@
     $(document).ready(function(){
         // Acción del botón para ocultar los párrafos
         $("#ocultarPares").click(function(){
-            $("p:nth-child(even)").addClass("oculto");
+            $("p:nth-child(even)").hide(); // Ocultar los párrafos pares
         });
 
         $("#ocultarImpares").click(function(){
-            $("p:nth-child(odd)").addClass("oculto");
+            $("p:nth-child(odd)").hide(); // Ocultar los párrafos impares
         });
 
         $("#mostrarPares").click(function(){
-            $("p:nth-child(even)").removeClass("oculto");
+            $("p:nth-child(even)").show(); // Mostrar los párrafos pares
         });
 
         $("#mostrarImpares").click(function(){
-            $("p:nth-child(odd)").removeClass("oculto");
+            $("p:nth-child(odd)").show(); // Mostrar los párrafos impares
         });
 
         // Cambio de color en la caja cuando se pasa el ratón
