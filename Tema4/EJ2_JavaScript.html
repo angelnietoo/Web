@@ -34,29 +34,29 @@
     <button id="mostrarPares">Mostrar párrafos pares</button>
     <button id="mostrarImpares">Mostrar párrafos impares</button>
 
-    <h2>Ejercicio de Cambio de Color en Caja</h2>
+    <h2>Caja que cambia de color</h2>
     <div class="caja" id="caja">Pasa el ratón</div>
 
     <script>
     $(document).ready(function(){
         // Acción del botón para ocultar los párrafos
         $("#ocultarPares").click(function(){
-            $("p:nth-child(even)").hide(); // Ocultar los párrafos pares
+            $("p:nth-child(even)").hide(); // Ocultar párrafos pares
         });
 
         $("#ocultarImpares").click(function(){
-            $("p:nth-child(odd)").hide(); // Ocultar los párrafos impares
+            $("p:nth-child(odd)").hide(); // Ocultar párrafos impares
         });
 
         $("#mostrarPares").click(function(){
-            $("p:nth-child(even)").show(); // Mostrar los párrafos pares
+            $("p:nth-child(even)").show(); // Mostrar párrafos pares
         });
 
         $("#mostrarImpares").click(function(){
-            $("p:nth-child(odd)").show(); // Mostrar los párrafos impares
+            $("p:nth-child(odd)").show(); // Mostrar párrafos impares
         });
 
-        // Cambio de color en la caja cuando se pasa el ratón
+        // Cuando se pase el ratón por encima se cambia el color
         $("#caja").hover(
             function() {
                 $(this).css("background-color", "lightblue");
