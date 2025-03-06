@@ -4,29 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cálculo del Área del Triángulo</title>
-    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"], input[type="button"] {
+            margin: 10px 0;
+            padding: 8px;
+        }
+        .resultado {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
+
     <h1>Cálculo del Área del Triángulo</h1>
-    <p>Para calcular el área, debes introducir la base y la altura.</p>
+    <p>Para calcular el área, debes introducir la base y la altura del triángulo.</p>
     
-    <p>Introduce base <input type="text" name="base" class="base"></p>
-    <p>Introduce altura <input type="text" name="altura" class="altura"></p>
+    <label for="base">Introduce base:</label>
+    <input type="text" id="base" class="base" placeholder="Ejemplo: 5">
+    
+    <label for="altura">Introduce altura:</label>
+    <input type="text" id="altura" class="altura" placeholder="Ejemplo: 10">
     
     <input type="button" class="calcular" value="Calcular">
     
     <div class="resultado"></div>
 
     <script type="text/javascript">
-        $(document).ready(function(e){
-            $(".calcular").click(function(e){
-                var base, altura, resultado;
-                base = Number($(".base").val());
-                altura = Number($(".altura").val());
-                resultado = 1/2 * base * altura;
-                $(".resultado").html("<p>El área del triángulo es " + resultado + "</p>");
+        $(document).ready(function() {
+            $(".calcular").click(function() {
+                var base = Number($(".base").val());
+                var altura = Number($(".altura").val());
+                
+                if (isNaN(base) || base <= 0 || isNaN(altura) || altura <= 0) {
+                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa valores válidos para la base y la altura.</p>");
+                } else {
+                    var resultado = (base * altura) / 2;
+                    $(".resultado").html("<p>El área del triángulo es: " + resultado + " unidades cuadradas.</p>");
+                }
             });
         });
     </script>
+
 </body>
 </html>
