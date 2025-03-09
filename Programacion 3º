@@ -1,0 +1,82 @@
+package Escuela;
+import java.util.ArrayList;
+
+class Profesor {
+    protected int id;
+    private String nombre;
+    private int añosEnseñanza;
+    private double salario;
+    public String materia;
+
+    public Profesor(int id, String nombre, int añosEnseñanza, double salario, String materia) {
+        this.id = id;
+        this.nombre = nombre;
+        this.añosEnseñanza = añosEnseñanza;
+        this.salario = salario;
+        this.materia = materia;
+    }
+
+    public String getNombre() { return nombre; }
+    public int getAñosEnseñanza() { return añosEnseñanza; }
+    public double getSalario() { return salario; }
+}
+
+class Director extends Profesor {
+    private double presupuestoEventos;
+
+    public Director(int id, String nombre, int añosEnseñanza, double salario, String materia, double presupuestoEventos) {
+        super(id, nombre, añosEnseñanza, salario, materia);
+        this.presupuestoEventos = presupuestoEventos;
+    }
+}
+
+class Escuela {
+    private String nombre;
+    private int alumnos;
+    private ArrayList<Profesor> profesores;
+
+    public Escuela(String nombre, int alumnos) {
+        this.nombre = nombre;
+        this.alumnos = alumnos;
+        this.profesores = new ArrayList<>();
+    }
+
+    public int totalProfesores() {
+        return profesores.size();
+    }
+
+    public Profesor mejorSalario(String materia) {
+        Profesor mejorSalario = null;
+        for (Profesor profesor : profesores) {
+            if ((materia == null || profesor.materia.equals(materia)) && (mejorSalario == null || profesor.getSalario() > mejorSalario.getSalario())) {
+                mejorSalario = profesor;
+            }
+        }
+        return mejorSalario;
+    }
+
+    public boolean ascenderADirector(String nombre) {
+        for (int i = 0; i < profesores.size(); i++) {
+            Profesor profesor = profesores.get(i);
+            if (profesor.getNombre().equalsIgnoreCase(nombre)) {
+                if (profesor instanceof Director) return false;
+                profesores.set(i, new Director(profesor.id, profesor.getNombre(), profesor.getAñosEnseñanza(), profesor.getSalario(), profesor.materia, 5000.0));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void calcularGastos(int maxAniosEnsenanza) {
+        double total = 0;
+        for (Profesor profesor : profesores) {
+            if (profesor.getAñosEnseñanza() < maxAniosEnsenanza) {
+                total += profesor.getSalario();
+                if (profesor instanceof Director) {
+                    total += 2000;
+                }
+            }
+        }
+        this.alumnos += total;
+    }
+}
