@@ -1,0 +1,144 @@
+// Archivo: Trabajador.java
+package Examen2;
+import java.util.Random;
+
+public class Trabajador {
+    protected int id;
+    private String nombre;
+    private int edad;
+    private double salario;
+    public int departamento;
+
+    public static final int DEP_DIRECCION = 0;
+    public static final int DEP_FINANZAS = 1;
+    public static final int DEP_RECURSOS_HUMANOS = 2;
+    public static final int DEP_MARKETING = 3;
+
+    public Trabajador() {
+        Random rand = new Random();
+        this.id = rand.nextInt(1000);
+        this.nombre = "";
+        this.edad = rand.nextInt(18, 65);
+        this.salario = rand.nextDouble() * 5000;
+        this.departamento = DEP_MARKETING;
+    }
+
+    public Trabajador(int id, String nombre, int edad, double salario, int departamento) {
+        this.id = id;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.salario = salario;
+        this.departamento = departamento;
+    }
+
+    public String getNombre() { return nombre; }
+    public int getEdad() { return edad; }
+    public double getSalario() { return salario; }
+    
+    public String toString() {
+        return "Trabajador:\n" + "***************************************\n" +
+                "ID: " + id + "\n" +
+                "Nombre: " + nombre + "\n" +
+                "Edad: " + edad + "\n" +
+                "Salario: " + salario + "\n" +
+                "Departamento: " + departamento + "\n" +
+                "***************************************";
+    }
+}
+
+// Archivo: Director.java
+package Examen2;
+
+public class Director extends Trabajador {
+    private double presupuestoAsignado;
+    private double bonificaciones;
+    private String sucursal;
+
+    public Director() {
+        super();
+        this.presupuestoAsignado = 0.0;
+        this.bonificaciones = 0.0;
+        this.sucursal = "";
+    }
+
+    public Director(int id, String nombre, int edad, double salario, int departamento, double presupuestoAsignado, double bonificaciones, String sucursal) {
+        super(id, nombre, edad, salario, departamento);
+        this.presupuestoAsignado = presupuestoAsignado;
+        this.bonificaciones = bonificaciones;
+        this.sucursal = sucursal;
+    }
+
+    public double getBonificaciones() { return bonificaciones; }
+    
+    public String toString() {
+        return super.toString() + "\nPresupuesto: " + presupuestoAsignado + "\nBonificaciones: " + bonificaciones + "\nSucursal: " + sucursal;
+    }
+}
+
+// Archivo: Compania.java
+package Examen2;
+import java.util.ArrayList;
+
+public class Compania {
+    private String codigo;
+    private String nombre;
+    private String ubicacion;
+    private String sector;
+    public String web;
+    private double ingresosAnuales;
+    private double gastosEmpleados;
+    private ArrayList<Trabajador> trabajadores;
+
+    public Compania() {
+        this.codigo = "";
+        this.nombre = "";
+        this.ubicacion = "";
+        this.sector = "";
+        this.web = "";
+        this.ingresosAnuales = 0.0;
+        this.gastosEmpleados = 0.0;
+        this.trabajadores = new ArrayList<>();
+    }
+
+    public int totalTrabajadores() {
+        return trabajadores.size();
+    }
+
+    public Trabajador trabajadorMejorPagado(int departamento) {
+        Trabajador mejorPagado = null;
+        for (int i = 0; i < trabajadores.size(); i++) {
+            Trabajador trabajador = trabajadores.get(i);
+            if ((departamento == -1 || trabajador.departamento == departamento) && (mejorPagado == null || trabajador.getSalario() > mejorPagado.getSalario())) {
+                mejorPagado = trabajador;
+            }
+        }
+        return mejorPagado;
+    }
+
+    public boolean promoverADirector(String nombre) {
+        for (int i = 0; i < trabajadores.size(); i++) {
+            Trabajador trabajador = trabajadores.get(i);
+            if (trabajador.getNombre().equalsIgnoreCase(nombre)) {
+                if (trabajador instanceof Director) return false;
+                trabajadores.set(i, new Director(trabajador.id, trabajador.getNombre(), trabajador.getEdad(), trabajador.getSalario(), trabajador.departamento, 10000.0, 2000.0, "Sucursal Central"));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void calcularGastos(int edadMaxima) {
+        double suma = 0;
+        for (int i = 0; i < trabajadores.size(); i++) {
+            Trabajador trabajador = trabajadores.get(i);
+            if (trabajador.getEdad() < edadMaxima) {
+                suma += trabajador.getSalario();
+                if (trabajador instanceof Director) {
+                    Director director = (Director) trabajador;
+                    suma += director.getBonificaciones();
+                }
+            }
+        }
+        this.gastosEmpleados += suma;
+    }
+}
