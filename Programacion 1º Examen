@@ -147,9 +147,14 @@ public class Empresa {
     }
 
     public boolean asignarJefeEquipo(String nombre) {
-        for (Empleado e : empleados) {
-            if (e.getNombre().equalsIgnoreCase(nombre)) {
-                if (e.puesto == Empleado.PUESTO_JEFE) return false;
+        for (int i = 0; i < empleados.size(); i++) {
+            Empleado e = empleados.get(i);
+            boolean mismoNombre = e.getNombre().equalsIgnoreCase(nombre);
+            boolean yaEsJefe = e.puesto == Empleado.PUESTO_JEFE;
+            if (mismoNombre) {
+                if (yaEsJefe) {
+                    return false;
+                }
                 e.puesto = Empleado.PUESTO_JEFE;
                 return true;
             }
@@ -159,11 +164,15 @@ public class Empresa {
 
     public void sumaIngresos(int edad) {
         double suma = 0;
-        for (Empleado e : empleados) {
-            if (e.getEdad() < edad) {
+        for (int i = 0; i < empleados.size(); i++) {
+            Empleado e = empleados.get(i);
+            boolean menorEdad = e.getEdad() < edad;
+            if (menorEdad) {
                 suma += e.getIngresos();
-                if (e instanceof Jefe) {
-                    suma += ((Jefe) e).getGastoTarjeta();
+                boolean esJefe = e instanceof Jefe;
+                if (esJefe) {
+                    Jefe jefe = (Jefe) e;
+                    suma += jefe.getGastoTarjeta();
                 }
             }
         }
