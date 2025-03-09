@@ -1,0 +1,172 @@
+// Empleado.java
+import java.util.Random;
+
+public class Empleado {
+    protected int identificador;
+    private String nombre;
+    private int edad;
+    private double ingresos;
+    public int puesto;
+
+    public static final int PUESTO_JEFE = 0;
+    public static final int PUESTO_RRHH = 1;
+    public static final int PUESTO_ADMIN = 2;
+    public static final int PUESTO_VENTAS = 3;
+
+    public Empleado() {
+        Random rand = new Random();
+        this.identificador = rand.nextInt(10000);
+        this.nombre = "";
+        this.edad = rand.nextInt(60) + 18;
+        this.ingresos = rand.nextDouble() * 50000;
+        this.puesto = PUESTO_ADMIN;
+    }
+
+    public Empleado(int identificador, String nombre, int edad, double ingresos, int puesto) {
+        this.identificador = identificador;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.ingresos = ingresos;
+        this.puesto = puesto;
+    }
+
+    public int getIdentificador() { return identificador; }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+    public int getEdad() { return edad; }
+    public void setEdad(int edad) { this.edad = edad; }
+    public double getIngresos() { return ingresos; }
+    public void setIngresos(double ingresos) { this.ingresos = ingresos; }
+
+    @Override
+    public String toString() {
+        return "Empleado:\n" +
+                "*************************************************************\n" +
+                "Nombre: " + nombre + "\n" +
+                "Edad: " + edad + "\n" +
+                "Ingresos: " + ingresos + "\n" +
+                "Puesto: " + puesto + "\n" +
+                "*************************************************************";
+    }
+}
+
+
+
+
+
+
+// Jefe.java
+public class Jefe extends Empleado {
+    private double gastoTarjeta;
+    private String consejo;
+    private String sede;
+
+    public Jefe() {
+        super();
+        this.gastoTarjeta = Math.random() * 10000;
+        this.consejo = "";
+        this.sede = "";
+    }
+
+    public Jefe(int identificador, String nombre, int edad, double ingresos, int puesto, double gastoTarjeta, String consejo, String sede) {
+        super(identificador, nombre, edad, ingresos, puesto);
+        this.gastoTarjeta = gastoTarjeta;
+        this.consejo = consejo;
+        this.sede = sede;
+    }
+
+    public double getGastoTarjeta() { return gastoTarjeta; }
+    public void setGastoTarjeta(double gastoTarjeta) { this.gastoTarjeta = gastoTarjeta; }
+    public String getConsejo() { return consejo; }
+    public void setConsejo(String consejo) { this.consejo = consejo; }
+    public String getSede() { return sede; }
+    public void setSede(String sede) { this.sede = sede; }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Gasto Tarjeta: " + gastoTarjeta + "\n" +
+                "Consejo: " + consejo + "\n" +
+                "Sede: " + sede + "\n" +
+                "*************************************************************";
+    }
+}
+
+
+
+
+
+
+// Empresa.java
+import java.util.ArrayList;
+
+public class Empresa {
+    private String identificador;
+    private String nombre;
+    private String direccion;
+    private String tipo;
+    public String web;
+    private double ingresosAnuales;
+    private double gastosEmpleados;
+    private ArrayList<Empleado> empleados;
+
+    public Empresa() {
+        this.identificador = "";
+        this.nombre = "";
+        this.direccion = "";
+        this.tipo = "";
+        this.web = "";
+        this.ingresosAnuales = 0.0;
+        this.gastosEmpleados = 0.0;
+        this.empleados = new ArrayList<>();
+    }
+
+    public Empresa(String identificador, String nombre, String direccion, String tipo, String web, double ingresosAnuales, double gastosEmpleados) {
+        this.identificador = identificador;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.tipo = tipo;
+        this.web = web;
+        this.ingresosAnuales = ingresosAnuales;
+        this.gastosEmpleados = gastosEmpleados;
+        this.empleados = new ArrayList<>();
+    }
+
+    public int numEmpleados() {
+        return empleados.size();
+    }
+
+    public Empleado empleadoMasCaro(int puesto) {
+        Empleado masCaro = null;
+        for (Empleado e : empleados) {
+            if ((puesto == -1 || e.puesto == puesto) && (masCaro == null || e.getIngresos() > masCaro.getIngresos())) {
+                masCaro = e;
+            }
+        }
+        return masCaro;
+    }
+
+    public boolean asignarJefeEquipo(String nombre) {
+        for (Empleado e : empleados) {
+            if (e.getNombre().equalsIgnoreCase(nombre)) {
+                if (e.puesto == Empleado.PUESTO_JEFE) return false;
+                e.puesto = Empleado.PUESTO_JEFE;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void sumaIngresos(int edad) {
+        double suma = 0;
+        for (Empleado e : empleados) {
+            if (e.getEdad() < edad) {
+                suma += e.getIngresos();
+                if (e instanceof Jefe) {
+                    suma += ((Jefe) e).getGastoTarjeta();
+                }
+            }
+        }
+        this.gastosEmpleados += suma;
+    }
+}
