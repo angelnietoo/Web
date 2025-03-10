@@ -8,20 +8,23 @@ public class Empleado {
     private double ingresos;
     public int puesto;
 
+    // Definición de los puestos disponibles
     public static final int PUESTO_JEFE = 0;
     public static final int PUESTO_RRHH = 1;
     public static final int PUESTO_ADMIN = 2;
     public static final int PUESTO_VENTAS = 3;
 
+    // Constructor por defecto: inicializa un empleado con valores aleatorios
     public Empleado() {
         Random rand = new Random();
-        this.identificador = rand.nextInt(10000);
-        this.nombre = "";
-        this.edad = rand.nextInt(60) + 18;
-        this.ingresos = rand.nextDouble() * 50000;
-        this.puesto = PUESTO_ADMIN;
+        this.identificador = rand.nextInt(10000); // Identificador aleatorio
+        this.nombre = ""; // Nombre vacío por defecto
+        this.edad = rand.nextInt(60) + 18; // Edad aleatoria entre 18 y 77 años
+        this.ingresos = rand.nextDouble() * 50000; // Ingresos aleatorios entre 0 y 50,000
+        this.puesto = PUESTO_ADMIN; // Asignar puesto por defecto como ADMIN
     }
 
+    // Constructor con parámetros para asignar valores específicos
     public Empleado(int identificador, String nombre, int edad, double ingresos, int puesto) {
         this.identificador = identificador;
         this.nombre = nombre;
@@ -30,6 +33,7 @@ public class Empleado {
         this.puesto = puesto;
     }
 
+    // Métodos getter y setter
     public int getIdentificador() { return identificador; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -38,6 +42,7 @@ public class Empleado {
     public double getIngresos() { return ingresos; }
     public void setIngresos(double ingresos) { this.ingresos = ingresos; }
 
+    // Método que devuelve la información del empleado en formato de texto
     @Override
     public String toString() {
         return "Empleado:\n" +
@@ -51,30 +56,29 @@ public class Empleado {
 }
 
 
-
-
-
-
 // Jefe.java
 public class Jefe extends Empleado {
-    private double gastoTarjeta;
-    private String consejo;
-    private String sede;
+    private double gastoTarjeta; // Gasto en tarjeta del jefe
+    private String consejo; // Consejo del jefe
+    private String sede; // Sede del jefe
 
+    // Constructor por defecto para un jefe
     public Jefe() {
-        super();
-        this.gastoTarjeta = Math.random() * 10000;
-        this.consejo = "";
-        this.sede = "";
+        super(); // Llamada al constructor de la clase Empleado
+        this.gastoTarjeta = Math.random() * 10000; // Gasto aleatorio en tarjeta
+        this.consejo = ""; // Consejo vacío por defecto
+        this.sede = ""; // Sede vacía por defecto
     }
 
+    // Constructor con parámetros para asignar valores específicos al jefe
     public Jefe(int identificador, String nombre, int edad, double ingresos, int puesto, double gastoTarjeta, String consejo, String sede) {
-        super(identificador, nombre, edad, ingresos, puesto);
+        super(identificador, nombre, edad, ingresos, puesto); // Llamada al constructor de la clase Empleado
         this.gastoTarjeta = gastoTarjeta;
         this.consejo = consejo;
         this.sede = sede;
     }
 
+    // Métodos getter y setter para las nuevas propiedades
     public double getGastoTarjeta() { return gastoTarjeta; }
     public void setGastoTarjeta(double gastoTarjeta) { this.gastoTarjeta = gastoTarjeta; }
     public String getConsejo() { return consejo; }
@@ -82,19 +86,16 @@ public class Jefe extends Empleado {
     public String getSede() { return sede; }
     public void setSede(String sede) { this.sede = sede; }
 
+    // Método que devuelve la información del jefe en formato de texto
     @Override
     public String toString() {
-        return super.toString() + "\n" +
+        return super.toString() + "\n" + // Información del empleado
                 "Gasto Tarjeta: " + gastoTarjeta + "\n" +
                 "Consejo: " + consejo + "\n" +
                 "Sede: " + sede + "\n" +
                 "*************************************************************";
     }
 }
-
-
-
-
 
 
 // Empresa.java
@@ -110,6 +111,7 @@ public class Empresa {
     private double gastosEmpleados;
     private ArrayList<Empleado> empleados;
 
+    // Constructor por defecto de la empresa
     public Empresa() {
         this.identificador = "";
         this.nombre = "";
@@ -121,6 +123,7 @@ public class Empresa {
         this.empleados = new ArrayList<>();
     }
 
+    // Constructor con parámetros para asignar valores específicos a la empresa
     public Empresa(String identificador, String nombre, String direccion, String tipo, String web, double ingresosAnuales, double gastosEmpleados) {
         this.identificador = identificador;
         this.nombre = nombre;
@@ -132,10 +135,12 @@ public class Empresa {
         this.empleados = new ArrayList<>();
     }
 
+    // Método que devuelve el número total de empleados de la empresa
     public int numEmpleados() {
         return empleados.size();
     }
 
+    // Método que devuelve el empleado con mayores ingresos para un puesto específico
     public Empleado empleadoMasCaro(int puesto) {
         Empleado masCaro = null;
         for (Empleado e : empleados) {
@@ -146,6 +151,7 @@ public class Empresa {
         return masCaro;
     }
 
+    // Método que asigna a un empleado como jefe de equipo por su nombre
     public boolean asignarJefeEquipo(String nombre) {
         for (int i = 0; i < empleados.size(); i++) {
             Empleado e = empleados.get(i);
@@ -153,7 +159,7 @@ public class Empresa {
             boolean yaEsJefe = e.puesto == Empleado.PUESTO_JEFE;
             if (mismoNombre) {
                 if (yaEsJefe) {
-                    return false;
+                    return false; // Si ya es jefe, no se puede asignar nuevamente
                 }
                 e.puesto = Empleado.PUESTO_JEFE;
                 return true;
@@ -162,6 +168,7 @@ public class Empresa {
         return false;
     }
 
+    // Método que suma los ingresos de empleados menores de cierta edad
     public void sumaIngresos(int edad) {
         double suma = 0;
         for (int i = 0; i < empleados.size(); i++) {
@@ -172,7 +179,7 @@ public class Empresa {
                 boolean esJefe = e instanceof Jefe;
                 if (esJefe) {
                     Jefe jefe = (Jefe) e;
-                    suma += jefe.getGastoTarjeta();
+                    suma += jefe.getGastoTarjeta(); // Si es jefe, sumar su gasto en tarjeta
                 }
             }
         }
