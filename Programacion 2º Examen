@@ -9,20 +9,23 @@ public class Trabajador {
     private double salario;
     public int departamento;
 
+    // Definición de los departamentos disponibles
     public static final int DEP_DIRECCION = 0;
     public static final int DEP_FINANZAS = 1;
     public static final int DEP_RECURSOS_HUMANOS = 2;
     public static final int DEP_MARKETING = 3;
 
+    // Constructor por defecto: inicializa un trabajador con valores aleatorios
     public Trabajador() {
         Random rand = new Random();
-        this.id = rand.nextInt(1000);
-        this.nombre = "";
-        this.edad = rand.nextInt(18, 65);
-        this.salario = rand.nextDouble() * 5000;
-        this.departamento = DEP_MARKETING;
+        this.id = rand.nextInt(1000); // ID aleatorio
+        this.nombre = ""; // Nombre vacío por defecto
+        this.edad = rand.nextInt(18, 65); // Edad aleatoria entre 18 y 64
+        this.salario = rand.nextDouble() * 5000; // Salario aleatorio entre 0 y 5000
+        this.departamento = DEP_MARKETING; // Asignar departamento por defecto como Marketing
     }
 
+    // Constructor con parámetros para asignar valores específicos al trabajador
     public Trabajador(int id, String nombre, int edad, double salario, int departamento) {
         this.id = id;
         this.nombre = nombre;
@@ -31,10 +34,12 @@ public class Trabajador {
         this.departamento = departamento;
     }
 
+    // Métodos getter para las propiedades del trabajador
     public String getNombre() { return nombre; }
     public int getEdad() { return edad; }
     public double getSalario() { return salario; }
-    
+
+    // Método que devuelve la información del trabajador en formato de texto
     public String toString() {
         return "Trabajador:\n" + "***************************************\n" +
                 "ID: " + id + "\n" +
@@ -46,34 +51,40 @@ public class Trabajador {
     }
 }
 
+
 // Archivo: Director.java
 package Examen2;
 
 public class Director extends Trabajador {
-    private double presupuestoAsignado;
-    private double bonificaciones;
-    private String sucursal;
+    private double presupuestoAsignado; // Presupuesto asignado al director
+    private double bonificaciones; // Bonificaciones del director
+    private String sucursal; // Sucursal en la que trabaja el director
 
+    // Constructor por defecto: inicializa un director con valores predeterminados
     public Director() {
-        super();
+        super(); // Llamada al constructor de la clase Trabajador
         this.presupuestoAsignado = 0.0;
         this.bonificaciones = 0.0;
         this.sucursal = "";
     }
 
+    // Constructor con parámetros para asignar valores específicos al director
     public Director(int id, String nombre, int edad, double salario, int departamento, double presupuestoAsignado, double bonificaciones, String sucursal) {
-        super(id, nombre, edad, salario, departamento);
+        super(id, nombre, edad, salario, departamento); // Llamada al constructor de la clase Trabajador
         this.presupuestoAsignado = presupuestoAsignado;
         this.bonificaciones = bonificaciones;
         this.sucursal = sucursal;
     }
 
+    // Método getter para las bonificaciones
     public double getBonificaciones() { return bonificaciones; }
-    
+
+    // Método que devuelve la información del director en formato de texto
     public String toString() {
         return super.toString() + "\nPresupuesto: " + presupuestoAsignado + "\nBonificaciones: " + bonificaciones + "\nSucursal: " + sucursal;
     }
 }
+
 
 // Archivo: Compania.java
 package Examen2;
@@ -89,6 +100,7 @@ public class Compania {
     private double gastosEmpleados;
     private ArrayList<Trabajador> trabajadores;
 
+    // Constructor por defecto para la compañía
     public Compania() {
         this.codigo = "";
         this.nombre = "";
@@ -100,10 +112,12 @@ public class Compania {
         this.trabajadores = new ArrayList<>();
     }
 
+    // Método que devuelve el número total de trabajadores de la compañía
     public int totalTrabajadores() {
         return trabajadores.size();
     }
 
+    // Método que devuelve el trabajador con el salario más alto para un departamento específico
     public Trabajador trabajadorMejorPagado(int departamento) {
         Trabajador mejorPagado = null;
         for (int i = 0; i < trabajadores.size(); i++) {
@@ -115,11 +129,12 @@ public class Compania {
         return mejorPagado;
     }
 
+    // Método que promueve a un trabajador a director por su nombre
     public boolean promoverADirector(String nombre) {
         for (int i = 0; i < trabajadores.size(); i++) {
             Trabajador trabajador = trabajadores.get(i);
             if (trabajador.getNombre().equalsIgnoreCase(nombre)) {
-                if (trabajador instanceof Director) return false;
+                if (trabajador instanceof Director) return false; // Si ya es director, no se puede promover
                 trabajadores.set(i, new Director(trabajador.id, trabajador.getNombre(), trabajador.getEdad(), trabajador.getSalario(), trabajador.departamento, 10000.0, 2000.0, "Sucursal Central"));
                 return true;
             }
@@ -127,13 +142,14 @@ public class Compania {
         return false;
     }
 
+    // Método que calcula los gastos totales de los empleados menores de cierta edad
     public void calcularGastos(int edadMaxima) {
         double suma = 0;
         for (int i = 0; i < trabajadores.size(); i++) {
             Trabajador trabajador = trabajadores.get(i);
             if (trabajador.getEdad() < edadMaxima) {
-                suma += trabajador.getSalario();
-                if (trabajador instanceof Director) {
+                suma += trabajador.getSalario(); // Sumar el salario
+                if (trabajador instanceof Director) { // Si es director, sumar las bonificaciones
                     Director director = (Director) trabajador;
                     suma += director.getBonificaciones();
                 }
