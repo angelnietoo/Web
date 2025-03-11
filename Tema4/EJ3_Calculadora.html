@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo del Área del Triángulo</title>
+    <title>Operaciones Matemáticas</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         body {
@@ -22,30 +22,80 @@
 </head>
 <body>
 
-    <h1>Cálculo del Área del Triángulo</h1>
-    <p>Para calcular el área, debes introducir la base y la altura del triángulo.</p>
+    <h1>Operaciones Matemáticas</h1>
+    <p>Introduce dos números para realizar las operaciones matemáticas.</p>
     
-    <label for="base">Introduce base:</label>
-    <input type="text" id="base" class="base" placeholder="Ejemplo: 5">
+    <label for="numero1">Introduce el primer número:</label>
+    <input type="text" id="numero1" class="numero1" placeholder="Ejemplo: 5">
     
-    <label for="altura">Introduce altura:</label>
-    <input type="text" id="altura" class="altura" placeholder="Ejemplo: 10">
+    <label for="numero2">Introduce el segundo número:</label>
+    <input type="text" id="numero2" class="numero2" placeholder="Ejemplo: 10">
     
-    <input type="button" class="calcular" value="Calcular">
+    <input type="button" class="sumar" value="Sumar">
+    <input type="button" class="restar" value="Restar">
+    <input type="button" class="multiplicar" value="Multiplicar">
+    <input type="button" class="dividir" value="Dividir">
     
     <div class="resultado"></div>
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $(".calcular").click(function() {
-                var base = Number($(".base").val());
-                var altura = Number($(".altura").val());
+            // Función para mostrar el resultado
+            function mostrarResultado(operacion, resultado) {
+                $(".resultado").html("<p>El resultado de la " + operacion + " es: " + resultado + "</p>");
+            }
+
+            // Sumar
+            $(".sumar").click(function() {
+                var numero1 = Number($(".numero1").val());
+                var numero2 = Number($(".numero2").val());
                 
-                if (isNaN(base) || base <= 0 || isNaN(altura) || altura <= 0) {
-                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa valores válidos para la base y la altura.</p>");
+                if (isNaN(numero1) || isNaN(numero2)) {
+                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa dos números válidos.</p>");
                 } else {
-                    var resultado = (base * altura) / 2;
-                    $(".resultado").html("<p>El área del triángulo es: " + resultado + " unidades cuadradas.</p>");
+                    var resultado = numero1 + numero2;
+                    mostrarResultado("suma", resultado);
+                }
+            });
+
+            // Restar
+            $(".restar").click(function() {
+                var numero1 = Number($(".numero1").val());
+                var numero2 = Number($(".numero2").val());
+                
+                if (isNaN(numero1) || isNaN(numero2)) {
+                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa dos números válidos.</p>");
+                } else {
+                    var resultado = numero1 - numero2;
+                    mostrarResultado("resta", resultado);
+                }
+            });
+
+            // Multiplicar
+            $(".multiplicar").click(function() {
+                var numero1 = Number($(".numero1").val());
+                var numero2 = Number($(".numero2").val());
+                
+                if (isNaN(numero1) || isNaN(numero2)) {
+                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa dos números válidos.</p>");
+                } else {
+                    var resultado = numero1 * numero2;
+                    mostrarResultado("multiplicación", resultado);
+                }
+            });
+
+            // Dividir
+            $(".dividir").click(function() {
+                var numero1 = Number($(".numero1").val());
+                var numero2 = Number($(".numero2").val());
+                
+                if (isNaN(numero1) || isNaN(numero2)) {
+                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa dos números válidos.</p>");
+                } else if (numero2 === 0) {
+                    $(".resultado").html("<p style='color: red;'>No se puede dividir entre 0.</p>");
+                } else {
+                    var resultado = numero1 / numero2;
+                    mostrarResultado("división", resultado);
                 }
             });
         });
