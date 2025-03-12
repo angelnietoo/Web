@@ -39,28 +39,25 @@ arcu, at posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer a
 elit. Duis scelerisque.</p>
 <a id="enlace_3" href="#">Ocultar contenido</a>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    window.onload = function () {
-    function muestraOculta(idEnlace) {
-        var enlace = document.getElementById(idEnlace);
-        var idContenido = "contenido_" + idEnlace.split("_")[1];
-        var contenido = document.getElementById(idContenido);
+    $(document).ready(function () {
+        $("a").click(function (event) {
+            event.preventDefault(); // Evita que el enlace recargue la página
+            
+            var contenido = $(this).prev("p"); // Selecciona el párrafo anterior al enlace
+            
+            contenido.toggle(); // Oculta o muestra el párrafo
+            
+            // Cambia el texto del enlace según el estado del párrafo
+            if (contenido.is(":visible")) {
+                $(this).text("Ocultar contenido");
+            } else {
+                $(this).text("Mostrar contenido");
+            }
+        });
+    });
+</script>
 
-        if (contenido.style.display === "none") {
-            contenido.style.display = "block";
-            enlace.innerHTML = "Ocultar contenido";
-        } else {
-            contenido.style.display = "none";
-            enlace.innerHTML = "Mostrar contenido";
-        }
-    }
-
-    document.getElementById("enlace_1").onclick = function () { muestraOculta("enlace_1"); return false; };
-    document.getElementById("enlace_2").onclick = function () { muestraOculta("enlace_2"); return false; };
-    document.getElementById("enlace_3").onclick = function () { muestraOculta("enlace_3"); return false; };
-};
-
-    
-    </script>
 </body>
 </html>
