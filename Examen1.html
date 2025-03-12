@@ -27,7 +27,7 @@ nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis, fauci
 rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper, odio uma consequat
 arcu, at posuere ante quam non dolor. Lorem ipsurn dolor sit amet, consectetuer adipiscing
 elit. Duis scelerisque.</p>
-<a id-"enlace_2" href-"">Ocultar contenido</a
+<a id="enlace_2" href="#">Ocultar contenido</a
 <br/>
 <p id="contenido_3">[3] Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed mattis
 enim vitae orci. Phasellus libero. Maecenas nisl arcu, consequat congue, commodo neс,
@@ -38,5 +38,39 @@ rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper, odio uma co
 arcu, at posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing
 elit. Duis scelerisque.</p>
 <a id="enlace_3" href="#">Ocultar contenido</a>
+
+<script>
+    $(document).ready(function(){
+        // Acción del botón para ocultar los párrafos pares
+        $("#ocultarContenido").click(function(){
+            $("p:nth-of-type(even)").hide(); // Ocultar párrafos en posición par
+        });
+
+        // Acción del botón para ocultar los párrafos impares
+        $("#ocultarImpares").click(function(){
+            $("p:nth-of-type(odd)").hide(); // Ocultar párrafos en posición impar
+        });
+
+        // Acción del botón para mostrar los párrafos pares
+        $("#mostrarPares").click(function(){
+            $("p:nth-of-type(even)").show(); // Mostrar párrafos en posición par
+        });
+
+        // Acción del botón para mostrar los párrafos impares
+        $("#mostrarImpares").click(function(){
+            $("p:nth-of-type(odd)").show(); // Mostrar párrafos en posición impar
+        });
+
+        // Cuando se pase el ratón por encima se cambia el color
+        $("#caja").hover(
+            function() {
+                $(this).css("background-color", "lightblue");
+            },
+            function() {
+                $(this).css("background-color", "lightgray");
+            }
+        );
+    });
+    </script>
 </body>
 </html>
