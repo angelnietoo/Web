@@ -40,29 +40,26 @@ elit. Duis scelerisque.</p>
 <button id="enlace_3" href="#">Ocultar contenido</button>
 
 <script>
-    $(document).ready(function(){
-        // Acción del botón para ocultar los párrafos
-        $("#ocultarContenido").click(function(){
-            $("p:nth-of-type(even)").hide(); // Ocultar párrafos
-        });
+    window.onload = function () {
+    function muestraOculta(idEnlace) {
+        var enlace = document.getElementById(idEnlace);
+        var idContenido = "contenido_" + idEnlace.split("_")[1];
+        var contenido = document.getElementById(idContenido);
 
-        // Acción del botón para ocultar los párrafos 
-        $("#ocultarImpares").click(function(){
-            $("p:nth-of-type(odd)").hide(); // Ocultar párrafos 
-        });
+        if (contenido.style.display === "none") {
+            contenido.style.display = "block";
+            enlace.innerHTML = "Ocultar contenido";
+        } else {
+            contenido.style.display = "none";
+            enlace.innerHTML = "Mostrar contenido";
+        }
+    }
 
-        // Acción del botón para mostrar los párrafos 
-        $("#mostrarPares").click(function(){
-            $("p:nth-of-type(even)").show(); // Mostrar párrafos 
-        });
+    document.getElementById("enlace_1").onclick = function () { muestraOculta("enlace_1"); return false; };
+    document.getElementById("enlace_2").onclick = function () { muestraOculta("enlace_2"); return false; };
+    document.getElementById("enlace_3").onclick = function () { muestraOculta("enlace_3"); return false; };
+};
 
-        // Acción del botón para mostrar los párrafos 
-        $("#mostrarImpares").click(function(){
-            $("p:nth-of-type(odd)").show(); // Mostrar párrafos 
-        });
-
-        
-        });
     
     </script>
 </body>
