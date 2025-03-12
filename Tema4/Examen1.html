@@ -37,40 +37,33 @@ nisl elementum elit convallis malesuada. Phasellus magna sem, semper quis, fauci
 rhoncus non, mi. Duis pellentesque, felis eu adipiscing ullamcorper, odio uma consequat
 arcu, at posuere ante quam non dolor. Lorem ipsum dolor sit amet, consectetuer adipiscing
 elit. Duis scelerisque.</p>
-<a id="enlace_3" href="#">Ocultar contenido</a>
+<button id="enlace_3" href="#">Ocultar contenido</button>
 
 <script>
     $(document).ready(function(){
-        // Acción del botón para ocultar los párrafos pares
+        // Acción del botón para ocultar los párrafos
         $("#ocultarContenido").click(function(){
-            $("p:nth-of-type(even)").hide(); // Ocultar párrafos en posición par
+            $("p:nth-of-type(even)").hide(); // Ocultar párrafos
         });
 
-        // Acción del botón para ocultar los párrafos impares
+        // Acción del botón para ocultar los párrafos 
         $("#ocultarImpares").click(function(){
-            $("p:nth-of-type(odd)").hide(); // Ocultar párrafos en posición impar
+            $("p:nth-of-type(odd)").hide(); // Ocultar párrafos 
         });
 
-        // Acción del botón para mostrar los párrafos pares
+        // Acción del botón para mostrar los párrafos 
         $("#mostrarPares").click(function(){
-            $("p:nth-of-type(even)").show(); // Mostrar párrafos en posición par
+            $("p:nth-of-type(even)").show(); // Mostrar párrafos 
         });
 
-        // Acción del botón para mostrar los párrafos impares
+        // Acción del botón para mostrar los párrafos 
         $("#mostrarImpares").click(function(){
-            $("p:nth-of-type(odd)").show(); // Mostrar párrafos en posición impar
+            $("p:nth-of-type(odd)").show(); // Mostrar párrafos 
         });
 
-        // Cuando se pase el ratón por encima se cambia el color
-        $("#caja").hover(
-            function() {
-                $(this).css("background-color", "lightblue");
-            },
-            function() {
-                $(this).css("background-color", "lightgray");
-            }
-        );
-    });
+        
+        });
+    
     </script>
 </body>
 </html>
