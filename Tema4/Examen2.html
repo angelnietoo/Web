@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones Matemáticas</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input[type="text"], input[type="button"] {
+            margin: 5px 0;
+            padding:3px;
+        }
+        .resultado {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tablas de Multiplicar</h1>
+    <p>Hasta que tabla de multiplicar quieres escribir?</p>
+    
+    <label for="numero1">Tablas de multiplicar desde el número:</label>
+    <input type="text" id="numero1" class="numero1" placeholder="1">
+    
+    <label for="numero2">hasta el número:</label>
+    <input type="text" id="numero2" class="numero2" placeholder="Ejemplo: 10">
+    
+    <input type="button" class="multiplicar" value="Multiplicar tablas">
+    
+    <div class="resultado"></div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+            // Función para mostrar el resultado
+            function mostrarResultado(operacion, resultado) {
+                $(".resultado").html("<p>El resultado de la " + operacion + " es: " + resultado + "</p>");
+            }
+
+            // Multiplicar
+            $(".multiplicar").click(function() {
+                var numero1 = Number($(".numero1").val());
+                var numero2 = Number($(".numero2").val());
+                
+                if (isNaN(numero1) || isNaN(numero2)) {
+                    $(".resultado").html("<p style='color: red;'>Por favor, ingresa un número válido.</p>");
+                } else {
+                    var resultado = numero1 * numero2;
+                    mostrarResultado("multiplicación", resultado);
+                }
+            });
+        });
+    </script>
+    
+</body>
+</html>
