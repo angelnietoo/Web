@@ -37,12 +37,12 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+            // Creamos un vector con los numeros que indique el usuario
+        let vector_numeros = new Array(numero2);
+        for (let i = 0; i < numero2; i++) {
+            vector_numeros[i] =  numero2 + 1;
+        }
             
-            // Función para mostrar el resultado
-            function mostrarResultado(operacion, resultado) {
-                $(".resultado").html("<p>El resultado de la " + operacion + " es: " + resultado + "</p>");
-            }
-
             // Multiplicar
             $(".multiplicar").click(function() {
                 var numero1 = Number($(".numero1").val());
@@ -54,9 +54,16 @@
                     var resultado = numero1 * numero2;
                     mostrarResultado("multiplicación", resultado);
                 }
+                
             });
+
+            // Función para mostrar el resultado
+            function mostrarResultado(operacion, resultado) {
+                $(".resultado").html("<p>El resultado de la " + operacion + " es: " + resultado + "</p>");
+            }
         });
     </script>
+    
     
 </body>
 </html>
