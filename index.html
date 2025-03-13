@@ -225,7 +225,8 @@
             <button class="button" id="btnTema1">Tema 1</button>
             <button class="button" id="btnTema2">Tema 2</button>
             <button class="button" id="btnTema3">Tema 3</button>
-            <button class="button" id="btnTema4">Tema 4</button> <!-- Nuevo botón Tema 4 -->
+            <button class="button" id="btnTema4">Tema 4</button> <!-- Botón Tema 4 -->
+            <button class="button" id="btnTema5">Tema 5</button> <!-- Nuevo botón Tema 5 -->
         </div>
 
         <!-- Contenedor de botones "Curriculum Vitae" y "Brújula Social" -->
@@ -281,6 +282,14 @@
                 <a href="Tema4/EJ3_Calculadora.html" class="button">Ejercicio 9: Calculadora</a>
             </div>
         </div>
+
+        <!-- Contenido de Ejercicios para el Tema 5 (Nuevo Tema) -->
+        <div id="tema5" class="ejercicios">
+            <h2>TEMA 5: Nuevo Tema</h2>
+            <div class="columnas">
+                <a href="AnimationQuery.html" class="button">Ejercicio Animacion JQuery</a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -288,7 +297,8 @@
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
-        const btnTema4 = document.getElementById('btnTema4'); // Nuevo botón Tema 4
+        const btnTema4 = document.getElementById('btnTema4'); // Botón Tema 4
+        const btnTema5 = document.getElementById('btnTema5'); // Botón Tema 5
         const btnCV = document.getElementById('btnCV');
         const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
 
@@ -296,7 +306,8 @@
         const tema1 = document.getElementById('tema1');
         const tema2 = document.getElementById('tema2');
         const tema3 = document.getElementById('tema3');
-        const tema4 = document.getElementById('tema4'); // Nueva sección para Tema 4
+        const tema4 = document.getElementById('tema4');
+        const tema5 = document.getElementById('tema5'); // Sección Tema 5
 
         // Función para alternar la visibilidad de un tema
         function toggleTema(tema) {
@@ -310,7 +321,8 @@
                 tema1.style.display = 'none';
                 tema2.style.display = 'none';
                 tema3.style.display = 'none';
-                tema4.style.display = 'none'; // Asegurarse de ocultar Tema 4 si es necesario
+                tema4.style.display = 'none';
+                tema5.style.display = 'none'; // Ocultar Tema 5 si es necesario
                 temaElemento.style.display = 'block';
             }
         }
@@ -328,8 +340,12 @@
             toggleTema('tema3');
         });
 
-        btnTema4.addEventListener('click', () => { // Evento para Tema 4
+        btnTema4.addEventListener('click', () => {
             toggleTema('tema4');
+        });
+
+        btnTema5.addEventListener('click', () => { // Evento para Tema 5
+            toggleTema('tema5');
         });
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
