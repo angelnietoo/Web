@@ -1,1 +1,96 @@
-<!DOCTYPE html> <html lang="es"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Explicación de Código JavaScript y jQuery</title> <style> body { font-family: Arial, sans-serif; margin: 20px; } .codigo { background-color: #f4f4f4; padding: 10px; border-left: 5px solid #007BFF; margin-bottom: 20px; } code { font-weight: bold; color: #D63384; } </style> </head> <body> <h1>Explicación de Código JavaScript y jQuery</h1> <div class="codigo"> <h2>1. Variables Usadas</h2> <ul> <li><code>una_variable</code>: Variable numérica usada para almacenar el valor 42.</li> <li><code>otra_variable</code>: Variable numérica con el valor 30.</li> <li><code>vector_nombres</code>: Array que almacena nombres como "Juan Perez" y "Pedro Díaz".</li> <li><code>vector_numeros</code>: Array de números que incluye valores como 23, -45.23 y 4500.</li> <li><code>vector_numeros</code> (de otro código): Array con 100 números aleatorios.</li> <li><code>sumatorio</code>: Variable que almacena la suma de los 100 números aleatorios.</li> <li><code>numeros</code>: Array que almacena los números ingresados por el usuario.</li> <li><code>pares</code> e <code>impares</code>: Variables que cuentan cuántos números son pares o impares.</li> <li><code>texto</code>: Elemento de texto en la interfaz, utilizado con jQuery.</li> </ul> </div> <div class="codigo"> <h2>2. Funciones y Métodos Usados</h2> <ul> <li><code>document.write()</code>: Muestra contenido en la página web.</li> <li><code>Math.floor(Math.random() * 100) + 1</code>: Genera un número aleatorio entre 1 y 100.</li> <li><code>reduce()</code>: Método para calcular la suma de los elementos de un array.</li> <li><code>prompt()</code>: Solicita entrada de datos al usuario.</li> <li><code>isNaN()</code>: Verifica si un valor no es un número.</li> <li><code>Number.isInteger()</code>: Comprueba si un número es entero.</li> <li><code>parseInt()</code>: Convierte una cadena en un número entero.</li> <li><code>join(', ')</code>: Une los elementos de un array en una cadena separada por comas.</li> <li><code>location.reload()</code>: Recarga la página web.</li> <li><code>fadeOut()</code>: Oculta el elemento con una animación de desvanecimiento.</li> <li><code>fadeIn()</code>: Muestra el elemento con una animación de desvanecimiento.</li> <li><code>hover()</code>: Cambia el color de una caja cuando el usuario pasa el ratón por encima.</li> <li><code>click()</code>: Detecta clics en los botones y ejecuta una acción.</li> </ul> </div> <div class="codigo"> <h2>3. Estructuras de Control</h2> <ul> <li><code>if-else</code>: Se usa para comparar valores y ejecutar diferentes bloques de código.</li> <li><code>while (true)</code>: Bucle que solicita datos al usuario hasta que ingrese "0".</li> <li><code>for (let i = 0; i < 100; i++)</code>: Bucle que genera un array con 100 números aleatorios.</li> </ul> </div> <div class="codigo"> <h2>4. Uso de jQuery</h2> <ul> <li><code>$(document).ready()</code>: Ejecuta código cuando la página está completamente cargada.</li> <li><code>click()</code>: Detecta clics en los botones y ejecuta una acción.</li> <li><code>hide()</code> y <code>show()</code>: Ocultan o muestran elementos HTML.</li> <li><code>hover()</code>: Cambia el color de una caja cuando el usuario pasa el ratón por encima.</li> <li><code>fadeOut()</code> y <code>fadeIn()</code>: Aplican efectos de desvanecimiento en un elemento.</li> </ul> </div> <div class="codigo"> <h2>5. jQuery para Manipular Botones de Fade</h2> <ul> <li><code>#botonizq</code>: ID del botón que aplica el efecto <code>fadeOut()</code> al texto.</li> <li><code>#botonder</code>: ID del botón que aplica el efecto <code>fadeIn()</code> al texto.</li> <li><code>#texto</code>: ID del elemento que se ve afectado por los efectos <code>fadeOut()</code> y <code>fadeIn()</code>.</li> </ul> </div> </body> </html>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explicación de Código JavaScript y jQuery</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .codigo {
+        background-color: #f4f4f4;
+        padding: 10px;
+        border-left: 5px solid #007BFF;
+        margin-bottom: 20px;
+      }
+      code {
+        font-weight: bold;
+        color: #D63384;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Explicación de Código JavaScript y jQuery</h1>
+
+    <!-- Sección 1: Variables Usadas -->
+    <div class="codigo">
+      <h2>1. Variables Usadas</h2>
+      <ul>
+        <li><code>una_variable</code>: Variable numérica usada para almacenar el valor 42.</li>
+        <li><code>otra_variable</code>: Variable numérica con el valor 30.</li>
+        <li><code>vector_nombres</code>: Array que almacena nombres como "Juan Perez" y "Pedro Díaz".</li>
+        <li><code>vector_numeros</code>: Array de números que incluye valores como 23, -45.23 y 4500.</li>
+        <li><code>vector_numeros</code> (de otro código): Array con 100 números aleatorios.</li>
+        <li><code>sumatorio</code>: Variable que almacena la suma de los 100 números aleatorios.</li>
+        <li><code>numeros</code>: Array que almacena los números ingresados por el usuario.</li>
+        <li><code>pares</code> e <code>impares</code>: Variables que cuentan cuántos números son pares o impares.</li>
+        <li><code>texto</code>: Elemento de texto en la interfaz, utilizado con jQuery.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 2: Funciones y Métodos Usados -->
+    <div class="codigo">
+      <h2>2. Funciones y Métodos Usados</h2>
+      <ul>
+        <li><code>document.write()</code>: Muestra contenido en la página web.</li>
+        <li><code>Math.floor(Math.random() * 100) + 1</code>: Genera un número aleatorio entre 1 y 100.</li>
+        <li><code>reduce()</code>: Método para calcular la suma de los elementos de un array.</li>
+        <li><code>prompt()</code>: Solicita entrada de datos al usuario.</li>
+        <li><code>isNaN()</code>: Verifica si un valor no es un número.</li>
+        <li><code>Number.isInteger()</code>: Comprueba si un número es entero.</li>
+        <li><code>parseInt()</code>: Convierte una cadena en un número entero.</li>
+        <li><code>join(', ')</code>: Une los elementos de un array en una cadena separada por comas.</li>
+        <li><code>location.reload()</code>: Recarga la página web.</li>
+        <li><code>fadeOut()</code>: Oculta el elemento con una animación de desvanecimiento.</li>
+        <li><code>fadeIn()</code>: Muestra el elemento con una animación de desvanecimiento.</li>
+        <li><code>hover()</code>: Cambia el color de una caja cuando el usuario pasa el ratón por encima.</li>
+        <li><code>click()</code>: Detecta clics en los botones y ejecuta una acción.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 3: Estructuras de Control -->
+    <div class="codigo">
+      <h2>3. Estructuras de Control</h2>
+      <ul>
+        <li><code>if-else</code>: Se usa para comparar valores y ejecutar diferentes bloques de código.</li>
+        <li><code>while (true)</code>: Bucle que solicita datos al usuario hasta que ingrese "0".</li>
+        <li><code>for (let i = 0; i < 100; i++)</code>: Bucle que genera un array con 100 números aleatorios.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 4: Uso de jQuery -->
+    <div class="codigo">
+      <h2>4. Uso de jQuery</h2>
+      <ul>
+        <li><code>$(document).ready()</code>: Ejecuta código cuando la página está completamente cargada.</li>
+        <li><code>click()</code>: Detecta clics en los botones y ejecuta una acción.</li>
+        <li><code>hide()</code> y <code>show()</code>: Ocultan o muestran elementos HTML.</li>
+        <li><code>hover()</code>: Cambia el color de una caja cuando el usuario pasa el ratón por encima.</li>
+        <li><code>fadeOut()</code> y <code>fadeIn()</code>: Aplican efectos de desvanecimiento en un elemento.</li>
+      </ul>
+    </div>
+
+    <!-- Sección 5: jQuery para Manipular Botones de Fade -->
+    <div class="codigo">
+      <h2>5. jQuery para Manipular Botones de Fade</h2>
+      <ul>
+        <li><code>#botonizq</code>: ID del botón que aplica el efecto <code>fadeOut()</code> al texto.</li>
+        <li><code>#botonder</code>: ID del botón que aplica el efecto <code>fadeIn()</code> al texto.</li>
+        <li><code>#texto</code>: ID del elemento que se ve afectado por los efectos <code>fadeOut()</code> y <code>fadeIn()</code>.</li>
+      </ul>
+    </div>
+
+  </body>
+</html>
