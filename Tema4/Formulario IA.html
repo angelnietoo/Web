@@ -39,6 +39,7 @@
         <label><input type="checkbox" name="transmision" value="manual" /> Manual</label>
         <label><input type="checkbox" name="transmision" value="automática" /> Automática</label>
         <label><input type="checkbox" name="transmision" value="CVT" /> CVT</label>
+        <label><input type="checkbox" name="transmision" value="doble embrague" /> Doble embrague</label>
       </div>
     </div>
 
@@ -55,10 +56,13 @@
       <div class="group-title">Tipo de carrocería</div>
       <div class="options-group">
         <label><input type="checkbox" name="carroceria" value="Sedán" /> Sedán</label>
-        <label><input type="checkbox" name="carroceria" value="SUV" /> SUV</label>
         <label><input type="checkbox" name="carroceria" value="Hatchback" /> Hatchback</label>
+        <label><input type="checkbox" name="carroceria" value="SUV" /> SUV</label>
         <label><input type="checkbox" name="carroceria" value="Coupé" /> Coupé</label>
+        <label><input type="checkbox" name="carroceria" value="Cabrio/Descapotable" /> Cabrio/Descapotable</label>
         <label><input type="checkbox" name="carroceria" value="Familiar" /> Familiar</label>
+        <label><input type="checkbox" name="carroceria" value="Pick-up" /> Pick-up</label>
+        <label><input type="checkbox" name="carroceria" value="Monovolumen" /> Monovolumen</label>
       </div>
     </div>
 
@@ -109,20 +113,6 @@
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = frase;
       resultadoDiv.hidden = false;
-
-      // Ejemplo de llamada a API externa (nivel avanzado)
-      /*
-      fetch('https://magicloops.dev/es/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: frase })
-      })
-      .then(res => res.json())
-      .then(data => {
-        console.log('Respuesta IA:', data);
-      })
-      .catch(err => console.error(err));
-      */
     });
   </script>
 </body>
