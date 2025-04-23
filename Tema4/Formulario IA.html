@@ -6,8 +6,9 @@
   <title>Formulario Generador de Prompt IA</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
-    label { display: block; margin-top: 1rem; font-weight: bold; }
-    select, input[type="number"] { width: 100%; padding: 0.5rem; margin-top: 0.5rem; }
+    .group { margin-top: 1rem; }
+    .group-title { font-weight: bold; margin-bottom: 0.5rem; }
+    .options-group label { display: inline-block; margin-right: 1rem; }
     button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; border: none; background: #007bff; color: white; cursor: pointer; border-radius: 4px; }
     button:hover { background: #0056b3; }
     #resultado { margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9; }
@@ -16,43 +17,54 @@
 <body>
   <h1>Generador de Prompt para IA</h1>
   <form id="promptForm">
-    <label for="motor">Tipo de motor</label>
-    <select id="motor" required>
-      <option value="">-- Selecciona --</option>
-      <option value="gasolina">Gasolina</option>
-      <option value="diésel">Diésel</option>
-      <option value="eléctrico">Eléctrico</option>
-      <option value="híbrido">Híbrido</option>
-    </select>
+    <div class="group">
+      <div class="group-title">Tipo de motor</div>
+      <div class="options-group">
+        <label><input type="checkbox" name="motor" value="gasolina" /> Gasolina</label>
+        <label><input type="checkbox" name="motor" value="diésel" /> Diésel</label>
+        <label><input type="checkbox" name="motor" value="eléctrico" /> Eléctrico</label>
+        <label><input type="checkbox" name="motor" value="híbrido" /> Híbrido</label>
+      </div>
+    </div>
 
-    <label for="transmision">Transmisión</label>
-    <select id="transmision" required>
-      <option value="">-- Selecciona --</option>
-      <option value="manual">Manual</option>
-      <option value="automática">Automática</option>
-      <option value="CVT">CVT</option>
-    </select>
+    <div class="group">
+      <div class="group-title">Transmisión</div>
+      <div class="options-group">
+        <label><input type="checkbox" name="transmision" value="manual" /> Manual</label>
+        <label><input type="checkbox" name="transmision" value="automática" /> Automática</label>
+        <label><input type="checkbox" name="transmision" value="CVT" /> CVT</label>
+      </div>
+    </div>
 
-    <label for="traccion">Tracción</label>
-    <select id="traccion" required>
-      <option value="">-- Selecciona --</option>
-      <option value="delantera">Delantera</option>
-      <option value="trasera">Trasera</option>
-      <option value="4x4">4x4</option>
-    </select>
+    <div class="group">
+      <div class="group-title">Tracción</div>
+      <div class="options-group">
+        <label><input type="checkbox" name="traccion" value="delantera" /> Delantera</label>
+        <label><input type="checkbox" name="traccion" value="trasera" /> Trasera</label>
+        <label><input type="checkbox" name="traccion" value="4x4" /> 4x4</label>
+      </div>
+    </div>
 
-    <label for="carroceria">Tipo de carrocería</label>
-    <select id="carroceria" required>
-      <option value="">-- Selecciona --</option>
-      <option value="sedán">Sedán</option>
-      <option value="SUV">SUV</option>
-      <option value="hatchback">Hatchback</option>
-      <option value="coupe">Coupé</option>
-      <option value="familiar">Familiar</option>
-    </select>
+    <div class="group">
+      <div class="group-title">Tipo de carrocería</div>
+      <div class="options-group">
+        <label><input type="checkbox" name="carroceria" value="Sedán" /> Sedán</label>
+        <label><input type="checkbox" name="carroceria" value="SUV" /> SUV</label>
+        <label><input type="checkbox" name="carroceria" value="Hatchback" /> Hatchback</label>
+        <label><input type="checkbox" name="carroceria" value="Coupé" /> Coupé</label>
+        <label><input type="checkbox" name="carroceria" value="Familiar" /> Familiar</label>
+      </div>
+    </div>
 
-    <label for="puertas">Número de puertas</label>
-    <input type="number" id="puertas" min="2" max="5" required />
+    <div class="group">
+      <div class="group-title">Número de puertas</div>
+      <div class="options-group">
+        <label><input type="checkbox" name="puertas" value="2" /> 2</label>
+        <label><input type="checkbox" name="puertas" value="3" /> 3</label>
+        <label><input type="checkbox" name="puertas" value="4" /> 4</label>
+        <label><input type="checkbox" name="puertas" value="5" /> 5</label>
+      </div>
+    </div>
 
     <button type="submit">Generar Prompt</button>
   </form>
@@ -60,15 +72,34 @@
   <div id="resultado" hidden></div>
 
   <script>
+    // Función para permitir solo una casilla marcada por grupo
+    document.querySelectorAll('.options-group').forEach(group => {
+      const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(box => {
+        box.addEventListener('change', () => {
+          if (box.checked) {
+            checkboxes.forEach(other => {
+              if (other !== box) other.checked = false;
+            });
+          }
+        });
+      });
+    });
+
     document.getElementById('promptForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const motor = document.getElementById('motor').value;
-      const transmision = document.getElementById('transmision').value;
-      const traccion = document.getElementById('traccion').value;
-      const carroceria = document.getElementById('carroceria').value;
-      const puertas = document.getElementById('puertas').value;
+      const motor = document.querySelector('input[name="motor"]:checked');
+      const transmision = document.querySelector('input[name="transmision"]:checked');
+      const traccion = document.querySelector('input[name="traccion"]:checked');
+      const carroceria = document.querySelector('input[name="carroceria"]:checked');
+      const puertas = document.querySelector('input[name="puertas"]:checked');
 
-      const frase = `Quiero los 3 mejores coches que sean de motor ${motor} con transmisión ${transmision} que tengan tracción ${traccion}, tipo de carrocería ${carroceria} y con ${puertas} puertas.`;
+      if (!motor || !transmision || !traccion || !carroceria || !puertas) {
+        alert('Por favor, selecciona una opción en cada categoría.');
+        return;
+      }
+
+      const frase = `Quiero los 3 mejores coches que sean de motor ${motor.value} con transmisión ${transmision.value} que tengan tracción ${traccion.value}, tipo de carrocería ${carroceria.value} y con ${puertas.value} puertas.`;
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = frase;
       resultadoDiv.hidden = false;
