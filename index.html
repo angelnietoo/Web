@@ -95,12 +95,14 @@
 
         /* Estilo de botones */
         .button {
-            display: inline-block;
+            display: flex;
+            justify-content: center;    /* centra horizontalmente */
+            align-items: center;        /* centra verticalmente */
+            text-align: center;         /* por si hay varias líneas */
             padding: 14px 28px;
             margin: 12px 10px;
             background: linear-gradient(45deg, #00b0ff, #0091ea); /* Azul brillante */
             color: white;
-            text-align: center;
             text-decoration: none;
             border-radius: 50px;
             font-size: 1.2em;
