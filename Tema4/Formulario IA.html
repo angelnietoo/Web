@@ -6,9 +6,15 @@
   <title>Formulario Generador de Prompt IA</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
-    .group { margin-top: 1rem; }
-    .group-title { font-weight: bold; margin-bottom: 0.5rem; }
-    .options-group label { display: inline-block; margin-right: 1rem; }
+    .group {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1rem 0;
+      background: #fafafa;
+    }
+    .group-title { font-weight: bold; margin-bottom: 0.75rem; }
+    .options-group label { display: inline-block; margin-right: 1rem; margin-bottom: 0.5rem; }
     button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; border: none; background: #007bff; color: white; cursor: pointer; border-radius: 4px; }
     button:hover { background: #0056b3; }
     #resultado { margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9; }
@@ -72,7 +78,7 @@
   <div id="resultado" hidden></div>
 
   <script>
-    // Función para permitir solo una casilla marcada por grupo
+    // Permitir solo una casilla marcada por grupo
     document.querySelectorAll('.options-group').forEach(group => {
       const checkboxes = group.querySelectorAll('input[type="checkbox"]');
       checkboxes.forEach(box => {
