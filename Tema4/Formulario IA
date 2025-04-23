@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario Generador de Prompt IA</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    label { display: block; margin-top: 1rem; font-weight: bold; }
+    select, input[type="number"] { width: 100%; padding: 0.5rem; margin-top: 0.5rem; }
+    button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; border: none; background: #007bff; color: white; cursor: pointer; border-radius: 4px; }
+    button:hover { background: #0056b3; }
+    #resultado { margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9; }
+  </style>
+</head>
+<body>
+  <h1>Generador de Prompt para IA</h1>
+  <form id="promptForm">
+    <label for="motor">Tipo de motor</label>
+    <select id="motor" required>
+      <option value="">-- Selecciona --</option>
+      <option value="gasolina">Gasolina</option>
+      <option value="diésel">Diésel</option>
+      <option value="eléctrico">Eléctrico</option>
+      <option value="híbrido">Híbrido</option>
+    </select>
+
+    <label for="transmision">Transmisión</label>
+    <select id="transmision" required>
+      <option value="">-- Selecciona --</option>
+      <option value="manual">Manual</option>
+      <option value="automática">Automática</option>
+      <option value="CVT">CVT</option>
+    </select>
+
+    <label for="traccion">Tracción</label>
+    <select id="traccion" required>
+      <option value="">-- Selecciona --</option>
+      <option value="delantera">Delantera</option>
+      <option value="trasera">Trasera</option>
+      <option value="4x4">4x4</option>
+    </select>
+
+    <label for="carroceria">Tipo de carrocería</label>
+    <select id="carroceria" required>
+      <option value="">-- Selecciona --</option>
+      <option value="sedán">Sedán</option>
+      <option value="SUV">SUV</option>
+      <option value="hatchback">Hatchback</option>
+      <option value="coupe">Coupé</option>
+      <option value="familiar">Familiar</option>
+    </select>
+
+    <label for="puertas">Número de puertas</label>
+    <input type="number" id="puertas" min="2" max="5" required />
+
+    <button type="submit">Generar Prompt</button>
+  </form>
+
+  <div id="resultado" hidden></div>
+
+  <script>
+    document.getElementById('promptForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const motor = document.getElementById('motor').value;
+      const transmision = document.getElementById('transmision').value;
+      const traccion = document.getElementById('traccion').value;
+      const carroceria = document.getElementById('carroceria').value;
+      const puertas = document.getElementById('puertas').value;
+
+      const frase = `Quiero los 3 mejores coches que sean de motor ${motor} con transmisión ${transmision} que tengan tracción ${traccion}, tipo de carrocería ${carroceria} y con ${puertas} puertas.`;
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.textContent = frase;
+      resultadoDiv.hidden = false;
+
+      // Ejemplo de llamada a API externa (nivel avanzado)
+      /*
+      fetch('https://magicloops.dev/es/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: frase })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Respuesta IA:', data);
+      })
+      .catch(err => console.error(err));
+      */
+    });
+  </script>
+</body>
+</html>
