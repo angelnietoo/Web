@@ -18,7 +18,6 @@
     button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; border: none; background: #e9910d; color: white; cursor: pointer; border-radius: 4px; }
     button:hover { background: #bd750a; }
     #resultado { margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9; }
-    #precio { font-weight: bold; margin-top: 0.5rem; display: block; }
   </style>
 </head>
 <body>
@@ -82,27 +81,22 @@
 
   <div id="resultado" hidden>
     <span id="textoPrompt"></span>
-    <span id="precio"></span>
   </div>
 
   <script>
     // 1) Mapa de precios aproximados
     const priceMap = {
-      // motor
       'gasolina': 15000,
       'diésel':    16000,
       'eléctrico': 30000,
       'híbrido':   25000,
-      // transmisión
       'manual':        0,
       'automática':    2000,
       'CVT':           1500,
       'doble embrague':3000,
-      // tracción
       'Delantera (FWD)':           0,
       'Trasera (RWD)':             1500,
       'Total o integral (AWD, 4x4)': 4000,
-      // carrocería
       'Sedán':                0,
       'Hatchback':            1000,
       'SUV':                  5000,
@@ -111,7 +105,6 @@
       'Familiar':             2000,
       'Pick-up':              6000,
       'Monovolumen':          3500,
-      // puertas
       '2':  -500,
       '3':     0,
       '4':   1000,
@@ -124,55 +117,46 @@
       boxes.forEach(box => {
         box.addEventListener('change', () => {
           if (box.checked) {
-            boxes.forEach(other => {
-              if (other !== box) other.checked = false;
-            });
+            boxes.forEach(other => { if (other !== box) other.checked = false; });
           }
-          calcularPrecio();
         });
       });
     });
 
-    // 3) Calcula y muestra el precio actual
+    // 3) Función de cálculo de precio
     function calcularPrecio() {
       let total = 0;
-      const seleccionados = document.querySelectorAll('input[type="checkbox"]:checked');
-      seleccionados.forEach(chk => {
+      document.querySelectorAll('input[type="checkbox"]:checked').forEach(chk => {
         const val = chk.value;
-        if (priceMap[val] !== undefined) {
-          total += priceMap[val];
-        }
+        if (priceMap[val] !== undefined) total += priceMap[val];
       });
-      // formatea como "xx.xxx €"
       return total.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
     }
 
-    // 4) Al enviar, genera prompt + precio
+    // 4) Al enviar, genera prompt + precio inline
     document.getElementById('promptForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const motor      = document.querySelector('input[name="motor"]:checked');
-      const transmision= document.querySelector('input[name="transmision"]:checked');
-      const traccion   = document.querySelector('input[name="traccion"]:checked');
-      const carroceria = document.querySelector('input[name="carroceria"]:checked');
-      const puertas    = document.querySelector('input[name="puertas"]:checked');
+      const motor       = document.querySelector('input[name="motor"]:checked');
+      const transmision = document.querySelector('input[name="transmision"]:checked');
+      const traccion    = document.querySelector('input[name="traccion"]:checked');
+      const carroceria  = document.querySelector('input[name="carroceria"]:checked');
+      const puertas     = document.querySelector('input[name="puertas"]:checked');
 
       if (!motor || !transmision || !traccion || !carroceria || !puertas) {
         alert('Por favor, selecciona una opción en cada categoría.');
         return;
       }
 
-      const frase = 
-        `Quiero los 3 mejores coches que sean de motor ${motor.value}` +
-        ` con transmisión ${transmision.value}` +
-        ` que tengan tracción ${traccion.value}` +
-        `, tipo de carrocería ${carroceria.value}` +
-        ` y con ${puertas.value} puertas.`;
+      const frase = `Quiero los 3 mejores coches que sean de motor ${motor.value}` +
+                    ` con transmisión ${transmision.value}` +
+                    ` que tengan tracción ${traccion.value}` +
+                    `, tipo de carrocería ${carroceria.value}` +
+                    ` y con ${puertas.value} puertas.`;
 
       const precioFinal = calcularPrecio();
-
-      document.getElementById('textoPrompt').textContent = frase;
-      document.getElementById('precio').textContent     = `Precio aproximado: ${precioFinal}`;
-      document.getElementById('resultado').hidden       = false;
+      document.getElementById('textoPrompt').textContent =
+        `${frase} Precio aproximado: ${precioFinal}`;
+      document.getElementById('resultado').hidden = false;
     });
   </script>
 </body>
