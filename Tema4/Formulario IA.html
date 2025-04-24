@@ -14,7 +14,27 @@
       background: #fafafa;
     }
     .group-title { font-weight: bold; margin-bottom: 0.75rem; }
-    .options-group label { display: inline-block; margin-right: 1rem; margin-bottom: 0.5rem; }
+    /* Ocultar los checkbox nativos */
+    .options-group input[type="checkbox"] {
+      display: none;
+    }
+    /* Estilo de las etiquetas que actúan como botones */
+    .options-group label {
+      display: inline-block;
+      margin-right: 0.75rem;
+      margin-bottom: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      user-select: none;
+    }
+    /* Estado seleccionado */
+    .options-group label.checked {
+      background: #e9910d;
+      color: white;
+      border-color: #e9910d;
+    }
     button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; border: none; background: #e9910d; color: white; cursor: pointer; border-radius: 4px; }
     button:hover { background: #bd750a; }
     #resultado { margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9; }
@@ -84,56 +104,45 @@
   </div>
 
   <script>
-    // 1) Mapa de precios aproximados
     const priceMap = {
-      'gasolina': 15000,
-      'diésel':    16000,
-      'eléctrico': 30000,
-      'híbrido':   25000,
-      'manual':        0,
-      'automática':    2000,
-      'CVT':           1500,
-      'doble embrague':3000,
-      'Delantera (FWD)':           0,
-      'Trasera (RWD)':             1500,
-      'Total o integral (AWD, 4x4)': 4000,
-      'Sedán':                0,
-      'Hatchback':            1000,
-      'SUV':                  5000,
-      'Coupé':                3000,
-      'Cabrio/Descapotable':  4000,
-      'Familiar':             2000,
-      'Pick-up':              6000,
-      'Monovolumen':          3500,
-      '2':  -500,
-      '3':     0,
-      '4':   1000,
-      '5':   1500
+      'gasolina': 15000, 'diésel': 16000, 'eléctrico': 30000, 'híbrido': 25000,
+      'manual': 0, 'automática': 2000, 'CVT': 1500, 'doble embrague': 3000,
+      'Delantera (FWD)': 0, 'Trasera (RWD)': 1500, 'Total o integral (AWD, 4x4)': 4000,
+      'Sedán': 0, 'Hatchback': 1000, 'SUV': 5000, 'Coupé': 3000, 'Cabrio/Descapotable': 4000,
+      'Familiar': 2000, 'Pick-up': 6000, 'Monovolumen': 3500,
+      '2': -500, '3': 0, '4': 1000, '5': 1500
     };
 
-    // 2) Forzar solo 1 selección por grupo
+    // Forzar solo 1 selección por grupo y actualizar estilo
     document.querySelectorAll('.options-group').forEach(group => {
       const boxes = group.querySelectorAll('input[type="checkbox"]');
       boxes.forEach(box => {
         box.addEventListener('change', () => {
           if (box.checked) {
-            boxes.forEach(other => { if (other !== box) other.checked = false; });
+            // desmarcar y quitar estilo de los demás
+            boxes.forEach(other => {
+              if (other !== box) {
+                other.checked = false;
+                other.parentElement.classList.remove('checked');
+              }
+            });
+            // añadir estilo al seleccionado
+            box.parentElement.classList.add('checked');
+          } else {
+            box.parentElement.classList.remove('checked');
           }
         });
       });
     });
 
-    // 3) Función de cálculo de precio
     function calcularPrecio() {
       let total = 0;
       document.querySelectorAll('input[type="checkbox"]:checked').forEach(chk => {
-        const val = chk.value;
-        if (priceMap[val] !== undefined) total += priceMap[val];
+        total += priceMap[chk.value] || 0;
       });
       return total.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
     }
 
-    // 4) Al enviar, genera prompt + precio inline
     document.getElementById('promptForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const motor       = document.querySelector('input[name="motor"]:checked');
@@ -152,8 +161,8 @@
                     ` que tengan tracción ${traccion.value}` +
                     `, tipo de carrocería ${carroceria.value}` +
                     ` y con ${puertas.value} puertas.`;
-
       const precioFinal = calcularPrecio();
+
       document.getElementById('textoPrompt').textContent =
         `${frase} Precio aproximado: ${precioFinal}`;
       document.getElementById('resultado').hidden = false;
