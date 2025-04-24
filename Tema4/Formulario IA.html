@@ -14,13 +14,9 @@
       background: #fafafa;
     }
     .group-title { font-weight: bold; margin-bottom: 0.75rem; }
-    /* Ocultar los checkbox nativos */
-    .options-group input[type="checkbox"] {
-      display: none;
-    }
-    /* Estilo de las etiquetas que actúan como botones */
     .options-group label {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       margin-right: 0.75rem;
       margin-bottom: 0.5rem;
       padding: 0.4rem 0.8rem;
@@ -29,7 +25,10 @@
       border-radius: 4px;
       user-select: none;
     }
-    /* Estado seleccionado */
+    /* Mantener el radio input visible y con espacio a la izquierda */
+    .options-group input[type="radio"] {
+      margin-right: 0.5rem;
+    }
     .options-group label.checked {
       background: #e9910d;
       color: white;
@@ -46,53 +45,53 @@
     <div class="group">
       <div class="group-title">Tipo de motor</div>
       <div class="options-group">
-        <label><input type="checkbox" name="motor" value="gasolina" /> Gasolina</label>
-        <label><input type="checkbox" name="motor" value="diésel" /> Diésel</label>
-        <label><input type="checkbox" name="motor" value="eléctrico" /> Eléctrico</label>
-        <label><input type="checkbox" name="motor" value="híbrido" /> Híbrido</label>
+        <label><input type="radio" name="motor" value="gasolina" /> Gasolina</label>
+        <label><input type="radio" name="motor" value="diésel" /> Diésel</label>
+        <label><input type="radio" name="motor" value="eléctrico" /> Eléctrico</label>
+        <label><input type="radio" name="motor" value="híbrido" /> Híbrido</label>
       </div>
     </div>
 
     <div class="group">
       <div class="group-title">Transmisión</div>
       <div class="options-group">
-        <label><input type="checkbox" name="transmision" value="manual" /> Manual</label>
-        <label><input type="checkbox" name="transmision" value="automática" /> Automática</label>
-        <label><input type="checkbox" name="transmision" value="CVT" /> CVT</label>
-        <label><input type="checkbox" name="transmision" value="doble embrague" /> Doble embrague</label>
+        <label><input type="radio" name="transmision" value="manual" /> Manual</label>
+        <label><input type="radio" name="transmision" value="automática" /> Automática</label>
+        <label><input type="radio" name="transmision" value="CVT" /> CVT</label>
+        <label><input type="radio" name="transmision" value="doble embrague" /> Doble embrague</label>
       </div>
     </div>
 
     <div class="group">
       <div class="group-title">Tracción</div>
       <div class="options-group">
-        <label><input type="checkbox" name="traccion" value="Delantera (FWD)" /> Delantera (FWD)</label>
-        <label><input type="checkbox" name="traccion" value="Trasera (RWD)" /> Trasera (RWD)</label>
-        <label><input type="checkbox" name="traccion" value="Total o integral (AWD, 4x4)" /> Total o integral (AWD, 4x4)</label>
+        <label><input type="radio" name="traccion" value="Delantera (FWD)" /> Delantera (FWD)</label>
+        <label><input type="radio" name="traccion" value="Trasera (RWD)" /> Trasera (RWD)</label>
+        <label><input type="radio" name="traccion" value="Total o integral (AWD, 4x4)" /> Total o integral (AWD, 4x4)</label>
       </div>
     </div>
 
     <div class="group">
       <div class="group-title">Tipo de carrocería</div>
       <div class="options-group">
-        <label><input type="checkbox" name="carroceria" value="Sedán" /> Sedán</label>
-        <label><input type="checkbox" name="carroceria" value="Hatchback" /> Hatchback</label>
-        <label><input type="checkbox" name="carroceria" value="SUV" /> SUV</label>
-        <label><input type="checkbox" name="carroceria" value="Coupé" /> Coupé</label>
-        <label><input type="checkbox" name="carroceria" value="Cabrio/Descapotable" /> Cabrio/Descapotable</label>
-        <label><input type="checkbox" name="carroceria" value="Familiar" /> Familiar</label>
-        <label><input type="checkbox" name="carroceria" value="Pick-up" /> Pick-up</label>
-        <label><input type="checkbox" name="carroceria" value="Monovolumen" /> Monovolumen</label>
+        <label><input type="radio" name="carroceria" value="Sedán" /> Sedán</label>
+        <label><input type="radio" name="carroceria" value="Hatchback" /> Hatchback</label>
+        <label><input type="radio" name="carroceria" value="SUV" /> SUV</label>
+        <label><input type="radio" name="carroceria" value="Coupé" /> Coupé</label>
+        <label><input type="radio" name="carroceria" value="Cabrio/Descapotable" /> Cabrio/Descapotable</label>
+        <label><input type="radio" name="carroceria" value="Familiar" /> Familiar</label>
+        <label><input type="radio" name="carroceria" value="Pick-up" /> Pick-up</label>
+        <label><input type="radio" name="carroceria" value="Monovolumen" /> Monovolumen</label>
       </div>
     </div>
 
     <div class="group">
       <div class="group-title">Número de puertas</div>
       <div class="options-group">
-        <label><input type="checkbox" name="puertas" value="2" /> 2</label>
-        <label><input type="checkbox" name="puertas" value="3" /> 3</label>
-        <label><input type="checkbox" name="puertas" value="4" /> 4</label>
-        <label><input type="checkbox" name="puertas" value="5" /> 5</label>
+        <label><input type="radio" name="puertas" value="2" /> 2</label>
+        <label><input type="radio" name="puertas" value="3" /> 3</label>
+        <label><input type="radio" name="puertas" value="4" /> 4</label>
+        <label><input type="radio" name="puertas" value="5" /> 5</label>
       </div>
     </div>
 
@@ -113,56 +112,39 @@
       '2': -500, '3': 0, '4': 1000, '5': 1500
     };
 
-    // Forzar solo 1 selección por grupo y actualizar estilo
+    // Añadir comportamiento de checked para radios
     document.querySelectorAll('.options-group').forEach(group => {
-      const boxes = group.querySelectorAll('input[type="checkbox"]');
-      boxes.forEach(box => {
-        box.addEventListener('change', () => {
-          if (box.checked) {
-            // desmarcar y quitar estilo de los demás
-            boxes.forEach(other => {
-              if (other !== box) {
-                other.checked = false;
-                other.parentElement.classList.remove('checked');
-              }
-            });
-            // añadir estilo al seleccionado
-            box.parentElement.classList.add('checked');
-          } else {
-            box.parentElement.classList.remove('checked');
-          }
+      const radios = group.querySelectorAll('input[type="radio"]');
+      radios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          radios.forEach(r => r.parentElement.classList.remove('checked'));
+          if (radio.checked) radio.parentElement.classList.add('checked');
         });
       });
     });
 
     function calcularPrecio() {
       let total = 0;
-      document.querySelectorAll('input[type="checkbox"]:checked').forEach(chk => {
-        total += priceMap[chk.value] || 0;
-      });
+      document.querySelectorAll('input[type="radio"]:checked').forEach(r => total += priceMap[r.value] || 0);
       return total.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
     }
 
     document.getElementById('promptForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const motor       = document.querySelector('input[name="motor"]:checked');
-      const transmision = document.querySelector('input[name="transmision"]:checked');
-      const traccion    = document.querySelector('input[name="traccion"]:checked');
-      const carroceria  = document.querySelector('input[name="carroceria"]:checked');
-      const puertas     = document.querySelector('input[name="puertas"]:checked');
-
-      if (!motor || !transmision || !traccion || !carroceria || !puertas) {
+      const vals = ['motor', 'transmision', 'traccion', 'carroceria', 'puertas'].map(name => 
+        document.querySelector(`input[name="${name}"]:checked`)?.value
+      );
+      if (vals.includes(undefined)) {
         alert('Por favor, selecciona una opción en cada categoría.');
         return;
       }
-
-      const frase = `Quiero los 3 mejores coches que sean de motor ${motor.value}` +
-                    ` con transmisión ${transmision.value}` +
-                    ` que tengan tracción ${traccion.value}` +
-                    `, tipo de carrocería ${carroceria.value}` +
-                    ` y con ${puertas.value} puertas.`;
+      const [m, t, tr, c, p] = vals;
+      const frase = `Quiero los 3 mejores coches que sean de motor ${m}` +
+                    ` con transmisión ${t}` +
+                    ` que tengan tracción ${tr}` +
+                    `, tipo de carrocería ${c}` +
+                    ` y con ${p} puertas.`;
       const precioFinal = calcularPrecio();
-
       document.getElementById('textoPrompt').textContent =
         `${frase} Precio aproximado: ${precioFinal}`;
       document.getElementById('resultado').hidden = false;
