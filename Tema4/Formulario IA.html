@@ -26,13 +26,6 @@
     .options-group input[type="radio"] {
       margin-right: 0.5rem;
     }
-    /* Opciones seleccionadas resaltadas */
-    .options-group label.checked {
-      background: #e9910d;
-      color: white;
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-    }
     button { margin-top: 1.5rem; padding: 0.75rem 1.5rem; border: none; background: #e9910d; color: white; cursor: pointer; border-radius: 4px; }
     button:hover { background: #bd750a; }
     #resultado { margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 4px; background: #f9f9f9; }
@@ -111,17 +104,6 @@
       '2': -500, '3': 0, '4': 1000, '5': 1500
     };
 
-    // Añadir comportamiento de checked para radios
-    document.querySelectorAll('.options-group').forEach(group => {
-      const radios = group.querySelectorAll('input[type="radio"]');
-      radios.forEach(radio => {
-        radio.addEventListener('change', () => {
-          radios.forEach(r => r.parentElement.classList.remove('checked'));
-          if (radio.checked) radio.parentElement.classList.add('checked');
-        });
-      });
-    });
-
     function calcularPrecio() {
       let total = 0;
       document.querySelectorAll('input[type="radio"]:checked').forEach(r => total += priceMap[r.value] || 0);
@@ -130,7 +112,7 @@
 
     document.getElementById('promptForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const vals = ['motor', 'transmision', 'traccion', 'carroceria', 'puertas'].map(name => 
+      const vals = ['motor', 'transmision', 'traccion', 'carroceria', 'puertas'].map(name =>
         document.querySelector(`input[name="${name}"]:checked`)?.value
       );
       if (vals.includes(undefined)) {
