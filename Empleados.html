@@ -2,87 +2,167 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Lista de Empleados</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Directorio de Empleados</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #34495e;
+      --secondary-color: #2ecc71;
+      --bg-light: #f7f9fa;
+      --bg-dark: #2c3e50;
+      --text-light: #ffffff;
+      --text-dark: #2d3436;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+    .container {
+      flex: 1;
+      width: 90%;
+      max-width: 1000px;
+      margin: 2rem auto;
+    }
+    .search-box {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .search-box input {
+      width: 250px;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
     table {
+      width: 100%;
       border-collapse: collapse;
-      width: 80%;
-      margin: auto;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      overflow: hidden;
     }
     th, td {
-      border: 1px solid #999;
-      padding: 10px;
+      padding: 0.75rem 1rem;
       text-align: left;
     }
     th {
-      background-color: #f2f2f2;
+      background-color: var(--primary-color);
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 400;
     }
-    caption {
-      font-size: 1.5em;
-      margin: 1em 0;
+    tbody tr:nth-child(even) {
+      background-color: var(--bg-light);
+    }
+    tbody tr:hover {
+      background-color: var(--secondary-color);
+      color: var(--text-light);
+      cursor: pointer;
+    }
+    footer {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      .search-box input { width: 100%; }
+      th, td { padding: 0.5rem; font-size: 0.9rem; }
     }
   </style>
 </head>
 <body>
-  <table>
-    <caption>Empleados</caption>
-    <thead>
-      <tr>
-        <th>Nombre</th>
-        <th>Edad</th>
-        <th>Puesto</th>
-        <th>Departamento</th>
-        <th>Salario</th>
-        <th>Ubicación</th>
-      </tr>
-    </thead>
-    <tbody id="empleados">
-    </tbody>
-  </table>
+  <header>
+    <h1>Directorio de Empleados</h1>
+  </header>
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="filtro" placeholder="Buscar empleado..." oninput="filtrar()" />
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Edad</th>
+          <th>Puesto</th>
+          <th>Departamento</th>
+          <th>Salario (€)</th>
+          <th>Ubicación</th>
+        </tr>
+      </thead>
+      <tbody id="empleados">
+      </tbody>
+    </table>
+  </div>
+  <footer>
+    &copy; 2025 Empresa XYZ. Todos los derechos reservados.
+  </footer>
 
   <script>
     const data = {
       "employees": [
-        {
-          "name": "Juan Pérez",
-          "age": 35,
-          "position": "Senior Developer",
-          "department": "Technology",
-          "salary": 75000,
-          "location": "Madrid, Spain"
-        },
-        {
-          "name": "María Rodríguez",
-          "age": 28,
-          "position": "Graphic Designer",
-          "department": "Design",
-          "salary": 60000,
-          "location": "Paris, France"
-        },
-        {
-          "name": "Carlos Gómez",
-          "age": 40,
-          "position": "Project Manager",
-          "department": "Project Management",
-          "salary": 90000,
-          "location": "Berlin, Germany"
-        }
+        { "name": "Juan Pérez", "age": 35, "position": "Senior Developer", "department": "Technology", "salary": 75000, "location": "Madrid, Spain" },
+        { "name": "María Rodríguez", "age": 28, "position": "Graphic Designer", "department": "Design", "salary": 60000, "location": "Paris, France" },
+        { "name": "Carlos Gómez", "age": 40, "position": "Project Manager", "department": "Project Management", "salary": 90000, "location": "Berlin, Germany" }
       ]
     };
 
-    const tabla = document.getElementById("empleados");
-    data.employees.forEach(emp => {
-      const fila = document.createElement("tr");
-      fila.innerHTML = `
-        <td>${emp.name}</td>
-        <td>${emp.age}</td>
-        <td>${emp.position}</td>
-        <td>${emp.department}</td>
-        <td>${emp.salary}</td>
-        <td>${emp.location}</td>
-      `;
-      tabla.appendChild(fila);
-    });
+    function renderTabla(list) {
+      const tbody = document.getElementById('empleados');
+      tbody.innerHTML = '';
+      list.forEach(emp => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${emp.name}</td>
+          <td>${emp.age}</td>
+          <td>${emp.position}</td>
+          <td>${emp.department}</td>
+          <td>${emp.salary.toLocaleString()}</td>
+          <td>${emp.location}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function filtrar() {
+      const term = document.getElementById('filtro').value.toLowerCase();
+      const filtrados = data.employees.filter(emp =>
+        emp.name.toLowerCase().includes(term) ||
+        emp.position.toLowerCase().includes(term) ||
+        emp.department.toLowerCase().includes(term) ||
+        emp.location.toLowerCase().includes(term)
+      );
+      renderTabla(filtrados);
+    }
+
+    // Render inicial
+    renderTabla(data.employees);
   </script>
 </body>
 </html>
