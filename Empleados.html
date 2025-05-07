@@ -63,16 +63,13 @@
   </table>
 
   <script>
-    async function cargarDatos() {
-      try {
-        const response = await fetch('JSON_Empleados.json');
-        const data = await response.json();
-        renderTabla(data.employees);
-        window.empleadosOriginales = data.employees;
-      } catch (error) {
-        console.error('Error al cargar los datos:', error);
-      }
-    }
+    const data = {
+      "employees": [
+        { "name": "Juan Pérez", "age": 35, "position": "Senior Developer", "department": "Technology", "salary": 75000, "location": "Madrid, Spain" },
+        { "name": "María Rodríguez", "age": 28, "position": "Graphic Designer", "department": "Design", "salary": 60000, "location": "Paris, France" },
+        { "name": "Carlos Gómez", "age": 40, "position": "Project Manager", "department": "Project Management", "salary": 90000, "location": "Berlin, Germany" }
+      ]
+    };
 
     function renderTabla(lista) {
       const tbody = document.getElementById('empleados');
@@ -93,7 +90,7 @@
 
     function filtrar() {
       const texto = document.getElementById('filtro').value.toLowerCase();
-      const filtrados = window.empleadosOriginales.filter(emp =>
+      const filtrados = data.employees.filter(emp =>
         emp.name.toLowerCase().includes(texto) ||
         emp.position.toLowerCase().includes(texto) ||
         emp.department.toLowerCase().includes(texto) ||
@@ -102,7 +99,7 @@
       renderTabla(filtrados);
     }
 
-    cargarDatos();
+    renderTabla(data.employees);
   </script>
 </body>
 </html>
