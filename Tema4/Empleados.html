@@ -32,21 +32,10 @@
     tr:nth-child(even) {
       background-color: #f9f9f9;
     }
-    .search-box {
-      text-align: right;
-      margin-bottom: 10px;
-    }
-    .search-box input {
-      padding: 6px;
-      width: 200px;
-    }
   </style>
 </head>
 <body>
   <h1>Lista de Empleados</h1>
-  <div class="search-box">
-    <input type="text" id="filtro" placeholder="Buscar..." oninput="filtrar()">
-  </div>
   <table>
     <thead>
       <tr>
@@ -86,17 +75,6 @@
         `;
         tbody.appendChild(fila);
       });
-    }
-
-    function filtrar() {
-      const texto = document.getElementById('filtro').value.toLowerCase();
-      const filtrados = data.employees.filter(emp =>
-        emp.name.toLowerCase().includes(texto) ||
-        emp.position.toLowerCase().includes(texto) ||
-        emp.department.toLowerCase().includes(texto) ||
-        emp.location.toLowerCase().includes(texto)
-      );
-      renderTabla(filtrados);
     }
 
     renderTabla(data.employees);
