@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Empleados</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: auto;
+    }
+    th, td {
+      border: 1px solid #999;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    caption {
+      font-size: 1.5em;
+      margin: 1em 0;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <caption>Empleados</caption>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Puesto</th>
+        <th>Departamento</th>
+        <th>Salario</th>
+        <th>Ubicación</th>
+      </tr>
+    </thead>
+    <tbody id="empleados">
+    </tbody>
+  </table>
+
+  <script>
+    const data = {
+      "employees": [
+        {
+          "name": "Juan Pérez",
+          "age": 35,
+          "position": "Senior Developer",
+          "department": "Technology",
+          "salary": 75000,
+          "location": "Madrid, Spain"
+        },
+        {
+          "name": "María Rodríguez",
+          "age": 28,
+          "position": "Graphic Designer",
+          "department": "Design",
+          "salary": 60000,
+          "location": "Paris, France"
+        },
+        {
+          "name": "Carlos Gómez",
+          "age": 40,
+          "position": "Project Manager",
+          "department": "Project Management",
+          "salary": 90000,
+          "location": "Berlin, Germany"
+        }
+      ]
+    };
+
+    const tabla = document.getElementById("empleados");
+    data.employees.forEach(emp => {
+      const fila = document.createElement("tr");
+      fila.innerHTML = `
+        <td>${emp.name}</td>
+        <td>${emp.age}</td>
+        <td>${emp.position}</td>
+        <td>${emp.department}</td>
+        <td>${emp.salary}</td>
+        <td>${emp.location}</td>
+      `;
+      tabla.appendChild(fila);
+    });
+  </script>
+</body>
+</html>
