@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulario de Matrícula Flexible</title>
+  <title>Formulario Matrícula Flexible</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 20px; margin: 0; }
@@ -13,11 +13,10 @@
     label { display: block; margin-bottom: 5px; color: #333; }
     input[type="number"] { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
     .checkboxes label { display: inline-block; margin-right: 10px; }
-    fieldset.subjects { border: 1px solid #ccc; padding: 10px; border-radius: 4px; }
+    fieldset.subjects { border: 1px solid #ccc; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
     fieldset.subjects legend { font-weight: bold; color: #333; }
     button { width: 100%; padding: 10px; background: #4CAF50; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
     button:hover { background: #45a049; }
-    .output { margin-top: 20px; padding: 15px; background: #e7f3fe; border: 1px solid #b3d4fc; border-radius: 4px; }
     .error { color: red; font-weight: bold; margin: 0; }
   </style>
 </head>
@@ -32,7 +31,7 @@
       <label><input type="checkbox" id="oldStudent"> Antiguo alumno (35% dto.)</label>
       <label><input type="checkbox" id="scholarship"> Beca (paga 20% del total)</label>
     </div>
-    <fieldset class="subjects form-group">
+    <fieldset class="subjects">
       <legend>Asignaturas:</legend>
       <label><input type="checkbox" id="m1"> Matemáticas I</label>
       <label><input type="checkbox" id="hist"> Historia</label>
@@ -40,7 +39,7 @@
       <label><input type="checkbox" id="fisc"> Física</label>
     </fieldset>
     <button onclick="calcular()">Calcular Precio</button>
-    <div id="result" class="output"></div>
+    <div id="result" class="output" style="display:none;"></div>
   </div>
 
   <script>
@@ -54,7 +53,9 @@
 
       // Validación asignaturas
       if (m2 && !m1) {
-        resultDiv.innerHTML = '<p class="error">Error: no puedes matricularte en Matemáticas II sin Matemáticas I.</p>';
+        const errMsg = 'Error: no puedes elegir Matemáticas II sin Matemáticas I.';
+        document.title = errMsg;
+        resultDiv.style.display = 'none';
         return;
       }
 
@@ -63,12 +64,13 @@
       const precioAntiguo = old ? base * 0.65 : base;
       const precioBeca = beca ? precioAntiguo * 0.2 : null;
 
-      // Mostrar resultados
-      let html = `<p>Total mensual: €${precioAntiguo.toFixed(2)}</p>`;
-      if (precioBeca !== null) {
-        html += `<p>Total con beca: €${precioBeca.toFixed(2)}</p>`;
-      }
-      resultDiv.innerHTML = html;
+      // Mensaje para título
+      let titulo = `Total mensual: €${precioAntiguo.toFixed(2)}`;
+      if (precioBeca !== null) titulo += ` | Con beca: €${precioBeca.toFixed(2)}`;
+      document.title = titulo;
+
+      // No mostrar en recuadro azul
+      resultDiv.style.display = 'none';
     }
   </script>
 </body>
