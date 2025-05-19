@@ -1,32 +1,31 @@
-Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
     <style>
         /* Estilo global */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
             margin: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: auto;
-            background: linear-gradient(45deg, #1e1e1e, #121212);
+            /* Fondo con GIF en bucle */
+            background: url('https://i.pinimg.com/originals/d4/81/f3/d481f3c72e283309071f79e01b05c06d.gif')
+                        center center / cover no-repeat fixed;
         }
 
         .container {
             max-width: 900px;
             width: 100%;
             padding: 40px;
-            background-color: #2b2b2b;
+            background-color: rgba(43, 43, 43, 0.85);
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
             text-align: center;
@@ -99,7 +98,7 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
             display: inline-block;
             padding: 14px 28px;
             margin: 12px 10px;
-            background: linear-gradient(45deg, #00b0ff, #0091ea); /* Azul brillante */
+            background: linear-gradient(45deg, #00b0ff, #0091ea);
             color: white;
             text-align: center;
             text-decoration: none;
@@ -129,7 +128,7 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
         }
 
         .button:hover {
-            background: linear-gradient(45deg, #0091ea, #00b0ff); /* Azul brillante */
+            background: linear-gradient(45deg, #0091ea, #00b0ff);
             transform: scale(1.1);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
         }
@@ -189,8 +188,8 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
         /* Diseño de tres columnas */
         .columnas {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-            gap: 20px; /* Espacio entre columnas */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
             text-align: center;
         }
 
@@ -210,7 +209,6 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
         .botones-temas .button {
             margin: 0 10px;
         }
-
     </style>
 </head>
 
@@ -226,8 +224,8 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
             <button class="button" id="btnTema1">Tema 1</button>
             <button class="button" id="btnTema2">Tema 2</button>
             <button class="button" id="btnTema3">Tema 3</button>
-            <button class="button" id="btnTema4">Tema 4</button> <!-- Botón Tema 4 -->
-            <button class="button" id="btnTema5">Tema 5</button> <!-- Nuevo botón Tema 5 -->
+            <button class="button" id="btnTema4">Tema 4</button>
+            <button class="button" id="btnTema5">Tema 5</button>
         </div>
 
         <!-- Contenedor de botones "Curriculum Vitae" y "Brújula Social" -->
@@ -291,7 +289,7 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
         <div id="tema5" class="ejercicios">
             <h2>TEMA 5: Nuevo Tema</h2>
             <div class="columnas">
-                <a href="AnimationQuery.html" class="button">Ejercicio Animacion JQuery</a>
+                <a href="AnimationQuery.html" class="button">Ejercicio Animación JQuery</a>
             </div>
         </div>
     </div>
@@ -301,8 +299,8 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
         const btnTema1 = document.getElementById('btnTema1');
         const btnTema2 = document.getElementById('btnTema2');
         const btnTema3 = document.getElementById('btnTema3');
-        const btnTema4 = document.getElementById('btnTema4'); // Botón Tema 4
-        const btnTema5 = document.getElementById('btnTema5'); // Botón Tema 5
+        const btnTema4 = document.getElementById('btnTema4');
+        const btnTema5 = document.getElementById('btnTema5');
         const btnCV = document.getElementById('btnCV');
         const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
 
@@ -311,7 +309,7 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
         const tema2 = document.getElementById('tema2');
         const tema3 = document.getElementById('tema3');
         const tema4 = document.getElementById('tema4');
-        const tema5 = document.getElementById('tema5'); // Sección Tema 5
+        const tema5 = document.getElementById('tema5');
 
         // Función para alternar la visibilidad de un tema
         function toggleTema(tema) {
@@ -326,7 +324,7 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
                 tema2.style.display = 'none';
                 tema3.style.display = 'none';
                 tema4.style.display = 'none';
-                tema5.style.display = 'none'; // Ocultar Tema 5 si es necesario
+                tema5.style.display = 'none';
                 temaElemento.style.display = 'block';
             }
         }
@@ -348,19 +346,20 @@ Quiero que el siguiente código, le des un nuevo aspecto visual diferente:
             toggleTema('tema4');
         });
 
-        btnTema5.addEventListener('click', () => { // Evento para Tema 5
+        btnTema5.addEventListener('click', () => {
             toggleTema('tema5');
         });
 
         // Acción para el botón Curriculum Vitae (Redirigir a la página)
         btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
+            window.location.href = "Curriculum Vitae.html";
         });
 
         // Acción para el botón Brújula Social (Redirigir a la página)
         btnBrujulaSocial.addEventListener('click', () => {
-            window.location.href = "BrujulaSocial.html"; // Redirige a la página
+            window.location.href = "BrujulaSocial.html";
         });
     </script>
 </body>
+
 </html>
