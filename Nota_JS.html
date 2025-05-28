@@ -64,15 +64,15 @@
       </label>
       <label>
         <input type="radio" name="tiempoEntrega" value="mas1h" />
-        Más de 1 hora y hasta 12 horas (−0,1 por fallo)
+        Más de 1 hora y hasta 12 horas (−0,1 % por fallo)
       </label>
       <label>
         <input type="radio" name="tiempoEntrega" value="mas12h" />
-        Más de 12 horas y hasta 1 día (−0,2 por fallo)
+        Más de 12 horas y hasta 1 día (−0,2 % por fallo)
       </label>
       <label>
         <input type="radio" name="tiempoEntrega" value="noEntregado" />
-        No entregado (−0,3 por fallo)
+        No entregado (−0,3 % por fallo)
       </label>
     </div>
 
@@ -80,9 +80,9 @@
   </form>
 
   <div id="resultado">
-    <p><strong>Nota sin penalizar:</strong> <span id="notaSinPenalizar">--</span> / 10</p>
-    <p><strong>Penalización según tiempo:</strong> <span id="penalizacionPorFallo">--</span> puntos/fallo</p>
-    <p><strong>Nota con penalización según tiempo:</strong> <span id="notaTiempoPenalizada">--</span> / 10</p>
+    <p><strong>Nota sin penalizar:</strong> <span id="notaSinPenalizar">--</span> %</p>
+    <p><strong>Penalización según tiempo:</strong> <span id="penalizacionPorFallo">--</span> % por fallo</p>
+    <p><strong>Nota con penalización según tiempo:</strong> <span id="notaTiempoPenalizada">--</span> %</p>
   </div>
 
   <script>
@@ -102,10 +102,10 @@
       // Calcular fallos automáticamente
       const fallos = TOTAL_PREGUNTAS - aciertos;
 
-      // Calcular nota sin penalizar
-      const notaSinPenalizar = (aciertos * 10) / TOTAL_PREGUNTAS;
+      // 1) Calcular nota sin penalizar en porcentaje
+      const notaSinPenalizar = (aciertos / TOTAL_PREGUNTAS) * 100;
 
-      // Determinar penalización por fallo según tiempo de entrega
+      // 2) Determinar penalización por cada fallo según tiempo de entrega
       let penalizacionPorFallo = 0;
       if (tiempoEntrega === 'menos1h') {
         penalizacionPorFallo = 0;
@@ -117,15 +117,14 @@
         penalizacionPorFallo = 0.3;
       }
 
-      // Calcular puntuación bruta restando penalización por cada fallo
-      let puntuacionBrutaTiempo = aciertos - (fallos * penalizacionPorFallo);
-      if (puntuacionBrutaTiempo < 0) puntuacionBrutaTiempo = 0;
-      const notaTiempoPenalizada = (puntuacionBrutaTiempo * 10) / TOTAL_PREGUNTAS;
+      // 3) Restar (penalizacionPorFallo * número de fallos) al porcentaje base
+      let notaPenalizada = notaSinPenalizar - (fallos * penalizacionPorFallo);
+      if (notaPenalizada < 0) notaPenalizada = 0;
 
-      // Mostrar resultados
+      // Mostrar resultados con dos decimales
       document.getElementById('notaSinPenalizar').textContent = notaSinPenalizar.toFixed(2);
       document.getElementById('penalizacionPorFallo').textContent = penalizacionPorFallo.toFixed(1);
-      document.getElementById('notaTiempoPenalizada').textContent = notaTiempoPenalizada.toFixed(2);
+      document.getElementById('notaTiempoPenalizada').textContent = notaPenalizada.toFixed(2);
       document.getElementById('resultado').style.display = 'block';
     });
   </script>
