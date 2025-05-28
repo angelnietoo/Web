@@ -60,15 +60,15 @@
       </label>
       <label>
         <input type="radio" name="tiempoEntrega" value="mas1h" />
-        Más de 1 hora y hasta 12 horas (−0,1 por fallo)
+        Más de 1 hora y hasta 12 horas (−0,1 por cada fallo)
       </label>
       <label>
         <input type="radio" name="tiempoEntrega" value="mas12h" />
-        Más de 12 horas y hasta 1 día (−0,2 por fallo)
+        Más de 12 horas y hasta 1 día (−0,2 por cada fallo)
       </label>
       <label>
         <input type="radio" name="tiempoEntrega" value="noEntregado" />
-        No entregado (−0,3 por fallo)
+        No entregado (−0,3 por cada fallo)
       </label>
     </div>
 
@@ -77,8 +77,8 @@
 
   <div id="resultado">
     <p>
-      <strong>Nota final (penalización por fallos según tiempo):</strong>
-      <span id="notaFinal">--</span> / 10
+      <strong>Nota final (%):</strong>
+      <span id="notaFinal">--</span> %
     </p>
   </div>
 
@@ -97,6 +97,10 @@
 
       const fallos = TOTAL_PREGUNTAS - aciertos;
 
+      // Calcular porcentaje base (sin penalización)
+      const porcentajeBase = (aciertos / TOTAL_PREGUNTAS) * 100;
+
+      // Determinar penalización por cada fallo según tiempo de entrega
       let penalizacionPorFallo = 0;
       if (tiempoEntrega === 'menos1h') {
         penalizacionPorFallo = 0;
@@ -108,12 +112,12 @@
         penalizacionPorFallo = 0.3;
       }
 
-      let puntuacionBruta = aciertos - (fallos * penalizacionPorFallo);
-      if (puntuacionBruta < 0) puntuacionBruta = 0;
+      // Restar penalización total (penalizaciónPorFallo * número de fallos) al porcentaje base
+      let porcentajeFinal = porcentajeBase - (fallos * penalizacionPorFallo);
+      if (porcentajeFinal < 0) porcentajeFinal = 0;
 
-      const notaFinal = (puntuacionBruta * 10) / TOTAL_PREGUNTAS;
-
-      document.getElementById('notaFinal').textContent = notaFinal.toFixed(2);
+      // Mostrar el resultado con dos decimales
+      document.getElementById('notaFinal').textContent = porcentajeFinal.toFixed(2);
       document.getElementById('resultado').style.display = 'block';
     });
   </script>
