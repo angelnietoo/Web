@@ -103,7 +103,10 @@
       transform: translateY(-3px) scale(1.01);
     }
 
-    /* Dropdown del módulo Lenguaje */
+    /* Dropdown del módulo Lenguaje
+       - limitamos ancho máximo para que no sea demasiado ancho
+       - items ocupan 100% del ancho del dropdown
+    */
     .dropdown {
       position: absolute;
       top: calc(100% + 8px);
@@ -111,8 +114,10 @@
       transform: translateX(-50%);
       background: #161b20;
       border-radius: 10px;
-      padding: 10px;
-      min-width: 220px;
+      padding: 8px;
+      min-width: 160px;
+      max-width: 260px; /* evita anchura excesiva */
+      width: auto;
       box-shadow: 0 12px 30px rgba(0,0,0,0.6);
       z-index: 40;
       display: none;
@@ -121,12 +126,14 @@
 
     .dropdown .item {
       display: block;
+      width: 100%;            /* OCUPAN TODO EL ANCHO DEL DROPDOWN */
+      box-sizing: border-box; /* incluir padding en el ancho */
       margin: 6px 0;
-      padding: 8px 12px;
+      padding: 10px 12px;
       background: transparent;
       color: #e6eef8;
       border-radius: 8px;
-      text-align: left;
+      text-align: left;       /* texto alineado a la izquierda */
       cursor: pointer;
       border: 1px solid transparent;
       font-weight: 700;
@@ -164,7 +171,7 @@
     @media (max-width: 520px) {
       .columnas { grid-template-columns: 1fr; }
       .module-row { flex-direction: column; gap: 8px; }
-      .dropdown { left: 50%; transform: translateX(-50%); min-width: 90%; }
+      .dropdown { left: 50%; transform: translateX(-50%); min-width: 90%; max-width: 95%; }
     }
   </style>
 </head>
@@ -173,7 +180,7 @@
     <h1>Índice de Ejercicios</h1>
     <p class="meta-author">ÁNGEL NIETO CORDERO</p>
 
-    <!-- FILA superior: módulo Cliente (derecha) y módulo Lenguaje (izquierda con dropdown) -->
+    <!-- FILA superior: módulo Cliente (derecha) y módulo Lenguaje (izquierda with dropdown) -->
     <div class="module-row" aria-label="selector de módulos">
       <!-- Módulo Lenguaje con dropdown -->
       <div class="module-with-dropdown" id="lenguajeWrapper">
@@ -304,20 +311,22 @@
       // desplazar a la sección visible
       const active = document.getElementById(temaId);
       if (active) active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // marcar visualmente el módulo Lenguaje como activo
+      btnLenguaje.classList.add('active');
+      btnCliente.classList.remove('active');
     }
 
     // Botón cliente: puedes redirigir a otra página si quieres
     btnCliente.addEventListener('click', () => {
       // Ejemplo: abrir en nueva pestaña (descomenta si quieres)
       // window.open('desarrollo_web_en_entorno_cliente.html', '_blank');
-      // Para ahora solo cambia el estado visual:
       btnCliente.classList.add('active');
       btnLenguaje.classList.remove('active');
-      // opcionalmente ocultar temas actuales
       ['tema1','tema2','tema3','tema4','tema5'].forEach(t => {
         const el = document.getElementById(t);
         if (el) el.style.display = 'none';
       });
+      toggleDropdown(false);
     });
 
     // Accesos CV y Brújula Social
