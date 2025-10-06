@@ -1,177 +1,205 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
   <style>
-    /* Estilo global */
-    body {
+    :root{
+      --accent: #00b0ff;
+      --bg: #121318;
+      --card: #161b20;
+      --muted: #bfcbd8;
+      --glass: rgba(255,255,255,0.03);
+    }
+    /* Reset/box */
+    *,*::before,*::after{box-sizing:border-box}
+    body{
       font-family: 'Arial', sans-serif;
-      background-color: #121212;
-      color: #e0e0e0;
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: auto;
-      background: linear-gradient(45deg, #1e1e1e, #121212);
-      padding: 18px;
+      background: linear-gradient(45deg,#1e1e1e,#121212);
+      color:#e6eef8;
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
     }
 
-    .container {
-      max-width: 900px;
-      width: 100%;
-      padding: 32px;
-      background-color: #2b2b2b;
-      border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
-      text-align: center;
-      position: relative;
-      animation: fadeIn 1s ease-out;
+    .container{
+      width:100%;
+      max-width:920px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:14px;
+      padding:28px;
+      box-shadow:0 10px 40px rgba(2,6,23,0.7);
     }
 
-    @keyframes fadeIn { 0% { opacity: 0; transform: translateY(26px); } 100% { opacity: 1; transform: translateY(0); } }
-
-    h1 {
-      font-size: 3.2em;
-      color: #00b0ff;
-      margin: 8px 0 20px;
-      text-shadow: 0 0 15px rgba(0,176,255,0.6);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      animation: slideUp 0.9s ease-out;
-    }
-    @keyframes slideUp { 0% { opacity: 0; transform: translateY(22px); } 100% { opacity: 1; transform: translateY(0); } }
-
-    p.meta-author {
-      color: #ccc;
-      margin: 6px 0 12px;
-      font-weight: 700;
+    h1{
+      color:var(--accent);
+      margin:6px 0 10px;
+      font-size:2.6rem;
+      letter-spacing:1.8px;
+      text-transform:uppercase;
+      text-shadow:0 6px 18px rgba(0,176,255,0.06);
     }
 
-    /* Botones temáticos (azules) */
-    .btn-theme {
-      display: inline-block;
-      padding: 10px 18px;
-      margin: 8px;
-      background: linear-gradient(45deg, #00b0ff, #0091ea);
-      color: white;
-      text-decoration: none;
-      border-radius: 24px;
-      font-weight: 700;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-      cursor: pointer;
-      transition: transform .14s ease;
-      border: none;
-    }
-    .btn-theme:hover { transform: translateY(-3px); }
-
-    /* FILA: botones de módulo grisáceos + dropdown */
-    .module-row {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin: 10px 0 6px;
-      flex-wrap: wrap;
-      align-items: center;
+    p.meta-author{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-weight:700;
     }
 
-    .module-btn {
-      appearance: none;
-      -webkit-appearance: none;
-      border: none;
-      background: linear-gradient(#e6e7e9, #cfd3d6); /* grisáceo */
-      color: #0b1220;
-      padding: 8px 14px;
-      font-weight: 700;
-      border-radius: 12px;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-      transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      position: relative;
-    }
-    .module-btn:hover { transform: translateY(-3px); }
-    .module-btn:active { transform: translateY(0); }
-    .module-btn.active {
-      box-shadow: 0 10px 28px rgba(0,0,0,0.6);
-      outline: 3px solid rgba(255,255,255,0.04);
-      transform: translateY(-3px) scale(1.01);
+    /* --- Module row --- */
+    .module-row{
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-bottom:8px;
     }
 
-    /* Dropdown del módulo Lenguaje
-       - limitamos ancho máximo para que no sea demasiado ancho
-       - items ocupan 100% del ancho del dropdown
-    */
-    .dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      background: #161b20;
-      border-radius: 10px;
-      padding: 8px;
-      min-width: 160px;
-      max-width: 260px; /* evita anchura excesiva */
-      width: auto;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-      z-index: 40;
-      display: none;
-    }
-    .dropdown.show { display: block; }
+    .module-with-dropdown{ position:relative; display:inline-block; }
 
-    .dropdown .item {
-      display: block;
-      width: 100%;            /* OCUPAN TODO EL ANCHO DEL DROPDOWN */
-      box-sizing: border-box; /* incluir padding en el ancho */
-      margin: 6px 0;
-      padding: 10px 12px;
-      background: transparent;
-      color: #e6eef8;
-      border-radius: 8px;
-      text-align: left;       /* texto alineado a la izquierda */
-      cursor: pointer;
-      border: 1px solid transparent;
-      font-weight: 700;
+    .module-btn{
+      border:0;
+      background: linear-gradient(#eceff1,#dfe6ea);
+      color:#08121a;
+      padding:9px 14px;
+      border-radius:12px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 8px 24px rgba(2,6,23,0.45);
+      transition:transform .14s ease, box-shadow .14s ease;
+      font-size:0.95rem;
+      white-space:nowrap;
     }
-    .dropdown .item:hover {
-      background: linear-gradient(90deg, rgba(0,176,255,0.08), rgba(0,176,255,0.02));
-      border-color: rgba(0,176,255,0.08);
+    .module-btn:hover{ transform:translateY(-3px); }
+    .module-btn.active{ outline:3px solid rgba(0,176,255,0.06); transform:translateY(-3px); }
+
+    .module-btn .chev{ margin-left:8px; opacity:0.7; font-size:0.9rem; }
+
+    /* --- Dropdown (estética adaptada) --- */
+    .dropdown{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:0;
+      transform:translateX(0);
+      min-width:220px;
+      max-width:320px;
+      width:auto;
+      background:linear-gradient(180deg, rgba(8,12,16,0.95), rgba(16,20,24,0.95));
+      border-radius:12px;
+      padding:8px;
+      box-shadow:0 18px 40px rgba(2,6,23,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+      backdrop-filter: blur(6px);
+      z-index:60;
+      display:none;
+    }
+    .dropdown.show{ display:block; animation:pop .12s ease; }
+    @keyframes pop{ from{ transform: translateY(-6px) scale(.99); opacity:0 } to{ transform: translateY(0) scale(1); opacity:1 } }
+
+    .dropdown .item{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      width:100%;
+      padding:10px 12px;
+      margin:6px 0;
+      border-radius:10px;
+      background:transparent;
+      color:var(--muted);
+      font-weight:700;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition: background .14s ease, transform .08s ease, color .12s ease;
+      text-align:left;
     }
 
-    /* Positioning wrapper so the dropdown is relative to the lenguaje button */
-    .module-with-dropdown { position: relative; display:inline-block; }
-
-    /* Botones CV/Brújula (debajo del módulo-row) */
-    .secondary-row {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 6px;
-      flex-wrap: wrap;
+    /* small accent "icon" */
+    .dropdown .item::before{
+      content:'';
+      display:inline-block;
+      width:12px;
+      height:12px;
+      border-radius:3px;
+      background:linear-gradient(180deg,var(--accent), #007acb);
+      box-shadow: 0 4px 12px rgba(0,176,255,0.18);
+      flex:0 0 12px;
+      transform:translateY(0);
     }
 
-    /* Layout de ejercicios */
-    .ejercicios { display: none; margin-top: 12px; }
-    .columnas {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      text-align: center;
-      margin-top: 12px;
+    .dropdown .item:hover{
+      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,176,255,0.02));
+      color: #eaf7ff;
+      transform:translateY(-1px);
+      border-color: rgba(0,176,255,0.06);
     }
-    .columnas a { display:block; }
 
-    /* Responsivo */
-    @media (max-width: 880px) { .columnas { grid-template-columns: repeat(2,1fr); } h1 { font-size: 2.4em; } }
-    @media (max-width: 520px) {
-      .columnas { grid-template-columns: 1fr; }
-      .module-row { flex-direction: column; gap: 8px; }
-      .dropdown { left: 50%; transform: translateX(-50%); min-width: 90%; max-width: 95%; }
+    .dropdown .item + .item{
+      border-top:1px solid rgba(255,255,255,0.02);
+      padding-top:12px;
+    }
+
+    /* active state inside dropdown (for keyboard focus) */
+    .dropdown .item:focus{
+      outline:none;
+      box-shadow:0 0 0 3px rgba(0,176,255,0.06);
+      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,176,255,0.02));
+      color:#eaf7ff;
+    }
+
+    /* --- secondary row (CV / Brújula) --- */
+    .secondary-row{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      margin:8px 0 18px;
+      flex-wrap:wrap;
+    }
+    .btn-theme{
+      border:0;
+      background: linear-gradient(45deg,var(--accent), #007acb);
+      color:white;
+      padding:10px 16px;
+      border-radius:20px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow:0 8px 20px rgba(2,6,23,0.5);
+      transition: transform .12s ease;
+    }
+    .btn-theme:hover{ transform:translateY(-3px); }
+
+    /* Ejercicios grid */
+    .ejercicios{ display:none; margin-top:14px; }
+    .columnas{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:12px;
+    }
+    .columnas a{
+      display:block;
+      background: linear-gradient(135deg, rgba(0,176,255,0.06), rgba(0,176,255,0.02));
+      padding:12px 10px;
+      border-radius:12px;
+      color:var(--muted);
+      font-weight:700;
+      text-decoration:none;
+      text-align:center;
+    }
+    .columnas a:hover{
+      color:#eaf7ff;
+      transform:translateY(-4px);
+      box-shadow:0 10px 30px rgba(0,176,255,0.06);
+    }
+
+    /* responsive */
+    @media (max-width:900px){ .columnas{ grid-template-columns:repeat(2,1fr) } }
+    @media (max-width:520px){
+      .columnas{ grid-template-columns:1fr }
+      .dropdown{ left:50%; transform:translateX(-50%); width:92%; max-width:unset; min-width:unset }
     }
   </style>
 </head>
@@ -180,168 +208,155 @@
     <h1>Índice de Ejercicios</h1>
     <p class="meta-author">ÁNGEL NIETO CORDERO</p>
 
-    <!-- FILA superior: módulo Cliente (derecha) y módulo Lenguaje (izquierda with dropdown) -->
     <div class="module-row" aria-label="selector de módulos">
-      <!-- Módulo Lenguaje con dropdown -->
       <div class="module-with-dropdown" id="lenguajeWrapper">
-        <button id="btnLenguaje" class="module-btn active"
-                aria-haspopup="true" aria-expanded="false">
+        <button id="btnLenguaje" class="module-btn active" aria-haspopup="true" aria-expanded="false">
           LENGUAJE DE MARCAS 1º DAW
+          <span class="chev">▾</span>
         </button>
 
-        <!-- Dropdown: aquí van los temas (Tema 1..5) -->
-        <div id="dropdownLenguaje" class="dropdown" role="menu" aria-label="Temas Lenguaje">
-          <button class="item" role="menuitem" data-tema="tema1">Tema 1</button>
-          <button class="item" role="menuitem" data-tema="tema2">Tema 2</button>
-          <button class="item" role="menuitem" data-tema="tema3">Tema 3</button>
-          <button class="item" role="menuitem" data-tema="tema4">Tema 4</button>
-          <button class="item" role="menuitem" data-tema="tema5">Tema 5</button>
-        </div>
+        <nav id="dropdownLenguaje" class="dropdown" role="menu" aria-label="Temas Lenguaje">
+          <button class="item" role="menuitem" data-tema="tema1">Tema 1 — Introducción</button>
+          <button class="item" role="menuitem" data-tema="tema2">Tema 2 — HTML</button>
+          <button class="item" role="menuitem" data-tema="tema3">Tema 3 — CSS y Grid</button>
+          <button class="item" role="menuitem" data-tema="tema4">Tema 4 — JavaScript</button>
+          <button class="item" role="menuitem" data-tema="tema5">Tema 5 — Complementos</button>
+        </nav>
       </div>
 
-      <!-- Módulo Cliente (botón separado) -->
       <button id="btnCliente" class="module-btn">Desarrollo web en entorno cliente 2º DAW</button>
     </div>
 
-    <!-- Debajo del módulo: CV y Brújula Social -->
     <div class="secondary-row" aria-label="Accesos">
-      <button class="btn-theme" id="btnCV">Curriculum Vitae</button>
-      <button class="btn-theme" id="btnBrujulaSocial">Brújula Social</button>
+      <button id="btnCV" class="btn-theme">Curriculum Vitae</button>
+      <button id="btnBrujulaSocial" class="btn-theme">Brújula Social</button>
     </div>
 
-    <!-- Contenido de Ejercicios para cada tema (ocultos por defecto) -->
-    <div id="tema1" class="ejercicios">
+    <!-- Temas (ocultos inicialmente) -->
+    <section id="tema1" class="ejercicios" aria-hidden="true">
       <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
       <div class="columnas">
-        <a href="ciudades.xml" class="btn-theme">Ejercicio 1</a>
-        <a href="hechos_historicos.xml" class="btn-theme">Ejercicio 2</a>
+        <a href="ciudades.xml">Ejercicio 1</a>
+        <a href="hechos_historicos.xml">Ejercicio 2</a>
       </div>
-    </div>
+    </section>
 
-    <div id="tema2" class="ejercicios">
+    <section id="tema2" class="ejercicios" aria-hidden="true">
       <h2>TEMA 2: HTML</h2>
       <div class="columnas">
-        <a href="EJ1_Listas.html" class="btn-theme">Ejercicio 1: Listas</a>
-        <a href="EJ2_Imagenes.html" class="btn-theme">Ejercicio 2: Imágenes</a>
-        <a href="EJ3_Horario.html" class="btn-theme">Ejercicio 3: Horario</a>
-        <a href="ActividadResuelta_2.6.html" class="btn-theme">Ejercicio 4: Frames</a>
+        <a href="EJ1_Listas.html">Ejercicio 1: Listas</a>
+        <a href="EJ2_Imagenes.html">Ejercicio 2: Imágenes</a>
+        <a href="EJ3_Horario.html">Ejercicio 3: Horario</a>
       </div>
-    </div>
+    </section>
 
-    <div id="tema3" class="ejercicios">
+    <section id="tema3" class="ejercicios" aria-hidden="true">
       <h2>TEMA 3: CSS y Grid</h2>
       <div class="columnas">
-        <a href="CSSyGrid.html" class="btn-theme">Ejercicio CSS y Grid</a>
-        <a href="Bootstrap_Ej1.html" class="btn-theme">Ejercicio Bootstrap 1</a>
+        <a href="CSSyGrid.html">Ejercicio CSS y Grid</a>
+        <a href="Bootstrap_Ej1.html">Ejercicio Bootstrap 1</a>
       </div>
-    </div>
+    </section>
 
-    <div id="tema4" class="ejercicios">
+    <section id="tema4" class="ejercicios" aria-hidden="true">
       <h2>TEMA 4: JavaScript</h2>
       <div class="columnas">
-        <a href="Tema4/JavaScript.html" class="btn-theme">Ejercicio 1: JS</a>
-        <a href="Tema4/JavaScript2.html" class="btn-theme">Ejercicio 2: Sumatorio</a>
+        <a href="Tema4/JavaScript.html">Ejercicio 1: JS</a>
+        <a href="Tema4/JavaScript2.html">Ejercicio 2: Sumatorio</a>
       </div>
-    </div>
+    </section>
 
-    <div id="tema5" class="ejercicios">
-      <h2>TEMA 5: Nuevo Tema</h2>
+    <section id="tema5" class="ejercicios" aria-hidden="true">
+      <h2>TEMA 5: Complementos</h2>
       <div class="columnas">
-        <a href="AnimationQuery.html" class="btn-theme">Animación JQuery</a>
-        <a href="Nota_JS.html" class="btn-theme">Cálculo de nota</a>
+        <a href="AnimationQuery.html">Animación JQuery</a>
+        <a href="Nota_JS.html">Cálculo de nota</a>
       </div>
-    </div>
+    </section>
   </div>
 
   <script>
-    // Elementos del dropdown y botones
+    // ELEMENTOS
     const btnLenguaje = document.getElementById('btnLenguaje');
     const dropdown = document.getElementById('dropdownLenguaje');
     const lenguajeWrapper = document.getElementById('lenguajeWrapper');
+    const items = Array.from(dropdown.querySelectorAll('.item'));
     const btnCliente = document.getElementById('btnCliente');
 
-    // Temas: items dentro del dropdown tienen data-tema que coincide con id de sección
-    const items = Array.from(dropdown.querySelectorAll('.item'));
-
-    // Toggle dropdown (abrir/cerrar)
-    function toggleDropdown(show) {
-      const isShow = typeof show === 'boolean' ? show : !dropdown.classList.contains('show');
-      if (isShow) {
+    // Toggle dropdown
+    function toggleDropdown(show){
+      const shouldShow = (typeof show === 'boolean') ? show : !dropdown.classList.contains('show');
+      if(shouldShow){
         dropdown.classList.add('show');
-        btnLenguaje.setAttribute('aria-expanded', 'true');
+        btnLenguaje.setAttribute('aria-expanded','true');
+        // focus primer item para accesibilidad
+        setTimeout(()=> items[0]?.focus?.(), 60);
       } else {
         dropdown.classList.remove('show');
-        btnLenguaje.setAttribute('aria-expanded', 'false');
+        btnLenguaje.setAttribute('aria-expanded','false');
       }
     }
 
-    // Abrir/ocultar al hacer click en el botón Lenguaje
-    btnLenguaje.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown();
-    });
-
-    // Cerrar al hacer click fuera
-    document.addEventListener('click', (e) => {
-      if (!lenguajeWrapper.contains(e.target)) toggleDropdown(false);
-    });
-
-    // Cerrar con Escape
+    // abrir/cerrar
+    btnLenguaje.addEventListener('click', (e) => { e.stopPropagation(); toggleDropdown(); });
+    document.addEventListener('click', (e) => { if(!lenguajeWrapper.contains(e.target)) toggleDropdown(false); });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') toggleDropdown(false);
+      if(e.key === 'Escape') toggleDropdown(false);
     });
 
-    // Click en un item del dropdown: mostrar la sección correspondiente y cerrar dropdown
+    // Al hacer clic en un tema: mostrar la sección y cerrar dropdown
     items.forEach(it => {
       it.addEventListener('click', () => {
-        const temaId = it.dataset.tema;
-        showTema(temaId);
+        const tema = it.dataset.tema;
+        showTema(tema);
         toggleDropdown(false);
+      });
+      // soporte teclado: Enter / Space
+      it.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          it.click();
+        }
       });
     });
 
-    // Mostrar sección de tema (oculta las demás)
-    function showTema(temaId) {
+    // Mostrar/ocultar secciones
+    function showTema(temaId){
       const temas = ['tema1','tema2','tema3','tema4','tema5'];
       temas.forEach(t => {
         const el = document.getElementById(t);
-        if (!el) return;
-        el.style.display = (t === temaId) ? 'block' : 'none';
+        if(!el) return;
+        const visible = (t === temaId);
+        el.style.display = visible ? 'block' : 'none';
+        el.setAttribute('aria-hidden', visible ? 'false' : 'true');
       });
-      // desplazar a la sección visible
-      const active = document.getElementById(temaId);
-      if (active) active.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // marcar visualmente el módulo Lenguaje como activo
       btnLenguaje.classList.add('active');
       btnCliente.classList.remove('active');
+      // scroll suave al contenido
+      const el = document.getElementById(temaId);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     }
 
-    // Botón cliente: puedes redirigir a otra página si quieres
+    // Botón Cliente: comportamiento visual y cierre de temas
     btnCliente.addEventListener('click', () => {
-      // Ejemplo: abrir en nueva pestaña (descomenta si quieres)
-      // window.open('desarrollo_web_en_entorno_cliente.html', '_blank');
       btnCliente.classList.add('active');
       btnLenguaje.classList.remove('active');
       ['tema1','tema2','tema3','tema4','tema5'].forEach(t => {
-        const el = document.getElementById(t);
-        if (el) el.style.display = 'none';
+        const el = document.getElementById(t); if(el) { el.style.display='none'; el.setAttribute('aria-hidden','true'); }
       });
       toggleDropdown(false);
+      // por defecto no redirige; puedes descomentar la siguiente línea para abrir la página:
+      // window.open('desarrollo_web_en_entorno_cliente.html', '_blank');
     });
 
-    // Accesos CV y Brújula Social
-    document.getElementById('btnCV').addEventListener('click', () => {
-      window.location.href = 'Curriculum Vitae.html';
-    });
-    document.getElementById('btnBrujulaSocial').addEventListener('click', () => {
-      window.location.href = 'BrujulaSocial.html';
-    });
+    // CV / Brújula
+    document.getElementById('btnCV').addEventListener('click', () => window.location.href = 'Curriculum Vitae.html');
+    document.getElementById('btnBrujulaSocial').addEventListener('click', () => window.location.href = 'BrujulaSocial.html');
 
-    // Inicialización: ocultar temas al cargar
+    // Inicializar: ocultar temas
     document.addEventListener('DOMContentLoaded', () => {
       ['tema1','tema2','tema3','tema4','tema5'].forEach(t => {
-        const el = document.getElementById(t);
-        if (el) el.style.display = 'none';
+        const el = document.getElementById(t); if(el){ el.style.display='none'; el.setAttribute('aria-hidden','true'); }
       });
     });
   </script>
