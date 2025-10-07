@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
   <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
   <style>
-    /* --- VARIABLES Y AJUSTES GENERALES (más grande en general) --- */
     :root{
       --container-max-width: 1200px;
       --container-padding: 48px;
@@ -16,10 +15,9 @@
       --btn-padding-horizontal: 22px;
       --module-btn-padding-vertical: 12px;
       --module-btn-padding-horizontal: 20px;
-      --base-font-size: 18px; /* subido para interfaz algo más grande */
+      --base-font-size: 18px;
     }
 
-    /* Estilo global (base similar pero escalado) */
     html { font-size: var(--base-font-size); }
     body {
       font-family: 'Arial', sans-serif;
@@ -48,10 +46,9 @@
     }
 
     @keyframes fadeIn { 0% { opacity: 0; transform: translateY(26px); } 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
     h1 {
-      font-size: 4rem; /* aumentado */
+      font-size: 4rem;
       color: #00b0ff;
       margin: 6px 0 22px;
       text-shadow: 0 0 18px rgba(0, 176, 255, 0.6);
@@ -63,7 +60,6 @@
 
     p.meta-author { color:#ccc; margin:6px 0 14px; font-weight:800; font-size:1.05rem; }
 
-    /* botones secciones (azules) -- más grandes */
     .btn-theme {
       display: inline-block;
       padding: var(--btn-padding-vertical) var(--btn-padding-horizontal);
@@ -82,7 +78,6 @@
     }
     .btn-theme:hover { transform: translateY(-3px); }
 
-    /* module row / botones grisáceos (más grandes, más espacio) */
     .module-row {
       display: flex;
       justify-content: center;
@@ -118,7 +113,6 @@
       transform: translateY(-3px) scale(1.01);
     }
 
-    /* DROPDOWN (ajustado) */
     .dropdown {
       position: absolute;
       top: calc(100% + 10px);
@@ -144,7 +138,7 @@
       box-sizing: border-box;
       margin: 8px 0;
       padding: 14px 16px;
-      padding-left: 52px; /* más espacio para acento */
+      padding-left: 52px;
       background: transparent;
       color: #dfeaf6;
       border-radius: 10px;
@@ -157,7 +151,6 @@
       font-size: 1rem;
     }
 
-    /* acento / icono izquierdo (ligeramente mayor) */
     .dropdown .item::before {
       content: '';
       position: absolute;
@@ -178,9 +171,6 @@
       transform: translateY(-1px);
     }
 
-    .dropdown .item + .item { margin-top: 10px; }
-
-    /* secondary row (CV / Brújula) - aumentado */
     .secondary-row {
       display: flex;
       justify-content: center;
@@ -189,7 +179,6 @@
       flex-wrap: wrap;
     }
 
-    /* grid de ejercicios - más espacioso y botones grandes */
     .ejercicios { display: none; margin-top: 18px; text-align: left; }
     .ejercicios h2 { color: #fff; margin-bottom: 12px; font-size: 1.4rem; }
     .columnas {
@@ -201,7 +190,6 @@
     }
     .columnas a { display: block; text-decoration: none; }
 
-    /* Aumentar tamaño de los botones dentro de la grid */
     .columnas .btn-theme {
       min-width: unset;
       padding: 16px 22px;
@@ -212,7 +200,17 @@
       display: block;
     }
 
-    /* responsivo (ajustes para tamaños pequeños) */
+    /* estilo para temas del cliente (sin ejercicios) */
+    .cliente-empty {
+      padding: 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      color: #cfcfcf;
+      font-style: italic;
+      border: 1px dashed rgba(255,255,255,0.03);
+      margin-bottom: 8px;
+    }
+
     @media (max-width: 1100px) {
       :root { --container-max-width: 1000px; }
       .columnas { gap: 18px; }
@@ -239,16 +237,14 @@
     <h1>Índice de Ejercicios</h1>
     <p class="meta-author">ÁNGEL NIETO CORDERO</p>
 
-    <!-- FILA superior: módulo Cliente (derecha) y módulo Lenguaje (izquierda con dropdown) -->
+    <!-- FILA superior: Módulos con sus propios dropdowns -->
     <div class="module-row" aria-label="selector de módulos">
-      <!-- Módulo Lenguaje con dropdown -->
+      <!-- Lenguaje -->
       <div class="module-with-dropdown" id="lenguajeWrapper">
-        <button id="btnLenguaje" class="module-btn active"
-                aria-haspopup="true" aria-expanded="false">
+        <button id="btnLenguaje" class="module-btn active" aria-haspopup="true" aria-expanded="false">
           LENGUAJE DE MARCAS 1º DAW
         </button>
 
-        <!-- Dropdown: aquí van los temas (Tema 1..5) -->
         <div id="dropdownLenguaje" class="dropdown" role="menu" aria-label="Temas Lenguaje">
           <button class="item" role="menuitem" data-tema="tema1">Tema 1</button>
           <button class="item" role="menuitem" data-tema="tema2">Tema 2</button>
@@ -258,8 +254,20 @@
         </div>
       </div>
 
-      <!-- Módulo Cliente (botón separado) -->
-      <button id="btnCliente" class="module-btn">Desarrollo web en entorno cliente 2º DAW</button>
+      <!-- Cliente: envuelto para tener dropdown similar -->
+      <div class="module-with-dropdown" id="clienteWrapper">
+        <button id="btnCliente" class="module-btn" aria-haspopup="true" aria-expanded="false">
+          Desarrollo web en entorno cliente 2º DAW
+        </button>
+
+        <div id="dropdownCliente" class="dropdown" role="menu" aria-label="Temas Cliente">
+          <button class="item" role="menuitem" data-tema="tema1">Tema 1</button>
+          <button class="item" role="menuitem" data-tema="tema2">Tema 2</button>
+          <button class="item" role="menuitem" data-tema="tema3">Tema 3</button>
+          <button class="item" role="menuitem" data-tema="tema4">Tema 4</button>
+          <button class="item" role="menuitem" data-tema="tema5">Tema 5</button>
+        </div>
+      </div>
     </div>
 
     <!-- Debajo del módulo: CV y Brújula Social -->
@@ -268,12 +276,13 @@
       <button class="btn-theme" id="btnBrujulaSocial">Brújula Social</button>
     </div>
 
-    <!-- Contenido de Ejercicios para cada tema (ocultos por defecto) -->
+    <!-- CONTENIDOS: LENGUAJE (con ejercicios) -->
     <div id="tema1" class="ejercicios">
       <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
       <div class="columnas">
         <a href="ciudades.xml" class="btn-theme">Ejercicio 1</a>
         <a href="hechos_historicos.xml" class="btn-theme">Ejercicio 2</a>
+        <!-- si quieres puedes añadir más ejercicios aquí -->
       </div>
     </div>
 
@@ -310,80 +319,123 @@
         <a href="Nota_JS.html" class="btn-theme">Cálculo de nota</a>
       </div>
     </div>
+
+    <!-- CONTENIDOS: CLIENTE (MISMO listado de temas, pero SIN ejercicios) -->
+    <div id="cliente_tema1" class="ejercicios">
+      <h2>TEMA 1: Introducción al lenguaje de marcas (Cliente)</h2>
+      <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+    </div>
+
+    <div id="cliente_tema2" class="ejercicios">
+      <h2>TEMA 2: HTML (Cliente)</h2>
+      <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+    </div>
+
+    <div id="cliente_tema3" class="ejercicios">
+      <h2>TEMA 3: CSS y Grid (Cliente)</h2>
+      <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+    </div>
+
+    <div id="cliente_tema4" class="ejercicios">
+      <h2>TEMA 4: JavaScript (Cliente)</h2>
+      <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+    </div>
+
+    <div id="cliente_tema5" class="ejercicios">
+      <h2>TEMA 5: Nuevo Tema (Cliente)</h2>
+      <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+    </div>
   </div>
 
   <script>
-    // Elementos del dropdown y botones
     const btnLenguaje = document.getElementById('btnLenguaje');
-    const dropdown = document.getElementById('dropdownLenguaje');
+    const dropdownLenguaje = document.getElementById('dropdownLenguaje');
     const lenguajeWrapper = document.getElementById('lenguajeWrapper');
+
+    const clienteWrapper = document.getElementById('clienteWrapper');
     const btnCliente = document.getElementById('btnCliente');
+    const dropdownCliente = document.getElementById('dropdownCliente');
 
-    // Temas: items dentro del dropdown tienen data-tema que coincide con id de sección
-    const items = Array.from(dropdown.querySelectorAll('.item'));
+    // items por dropdown
+    const lenguajeItems = Array.from(dropdownLenguaje.querySelectorAll('.item'));
+    const clienteItems = Array.from(dropdownCliente.querySelectorAll('.item'));
 
-    // Toggle dropdown (abrir/cerrar)
-    function toggleDropdown(show) {
+    // función genérica para togglear dropdown
+    function toggleDropdown(dropdown, btn, show) {
       const isShow = typeof show === 'boolean' ? show : !dropdown.classList.contains('show');
       if (isShow) {
         dropdown.classList.add('show');
-        btnLenguaje.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-expanded', 'true');
       } else {
         dropdown.classList.remove('show');
-        btnLenguaje.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-expanded', 'false');
       }
     }
 
-    // Abrir/ocultar al hacer click en el botón Lenguaje
+    // abrir/ocultar dropdowns desde botones
     btnLenguaje.addEventListener('click', (e) => {
       e.stopPropagation();
-      toggleDropdown();
+      toggleDropdown(dropdownLenguaje, btnLenguaje);
+      // cerrar cliente si está abierto
+      toggleDropdown(dropdownCliente, btnCliente, false);
     });
 
-    // Cerrar al hacer click fuera
+    btnCliente.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown(dropdownCliente, btnCliente);
+      // cerrar lenguaje si está abierto
+      toggleDropdown(dropdownLenguaje, btnLenguaje, false);
+    });
+
+    // cerrar ambos dropdowns si se hace click fuera
     document.addEventListener('click', (e) => {
-      if (!lenguajeWrapper.contains(e.target)) toggleDropdown(false);
+      if (!lenguajeWrapper.contains(e.target)) toggleDropdown(dropdownLenguaje, btnLenguaje, false);
+      if (!clienteWrapper.contains(e.target)) toggleDropdown(dropdownCliente, btnCliente, false);
     });
 
-    // Cerrar con Escape
+    // cerrar con Escape
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') toggleDropdown(false);
+      if (e.key === 'Escape') {
+        toggleDropdown(dropdownLenguaje, btnLenguaje, false);
+        toggleDropdown(dropdownCliente, btnCliente, false);
+      }
     });
 
-    // Click en un item del dropdown: mostrar la sección correspondiente y cerrar dropdown
-    items.forEach(it => {
-      it.addEventListener('click', () => {
-        const temaId = it.dataset.tema;
-        showTema(temaId);
-        toggleDropdown(false);
-      });
-    });
-
-    // Mostrar sección de tema (oculta las demás)
-    function showTema(temaId) {
+    // mostrar tema para módulo dado ('lenguaje' o 'cliente')
+    function showTema(temaId, module) {
       const temas = ['tema1','tema2','tema3','tema4','tema5'];
       temas.forEach(t => {
-        const el = document.getElementById(t);
-        if (!el) return;
-        el.style.display = (t === temaId) ? 'block' : 'none';
+        const elLang = document.getElementById(t);
+        const elCli = document.getElementById('cliente_' + t);
+        if (elLang) elLang.style.display = (module === 'lenguaje' && t === temaId) ? 'block' : 'none';
+        if (elCli) elCli.style.display = (module === 'cliente' && t === temaId) ? 'block' : 'none';
       });
-      // desplazar a la sección visible
-      const active = document.getElementById(temaId);
+
+      // desplazamiento a la sección visible
+      const active = document.getElementById((module === 'cliente' ? 'cliente_' : '') + temaId);
       if (active) active.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // marcar visualmente el módulo Lenguaje como activo
-      btnLenguaje.classList.add('active');
-      btnCliente.classList.remove('active');
+
+      // marcas visuales de módulo activo
+      btnLenguaje.classList.toggle('active', module === 'lenguaje');
+      btnCliente.classList.toggle('active', module === 'cliente');
     }
 
-    // Botón cliente: comportamiento visual y cierre de temas
-    btnCliente.addEventListener('click', () => {
-      btnCliente.classList.add('active');
-      btnLenguaje.classList.remove('active');
-      ['tema1','tema2','tema3','tema4','tema5'].forEach(t => {
-        const el = document.getElementById(t);
-        if (el) el.style.display = 'none';
+    // click en items del dropdown LENGUAJE -> mostrar tema con ejercicios
+    lenguajeItems.forEach(it => {
+      it.addEventListener('click', () => {
+        const temaId = it.dataset.tema;
+        showTema(temaId, 'lenguaje');
+        toggleDropdown(dropdownLenguaje, btnLenguaje, false);
       });
-      toggleDropdown(false);
+    });
+
+    // click en items del dropdown CLIENTE -> mostrar tema sin ejercicios
+    clienteItems.forEach(it => {
+      it.addEventListener('click', () => {
+        const temaId = it.dataset.tema;
+        showTema(temaId, 'cliente');
+        toggleDropdown(dropdownCliente, btnCliente, false);
+      });
     });
 
     // Accesos CV y Brújula Social
@@ -394,11 +446,13 @@
       window.location.href = 'BrujulaSocial.html';
     });
 
-    // Inicialización: ocultar temas al cargar
+    // Inicialización: ocultar todas las secciones al cargar
     document.addEventListener('DOMContentLoaded', () => {
       ['tema1','tema2','tema3','tema4','tema5'].forEach(t => {
         const el = document.getElementById(t);
         if (el) el.style.display = 'none';
+        const cli = document.getElementById('cliente_' + t);
+        if (cli) cli.style.display = 'none';
       });
     });
   </script>
