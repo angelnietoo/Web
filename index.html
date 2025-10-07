@@ -90,6 +90,16 @@
       font-family: Montserrat, Inter, sans-serif;
       font-size:18px;
       letter-spacing:1px;
+      overflow: hidden;
+    }
+
+    /* Imagen dentro del logo */
+    .logo img {
+      width:48px;
+      height:48px;
+      object-fit:contain;
+      display:block;
+      border-radius:8px;
     }
 
     h1 {
@@ -334,7 +344,11 @@
     <section class="card" aria-labelledby="main-title">
       <header class="top">
         <div class="title">
-          <div class="logo" aria-hidden="true">AI</div>
+          <!-- Aquí he sustituido el texto "AI" por la imagen que indicaste -->
+          <div class="logo" aria-hidden="false">
+            <img src="https://cdn-icons-png.flaticon.com/512/3527/3527797.png" alt="Icono AI" loading="lazy" />
+          </div>
+
           <div>
             <h1 id="main-title">Índice de Ejercicios</h1>
             <p class="lead">ÁNGEL NIETO CORDERO — Lenguajes & Frontend</p>
@@ -513,7 +527,7 @@
         ev.stopPropagation();
         const willOpen = !dropdown.classList.contains('show');
         // close others
-        modules.forEach(m => { if(m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded','false'); }});
+        modules.forEach(m => { if(m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded','false'); }}); 
         setOpen(willOpen);
         if (willOpen) items[0]?.focus();
       });
