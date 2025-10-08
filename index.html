@@ -584,11 +584,22 @@
       items.forEach(it => {
         it.addEventListener('click', () => {
           const tema = it.dataset.tema;
-          // guardar selección para este módulo y refrescar visuales
+
+          // guardar selección para este módulo
           selectedThemes[name] = tema;
+
+          // <-- LIMPIA la selección de los demás módulos para que no queden marcados -->
+          modules.forEach(m => {
+            if (m.name !== name) {
+              delete selectedThemes[m.name];
+            }
+          });
+
+          // persistir y refrescar visuales
           localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
           refreshDropdownVisuals();
 
+          // mostrar contenido correspondiente y cerrar dropdown
           showTema(tema, name);
           setOpen(false);
         });
