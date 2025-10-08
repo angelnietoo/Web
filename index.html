@@ -1,366 +1,693 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Índice de Ejercicios - Lenguaje de Marcas 1</title>
-    <style>
-        /* Estilo global */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: auto;
-            background: linear-gradient(45deg, #1e1e1e, #121212);
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Índice de Ejercicios — Ángel Nieto C.</title>
 
-        .container {
-            max-width: 900px;
-            width: 100%;
-            padding: 40px;
-            background-color: #2b2b2b;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            position: relative;
-            animation: fadeIn 1s ease-out;
-        }
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
+  <style>
+    :root{
+      --bg-1: #0f1720;
+      --bg-2: #0b1220;
+      --accent: #00b0ff;
+      --accent-2: #007acb;
+      --muted: #bfc9d6;
+      --glass: rgba(255,255,255,0.04);
+      --card-radius: 18px;
+      --max-w: 1200px;
+      --gap: 18px;
+      --glass-border: rgba(255,255,255,0.04);
+      --shadow-1: 0 8px 30px rgba(2,6,23,0.7);
+      --soft: 0.18s;
+      --base: 16px;
+    }
 
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    html { font-size: 16px; box-sizing: border-box; }
+    *,*::before,*::after{ box-sizing: inherit; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,176,255,0.04), transparent),
+                  linear-gradient(135deg, var(--bg-1), var(--bg-2));
+      color: #e6eef7;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:36px 20px;
+    }
 
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
+    .wrap {
+      width:100%;
+      max-width: var(--max-w);
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      align-items:start;
+    }
 
-        h1 {
-            font-size: 3.5em;
-            color: #00b0ff; /* Azul brillante */
-            margin-top: 50px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 15px rgba(0, 176, 255, 0.6), 0 0 30px rgba(0, 176, 255, 0.4);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: slideUp 1s ease-out;
-        }
+    /* CARD PRINCIPAL */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--card-radius);
+      padding: 28px;
+      box-shadow: var(--shadow-1);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(6px);
+      overflow: visible;
+    }
 
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    header.top {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
 
-        h2 {
-            color: #fff;
-            font-size: 2em;
-            margin-top: 40px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-            font-weight: bold;
-            animation: slideUp 1s ease-out;
-        }
+    .title {
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
 
-        p {
-            font-size: 1.2em;
-            color: #bbb;
-            margin-bottom: 30px;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
+    .logo {
+      width:68px;
+      height:68px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(0,176,255,0.15), rgba(0,122,203,0.08));
+      box-shadow: 0 6px 18px rgba(0,112,200,0.07);
+      border: 1px solid rgba(255,255,255,0.03);
+      font-weight:800;
+      color:var(--accent);
+      font-family: Montserrat, Inter, sans-serif;
+      font-size:18px;
+      letter-spacing:1px;
+      overflow: hidden;
+    }
 
-        /* Estilo de botones */
-        .button {
-            display: inline-block;
-            padding: 14px 28px;
-            margin: 12px 10px;
-            background: linear-gradient(45deg, #00b0ff, #0091ea); /* Azul brillante */
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.2em;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            transition: all 0.4s ease;
-            letter-spacing: 1px;
-            animation: bounce 0.6s ease-out;
-        }
+    /* Imagen dentro del logo */
+    .logo img {
+      width:48px;
+      height:48px;
+      object-fit:contain;
+      display:block;
+      border-radius:8px;
+    }
 
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300%;
-            height: 300%;
-            background-color: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.6s ease;
-            opacity: 0;
-        }
+    h1 {
+      margin:0;
+      font-family: Montserrat, Inter, sans-serif;
+      font-size:1.6rem;
+      line-height:1;
+      color: white;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    p.lead {
+      margin:0;
+      color:var(--muted);
+      font-size:0.95rem;
+      font-weight:500;
+    }
 
-        .button:hover {
-            background: linear-gradient(45deg, #0091ea, #00b0ff); /* Azul brillante */
-            transform: scale(1.1);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
-        }
+    /* module controls */
+    .modules {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
 
-        .button:hover::before {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-        }
+    .module {
+      position:relative;
+    }
 
-        .button:active {
-            transform: scale(0.98);
-        }
+    .module button.toggle {
+      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,247,250,0.92));
+      color: #071125;
+      border: none;
+      padding: 12px 18px;
+      font-weight:700;
+      border-radius: 12px;
+      cursor:pointer;
+      box-shadow: 0 10px 20px rgba(7,17,37,0.35);
+      transition: transform var(--soft), box-shadow var(--soft);
+      min-width: 300px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      font-size:0.98rem;
+    }
+    .module button.toggle:hover { transform: translateY(-4px); }
+    .module button.toggle[aria-expanded="true"]{
+      outline: 3px solid rgba(0,176,255,0.12);
+      box-shadow: 0 14px 36px rgba(0,176,255,0.06);
+    }
 
-        /* Listas sin estilo */
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: left;
-        }
+    /* chevron */
+    .chev {
+      width:18px;
+      height:18px;
+      display:inline-block;
+      transform:rotate(0);
+      transition: transform var(--soft);
+    }
+    .module button.toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
 
-        li {
-            margin: 18px 0;
-            font-size: 1.1em;
-        }
+    /* dropdown */
+    .dropdown {
+      position:absolute;
+      left: 0;
+      top:calc(100% + 12px);
+      min-width: 320px;
+      background: linear-gradient(180deg, rgba(10,14,22,0.95), rgba(6,9,14,0.96));
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 18px 50px rgba(2,6,23,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+      z-index:40;
+      display:none;
+      transform-origin: top center;
+      animation: pop .16s ease;
+    }
+    .dropdown.show { display:block; }
 
-        /* Estilo del enlace para evitar subrayado */
-        a {
-            text-decoration: none;
-        }
+    @keyframes pop { from { transform: scale(.98) translateY(-6px); opacity:0 } to { transform: scale(1) translateY(0); opacity:1 } }
 
-        /* Estilo de la pequeña sección de autor */
-        .author {
-            font-size: 1.2em;
-            color: #ccc;
-            margin-top: 20px;
-            font-style: italic;
-        }
+    .dropdown .item {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      padding:12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      color:var(--muted);
+      transition: background var(--soft), color var(--soft), transform .12s;
+      background:transparent;
+      border: 1px solid transparent;
+    }
+    .dropdown .item:hover, .dropdown .item:focus {
+      background: linear-gradient(90deg, rgba(0,176,255,0.04), rgba(0,176,255,0.02));
+      color: #fff;
+      transform: translateY(-3px);
+      outline: none;
+      border-color: rgba(0,176,255,0.05);
+    }
+    .dropdown .item .dot {
+      width:12px;
+      height:12px;
+      border-radius:3px;
+      background: linear-gradient(180deg,var(--accent),var(--accent-2));
+      box-shadow: 0 6px 18px rgba(0,176,255,0.1);
+      flex-shrink:0;
+    }
 
-        /* Ocultar las listas inicialmente */
-        .ejercicios {
-            display: none;
-            animation: slideDown 1s ease-out;
-        }
+    /* --- seleccionado (fondo más claro) --- */
+    .dropdown .item.selected {
+      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,176,255,0.03));
+      color: #eaf6ff;
+      border-color: rgba(0,176,255,0.08);
+      transform: none;
+    }
+    .dropdown .item.selected .dot {
+      box-shadow: 0 8px 20px rgba(0,176,255,0.16);
+    }
 
-        @keyframes slideDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* content area (temas / ejercicios) */
+    .content {
+      margin-top: 8px;
+      padding-top: 12px;
+      border-top: 1px dashed rgba(255,255,255,0.02);
+    }
 
-        /* Diseño de tres columnas */
-        .columnas {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-            gap: 20px; /* Espacio entre columnas */
-            text-align: center;
-        }
+    .tema {
+      display:none;
+      margin-top: 18px;
+      animation: fadeSlide .28s ease both;
+      transition: background var(--soft), border-color var(--soft), box-shadow var(--soft);
+    }
+    .tema.active { display:block; }
 
-        .columnas a {
-            display: block;
-            text-align: center;
-        }
+    /* ligero resalte del panel del tema activo */
+    .tema.active.highlight {
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+      border: 1px solid rgba(255,255,255,0.02);
+      padding: 12px;
+      border-radius: 10px;
+    }
 
-        /* Contenedor de botones de los temas */
-        .botones-temas {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
-        }
+    @keyframes fadeSlide { from { opacity:0; transform: translateY(6px) } to { opacity:1; transform: translateY(0) } }
 
-        /* Ajustes para mejorar la estética de los botones de tema */
-        .botones-temas .button {
-            margin: 0 10px;
-        }
+    .tema h2 { margin:0 0 12px 0; color: #fff; font-size:1.15rem; font-weight:800; }
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap:14px;
+    }
+    .ej-btn {
+      display:block;
+      text-decoration:none;
+      padding:12px 14px;
+      border-radius:12px;
+      font-weight:800;
+      background: linear-gradient(180deg, rgba(0,176,255,0.08), rgba(0,176,255,0.02));
+      color: #eaf6ff;
+      border: 1px solid rgba(0,176,255,0.06);
+      text-align:center;
+      transition: transform var(--soft), box-shadow var(--soft);
+    }
+    .ej-btn:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,176,255,0.04); }
 
-    </style>
+    /* cliente (sin ejercicios) */
+    .cliente-empty {
+      padding:14px;
+      border-radius:10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      color: var(--muted);
+      border: 1px dashed rgba(255,255,255,0.03);
+      font-style: italic;
+    }
+
+    /* right sidebar: perfil */
+    .profile {
+      padding:20px;
+      border-radius: var(--card-radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:stretch;
+      height:fit-content;
+    }
+
+    .avatar {
+      width:100%;
+      height:160px;
+      border-radius:12px;
+      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,122,203,0.03));
+      display:grid;
+      place-items:center;
+      color: var(--accent);
+      font-weight:800;
+      font-family: Montserrat, Inter, sans-serif;
+      font-size:22px;
+    }
+
+    .name { font-weight:800; font-size:1.05rem; color:#fff; margin:6px 0 0 0; }
+    .role { color: var(--muted); font-size:0.9rem; margin:0; }
+
+    .badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .badge{
+      font-weight:700;
+      padding:8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size:0.85rem;
+    }
+
+    .cta {
+      display:flex;
+      gap:10px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+    .cta a{
+      flex:1 1 auto;
+      text-decoration:none;
+      padding:12px 14px;
+      border-radius:10px;
+      text-align:center;
+      font-weight:800;
+      background: linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:#04202c;
+      box-shadow: 0 10px 28px rgba(0,176,255,0.08);
+    }
+
+    /* footer note */
+    .note { margin-top:12px; color:var(--muted); font-size:0.88rem; }
+
+    /* responsive */
+    @media (max-width: 980px){
+      .wrap { grid-template-columns: 1fr; }
+      .module button.toggle { min-width: unset; width:100%; }
+      .dropdown { min-width: 100%; left:0; right:0; }
+      .grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 520px){
+      .grid { grid-template-columns: 1fr; }
+      .logo { width:56px; height:56px; font-size:16px; }
+      .avatar { height:120px; }
+    }
+
+    /* focus visible */
+    :focus { outline: none; }
+    .focus-visible { outline: 3px solid rgba(0,176,255,0.16); border-radius:8px; }
+  </style>
 </head>
-
 <body>
+  <main class="wrap" aria-label="Índice de ejercicios y perfil">
+    <!-- Lado izquierdo: contenido principal -->
+    <section class="card" aria-labelledby="main-title">
+      <header class="top">
+        <div class="title">
+          <!-- Aquí he sustituido el texto "AI" por la imagen que indicaste -->
+          <div class="logo" aria-hidden="false">
+            <img src="https://cdn-icons-png.flaticon.com/512/18199/18199102.png" alt="Icono AI" loading="lazy" />
+          </div>
 
-    <div class="container">
-        <h1>Índice de Ejercicios</h1>
-        <p class="author"><strong>ÁNGEL NIETO CORDERO</strong></p>
-        <p class="author"><strong>LENGUAJE DE MARCAS 1º DAW</strong></p>
-
-        <!-- Contenedor de botones de los temas -->
-        <div class="botones-temas">
-            <button class="button" id="btnTema1">Tema 1</button>
-            <button class="button" id="btnTema2">Tema 2</button>
-            <button class="button" id="btnTema3">Tema 3</button>
-            <button class="button" id="btnTema4">Tema 4</button> <!-- Botón Tema 4 -->
-            <button class="button" id="btnTema5">Tema 5</button> <!-- Nuevo botón Tema 5 -->
+          <div>
+            <h1 id="main-title">Índice de Ejercicios</h1>
+            <p class="lead">ÁNGEL NIETO CORDERO — Lenguajes & Frontend</p>
+          </div>
         </div>
 
-        <!-- Contenedor de botones "Curriculum Vitae" y "Brújula Social" -->
-        <div class="botones-temas">
-            <button class="button" id="btnCV">Curriculum Vitae</button>
-            <button class="button" id="btnBrujulaSocial">Brújula Social</button>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <small style="color:var(--muted); font-weight:700;">1º/2º DAW</small>
+        </div>
+      </header>
+
+      <!-- módulos -->
+      <nav class="modules" aria-label="Selector de módulos">
+        <div class="module" id="lenguajeWrapper">
+          <button class="toggle" id="btnLenguaje" aria-haspopup="menu" aria-expanded="false" aria-controls="dropdownLenguaje">
+            <span>LENGUAJE DE MARCAS — 1º DAW</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div id="dropdownLenguaje" class="dropdown" role="menu" aria-label="Temas Lenguaje">
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 — Introducción</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema2"><span class="dot"></span><span> Tema 2 — HTML</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema3"><span class="dot"></span><span> Tema 3 — CSS & Grid</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema4"><span class="dot"></span><span> Tema 4 — JavaScript</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 — Extras</span></div>
+          </div>
         </div>
 
-        <!-- Contenido de Ejercicios para el Tema 1 -->
-        <div id="tema1" class="ejercicios">
-            <h2>TEMA 1: Introducción al lenguaje de marcas</h2>
-            <div class="columnas">
-                <a href="ciudades.xml" class="button">Ejercicio 1</a>
-                <a href="hechos_historicos.xml" class="button">Ejercicio 2</a>
-            </div>
+        <div class="module" id="clienteWrapper">
+          <button class="toggle" id="btnCliente" aria-haspopup="menu" aria-expanded="false" aria-controls="dropdownCliente">
+            <span>DESARROLLO EN ENTORNO CLIENTE — 2º DAW</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div id="dropdownCliente" class="dropdown" role="menu" aria-label="Temas Cliente">
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 — Introducción (Cliente)</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema2"><span class="dot"></span><span> Tema 2 — HTML (Cliente)</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema3"><span class="dot"></span><span> Tema 3 — CSS (Cliente)</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema4"><span class="dot"></span><span> Tema 4 — JavaScript (Cliente)</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 — Extras (Cliente)</span></div>
+          </div>
         </div>
+      </nav>
 
-        <!-- Contenido de Ejercicios para el Tema 2 -->
-        <div id="tema2" class="ejercicios">
-            <h2>TEMA 2: HTML</h2>
-            <div class="columnas">
-                <a href="EJ1_Listas.html" class="button">Ejercicio 1: Listas</a>
-                <a href="EJ2_Imagenes.html" class="button">Ejercicio 2: Imágenes</a>
-                <a href="EJ3_Horario.html" class="button">Ejercicio 3: Horario</a>
-                <a href="ActividadResuelta_2.6.html" class="button">Ejercicio 4: Frames</a>
-                <a href="Formulario.html" class="button">Ejercicio 5: Formulario</a>
-                <a href="Ejercicio6.html" class="button">Ejercicio 6: Estructura del cuerpo</a>
-                <a href="CV Ángel Nieto.html" class="button">Ejercicio 7: Curriculum</a>
-                <a href="Examen.html" class="button">Examen</a>
-            </div>
-        </div>
+      <!-- accesos rápidos -->
+      <div style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+        <a class="ej-btn" id="cvBtn" href="Curriculum Vitae.html" role="button">Ver Curriculum Vitae</a>
+        <a class="ej-btn" id="brujulaBtn" href="BrujulaSocial.html" role="button">Brújula Social</a>
+        <a class="ej-btn" id="githubBtn" href="#" role="button">Repositorio / Proyecto</a>
+      </div>
 
-        <!-- Contenido de Ejercicios para el Tema 3 (CSS y Grid) -->
-        <div id="tema3" class="ejercicios">
-            <h2>TEMA 3: CSS y Grid</h2>
-            <a href="CSSyGrid.html" class="button">Ejercicio CSS y Grid</a>
-            <a href="Bootstrap_Ej1.html" class="button">Ejercicio Boostrap 1</a>
-            <a href="Bootstrap_Ej2.html" class="button">Ejercicio Bootstrap 2</a>
-        </div>
+      <!-- área de contenido: temas y ejercicios -->
+      <section class="content" id="contentArea" aria-live="polite">
+        <!-- LENGUAJE contenidos (con ejercicios) -->
+        <article id="tema1" class="tema" aria-labelledby="t1h"><h2 id="t1h">TEMA 1: Introducción al lenguaje de marcas</h2>
+          <div class="grid">
+            <a class="ej-btn" href="ciudades.xml">Ejercicio 1 — Ciudades (XML)</a>
+            <a class="ej-btn" href="hechos_historicos.xml">Ejercicio 2 — Hechos históricos (XML)</a>
+            <a class="ej-btn" href="#" aria-disabled="true" style="opacity:.7;pointer-events:none;">Ejercicio 3 — (Disponible)</a>
+          </div>
+        </article>
 
-        <!-- Contenido de Ejercicios para el Tema 4 (JavaScript) -->
-        <div id="tema4" class="ejercicios">
-            <h2>TEMA 4: JavaScript</h2>
-            <div class="columnas">
-                <a href="Tema4/JavaScript.html" class="button">Ejercicio 1: JS</a>
-                <a href="Tema4/JavaScript2.html" class="button">Ejercicio 2: Sumatorio de un vector</a>
-                <a href="Tema4/JavaScript3.html" class="button">Ejercicio 3: Contar números pares e impares</a>
-                <a href="Tema4/JavaScript4.html" class="button">Ejercicio 4: Potencia</a>
-                <a href="Tema4/JavaScript5.html" class="button">Ejercicio 5: Sumatorio, multiplicacion, max, min</a>
-                <a href="Tema4/JavaScript6.html" class="button">Ejercicio 6: Botones</a>
-                <a href="Tema4/JavaScript7.html" class="button">Ejercicio 7: Focus y eliminar párrafos</a>
-                <a href="Tema4/EJ2_JavaScript.html" class="button">Ejercicio 8: Números pares e impares</a>
-                <a href="Tema4/EJ3_Calculadora.html" class="button">Ejercicio 9: Calculadora</a>
-                <a href="Tema4/Formulario IA" class="button">Ejercicio 10: Formulario IA</a>
-                <a href="Tema4/Empleados" class="button">Ejercicio 11: Tabla empleados</a>
-                <a href="Tema4/Formulario Matricula" class="button">Ejercicio 12: Formulario Matrícula</a>
-            </div>
-        </div>
+        <article id="tema2" class="tema" aria-labelledby="t2h"><h2 id="t2h">TEMA 2: HTML</h2>
+          <div class="grid">
+            <a class="ej-btn" href="EJ1_Listas.html">Ejercicio 1 — Listas</a>
+            <a class="ej-btn" href="EJ2_Imagenes.html">Ejercicio 2 — Imágenes</a>
+            <a class="ej-btn" href="EJ3_Horario.html">Ejercicio 3 — Horario</a>
+            <a class="ej-btn" href="ActividadResuelta_2.6.html">Ejercicio 4 — Frames</a>
+            <a class="ej-btn" href="Formulario.html">Ejercicio 5 — Formulario</a>
+            <a class="ej-btn" href="Ejercicio6.html">Ejercicio 6: Estructura del cuerpo</a>
+            <a class="ej-btn" href="CV Ángel Nieto.html">Ejercicio 7: Curriculum</a>
+            <a class="ej-btn" href="Examen.html">Examen</a>
+          </div>
+        </article>
 
-        <!-- Contenido de Ejercicios para el Tema 5 (Nuevo Tema) -->
-        <div id="tema5" class="ejercicios">
-            <h2>TEMA 5: Nuevo Tema</h2>
-            <div class="columnas">
-                <a href="AnimationQuery.html" class="button">Ejercicio Animacion JQuery</a>
-                <a href="Nota_JS.html" class="button">Calculo de nota Examen</a>
-            </div>
-        </div>
-    </div>
+        <article id="tema3" class="tema" aria-labelledby="t3h"><h2 id="t3h">TEMA 3: CSS y Grid</h2>
+          <div class="grid">
+            <a class="ej-btn" href="CSSyGrid.html">Ejercicio — CSS & Grid</a>
+            <a class="ej-btn" href="Bootstrap_Ej1.html">Bootstrap — Ejercicio 1</a>
+            <a class="ej-btn" href="Bootstrap_Ej2.html">Bootstrap — Ejercicio 2</a>
+          </div>
+        </article>
 
-    <script>
-        // Obtener los botones de tema
-        const btnTema1 = document.getElementById('btnTema1');
-        const btnTema2 = document.getElementById('btnTema2');
-        const btnTema3 = document.getElementById('btnTema3');
-        const btnTema4 = document.getElementById('btnTema4'); // Botón Tema 4
-        const btnTema5 = document.getElementById('btnTema5'); // Botón Tema 5
-        const btnCV = document.getElementById('btnCV');
-        const btnBrujulaSocial = document.getElementById('btnBrujulaSocial');
+        <article id="tema4" class="tema" aria-labelledby="t4h"><h2 id="t4h">TEMA 4: JavaScript</h2>
+          <div class="grid">
+            <a class="ej-btn" href="Tema4/JavaScript.html">Ejercicio 1 — JS</a>
+            <a class="ej-btn" href="Tema4/JavaScript2.html">Ejercicio 2 — Sumatorio</a>
+            <a class="ej-btn" href="Tema4/JavaScript3.html">Ejercicio 3 — Contar números pares e impares</a>
+            <a class="ej-btn" href="Tema4/JavaScript4.html">>Ejercicio 4 — Potencia</a>
+            <a class="ej-btn" href="Tema4/JavaScript5.html">Ejercicio 5 — Sumatorio, multiplicacion, max, min</a>
+            <a class="ej-btn" href="Tema4/JavaScript6.html">Ejercicio 6 — Botones</a>
+            <a class="ej-btn" href="Tema4/JavaScript7.html">Ejercicio 7 — Focus y eliminar párrafos</a>
+            <a class="ej-btn" href="Tema4/EJ2_JavaScript.html">Ejercicio 8 — Números pares e impares</a>
+            <a class="ej-btn" href="Tema4/EJ3_Calculadora.html">Ejercicio 9 — Calculadora</a>
+            <a class="ej-btn" href="Tema4/Formulario IA">Ejercicio 10 — Formulario IA</a>
+            <a class="ej-btn" href="Tema4/Empleados">Ejercicio 11 — Tabla empleados</a>
+            <a class="ej-btn" href="Tema4/Formulario Matricula">Ejercicio 12 — Formulario Matrícula</a>
+          </div>
+        </article>
 
-        // Obtener las secciones de los temas
-        const tema1 = document.getElementById('tema1');
-        const tema2 = document.getElementById('tema2');
-        const tema3 = document.getElementById('tema3');
-        const tema4 = document.getElementById('tema4');
-        const tema5 = document.getElementById('tema5'); // Sección Tema 5
+        <article id="tema5" class="tema" aria-labelledby="t5h"><h2 id="t5h">TEMA 5: Animaciones & Utilidades</h2>
+          <div class="grid">
+            <a class="ej-btn" href="AnimationQuery.html">Animación JQuery</a>
+            <a class="ej-btn" href="Nota_JS.html">Cálculo de nota</a>
+          </div>
+        </article>
 
-        // Función para alternar la visibilidad de un tema
-        function toggleTema(tema) {
-            const temaElemento = document.getElementById(tema);
+        <!-- CONTENIDOS CLIENTE (sin ejercicios activos) -->
+        <article id="cliente_tema1" class="tema" aria-labelledby="ct1h">
+          <h2 id="ct1h">TEMA 1 (Cliente)</h2>
+          <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+        </article>
 
-            // Verificar si el tema ya está visible, si lo está, ocultarlo
-            if (temaElemento.style.display === 'block') {
-                temaElemento.style.display = 'none';
-            } else {
-                // Si no está visible, ocultar todos los demás temas y mostrar el seleccionado
-                tema1.style.display = 'none';
-                tema2.style.display = 'none';
-                tema3.style.display = 'none';
-                tema4.style.display = 'none';
-                tema5.style.display = 'none'; // Ocultar Tema 5 si es necesario
-                temaElemento.style.display = 'block';
-            }
+        <article id="cliente_tema2" class="tema" aria-labelledby="ct2h">
+          <h2 id="ct2h">TEMA 2 (Cliente)</h2>
+          <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+        </article>
+
+        <article id="cliente_tema3" class="tema" aria-labelledby="ct3h">
+          <h2 id="ct3h">TEMA 3 (Cliente)</h2>
+          <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+        </article>
+
+        <article id="cliente_tema4" class="tema" aria-labelledby="ct4h">
+          <h2 id="ct4h">TEMA 4 (Cliente)</h2>
+          <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+        </article>
+
+        <article id="cliente_tema5" class="tema" aria-labelledby="ct5h">
+          <h2 id="ct5h">TEMA 5 (Cliente)</h2>
+          <div class="cliente-empty">— Sin ejercicios disponibles en este módulo —</div>
+        </article>
+      </section>
+    </section>
+
+    <!-- Lado derecho: perfil / CTA -->
+    <aside class="profile" aria-label="Tarjeta de presentación">
+      <div class="avatar" role="img" aria-label="Foto de perfil (placeholder)">
+        FOTO / LOGO
+      </div>
+
+      <div>
+        <p class="name">Ángel Nieto Cordero</p>
+        <p class="role">Desarrollador Frontend · HTML · CSS · JavaScript</p>
+      </div>
+
+      <div class="badges" aria-hidden="true">
+        <span class="badge">HTML</span>
+        <span class="badge">CSS / Grid</span>
+        <span class="badge">JavaScript</span>
+        <span class="badge">React (próx.)</span>
+      </div>
+
+      <div class="cta">
+        <a href="Curriculum Vitae.html" id="cvSidebar">Currículum</a>
+        <a href="#" id="contactBtn">Contactar</a>
+      </div>
+
+      <p class="note">¿Quieres que te contraten? Asegúrate de sustituir los enlaces por tu CV, GitHub y correo reales. También puedes colocar una foto profesional en el recuadro.</p>
+    </aside>
+  </main>
+
+  <script>
+    /* ---------- Helpers & elemento raíz ---------- */
+    const qs = (s, ctx=document) => ctx.querySelector(s);
+    const qsa = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+    /* Dropdowns y accesibilidad (teclado) */
+    const modules = [
+      { btn: qs('#btnLenguaje'), dropdown: qs('#dropdownLenguaje'), prefix: '', name: 'lenguaje' },
+      { btn: qs('#btnCliente'), dropdown: qs('#dropdownCliente'), prefix: 'cliente_', name: 'cliente' }
+    ];
+
+    // carga selección previa (persistencia)
+    const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes') || '{}');
+
+    // función para actualizar visuales en dropdowns (clase .selected)
+    function refreshDropdownVisuals() {
+      modules.forEach(({dropdown, name}) => {
+        const items = qsa('.item', dropdown);
+        items.forEach(it => {
+          it.classList.toggle('selected', selectedThemes[name] === it.dataset.tema);
+        });
+      });
+    }
+
+    modules.forEach(({btn, dropdown, prefix, name}) => {
+      const items = qsa('.item', dropdown);
+
+      // toggle function
+      function setOpen(open){
+        dropdown.classList.toggle('show', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+        // si abrimos, enfocamos el item seleccionado si existe, si no el primero
+        if (open) {
+          const selectedTema = selectedThemes[name];
+          const selItem = items.find(i => i.dataset.tema === selectedTema);
+          (selItem || items[0])?.focus();
         }
+      }
 
-        // Añadir eventos a los botones de los temas
-        btnTema1.addEventListener('click', () => {
-            toggleTema('tema1');
-        });
+      btn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const willOpen = !dropdown.classList.contains('show');
+        // close others
+        modules.forEach(m => { if(m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded','false'); }}); 
+        setOpen(willOpen);
+      });
 
-        btnTema2.addEventListener('click', () => {
-            toggleTema('tema2');
-        });
+      // keyboard navigation within dropdown
+      dropdown.addEventListener('keydown', (e) => {
+        const idx = items.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); const next = items[(idx+1) % items.length]; next.focus(); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); const prev = items[(idx-1 + items.length) % items.length]; prev.focus(); }
+        if (e.key === 'Escape')    { setOpen(false); btn.focus(); }
+        if (e.key === 'Enter')     { document.activeElement.click(); }
+      });
 
-        btnTema3.addEventListener('click', () => {
-            toggleTema('tema3');
-        });
+      // click on item: show corresponding tema
+      items.forEach(it => {
+        it.addEventListener('click', () => {
+          const tema = it.dataset.tema;
 
-        btnTema4.addEventListener('click', () => {
-            toggleTema('tema4');
-        });
+          // guardar selección para este módulo
+          selectedThemes[name] = tema;
 
-        btnTema5.addEventListener('click', () => { // Evento para Tema 5
-            toggleTema('tema5');
-        });
+          // <-- LIMPIA la selección de los demás módulos para que no queden marcados -->
+          modules.forEach(m => {
+            if (m.name !== name) {
+              delete selectedThemes[m.name];
+            }
+          });
 
-        // Acción para el botón Curriculum Vitae (Redirigir a la página)
-        btnCV.addEventListener('click', () => {
-            window.location.href = "Curriculum Vitae.html"; // Redirige a la página
-        });
+          // persistir y refrescar visuales
+          localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
+          refreshDropdownVisuals();
 
-        // Acción para el botón Brújula Social (Redirigir a la página)
-        btnBrujulaSocial.addEventListener('click', () => {
-            window.location.href = "BrujulaSocial.html"; // Redirige a la página
+          // mostrar contenido correspondiente y cerrar dropdown
+          showTema(tema, name);
+          setOpen(false);
         });
-    </script>
+      });
+    });
+
+    // close dropdowns al hacer click fuera
+    document.addEventListener('click', (e) => {
+      modules.forEach(({btn, dropdown}) => {
+        if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
+          dropdown.classList.remove('show');
+          btn.setAttribute('aria-expanded','false');
+        }
+      });
+    });
+
+    // cerrar con ESC global
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modules.forEach(({btn, dropdown}) => { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded','false'); });
+      }
+    });
+
+    /* Mostrar tema (activa/desactiva artículos) */
+    function showTema(temaId, module) {
+      const temas = ['tema1','tema2','tema3','tema4','tema5'];
+      temas.forEach(t => {
+        const elLang = document.getElementById(t);
+        const elCli = document.getElementById('cliente_' + t);
+        if (elLang) elLang.classList.toggle('active', module === 'lenguaje' && t === temaId);
+        if (elCli)  elCli.classList.toggle('active', module === 'cliente' && t === temaId);
+
+        // además aplicamos un ligero highlight al panel activo
+        if (elLang) elLang.classList.toggle('highlight', module === 'lenguaje' && t === temaId);
+        if (elCli)  elCli.classList.toggle('highlight', module === 'cliente' && t === temaId);
+      });
+
+      // hacer scroll suave al contenido
+      const active = document.getElementById((module === 'cliente' ? 'cliente_' : '') + temaId);
+      if (active) active.scrollIntoView({behavior:'smooth', block:'start'});
+
+      // marca visual en botones principales (si quieres añadir estilos CSS a .toggle.active puedes hacerlo)
+      qs('#btnLenguaje').classList.toggle('active', module === 'lenguaje');
+      qs('#btnCliente').classList.toggle('active', module === 'cliente');
+    }
+
+    // Inicialización: aplicar selección guardada en dropdowns y en paneles
+    document.addEventListener('DOMContentLoaded', () => {
+      refreshDropdownVisuals();
+
+      // si había selección previa, mostramos el tema correspondiente (opcional: comentar si no quieres autoabrir)
+      // aqui solo mostramos el panel seleccionado (sin abrir dropdown)
+      if (selectedThemes['lenguaje']) showTema(selectedThemes['lenguaje'], 'lenguaje');
+      if (selectedThemes['cliente'])  showTema(selectedThemes['cliente'], 'cliente');
+    });
+
+    // CTA / shortcuts
+    qs('#githubBtn').addEventListener('click', function(e){ /*Puedes añadir enlace a tu repo*/ e.preventDefault(); alert('Sustituye este comportamiento por tu enlace a GitHub o proyecto.'); });
+    qs('#contactBtn').addEventListener('click', function(e){ e.preventDefault(); window.location.href = 'mailto:tu-email@ejemplo.com'; });
+
+    // Mejora accesibilidad: mostrar estilo focus cuando se navega por teclado
+    (function(){
+      function handleFirstTab(e) {
+        if (e.key === 'Tab') document.body.classList.add('show-focus');
+        window.removeEventListener('keydown', handleFirstTab);
+      }
+      window.addEventListener('keydown', handleFirstTab);
+      document.addEventListener('focusin', (ev) => {
+        if (document.body.classList.contains('show-focus')) {
+          if (ev.target) ev.target.classList.add('focus-visible');
+        }
+      });
+      document.addEventListener('focusout', (ev) => {
+        if (ev.target) ev.target.classList.remove('focus-visible');
+      });
+    })();
+  </script>
 </body>
 </html>
