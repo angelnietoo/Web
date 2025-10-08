@@ -212,6 +212,17 @@
       flex-shrink:0;
     }
 
+    /* --- seleccionado (fondo más claro) --- */
+    .dropdown .item.selected {
+      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,176,255,0.03));
+      color: #eaf6ff;
+      border-color: rgba(0,176,255,0.08);
+      transform: none;
+    }
+    .dropdown .item.selected .dot {
+      box-shadow: 0 8px 20px rgba(0,176,255,0.16);
+    }
+
     /* content area (temas / ejercicios) */
     .content {
       margin-top: 8px;
@@ -223,8 +234,17 @@
       display:none;
       margin-top: 18px;
       animation: fadeSlide .28s ease both;
+      transition: background var(--soft), border-color var(--soft), box-shadow var(--soft);
     }
     .tema.active { display:block; }
+
+    /* ligero resalte del panel del tema activo */
+    .tema.active.highlight {
+      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
+      border: 1px solid rgba(255,255,255,0.02);
+      padding: 12px;
+      border-radius: 10px;
+    }
 
     @keyframes fadeSlide { from { opacity:0; transform: translateY(6px) } to { opacity:1; transform: translateY(0) } }
 
@@ -510,17 +530,37 @@
 
     /* Dropdowns y accesibilidad (teclado) */
     const modules = [
-      { btn: qs('#btnLenguaje'), dropdown: qs('#dropdownLenguaje'), prefix: '' },
-      { btn: qs('#btnCliente'), dropdown: qs('#dropdownCliente'), prefix: 'cliente_' }
+      { btn: qs('#btnLenguaje'), dropdown: qs('#dropdownLenguaje'), prefix: '', name: 'lenguaje' },
+      { btn: qs('#btnCliente'), dropdown: qs('#dropdownCliente'), prefix: 'cliente_', name: 'cliente' }
     ];
 
-    modules.forEach(({btn, dropdown, prefix}) => {
+    // carga selección previa (persistencia)
+    const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes') || '{}');
+
+    // función para actualizar visuales en dropdowns (clase .selected)
+    function refreshDropdownVisuals() {
+      modules.forEach(({dropdown, name}) => {
+        const items = qsa('.item', dropdown);
+        items.forEach(it => {
+          it.classList.toggle('selected', selectedThemes[name] === it.dataset.tema);
+        });
+      });
+    }
+
+    modules.forEach(({btn, dropdown, prefix, name}) => {
       const items = qsa('.item', dropdown);
 
       // toggle function
       function setOpen(open){
         dropdown.classList.toggle('show', open);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+        // si abrimos, enfocamos el item seleccionado si existe, si no el primero
+        if (open) {
+          const selectedTema = selectedThemes[name];
+          const selItem = items.find(i => i.dataset.tema === selectedTema);
+          (selItem || items[0])?.focus();
+        }
       }
 
       btn.addEventListener('click', (ev) => {
@@ -529,7 +569,6 @@
         // close others
         modules.forEach(m => { if(m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded','false'); }}); 
         setOpen(willOpen);
-        if (willOpen) items[0]?.focus();
       });
 
       // keyboard navigation within dropdown
@@ -545,7 +584,12 @@
       items.forEach(it => {
         it.addEventListener('click', () => {
           const tema = it.dataset.tema;
-          showTema(tema, prefix === '' ? 'lenguaje' : 'cliente');
+          // guardar selección para este módulo y refrescar visuales
+          selectedThemes[name] = tema;
+          localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
+          refreshDropdownVisuals();
+
+          showTema(tema, name);
           setOpen(false);
         });
       });
@@ -576,21 +620,29 @@
         const elCli = document.getElementById('cliente_' + t);
         if (elLang) elLang.classList.toggle('active', module === 'lenguaje' && t === temaId);
         if (elCli)  elCli.classList.toggle('active', module === 'cliente' && t === temaId);
+
+        // además aplicamos un ligero highlight al panel activo
+        if (elLang) elLang.classList.toggle('highlight', module === 'lenguaje' && t === temaId);
+        if (elCli)  elCli.classList.toggle('highlight', module === 'cliente' && t === temaId);
       });
 
       // hacer scroll suave al contenido
       const active = document.getElementById((module === 'cliente' ? 'cliente_' : '') + temaId);
       if (active) active.scrollIntoView({behavior:'smooth', block:'start'});
 
-      // marca visual en botones principales
+      // marca visual en botones principales (si quieres añadir estilos CSS a .toggle.active puedes hacerlo)
       qs('#btnLenguaje').classList.toggle('active', module === 'lenguaje');
       qs('#btnCliente').classList.toggle('active', module === 'cliente');
     }
 
-    // Inicialización: ocultar todo (ya vienen ocultos) — opcional: abrir tema 1
+    // Inicialización: aplicar selección guardada en dropdowns y en paneles
     document.addEventListener('DOMContentLoaded', () => {
-      // Si quieres que abra tema1 por defecto, descomenta la siguiente línea:
-      // showTema('tema1','lenguaje');
+      refreshDropdownVisuals();
+
+      // si había selección previa, mostramos el tema correspondiente (opcional: comentar si no quieres autoabrir)
+      // aqui solo mostramos el panel seleccionado (sin abrir dropdown)
+      if (selectedThemes['lenguaje']) showTema(selectedThemes['lenguaje'], 'lenguaje');
+      if (selectedThemes['cliente'])  showTema(selectedThemes['cliente'], 'cliente');
     });
 
     // CTA / shortcuts
