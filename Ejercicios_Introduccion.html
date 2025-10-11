@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Ejercicios 1.9 - Básico</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 16px; }
+    section { border:1px solid #ddd; padding:12px; margin-bottom:12px; }
+    h2 { font-size:16px; margin:0 0 8px 0; }
+    button, select, input { margin-top:6px; }
+    img { max-width:100%; display:block; margin-top:8px; }
+
+    /* Estilo NUEVO solo para el título principal */
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: 0.4px;
+
+      /* degradado como color del texto */
+      background: linear-gradient(90deg,#0b74de 0%, #00b4ff 60%, #24c98a 100%);
+      background-clip: text;          /* estándar */
+      -webkit-background-clip: text;  /* compatibilidad con Chrome/Safari */
+      -webkit-text-fill-color: transparent;
+
+      /* sombra sutil y subrayado suave que acompaña el degradado */
+      text-shadow: 0 6px 18px rgba(11,116,222,0.08);
+      display: inline-block;
+      padding-bottom: 8px;
+      border-bottom: 4px solid rgba(11,116,222,0.10);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Ejercicios 1.9 — Básico</h1>
+
+  <!-- Ejercicio 1.1 -->
+  <section>
+    <h2>1.1 — Pedir dato (prompt)</h2>
+    <button id="btn1">Pedir dato</button>
+    <p id="out1">Aquí aparecerá el dato.</p>
+  </section>
+
+  <!-- Ejercicio 1.2 -->
+  <section>
+    <h2>1.2 — Selección de color</h2>
+    <select id="colorSel">
+      <option value="">-- elegir --</option>
+      <option>Rojo</option>
+      <option>Verde</option>
+      <option>Azul</option>
+    </select>
+    <p id="out2">Selecciona un color (ver consola también).</p>
+  </section>
+
+  <!-- Ejercicio 1.3 -->
+  <section>
+    <h2>1.3 — Mostrar texto del input</h2>
+    <input id="inp3" type="text" placeholder="Escribe algo">
+    <br>
+    <button id="show3">Mostrar</button>
+    <button id="clear3">Borrar</button>
+    <div id="out3" style="margin-top:8px;">Resultado aquí</div>
+  </section>
+
+  <!-- Ejercicio 1.4 -->
+  <section>
+    <h2>1.4 — Seleccionar imagen</h2>
+    <select id="imgSel">
+      <option value="">-- elegir imagen --</option>
+      <option value="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?w=800&q=60">Ciudad</option>
+      <option value="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&q=60">Montaña</option>
+      <option value="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=800&q=60">Playa</option>
+    </select>
+    <div id="out4">
+      <img id="preview4" src="" alt="" style="display:none">
+    </div>
+  </section>
+
+  <!-- Ejercicio 1.5 -->
+  <section>
+    <h2>1.5 — Negrita / Cursiva</h2>
+    <input id="text5" type="text" value="Texto de ejemplo">
+    <br>
+    <label>
+      Negrita:
+      <select id="bold5">
+        <option value="normal">No</option>
+        <option value="bold">Sí</option>
+      </select>
+    </label>
+    <label style="margin-left:8px">
+      Cursiva:
+      <select id="italic5">
+        <option value="normal">No</option>
+        <option value="italic">Sí</option>
+      </select>
+    </label>
+    <br>
+    <button id="apply5">Aplicar</button>
+    <div id="out5" style="margin-top:8px;">Aquí se mostrará el texto con estilo.</div>
+  </section>
+
+<script>
+  // 1.1
+  document.getElementById('btn1').addEventListener('click', function(){
+    var v = prompt('Introduce un dato:','');
+    document.getElementById('out1').textContent = v === null ? '(cancelado)' : v;
+  });
+
+  // 1.2
+  document.getElementById('colorSel').addEventListener('change', function(){
+    var v = this.value;
+    console.log('Color seleccionado:', v);
+    document.getElementById('out2').textContent = v ? 'Has elegido: ' + v : 'Selecciona un color (ver consola también).';
+  });
+
+  // 1.3
+  document.getElementById('show3').addEventListener('click', function(){
+    var t = document.getElementById('inp3').value;
+    document.getElementById('out3').textContent = t ? t : '(vacío)';
+  });
+  document.getElementById('clear3').addEventListener('click', function(){
+    document.getElementById('inp3').value = '';
+    document.getElementById('out3').textContent = '';
+  });
+
+  // 1.4
+  document.getElementById('imgSel').addEventListener('change', function(){
+    var url = this.value;
+    var img = document.getElementById('preview4');
+    if(!url){ img.style.display = 'none'; img.src = ''; return; }
+    img.src = url;
+
+    // ✅ CORREGIDO: comprobación segura antes de leer .text
+    var sel = this.options[this.selectedIndex];
+    img.alt = sel ? sel.text : '';
+
+    img.style.display = 'block';
+  });
+
+  // 1.5
+  document.getElementById('apply5').addEventListener('click', function(){
+    var txt = document.getElementById('text5').value || '';
+    var bold = document.getElementById('bold5').value;
+    var italic = document.getElementById('italic5').value;
+    var out = document.getElementById('out5');
+    out.textContent = txt;
+    out.style.fontWeight = bold === 'bold' ? '700' : '400';
+    out.style.fontStyle = italic === 'italic' ? 'italic' : 'normal';
+  });
+</script>
+
+</body>
+</html>
