@@ -1,27 +1,58 @@
-<!DOCTYPE html >
-    <html lang="es">
-        <head>
-            <meta charset="UTF-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <title>Ejemplo Días de la Semana</title>
-        </head>
-        <body>
-            <h1>Longitud de los días de la semana</h1>
-            <p id="resultadoMap"></p>
-            <p id="resultadoReduce"></p>
+<!DOCTYPE html>
+<html lang="es">
 
-            <script>
-                let dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ejemplo Días de la Semana</title>
+</head>
 
-    // Calculamos la longitud de cada día
-    let longitudes = dias.map(dia => dia.length);
-                document.getElementById('resultadoMap').textContent =
-                'Longitudes de cada día: [' + longitudes.join(', ') + ']';
+<body>
+    <h1>Longitud de los días de la semana</h1>
+    <p id="resultadoMap"></p>
+    <p id="resultadoReduce"></p>
+    <p id="diaMasLargo"></p>
+    <p id="diaMasCorto"></p>
 
-    // Calculamos la suma total de las longitudes
-    let sumaDias = dias.reduce((acumulador, elemento) => acumulador + elemento.length, 0);
-                document.getElementById('resultadoReduce').textContent =
-                'Suma total de las longitudes: ' + sumaDias;
-            </script>
-        </body>
-    </html>
+    <script>
+        let dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+        // Obtener las longitudes
+        let longitudes = [];
+        for (let i = 0; i < dias.length; i++) {
+            longitudes.push(dias[i].length);
+        }
+        document.getElementById('resultadoMap').textContent =
+            'Longitudes de cada día: [' + longitudes.join(', ') + ']';
+
+        // Sumar todas las longitudes
+        let suma = 0;
+        for (let i = 0; i < longitudes.length; i++) {
+            suma += longitudes[i];
+        }
+        document.getElementById('resultadoReduce').textContent =
+            'Suma total de las longitudes: ' + suma;
+
+        // Día más largo
+        let masLargo = dias[0];
+        for (let i = 1; i < dias.length; i++) {
+            if (dias[i].length > masLargo.length) {
+                masLargo = dias[i];
+            }
+        }
+        document.getElementById('diaMasLargo').textContent =
+            'Día más largo: ' + masLargo + ' (' + masLargo.length + ' letras)';
+
+        // Día más corto
+        let masCorto = dias[0];
+        for (let i = 1; i < dias.length; i++) {
+            if (dias[i].length < masCorto.length) {
+                masCorto = dias[i];
+            }
+        }
+        document.getElementById('diaMasCorto').textContent =
+            'Día más corto: ' + masCorto + ' (' + masCorto.length + ' letras)';
+    </script>
+</body>
+
+</html>
