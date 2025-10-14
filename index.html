@@ -254,6 +254,8 @@
       grid-template-columns: repeat(3, minmax(0,1fr));
       gap:14px;
     }
+
+    /* Botones de ejercicios: ahora unificados y "pixel-perfect" iguales entre módulos */
     .ej-btn {
       display:block;
       text-decoration:none;
@@ -264,9 +266,13 @@
       color: #eaf6ff;
       border: 1px solid rgba(0,176,255,0.06);
       text-align:center;
-      transition: transform var(--soft), box-shadow var(--soft);
+      transition: transform var(--soft) cubic-bezier(0.22,1,0.36,1), box-shadow var(--soft), background var(--soft);
+      will-change: transform, box-shadow;
+      backface-visibility: hidden;
     }
     .ej-btn:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,176,255,0.04); }
+    .ej-btn:active { transform: translateY(-2px) scale(.997); }
+    .ej-btn:focus-visible { box-shadow: 0 18px 40px rgba(0,176,255,0.10); transform: translateY(-5px); outline: none; }
 
     /* cliente (sin ejercicios) */
     .cliente-empty {
@@ -460,7 +466,7 @@
             <a class="ej-btn" href="Tema4/JavaScript.html">Ejercicio 1 — JS</a>
             <a class="ej-btn" href="Tema4/JavaScript2.html">Ejercicio 2 — Sumatorio</a>
             <a class="ej-btn" href="Tema4/JavaScript3.html">Ejercicio 3 — Contar números pares e impares</a>
-            <a class="ej-btn" href="Tema4/JavaScript4.html">>Ejercicio 4 — Potencia</a>
+            <a class="ej-btn" href="Tema4/JavaScript4.html">&gt;Ejercicio 4 — Potencia</a>
             <a class="ej-btn" href="Tema4/JavaScript5.html">Ejercicio 5 — Sumatorio, multiplicacion, max, min</a>
             <a class="ej-btn" href="Tema4/JavaScript6.html">Ejercicio 6 — Botones</a>
             <a class="ej-btn" href="Tema4/JavaScript7.html">Ejercicio 7 — Focus y eliminar párrafos</a>
@@ -482,8 +488,11 @@
         <!-- CONTENIDOS CLIENTE (sin ejercicios activos) -->
         <article id="cliente_tema1" class="tema" aria-labelledby="ct1h">
           <h2 id="ct1h">TEMA 1 — JS</h2>
-          <a class="ej-btn" href="UD1/Ejercicios_Introduccion.html">Ejercicio 1 — Introducción JS</a>
-          <a class="ej-btn" href="UD1/Ejemplos_Clase/Ejemplo_Clase1.html">Ejercicio Ejemplo 1</a>
+          <!-- <-- FIX: envolver los enlaces en .grid para que compartan el mismo layout/estilos que 1º -->
+          <div class="grid">
+            <a class="ej-btn" href="UD1/Ejercicios_Introduccion.html">Ejercicio 1 — Introducción JS</a>
+            <a class="ej-btn" href="UD1/Ejemplos_Clase/Ejemplo_Clase1.html">Ejercicio Ejemplo 1</a>
+          </div>
         </article>
 
         <article id="cliente_tema2" class="tema" aria-labelledby="ct2h">
@@ -531,7 +540,7 @@
         <a href="#" id="contactBtn">Contactar</a>
       </div>
 
-      <p class="note">¿Quieres que te contraten? Asegúrate de sustituir los enlaces por tu CV, GitHub y correo reales. También puedes colocar una foto profesional en el recuadro.</p>
+      <p class="note">Aquí me falta escribir la presentación.</p>
     </aside>
   </main>
 
