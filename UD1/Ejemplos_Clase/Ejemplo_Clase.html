@@ -1,0 +1,27 @@
+< !DOCTYPE html >
+    <html lang="es">
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <title>Ejemplo Días de la Semana</title>
+        </head>
+        <body>
+            <h1>Longitud de los días de la semana</h1>
+            <p id="resultadoMap"></p>
+            <p id="resultadoReduce"></p>
+
+            <script>
+                let dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+    // Calculamos la longitud de cada día
+    let longitudes = dias.map(dia => dia.length);
+                document.getElementById('resultadoMap').textContent =
+                'Longitudes de cada día: [' + longitudes.join(', ') + ']';
+
+    // Calculamos la suma total de las longitudes
+    let sumaDias = dias.reduce((acumulador, elemento) => acumulador + elemento.length, 0);
+                document.getElementById('resultadoReduce').textContent =
+                'Suma total de las longitudes: ' + sumaDias;
+            </script>
+        </body>
+    </html>
