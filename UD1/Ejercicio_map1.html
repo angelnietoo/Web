@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ej 1 — Aleatorio</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 20px;
+      background: #fff;
+      color: #000
+    }
+
+    label {
+      display: block;
+      margin-top: 8px
+    }
+
+    input {
+      padding: 8px;
+      width: 200px
+    }
+
+    button {
+      padding: 8px 10px;
+      margin-top: 8px
+    }
+
+    .muted {
+      color: #555
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 12px
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Ejercicio 1 — Función flecha aleatoria</h1>
+
+  <label for="randMax">Introduce un número entero (n):</label>
+  <input id="randMax" type="number" min="1" value="6" />
+  <div>
+    <button id="btnRandom">Generar aleatorio</button>
+    <button id="btnRandomClear">Borrar salida</button>
+  </div>
+
+  <p>Resultado: <strong id="randomResult" class="muted">—</strong></p>
+
+  <p><a href="index.html">← Volver al índice</a></p>
+
+  <script>
+    // función flecha asignada a const
+    const getRandomBetween1And = n => {
+      const max = Math.floor(Number(n));
+      if (!Number.isFinite(max) || max <= 0) return null;
+      return Math.floor(Math.random() * max) + 1;
+    };
+
+    document.getElementById('btnRandom').addEventListener('click', () => {
+      const n = parseInt(document.getElementById('randMax').value, 10);
+      const r = getRandomBetween1And(n);
+      document.getElementById('randomResult').textContent = r === null ? 'Parámetro inválido' : r;
+    });
+
+    document.getElementById('btnRandomClear').addEventListener('click', () => {
+      document.getElementById('randomResult').textContent = '—';
+    });
+  </script>
+</body>
+
+</html>

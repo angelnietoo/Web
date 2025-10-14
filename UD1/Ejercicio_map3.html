@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ej 3 — Ciudades (Map)</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+            background: #fff;
+            color: #000
+        }
+
+        label {
+            display: block;
+            margin-top: 8px
+        }
+
+        input {
+            padding: 8px;
+            width: 100%
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap
+        }
+
+        button {
+            padding: 8px 10px
+        }
+
+        .list {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            min-height: 60px;
+            max-height: 360px;
+            overflow: auto;
+            background: #fff
+        }
+
+        .city-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px;
+            border-bottom: 1px solid #f0f0f0
+        }
+
+        .city-name {
+            font-weight: 700
+        }
+
+        .muted {
+            color: #555
+        }
+
+        .max {
+            color: #c00
+        }
+
+        .min {
+            color: #0a7f3b
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ejercicio 3 — Map de ciudades</h1>
+
+    <label>Agregar ciudad</label>
+    <input id="cityName" type="text" placeholder="Nombre ciudad" />
+    <input id="cityPop" type="number" placeholder="Habitantes (ej. 50000)" style="margin-top:6px" />
+    <div class="row">
+        <button id="addCityBtn">Añadir</button>
+        <button id="clearCitiesBtn">Vaciar</button>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+        <button id="showAllBtn">Ver todas</button>
+        <button id="countBtn">Contar</button>
+        <button id="maxBtn">Más poblada</button>
+        <button id="minBtn">Menos poblada</button>
+    </div>
+
+    <div style="margin-top:8px">Ciudades: <span id="cityCount" class="muted">0</span></div>
+
+    <div class="list" id="citiesList" aria-live="polite"></div>
+
+    <p class="muted">Pulsa "Más poblada" o "Menos poblada" para resaltar.</p>
+
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <script>
+        const STORAGE_KEY = 'ciudades_map_v1';
+        const defaultCities = new Map([['Madrid', 3223000], ['Barcelona', 1620000], ['Sevilla', 688711], ['Valencia', 794288]]);
+        const loadMapFromStorage = () => {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return new Map(defaultCities);
+            try { return new Map(JSON.parse(raw)); } catch { return new Map(defaultCities); }
+        };
+        const saveMapToStorage = map => localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(map.entries())));
+        const citiesMap = loadMapFromStorage();
+
+        const cityNameInput = document.getElementById('cityName');
+        const cityPopInput = document.getElementById('cityPop');
+        const addCityBtn = document.getElementById('addCityBtn');
+        const clearCitiesBtn = document.getElementById('clearCitiesBtn');
+        const citiesList = document.getElementById('citiesList');
+        const cityCount = document.getElementById('cityCount');
+        const showAllBtn = document.getElementById('showAllBtn');
+        const countBtn = document.getElementById('countBtn');
+        const maxBtn = document.getElementById('maxBtn');
+        const minBtn = document.getElementById('minBtn');
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" }[m]));
+        }
+        function formatNumber(n) { return Number(n).toLocaleString('es-ES'); }
+
+        function renderCities(highlight = { type: null, key: null }) {
+            citiesList.innerHTML = '';
+            if (citiesMap.size === 0) {
+                citiesList.textContent = 'No hay ciudades añadidas.';
+                return;
+            }
+            citiesMap.forEach((pop, name) => {
+                const item = document.createElement('div'); item.className = 'city-item';
+                const left = document.createElement('div');
+                const nameSpan = document.createElement('div'); nameSpan.className = 'city-name';
+                nameSpan.textContent = name;
+                if (highlight.type === 'max' && highlight.key === name) nameSpan.classList.add('max');
+                if (highlight.type === 'min' && highlight.key === name) nameSpan.classList.add('min');
+                const popSpan = document.createElement('div'); popSpan.className = 'muted'; popSpan.textContent = formatNumber(pop) + ' hab.';
+                left.appendChild(nameSpan); left.appendChild(popSpan);
+
+                const right = document.createElement('div');
+                const del = document.createElement('button'); del.textContent = 'Borrar';
+                del.addEventListener('click', () => {
+                    if (!confirm(`¿Borrar la ciudad "${name}"?`)) return;
+                    citiesMap.delete(name); saveMapToStorage(citiesMap); renderCities(); updateCount();
+                });
+                right.appendChild(del);
+                item.appendChild(left); item.appendChild(right); citiesList.appendChild(item);
+            });
+        }
+
+        function updateCount() { cityCount.textContent = citiesMap.size; }
+
+        addCityBtn.addEventListener('click', () => {
+            const name = (cityNameInput.value || '').trim();
+            const pop = Number(cityPopInput.value);
+            if (!name) return alert('Introduce un nombre de ciudad válido.');
+            if (!Number.isFinite(pop) || pop < 0) return alert('Introduce un número de habitantes válido (>= 0).');
+            citiesMap.set(name, Math.floor(pop));
+            saveMapToStorage(citiesMap);
+            cityNameInput.value = ''; cityPopInput.value = '';
+            renderCities(); updateCount();
+        });
+
+        clearCitiesBtn.addEventListener('click', () => {
+            if (!confirm('¿Vaciar todas las ciudades?')) return;
+            citiesMap.clear(); saveMapToStorage(citiesMap); renderCities(); updateCount();
+        });
+
+        showAllBtn.addEventListener('click', () => renderCities());
+        countBtn.addEventListener('click', () => { alert(`Hay ${citiesMap.size} ciudad(es) almacenada(s).`); updateCount(); });
+
+        const findMaxCity = () => {
+            if (citiesMap.size === 0) return null;
+            let maxKey = null, maxVal = -Infinity;
+            for (const [k, v] of citiesMap) if (v > maxVal) { maxVal = v; maxKey = k; }
+            return { key: maxKey, value: maxVal };
+        };
+        const findMinCity = () => {
+            if (citiesMap.size === 0) return null;
+            let minKey = null, minVal = Infinity;
+            for (const [k, v] of citiesMap) if (v < minVal) { minVal = v; minKey = k; }
+            return { key: minKey, value: minVal };
+        };
+
+        maxBtn.addEventListener('click', () => {
+            const max = findMaxCity(); if (!max) return alert('No hay ciudades.');
+            renderCities({ type: 'max', key: max.key }); alert(`Ciudad más poblada: ${max.key} (${formatNumber(max.value)} hab.)`);
+        });
+        minBtn.addEventListener('click', () => {
+            const min = findMinCity(); if (!min) return alert('No hay ciudades.');
+            renderCities({ type: 'min', key: min.key }); alert(`Ciudad menos poblada: ${min.key} (${formatNumber(min.value)} hab.)`);
+        });
+
+        // init
+        renderCities(); updateCount();
+
+        // sync si cambian en otra pestaña
+        window.addEventListener('storage', e => {
+            if (e.key === STORAGE_KEY) {
+                const newMap = loadMapFromStorage();
+                citiesMap.clear(); for (const [k, v] of newMap) citiesMap.set(k, v);
+                renderCities(); updateCount();
+            }
+        });
+    </script>
+</body>
+
+</html>

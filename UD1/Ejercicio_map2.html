@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ej 2 — Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+            background: #fff;
+            color: #000
+        }
+
+        label {
+            display: block;
+            margin-top: 8px
+        }
+
+        input {
+            padding: 8px;
+            width: 120px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap
+        }
+
+        button {
+            padding: 8px 10px
+        }
+
+        .muted {
+            color: #555
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 12px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ejercicio 2 — Calculadora (funciones flecha)</h1>
+
+    <label>Valores:</label>
+    <div class="row">
+        <input id="calcA" type="number" placeholder="a" />
+        <input id="calcB" type="number" placeholder="b" />
+    </div>
+
+    <div class="row">
+        <button id="addBtn">+</button>
+        <button id="subBtn">-</button>
+        <button id="mulBtn">*</button>
+        <button id="divBtn">/</button>
+    </div>
+
+    <p>Resultado: <strong id="calcResult" class="muted">—</strong></p>
+
+    <p><a href="index.html">← Volver al índice</a></p>
+
+    <script>
+        // operaciones: funciones flecha
+        const add = (a, b) => a + b;
+        const sub = (a, b) => a - b;
+        const mul = (a, b) => a * b;
+        const div = (a, b) => b === 0 ? '∞ (div/0)' : a / b;
+
+        function getNums() {
+            const a = Number(document.getElementById('calcA').value || 0);
+            const b = Number(document.getElementById('calcB').value || 0);
+            return { a, b };
+        }
+
+        document.getElementById('addBtn').addEventListener('click', () => {
+            const { a, b } = getNums(); document.getElementById('calcResult').textContent = add(a, b);
+        });
+        document.getElementById('subBtn').addEventListener('click', () => {
+            const { a, b } = getNums(); document.getElementById('calcResult').textContent = sub(a, b);
+        });
+        document.getElementById('mulBtn').addEventListener('click', () => {
+            const { a, b } = getNums(); document.getElementById('calcResult').textContent = mul(a, b);
+        });
+        document.getElementById('divBtn').addEventListener('click', () => {
+            const { a, b } = getNums(); document.getElementById('calcResult').textContent = div(a, b);
+        });
+    </script>
+</body>
+
+</html>
