@@ -5,62 +5,39 @@
     <meta charset="utf-8">
     <title>Conversor Celsius ↔ Fahrenheit</title>
     <style>
-        /* Reset básico */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-        }
-
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(to right, #74ebd5, #ACB6E5);
-            color: #333;
+            background-color: #f0f0f0;
         }
 
         .contenedor {
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
             text-align: center;
-            width: 300px;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            color: #4a4a4a;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         input,
-        select {
+        select,
+        button {
+            margin: 10px 0;
+            padding: 8px;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
             font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
             background-color: #4a90e2;
             color: white;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
         }
 
         button:hover {
@@ -68,10 +45,8 @@
         }
 
         #resultado {
-            margin-top: 20px;
-            font-size: 18px;
+            margin-top: 15px;
             font-weight: bold;
-            color: #333;
         }
     </style>
 </head>
@@ -80,14 +55,11 @@
     <div class="contenedor">
         <h1>Conversor de Temperaturas</h1>
 
-        <label for="temp">Introduce la temperatura:</label>
-        <input type="number" id="temp" placeholder="Ej: 60">
-
+        <input type="number" id="temp" placeholder="Introduce la temperatura">
         <select id="unidad">
             <option value="C">°C a °F</option>
             <option value="F">°F a °C</option>
         </select>
-
         <button onclick="convertir()">Convertir</button>
 
         <p id="resultado"></p>
@@ -100,7 +72,7 @@
             let resultado;
 
             if (isNaN(temp)) {
-                resultado = "Por favor, introduce un número válido.";
+                resultado = "Introduce un número válido";
             } else if (unidad === 'C') {
                 resultado = (temp * 9 / 5 + 32).toFixed(2) + ' °F';
             } else {
