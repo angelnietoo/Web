@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Conversor Celsius ↔ Fahrenheit</title>
+</head>
+
+<body>
+    <h1>Conversor de Temperaturas 🌡️</h1>
+
+    <script>
+        // Conversión Celsius → Fahrenheit
+        const celsius = 60;
+        const fahrenheitDesdeCelsius = (celsius * 9 / 5) + 32;
+
+        // Conversión Fahrenheit → Celsius
+        const fahrenheit = 45;
+        const celsiusDesdeFahrenheit = (fahrenheit - 32) * 5 / 9;
+
+        // Mostrar los resultados
+        document.write(`${celsius} °C es ${fahrenheitDesdeCelsius} °F<br>`);
+        document.write(`${fahrenheit} °F es ${celsiusDesdeFahrenheit} °C`);
+    </script>
+</body>
+
+</html>
