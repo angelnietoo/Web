@@ -4,66 +4,20 @@
 <head>
     <meta charset="utf-8">
     <title>Conversor Celsius ↔ Fahrenheit</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-
-        .contenedor {
-            background-color: white;
-            padding: 20px 30px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        input,
-        select,
-        button {
-            margin: 10px 0;
-            padding: 8px;
-            width: 100%;
-            font-size: 16px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #357ABD;
-        }
-
-        #resultado {
-            margin-top: 15px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="contenedor">
-        <h1>Conversor de Temperaturas</h1>
+    <h1>Conversor de Temperaturas</h1>
 
-        <input type="number" id="temp" placeholder="Introduce la temperatura">
-        <select id="unidad">
-            <option value="C">°C a °F</option>
-            <option value="F">°F a °C</option>
-        </select>
-        <button onclick="convertir()">Convertir</button>
+    <label for="temp">Introduce la temperatura:</label>
+    <input type="number" id="temp" placeholder="Ej: 60">
+    <select id="unidad">
+        <option value="C">°C a °F</option>
+        <option value="F">°F a °C</option>
+    </select>
+    <button onclick="convertir()">Convertir</button>
 
-        <p id="resultado"></p>
-    </div>
+    <p id="resultado"></p>
 
     <script>
         function convertir() {
@@ -71,9 +25,7 @@
             const unidad = document.getElementById('unidad').value;
             let resultado;
 
-            if (isNaN(temp)) {
-                resultado = "Introduce un número válido";
-            } else if (unidad === 'C') {
+            if (unidad === 'C') {
                 resultado = (temp * 9 / 5 + 32).toFixed(2) + ' °F';
             } else {
                 resultado = ((temp - 32) * 5 / 9).toFixed(2) + ' °C';
