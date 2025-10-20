@@ -55,7 +55,7 @@
 
 <body>
     <div class="contenedor">
-        <h1>Mostrar la URL del sitio web 🌐</h1>
+        <h1>Mostrar la URL del sitio web</h1>
 
         <input type="text" id="url" readonly>
         <button onclick="copiarURL()">Copiar URL</button>
@@ -75,7 +75,7 @@
             urlInput.select();
             urlInput.setSelectionRange(0, 99999); // Para móviles
             document.execCommand('copy');
-            mensaje.textContent = "URL copiada al portapapeles ✅";
+            mensaje.textContent = "URL copiada✅";
             setTimeout(() => mensaje.textContent = "", 2000);
         }
     </script>
