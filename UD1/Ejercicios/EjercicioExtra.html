@@ -74,7 +74,7 @@
             const min = Math.min(...difs);
             const ganadores = difs.map((d, i) => d === min ? i + 1 : null).filter(v => v !== null);
             document.getElementById('resultado').innerHTML =
-                `Gana(n) Alumno(s) ${ganadores.join(', ')} — diferencia mínima ${min.toFixed(2)} €`;
+                `Gana Alumno ${ganadores.join(', ')} — diferencia mínima ${min.toFixed(2)} €`;
         }
 
         function reiniciar() {
