@@ -37,7 +37,8 @@
     <h2>Apuesta de la factura</h2>
 
     <label>Total de la factura (€):</label>
-    <input id="total" type="number" step="0.01"><br>
+    <input id="total" type="number" step="0.01" readonly>
+    <button onclick="generarFactura()">Generar aleatorio</button><br>
 
     <label>Alumno 1:</label> <input id="a1" type="number" step="0.01"><br>
     <label>Alumno 2:</label> <input id="a2" type="number" step="0.01"><br>
@@ -49,6 +50,11 @@
     <div id="resultado" class="result"></div>
 
     <script>
+        function generarFactura() {
+            const total = (Math.random() * 999 + 1).toFixed(2); // 1-1000 con decimales
+            document.getElementById('total').value = total;
+        }
+
         function calcular() {
             const total = parseFloat(document.getElementById('total').value);
             const apuestas = [
@@ -61,29 +67,30 @@
                 return;
             }
 
-            // Buscar exactos
-            const exactos = apuestas.map((v, i) => ({ v, i })).filter(o => Math.abs(o.v - total) < 0.001);
+            const exactos = apuestas.map((v, i) => ({ v, i })).filter(o => Math.abs(o.v - total) < 0.01);
             if (exactos.length) {
                 document.getElementById('resultado').innerHTML =
                     `¡Bingo! Alumno(s) ${exactos.map(e => e.i + 1).join(', ')} acertó(n) exactamente y no paga(n).`;
                 return;
             }
 
-            // Si no hay exactos, quien más se acerca
             const difs = apuestas.map(v => Math.abs(v - total));
             const min = Math.min(...difs);
             const ganadores = difs.map((d, i) => d === min ? i + 1 : null).filter(v => v !== null);
             document.getElementById('resultado').innerHTML =
-                `Gana Alumno ${ganadores.join(', ')} — diferencia mínima ${min.toFixed(2)} €`;
+                `Gana(n) Alumno(s) ${ganadores.join(', ')} — diferencia mínima ${min.toFixed(2)} €`;
         }
 
         function reiniciar() {
-            document.getElementById('total').value = '';
             document.getElementById('a1').value = '';
             document.getElementById('a2').value = '';
             document.getElementById('a3').value = '';
             document.getElementById('resultado').innerHTML = '';
+            generarFactura();
         }
+
+        // Generar factura inicial al cargar
+        generarFactura();
     </script>
 
 </body>
