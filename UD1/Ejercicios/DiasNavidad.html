@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Días hasta Navidad</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            padding: 24px;
+        }
+
+        .card {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        button {
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Días hasta la próxima Navidad</h1>
+        <p id="resultado">Pulsa el botón para calcular.</p>
+        <button id="calcular">Calcular ahora</button>
+        <p style="font-size: .9rem; color: #555; margin-top: 12px;">
+            (Cuenta en días completos — si hoy es 25 de diciembre muestra "¡Feliz Navidad!")
+        </p>
+    </div>
+
+    <script>
+        // Devuelve el número de días completos que faltan hasta la próxima Navidad (25 de diciembre).
+        function diasHastaNavidad() {
+            const ahora = new Date();
+
+            // Fecha de Navidad del año actual
+            let anio = ahora.getFullYear();
+            let navidad = new Date(anio, 11, 25); // mes 11 = diciembre
+
+            // Si ya pasó la Navidad de este año, usamos la del año siguiente
+            if (ahora > navidad) {
+                navidad = new Date(anio + 1, 11, 25);
+            }
+
+            // Normalizamos ambas fechas a medianoche local para contar días completos
+            const hoyMedianoche = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+            navidad.setHours(0, 0, 0, 0);
+
+            const MS_POR_DIA = 1000 * 60 * 60 * 24;
+            const diferenciaMs = navidad - hoyMedianoche;
+
+            // Math.ceil por seguridad en casos raros de DST; resultará en un entero >= 0
+            const dias = Math.ceil(diferenciaMs / MS_POR_DIA);
+            return dias;
+        }
+
+        // Presentación amigable en la página
+        function mostrarResultado() {
+            const p = document.getElementById('resultado');
+            const dias = diasHastaNavidad();
+
+            if (dias === 0) {
+                p.textContent = "¡Feliz Navidad! 🎉 Hoy es 25 de diciembre.";
+            } else if (dias === 1) {
+                p.textContent = "Falta 1 día para Navidad. 📦🎅";
+            } else {
+                p.textContent = `Faltan ${dias} días para la próxima Navidad. 🎄`;
+            }
+        }
+
+        // Evento
+        document.getElementById('calcular').addEventListener('click', mostrarResultado);
+
+        // Opcional: calcular al cargar la página
+        mostrarResultado();
+    </script>
+</body>
+
+</html>
