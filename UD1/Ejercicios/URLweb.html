@@ -17,6 +17,11 @@
             margin-bottom: 15px;
         }
 
+        /* Contenedor para centrar y limitar ancho */
+        .contenedor {
+            max-width: 500px;
+        }
+
         input {
             width: 100%;
             padding: 8px;
@@ -49,12 +54,14 @@
 </head>
 
 <body>
-    <h1>Mostrar la URL del sitio web 🌐</h1>
+    <div class="contenedor">
+        <h1>Mostrar la URL del sitio web 🌐</h1>
 
-    <input type="text" id="url" readonly>
-    <button onclick="copiarURL()">Copiar URL</button>
+        <input type="text" id="url" readonly>
+        <button onclick="copiarURL()">Copiar URL</button>
 
-    <p id="mensaje"></p>
+        <p id="mensaje"></p>
+    </div>
 
     <script>
         const urlInput = document.getElementById('url');
