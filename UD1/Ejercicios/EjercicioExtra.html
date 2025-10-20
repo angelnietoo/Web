@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Apuesta de la factura</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+            color: #111;
+        }
+
+        input {
+            padding: 5px;
+            margin: 5px 0;
+            width: 100px;
+        }
+
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Apuesta de la factura</h2>
+
+    <label>Total de la factura (€):</label>
+    <input id="total" type="number" step="0.01"><br>
+
+    <label>Alumno 1:</label> <input id="a1" type="number" step="0.01"><br>
+    <label>Alumno 2:</label> <input id="a2" type="number" step="0.01"><br>
+    <label>Alumno 3:</label> <input id="a3" type="number" step="0.01"><br>
+
+    <button onclick="calcular()">Calcular ganador</button>
+    <button onclick="reiniciar()">Reiniciar</button>
+
+    <div id="resultado" class="result"></div>
+
+    <script>
+        function calcular() {
+            const total = parseFloat(document.getElementById('total').value);
+            const apuestas = [
+                parseFloat(document.getElementById('a1').value),
+                parseFloat(document.getElementById('a2').value),
+                parseFloat(document.getElementById('a3').value)
+            ];
+            if (isNaN(total) || apuestas.every(isNaN)) {
+                alert('Introduce valores válidos');
+                return;
+            }
+
+            // Buscar exactos
+            const exactos = apuestas.map((v, i) => ({ v, i })).filter(o => Math.abs(o.v - total) < 0.001);
+            if (exactos.length) {
+                document.getElementById('resultado').innerHTML =
+                    `¡Bingo! Alumno(s) ${exactos.map(e => e.i + 1).join(', ')} acertó(n) exactamente y no paga(n).`;
+                return;
+            }
+
+            // Si no hay exactos, quien más se acerca
+            const difs = apuestas.map(v => Math.abs(v - total));
+            const min = Math.min(...difs);
+            const ganadores = difs.map((d, i) => d === min ? i + 1 : null).filter(v => v !== null);
+            document.getElementById('resultado').innerHTML =
+                `Gana(n) Alumno(s) ${ganadores.join(', ')} — diferencia mínima ${min.toFixed(2)} €`;
+        }
+
+        function reiniciar() {
+            document.getElementById('total').value = '';
+            document.getElementById('a1').value = '';
+            document.getElementById('a2').value = '';
+            document.getElementById('a3').value = '';
+            document.getElementById('resultado').innerHTML = '';
+        }
+    </script>
+
+</body>
+
+</html>
