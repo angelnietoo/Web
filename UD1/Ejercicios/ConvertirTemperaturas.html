@@ -9,18 +9,30 @@
 <body>
     <h1>Conversor de Temperaturas 🌡️</h1>
 
+    <label for="temp">Introduce la temperatura:</label>
+    <input type="number" id="temp" placeholder="Ej: 60">
+    <select id="unidad">
+        <option value="C">°C a °F</option>
+        <option value="F">°F a °C</option>
+    </select>
+    <button onclick="convertir()">Convertir</button>
+
+    <p id="resultado"></p>
+
     <script>
-        // Conversión Celsius → Fahrenheit
-        const celsius = 60;
-        const fahrenheitDesdeCelsius = (celsius * 9 / 5) + 32;
+        function convertir() {
+            const temp = parseFloat(document.getElementById('temp').value);
+            const unidad = document.getElementById('unidad').value;
+            let resultado;
 
-        // Conversión Fahrenheit → Celsius
-        const fahrenheit = 45;
-        const celsiusDesdeFahrenheit = (fahrenheit - 32) * 5 / 9;
+            if (unidad === 'C') {
+                resultado = (temp * 9 / 5 + 32).toFixed(2) + ' °F';
+            } else {
+                resultado = ((temp - 32) * 5 / 9).toFixed(2) + ' °C';
+            }
 
-        // Mostrar los resultados
-        document.write(`${celsius} °C es ${fahrenheitDesdeCelsius} °F<br>`);
-        document.write(`${fahrenheit} °F es ${celsiusDesdeFahrenheit} °C`);
+            document.getElementById('resultado').textContent = `Resultado: ${resultado}`;
+        }
     </script>
 </body>
 
