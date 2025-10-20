@@ -38,7 +38,7 @@
     </div>
 
     <script>
-        // Devuelve el número de días completos que faltan hasta la próxima Navidad (25 de diciembre).
+        // Devuelve el número de días que faltan hasta la próxima Navidad (25 de diciembre).
         function diasHastaNavidad() {
             const ahora = new Date();
 
@@ -63,7 +63,7 @@
             return dias;
         }
 
-        // Presentación amigable en la página
+        // Presentación de la web
         function mostrarResultado() {
             const p = document.getElementById('resultado');
             const dias = diasHastaNavidad();
@@ -80,7 +80,7 @@
         // Evento
         document.getElementById('calcular').addEventListener('click', mostrarResultado);
 
-        // Opcional: calcular al cargar la página
+        // Calcular al cargar la página
         mostrarResultado();
     </script>
 </body>
