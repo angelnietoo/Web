@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ejercicio 8 – Adivina el número</title>
+</head>
+
+<body>
+    <script>
+        // Genera un número entero aleatorio entre 1 y 10
+        const numeroAleatorio = Math.floor(Math.random() * 10) + 1;
+
+        // Pide al usuario que adivine el número
+        const intento = parseInt(prompt("Adivina el número (entre 1 y 10):"), 10);
+
+        // Comprueba si el número coincide
+        if (intento === numeroAleatorio) {
+            alert("¡Buen trabajo! 🎉 Has acertado el número.");
+        } else {
+            alert(`No coincide 😅. El número correcto era ${numeroAleatorio}.`);
+        }
+    </script>
+</body>
+
+</html>
