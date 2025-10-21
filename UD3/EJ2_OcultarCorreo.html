@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>Ejercicio 6 - Proteger email</title>
@@ -8,24 +9,35 @@
       font-family: Arial, sans-serif;
       background: #f4f6fa;
       color: #111;
-      margin: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
+
     .container {
       background: #fff;
-      padding: 20px;
+      padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       max-width: 500px;
-      margin: auto;
-    }
-    input {
       width: 100%;
+      text-align: center;
+    }
+
+    input {
+      width: 80%;
       padding: 8px;
       margin-top: 8px;
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 14px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
+
     button {
       margin-top: 10px;
       padding: 10px 15px;
@@ -35,18 +47,22 @@
       border-radius: 6px;
       cursor: pointer;
     }
+
     button:hover {
       background: #1e50c0;
     }
+
     .resultado {
       margin-top: 15px;
       background: #eef2ff;
       padding: 10px;
       border-radius: 6px;
       font-family: monospace;
+      text-align: center;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h2>Ocultar dirección de correo electrónico</h2>
@@ -79,4 +95,5 @@
     mostrarProtegido();
   </script>
 </body>
+
 </html>
