@@ -2,202 +2,49 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Extraer caracteres — Ejercicio 4</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-            line-height: 1.4;
-            padding: 24px;
-            background: #f5f7fb;
-            color: #111;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(15, 15, 25, 0.06);
-            padding: 18px;
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        label {
-            display: block;
-            margin-top: 12px;
-            font-weight: 600;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            width: 100%;
-            padding: 8px 10px;
-            margin-top: 6px;
-            border: 1px solid #d6dce6;
-            border-radius: 6px;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        .row {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .row>* {
-            flex: 1;
-        }
-
-        button {
-            margin-top: 12px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            border: 0;
-            background: #2563eb;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        button:active {
-            transform: translateY(1px);
-        }
-
-        .result {
-            margin-top: 14px;
-            padding: 12px;
-            background: #eef2ff;
-            border-radius: 6px;
-            font-family: monospace;
-            white-space: pre-wrap;
-        }
-
-        .note {
-            margin-top: 10px;
-            color: #555;
-            font-size: 13px;
-        }
-
-        footer {
-            margin-top: 18px;
-            font-size: 13px;
-            color: #666;
-            text-align: right;
-        }
-    </style>
+    <meta charset="utf-8">
+    <title>Extraer caracteres - Básico</title>
 </head>
 
 <body>
-    <div class="card" role="main" aria-labelledby="title">
-        <h1 id="title">Extraer caracteres — Ejercicio 4</h1>
+    <h2>Extraer caracteres (básico)</h2>
 
-        <label for="inputText">Texto (cadena)</label>
-        <textarea id="inputText" rows="3" placeholder="Escribe aquí el texto...">JavaScript es genial</textarea>
+    <label>Texto:<br>
+        <input id="texto" type="text" value="JavaScript es genial" style="width:320px;">
+    </label>
+    <br><br>
 
-        <div class="row">
-            <div>
-                <label for="start">Posición de inicio (0 = primer carácter)</label>
-                <input id="start" type="number" value="0" min="0" />
-            </div>
-            <div>
-                <label for="length">Número de caracteres a extraer</label>
-                <input id="length" type="number" value="10" min="0" />
-            </div>
-        </div>
+    <label>Posición inicio (0 = primer carácter):<br>
+        <input id="inicio" type="number" value="0" min="0" style="width:80px;">
+    </label>
 
-        <div class="row">
-            <button id="btnExtract">Extraer (slice)</button>
-            <button id="btnSubstring">Extraer (substring)</button>
-        </div>
+    <label style="margin-left:12px;">Número de caracteres:<br>
+        <input id="num" type="number" value="10" min="0" style="width:80px;">
+    </label>
+    <br><br>
 
-        <div class="result" id="result" aria-live="polite">Aquí aparecerá el resultado...</div>
+    <button id="boton">Extraer</button>
 
-        <p class="note">
-            Nota: <strong>slice</strong> permite índices negativos (desde el final); <strong>substring</strong> no.
-            Ambos manejan correctamente la mayoría de textos, pero los caracteres complejos (emoji compuestos) pueden
-            contarse de forma distinta por el motor JavaScript.
-        </p>
-
-        <footer>Hecho con lógica y una pizca de humor 😉</footer>
-    </div>
+    <p><strong>Resultado:</strong> <span id="salida">—</span></p>
 
     <script>
-        /**
-         * Extrae caracteres de una cadena.
-         * - Si se usa sliceStyle = true: usa slice(start, start + length)
-         * - Si sliceStyle = false: usa substring(start, start + length)
-         * Devuelve objeto { ok: boolean, value: string, message: string }
-         */
-        function extraerCaracteres(cadena, start, length, sliceStyle = true) {
-            // Normalizar tipos
-            start = Number(start);
-            length = Number(length);
-
-            if (!Number.isFinite(start) || !Number.isFinite(length)) {
-                return { ok: false, value: '', message: 'Posición o longitud no válidas.' };
-            }
-            if (start < 0) {
-                return { ok: false, value: '', message: 'La posición de inicio no puede ser negativa.' };
-            }
-            if (length < 0) {
-                return { ok: false, value: '', message: 'La longitud no puede ser negativa.' };
-            }
-
-            const end = start + length;
-            // Si start supera la longitud, devolvemos cadena vacía (comportamiento razonable)
-            if (start >= cadena.length || length === 0) {
-                return { ok: true, value: '', message: 'Resultado vacío (posición fuera o longitud 0).' };
-            }
-
-            let res;
-            if (sliceStyle) {
-                res = cadena.slice(start, end);
-            } else {
-                // substring no acepta índices negativos; aseguramos enteros positivos
-                res = cadena.substring(start, end);
-            }
-
-            return { ok: true, value: res, message: 'Extracción realizada correctamente.' };
+        function extraerCaracteres(cadena, inicio, numero) {
+            inicio = Number(inicio) || 0;
+            numero = Number(numero) || 0;
+            if (inicio < 0) return '';
+            if (numero <= 0) return '';
+            return cadena.slice(inicio, inicio + numero);
         }
 
-        // --- Interactividad ---
-        const inputText = document.getElementById('inputText');
-        const startInput = document.getElementById('start');
-        const lengthInput = document.getElementById('length');
-        const resultDiv = document.getElementById('result');
-        const btnExtract = document.getElementById('btnExtract');
-        const btnSubstring = document.getElementById('btnSubstring');
-
-        function mostrarResultado(obj, methodName) {
-            if (!obj.ok) {
-                resultDiv.textContent = '⚠️ ' + obj.message;
-                resultDiv.style.background = '#fff4e5';
-                return;
-            }
-            resultDiv.style.background = '#eef2ff';
-            resultDiv.textContent = `${methodName} → "${obj.value}"\n\n${obj.message}`;
-        }
-
-        btnExtract.addEventListener('click', () => {
-            const r = extraerCaracteres(inputText.value, startInput.value, lengthInput.value, true);
-            mostrarResultado(r, 'slice');
+        document.getElementById('boton').addEventListener('click', function () {
+            const txt = document.getElementById('texto').value;
+            const inicio = document.getElementById('inicio').value;
+            const num = document.getElementById('num').value;
+            document.getElementById('salida').textContent = extraerCaracteres(txt, inicio, num);
         });
 
-        btnSubstring.addEventListener('click', () => {
-            const r = extraerCaracteres(inputText.value, startInput.value, lengthInput.value, false);
-            mostrarResultado(r, 'substring');
-        });
-
-        // Atajo: extraer al presionar Ctrl+Enter
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'Enter') btnExtract.click();
-        });
-
-        // Inicializamos mostrando un ejemplo
-        mostrarResultado(extraerCaracteres(inputText.value, startInput.value, lengthInput.value, true), 'slice');
+        // Ejecutar una vez al cargar para mostrar ejemplo
+        document.getElementById('boton').click();
     </script>
 </body>
 
