@@ -6,68 +6,84 @@
     <title>Capitalizar Palabras</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #e0e7ff;
-            color: #111;
+            font-family: 'Poppins', sans-serif;
+            background: #fff7ed;
+            /* Fondo cálido */
+            color: #1e293b;
             margin: 20px 0 0 0;
             text-align: center;
         }
 
         .container {
-            background: #fff;
-            padding: 30px 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            background: #fffbf0;
+            /* Contenedor más claro */
+            padding: 30px 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             margin: 0 auto;
         }
 
         h2 {
-            color: #1e40af;
+            color: #f97316;
+            /* Título naranja */
             margin-bottom: 15px;
+            font-size: 26px;
         }
 
         p {
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 20px;
-            color: #334155;
+            color: #475569;
         }
 
         input {
             width: 70%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #cbd5e1;
-            font-size: 14px;
-            margin-bottom: 10px;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid #fbbf24;
+            font-size: 15px;
+            margin-bottom: 12px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #f97316;
+            outline: none;
         }
 
         button {
-            padding: 10px 20px;
-            background: #4f46e5;
+            padding: 12px 25px;
+            background: #f97316;
+            /* Botón naranja */
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: bold;
+            font-size: 15px;
             cursor: pointer;
             transition: background 0.3s, transform 0.2s;
         }
 
         button:hover {
-            background: #3730a3;
+            background: #ea580c;
+            /* Naranja más intenso */
             transform: translateY(-2px);
         }
 
         .resultado {
             margin-top: 20px;
-            background: #e0e7ff;
-            padding: 12px 15px;
-            border-radius: 8px;
+            background: #ffedd5;
+            /* Resultado cálido */
+            padding: 15px 18px;
+            border-radius: 10px;
             font-family: monospace;
-            color: #1e3a8a;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            color: #c2410c;
+            /* Texto oscuro */
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
             word-break: break-word;
+            font-size: 16px;
         }
     </style>
 </head>
