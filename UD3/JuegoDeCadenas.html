@@ -3,287 +3,89 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Adivina la contraseña — contraseña predefinida</title>
-    <style>
-        /* Diseño limpio y centrado dentro del cajón */
-        :root {
-            --bg: #f5f8ff;
-            --card: #ffffff;
-            --accent: #2b6be4;
-            --muted: #556;
-            --soft: #d7e6ff
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        body {
-            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
-            margin: 24px;
-            background: var(--bg);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .box {
-            background: var(--card);
-            padding: 28px 22px;
-            border-radius: 12px;
-            max-width: 720px;
-            margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(10, 20, 50, 0.07);
-            text-align: center;
-            /* centra los textos dentro del cajón */
-        }
-
-        h2 {
-            margin: 0 0 8px;
-            font-size: 20px;
-            color: #102a43
-        }
-
-        .small {
-            font-size: 14px;
-            color: var(--muted);
-            line-height: 1.4;
-            margin-bottom: 14px
-        }
-
-        /* formularios y controles centrados con un ancho máximo razonable */
-        .row {
-            display: flex;
-            gap: 12px;
-            margin: 8px 0;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap
-        }
-
-        input,
-        button {
-            padding: 10px 12px;
-            border-radius: 10px;
-            border: 1px solid var(--soft);
-            font-size: 14px
-        }
-
-        input {
-            min-width: 140px
-        }
-
-        input[type="text"],
-        input[type="password"] {
-            background: #fbfdff
-        }
-
-        /* inputs de nombre un poco más pequeños y ordenados */
-        .player-list input {
-            width: 180px
-        }
-
-        /* máscara y longitud */
-        #pw-mask {
-            font-weight: 700;
-            letter-spacing: 1px;
-            padding: 6px 10px;
-            border-radius: 8px;
-            background: #f4f8ff;
-            border: 1px solid #eef6ff
-        }
-
-        .info {
-            font-size: 13px;
-            color: #334;
-            margin-top: 6px
-        }
-
-        /* botón principal con efecto y contraste */
-        button#go {
-            background: var(--accent);
-            color: white;
-            border: 0;
-            cursor: pointer;
-            box-shadow: 0 6px 18px rgba(43, 107, 228, 0.12)
-        }
-
-        button#go:disabled {
-            opacity: 0.55;
-            cursor: not-allowed;
-            box-shadow: none
-        }
-
-        /* detalles y tags */
-        #out {
-            margin-top: 12px;
-            text-align: center
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 6px 10px;
-            border-radius: 999px;
-            margin: 6px;
-            font-size: 13px
-        }
-
-        /* estado y marcador */
-        #scores {
-            color: var(--muted);
-            margin-top: 6px
-        }
-
-        #status {
-            color: #2d3748;
-            margin-top: 6px
-        }
-
-        /* jugadores marcados como jugado */
-        .played {
-            opacity: 0.55;
-            text-decoration: line-through
-        }
-
-        /* responsivo: inputs a 100% en pantallas pequeñas */
-        @media (max-width:560px) {
-            .player-list input {
-                width: 100%
-            }
-
-            .row {
-                gap: 8px
-            }
-
-            .box {
-                padding: 18px
-            }
-        }
-    </style>
+    <title>Adivina la contraseña — versión sin CSS</title>
 </head>
 
 <body>
-    <main class="box">
+    <main>
         <h2>Adivina la contraseña — contraseña predefinida</h2>
-        <div class="small">Reglas: vocal=1, consonante=2, número=3. Comparación <strong>case-sensitive</strong>.<br>Los
-            intentos no pueden exceder la longitud de la contraseña, pero se pueden enviar con menos caracteres (>=1).
+        <p>Reglas: vocal=1, consonante=2, número=3. Comparación case-sensitive. Intentos ≤ longitud contraseña; se
+            pueden enviar con menos caracteres (>=1).</p>
+
+        <div>
+            <strong>Contraseña (oculta):</strong>
+            <span id="pw-mask">••••••••••</span>
+            <span id="length-info"></span>
         </div>
 
-        <!-- Contraseña enmascarada (la real está en el script, no editable) -->
-        <div class="row">
-            <div style="min-width:160px"><strong>Contraseña (oculta):</strong></div>
-            <div id="pw-mask">••••••••••</div>
-            <div id="length-info" class="info"></div>
-        </div>
-
-        <!-- Nombres editable de los 3 jugadores -->
-        <div class="row player-list">
+        <div>
             <input id="name1" value="Jugador 1">
             <input id="name2" value="Jugador 2">
             <input id="name3" value="Jugador 3">
         </div>
 
-        <!-- turno e intento -->
-        <div class="row">
-            <div style="min-width:160px"><strong>Turno:</strong> <span id="current-player">Jugador 1</span></div>
-            <input id="guess" placeholder="Tu intento" style="flex:1;max-width:420px">
+        <div>
+            <strong>Turno:</strong> <span id="current-player">Jugador 1</span>
+            <input id="guess" placeholder="Tu intento">
             <button id="go">Enviar</button>
         </div>
 
         <div id="out"></div>
-        <hr style="border:none;border-top:1px solid #eef5ff;margin:18px 0">
+        <hr>
         <div>
             <strong>Marcador:</strong>
             <div id="scores">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
-            <div id="status" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
+            <div id="status">Quedan 3 jugadores por jugar.</div>
         </div>
     </main>
 
     <script>
-        /*
-          Versión final: la contraseña está predefinida por el programa y no es editable por el usuario.
-          - Contraseña: "Vhiwklñs18"
-          - El campo visible muestra la contraseña enmascarada.
-          - El juego funciona igual: 1 intento por jugador, avance automático, intentos <= longitud de la contraseña, se puede enviar con menos caracteres (>=1).
-        */
-        (() => {
-            // shortcut DOM
+        (function () {
             const $ = id => document.getElementById(id);
-            const elems = {
-                pwMask: $('pw-mask'), lengthInfo: $('length-info'), guess: $('guess'), go: $('go'), out: $('out'),
-                currentPlayer: $('current-player'), scores: $('scores'), status: $('status'), names: [$('name1'), $('name2'), $('name3')]
-            };
+            const names = [$('name1'), $('name2'), $('name3')];
+            const pwMask = $('pw-mask'), lenInfo = $('length-info'), guess = $('guess'), go = $('go'), out = $('out');
+            const currentPlayer = $('current-player'), scoresEl = $('scores'), status = $('status');
 
-            // ====== CONTRASEÑA PREDEFINIDA (no editable por el usuario) ======
-            const PREDEFINED_PW = 'Vhiwklñs18'; // <--- contraseña fijada por el programa
-            const PW_LEN = PREDEFINED_PW.length;
+            const PW = 'Vhiwklñs18', PW_LEN = PW.length;
+            const scores = [0, 0, 0], played = [false, false, false];
+            let cur = 0;
 
-            // estado
-            const scores = [0, 0, 0];
-            const played = [false, false, false];
-            let current = 0;
+            const pts = ch => /[0-9]/.test(ch) ? 3 : /[A-Za-z]/.test(ch) ? ('aeiouAEIOU'.includes(ch) ? 1 : 2) : 0;
+            const esc = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
 
-            // util: puntos por caracter
-            const charPoints = ch => /[0-9]/.test(ch) ? 3 : /[A-Za-z]/.test(ch) ? ('aeiouAEIOU'.includes(ch) ? 1 : 2) : 0;
+            pwMask.textContent = '•'.repeat(PW_LEN);
+            lenInfo.textContent = ' Longitud requerida: ' + PW_LEN + ' caracteres.';
 
-            // helper: escape HTML
-            const escapeHtml = s => String(s).replace(/[&<>\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
+            const renderScores = () => scoresEl.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
 
-            // mostrar máscara y longitud (solo lectura)
-            elems.pwMask.textContent = '•'.repeat(PW_LEN);
-            elems.lengthInfo.textContent = `Longitud requerida: ${PW_LEN} caracteres.`;
-
-            // render marcador y estado
-            const renderScores = () => elems.scores.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
-
-            function renderState() {
-                const remaining = played.filter(x => !x).length;
-                if (remaining === 0) {
-                    elems.currentPlayer.textContent = '— todos han jugado —'; elems.go.disabled = true; elems.guess.disabled = true; elems.status.textContent = 'Partida finalizada.';
-                    const max = Math.max(...scores);
-                    const winners = elems.names.filter((n, i) => scores[i] === max).map(n => n.value || `Jugador`);
-                    elems.out.innerHTML = `<div><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + (elems.out.innerHTML || '');
+            function render() {
+                const rem = played.filter(x => !x).length;
+                if (rem === 0) {
+                    currentPlayer.textContent = '— todos han jugado —'; go.disabled = true; guess.disabled = true; status.textContent = 'Partida finalizada.';
+                    const max = Math.max(...scores); const winners = names.filter((n, i) => scores[i] === max).map(n => n.value || 'Jugador');
+                    out.innerHTML = `<div><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + out.innerHTML;
                     return;
                 }
-                if (played[current]) for (let i = 1; i <= 3; i++) { const idx = (current + i) % 3; if (!played[idx]) { current = idx; break; } }
-                elems.currentPlayer.textContent = elems.names[current].value || `Jugador ${current + 1}`;
-                elems.status.textContent = `Quedan ${remaining} jugador(es) por jugar.`;
-                elems.names.forEach((n, i) => n.className = played[i] ? 'played' : '');
-
-                // asegurar maxlength al tamaño de la contraseña y habilitar botón si hay >=1 caracter
-                elems.guess.maxLength = PW_LEN;
-                elems.go.disabled = !(elems.guess.value.length > 0 && !played[current]);
+                if (played[cur]) for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } }
+                currentPlayer.textContent = names[cur].value || `Jugador ${cur + 1}`;
+                status.textContent = `Quedan ${rem} jugador(es) por jugar.`;
+                guess.maxLength = PW_LEN; go.disabled = !(guess.value.length > 0 && !played[cur]);
             }
 
-            // calcular puntuación: coincide si el caracter aparece en la contraseña (case-sensitive)
-            const scoreGuess = (guess) => {
-                let total = 0; const parts = [];
-                for (const ch of guess) { const p = (PREDEFINED_PW.indexOf(ch) !== -1) ? charPoints(ch) : 0; total += p; parts.push({ ch, p, matched: p > 0 }); }
-                return { parts, total };
-            };
+            function scoreGuess(g) { let total = 0, parts = []; for (const ch of g) { const p = (PW.indexOf(ch) !== -1) ? pts(ch) : 0; total += p; parts.push({ ch, p }); } return { parts, total }; }
 
-            // evento enviar
-            elems.go.addEventListener('click', () => {
-                const guess = elems.guess.value || '';
-                if (guess.length === 0) { alert('Escribe al menos un caracter antes de enviar.'); return; }
-                if (played[current]) { alert('Este jugador ya ha jugado.'); renderState(); return; }
-
-                const res = scoreGuess(guess);
-                scores[current] += res.total; played[current] = true;
-
-                elems.out.innerHTML = `<div><strong>${escapeHtml(elems.names[current].value || `Jugador ${current + 1}`)}</strong> intentó "${escapeHtml(guess)}" — puntos: ${res.total}</div>` +
-                    `<div style="margin-top:6px">` + res.parts.map(p => `<span class="tag" style="background:${p.matched ? '#e6f7e6' : '#fff2f2'}">${escapeHtml(p.ch)}${p.matched ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + (elems.out.innerHTML || '');
-
-                elems.guess.value = '';
-                for (let i = 1; i <= 3; i++) { const idx = (current + i) % 3; if (!played[idx]) { current = idx; break; } }
-                renderScores(); renderState();
+            go.addEventListener('click', () => {
+                const g = guess.value || ''; if (!g) { alert('Escribe al menos un caracter antes de enviar.'); return; } if (played[cur]) { alert('Este jugador ya ha jugado.'); render(); return; }
+                const r = scoreGuess(g); scores[cur] += r.total; played[cur] = true;
+                out.innerHTML = `<div><strong>${esc(names[cur].value || `Jugador ${cur + 1}`)}</strong> intentó "${esc(g)}" — puntos: ${r.total}</div>` +
+                    `<div>` + r.parts.map(p => `<span>${esc(p.ch)}${p.p ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + out.innerHTML;
+                guess.value = ''; for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } } renderScores(); render();
             });
 
-            // habilitar envío con Enter y control de estado al escribir
-            elems.guess.addEventListener('keydown', e => { if (e.key === 'Enter' && !elems.go.disabled) elems.go.click(); });
-            elems.guess.addEventListener('input', () => { elems.go.disabled = !(elems.guess.value.length > 0 && !played[current]); });
+            guess.addEventListener('keydown', e => { if (e.key === 'Enter' && !go.disabled) go.click(); });
+            guess.addEventListener('input', () => { go.disabled = !(guess.value.length > 0 && !played[cur]); });
 
-            // inicializar
-            renderScores(); renderState();
+            renderScores(); render();
         })();
     </script>
 </body>
