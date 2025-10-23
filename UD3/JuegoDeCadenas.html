@@ -5,61 +5,158 @@
     <meta charset="utf-8" />
     <title>Adivina la contraseña — contraseña predefinida</title>
     <style>
+        /* Diseño limpio y centrado dentro del cajón */
+        :root {
+            --bg: #f5f8ff;
+            --card: #ffffff;
+            --accent: #2b6be4;
+            --muted: #556;
+            --soft: #d7e6ff
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
         body {
-            font-family: Arial;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
             margin: 24px;
-            background: #f5f8ff
+            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .box {
-            background: #fff;
-            padding: 14px;
-            border-radius: 8px;
+            background: var(--card);
+            padding: 28px 22px;
+            border-radius: 12px;
             max-width: 720px;
             margin: 0 auto;
-            box-shadow: 0 6px 18px rgba(10, 20, 50, 0.06)
+            box-shadow: 0 10px 30px rgba(10, 20, 50, 0.07);
+            text-align: center;
+            /* centra los textos dentro del cajón */
+        }
+
+        h2 {
+            margin: 0 0 8px;
+            font-size: 20px;
+            color: #102a43
+        }
+
+        .small {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-bottom: 14px
+        }
+
+        /* formularios y controles centrados con un ancho máximo razonable */
+        .row {
+            display: flex;
+            gap: 12px;
+            margin: 8px 0;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap
         }
 
         input,
         button {
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid #d7e6ff
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid var(--soft);
+            font-size: 14px
         }
 
-        .row {
-            display: flex;
-            gap: 8px;
-            margin: 8px 0;
-            align-items: center
+        input {
+            min-width: 140px
         }
 
-        .small {
-            font-size: 13px;
-            color: #556
+        input[type="text"],
+        input[type="password"] {
+            background: #fbfdff
         }
 
-        .tag {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin: 4px
+        /* inputs de nombre un poco más pequeños y ordenados */
+        .player-list input {
+            width: 180px
         }
 
-        .player-list {
-            display: flex;
-            gap: 8px
-        }
-
-        .played {
-            opacity: 0.55;
-            text-decoration: line-through
+        /* máscara y longitud */
+        #pw-mask {
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: #f4f8ff;
+            border: 1px solid #eef6ff
         }
 
         .info {
             font-size: 13px;
             color: #334;
             margin-top: 6px
+        }
+
+        /* botón principal con efecto y contraste */
+        button#go {
+            background: var(--accent);
+            color: white;
+            border: 0;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(43, 107, 228, 0.12)
+        }
+
+        button#go:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            box-shadow: none
+        }
+
+        /* detalles y tags */
+        #out {
+            margin-top: 12px;
+            text-align: center
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            margin: 6px;
+            font-size: 13px
+        }
+
+        /* estado y marcador */
+        #scores {
+            color: var(--muted);
+            margin-top: 6px
+        }
+
+        #status {
+            color: #2d3748;
+            margin-top: 6px
+        }
+
+        /* jugadores marcados como jugado */
+        .played {
+            opacity: 0.55;
+            text-decoration: line-through
+        }
+
+        /* responsivo: inputs a 100% en pantallas pequeñas */
+        @media (max-width:560px) {
+            .player-list input {
+                width: 100%
+            }
+
+            .row {
+                gap: 8px
+            }
+
+            .box {
+                padding: 18px
+            }
         }
     </style>
 </head>
@@ -71,10 +168,10 @@
             intentos no pueden exceder la longitud de la contraseña, pero se pueden enviar con menos caracteres (>=1).
         </div>
 
-        <!-- Mostramos la contraseña de forma enmascarada; el valor real está definido en el código y no es editable por el usuario -->
+        <!-- Contraseña enmascarada (la real está en el script, no editable) -->
         <div class="row">
             <div style="min-width:160px"><strong>Contraseña (oculta):</strong></div>
-            <div id="pw-mask" style="font-weight:700;letter-spacing:1px">••••••••••</div>
+            <div id="pw-mask">••••••••••</div>
             <div id="length-info" class="info"></div>
         </div>
 
@@ -85,18 +182,19 @@
             <input id="name3" value="Jugador 3">
         </div>
 
+        <!-- turno e intento -->
         <div class="row">
             <div style="min-width:160px"><strong>Turno:</strong> <span id="current-player">Jugador 1</span></div>
-            <input id="guess" placeholder="Tu intento" style="flex:1">
+            <input id="guess" placeholder="Tu intento" style="flex:1;max-width:420px">
             <button id="go">Enviar</button>
         </div>
 
-        <div id="out" style="margin-top:10px"></div>
-        <hr />
+        <div id="out"></div>
+        <hr style="border:none;border-top:1px solid #eef5ff;margin:18px 0">
         <div>
             <strong>Marcador:</strong>
-            <div id="scores" class="small">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
-            <div id="status" class="small" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
+            <div id="scores">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
+            <div id="status" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
         </div>
     </main>
 
@@ -128,7 +226,7 @@
             const charPoints = ch => /[0-9]/.test(ch) ? 3 : /[A-Za-z]/.test(ch) ? ('aeiouAEIOU'.includes(ch) ? 1 : 2) : 0;
 
             // helper: escape HTML
-            const escapeHtml = s => String(s).replace(/[&<>\\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
+            const escapeHtml = s => String(s).replace(/[&<>\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
 
             // mostrar máscara y longitud (solo lectura)
             elems.pwMask.textContent = '•'.repeat(PW_LEN);
