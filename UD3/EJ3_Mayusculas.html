@@ -1,125 +1,138 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8">
-    <title>Capitalizar Palabras</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #fff7ed;
-            /* Fondo cálido */
-            color: #1e293b;
-            margin: 20px 0 0 0;
-            text-align: center;
-        }
+  <meta charset="utf-8">
+  <title>Capitalizar Palabras</title>
+  <style>
+    /* CSS básico y minimalista */
+    :root {
+      --bg: #fafafa;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #f97316;
+      --border: #e5e7eb;
+      --radius: 8px;
+      --gap: 16px;
+    }
 
-        .container {
-            background: #fffbf0;
-            /* Contenedor más claro */
-            padding: 30px 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
-        }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-        h2 {
-            color: #f97316;
-            /* Título naranja */
-            margin-bottom: 15px;
-            font-size: 26px;
-        }
+    .container {
+      max-width: 520px;
+      margin: 48px auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-        p {
-            font-size: 15px;
-            margin-bottom: 20px;
-            color: #475569;
-        }
+    h2 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      color: var(--accent);
+    }
 
-        input {
-            width: 70%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 2px solid #fbbf24;
-            font-size: 15px;
-            margin-bottom: 12px;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.3s;
-        }
+    p {
+      margin: 0 0 18px 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
 
-        input:focus {
-            border-color: #f97316;
-            outline: none;
-        }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 15px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
 
-        button {
-            padding: 12px 25px;
-            background: #f97316;
-            /* Botón naranja */
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 15px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-        }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #fbbf24;
+      box-shadow: 0 0 0 3px rgba(251,191,36,0.08);
+    }
 
-        button:hover {
-            background: #ea580c;
-            /* Naranja más intenso */
-            transform: translateY(-2px);
-        }
+    .actions {
+      margin-top: 12px;
+    }
 
-        .resultado {
-            margin-top: 20px;
-            background: #ffedd5;
-            /* Resultado cálido */
-            padding: 15px 18px;
-            border-radius: 10px;
-            font-family: monospace;
-            color: #c2410c;
-            /* Texto oscuro */
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-            word-break: break-word;
-            font-size: 16px;
-        }
-    </style>
+    button {
+      padding: 10px 18px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 0;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+    }
+
+    button:active { transform: translateY(1px); }
+    button:focus { outline: none; box-shadow: 0 0 0 3px rgba(249,115,22,0.08); }
+
+    .resultado {
+      margin-top: var(--gap);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      background: transparent;
+      padding: 10px;
+      border-radius: 6px;
+      color: var(--text);
+      border: 1px dashed var(--border);
+      font-size: 15px;
+      word-break: break-word;
+    }
+
+    /* adaptativo */
+    @media (max-width: 420px) {
+      .container { margin: 24px 12px; padding: 18px; }
+      h2 { font-size: 18px; }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="container">
-        <h2>Capitalizar palabras</h2>
-        <p>Introduce un texto y convierte la primera letra de cada palabra en mayúscula:</p>
+  <div class="container">
+    <h2>Capitalizar palabras</h2>
+    <p>Introduce un texto y convierte la primera letra de cada palabra en mayúscula:</p>
 
-        <input type="text" id="texto" value="hola mundo desde javascript">
-        <br>
-        <button onclick="capitalizar()">Capitalizar</button>
-
-        <div class="resultado" id="resultado">Resultado: —</div>
+    <input type="text" id="texto" value="hola mundo desde javascript" aria-label="Texto a capitalizar">
+    <div class="actions">
+      <button onclick="capitalizar()">Capitalizar</button>
     </div>
 
-    <script>
-        function capitalizarPalabras(texto) {
-            return texto
-                .split(" ")
-                .map(palabra => {
-                    if (palabra.length === 0) return palabra;
-                    return palabra[0].toUpperCase() + palabra.slice(1).toLowerCase();
-                })
-                .join(" ");
-        }
+    <div class="resultado" id="resultado">Resultado: —</div>
+  </div>
 
-        function capitalizar() {
-            const input = document.getElementById("texto").value;
-            const resultado = capitalizarPalabras(input);
-            document.getElementById("resultado").textContent = "Resultado: " + resultado;
-            console.log(resultado);
-        }
+  <script>
+    function capitalizarPalabras(texto) {
+      return texto
+        .split(/\s+/)
+        .map(palabra => {
+          if (palabra.length === 0) return palabra;
+          return palabra[0].toUpperCase() + palabra.slice(1).toLowerCase();
+        })
+        .join(" ");
+    }
 
-        capitalizar(); // Mostrar ejemplo al cargar
-    </script>
+    function capitalizar() {
+      const input = document.getElementById("texto").value;
+      const resultado = capitalizarPalabras(input);
+      document.getElementById("resultado").textContent = "Resultado: " + resultado;
+      console.log(resultado);
+    }
+
+    // mostrar ejemplo al cargar
+    document.addEventListener('DOMContentLoaded', capitalizar);
+  </script>
 </body>
-
 </html>
