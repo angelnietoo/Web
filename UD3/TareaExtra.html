@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Adivina la contraseña - cada jugador 1 intento</title>
+    <title>Adivina la contraseña - restricción de longitud</title>
     <style>
         body {
             font-family: Arial;
@@ -15,7 +15,7 @@
             background: #fff;
             padding: 14px;
             border-radius: 8px;
-            max-width: 700px;
+            max-width: 720px;
             margin: 0 auto;
             box-shadow: 0 6px 18px rgba(10, 20, 50, 0.06)
         }
@@ -55,27 +55,35 @@
             opacity: 0.55;
             text-decoration: line-through
         }
+
+        .info {
+            font-size: 13px;
+            color: #334;
+            margin-top: 6px
+        }
     </style>
 </head>
 
 <body>
     <main class="box">
-        <h2>Adivina la contraseña — 1 intento por jugador (auto-avanza)</h2>
-        <div class="small">Reglas: vocal=1, consonante=2, número=3. Comparación <strong>case-sensitive</strong>.</div>
+        <h2>Adivina la contraseña — 1 intento por jugador</h2>
+        <div class="small">Reglas: vocal=1, consonante=2, número=3. Comparación <strong>case-sensitive</strong>. Los
+            intentos deben tener exactamente la misma longitud que la contraseña guardada.</div>
 
         <!-- Contraseña 'guardada' -->
         <div class="row">
             <label>Contraseña: <input id="pw" type="password" value="L4ultimavezKtelod1go"></label>
+            <div id="length-info" class="info"></div>
         </div>
 
-        <!-- Nombres de los 3 jugadores (se pueden editar antes de empezar) -->
+        <!-- Nombres editable de los 3 jugadores -->
         <div class="row player-list">
             <input id="name1" value="Jugador 1">
             <input id="name2" value="Jugador 2">
             <input id="name3" value="Jugador 3">
         </div>
 
-        <!-- Área que indica el jugador actual (no editable) y el intento -->
+        <!-- Turno actual (no editable) y campo de intento. El input de intento tendrá un maxlength dinámico -->
         <div class="row">
             <div style="min-width:160px"><strong>Turno:</strong> <span id="current-player">Jugador 1</span></div>
             <input id="guess" placeholder="Tu intento" style="flex:1">
@@ -93,11 +101,14 @@
 
     <script>
         /*
-          Implementación compacta con comentarios en español.
-          Cambios principales respecto a la versión anterior:
-          - Cada jugador tiene solo 1 intento.
-          - Tras enviar, el sistema marca al jugador como "jugado" y avanza automáticamente al siguiente.
-          - Cuando todos han jugado, se desactiva el botón y se muestra el resultado final.
+          Versión con restricción de longitud del intento igual a la longitud de la contraseña.
+          Comentarios en español explican las partes importantes.
+        
+          Reglas implementadas adicionales:
+          - Al cambiar la contraseña (campo 'Contraseña'), el campo de intento obtiene un maxlength igual a la longitud de la contraseña.
+          - El botón "Enviar" queda deshabilitado hasta que el jugador escriba exactamente el número de caracteres requerido.
+          - Si la contraseña está vacía, se permite cualquier longitud pero el botón queda desactivado (no tiene sentido jugar sin contraseña).
+          - El sistema sigue avanzando automáticamente al siguiente jugador tras usar la única oportunidad.
         */
         (() => {
             // ---------- Utilidades ----------
@@ -108,6 +119,7 @@
 
             // ---------- Referencias DOM ----------
             const pwEl = document.getElementById('pw');
+            const lengthInfoEl = document.getElementById('length-info'); // muestra la longitud requerida y caracteres restantes
             const nameEls = [document.getElementById('name1'), document.getElementById('name2'), document.getElementById('name3')];
             const currentPlayerEl = document.getElementById('current-player');
             const guessEl = document.getElementById('guess');
@@ -121,21 +133,58 @@
             const played = [false, false, false]; // si el jugador ya ha usado su intento
             let current = 0;                      // índice del jugador actual (0..2)
 
-            // Actualiza el texto del marcador
+            // ---------- Lógica: actualizar longitud requerida y comportamiento del input ----------
+            function updateGuessConstraints() {
+                // longitud requerida igual a la longitud de la contraseña 'guardada'
+                const required = pwEl.value.length;
+
+                // si la contraseña está vacía, no permitimos jugar: deshabilitar el botón
+                if (required === 0) {
+                    lengthInfoEl.textContent = 'Introduce una contraseña para habilitar el juego.';
+                    guessEl.removeAttribute('maxlength');
+                    guessEl.placeholder = 'No hay contraseña definida';
+                    goBtn.disabled = true;
+                    return;
+                }
+
+                // asignar maxlength para que el usuario no pueda escribir más caracteres que la contraseña
+                guessEl.maxLength = required;
+
+                // actualizar placeholder y mensaje con longitud requerida y caracteres restantes
+                const remaining = required - (guessEl.value.length);
+                lengthInfoEl.textContent = `Longitud requerida: ${required} caracteres — restantes: ${remaining >= 0 ? remaining : 0}`;
+                guessEl.placeholder = `Escribe exactamente ${required} caracteres`;
+
+                // si el usuario escribió más (por ejemplo, cambió la contraseña a menor longitud), recortamos el valor
+                if (guessEl.value.length > required) {
+                    guessEl.value = guessEl.value.slice(0, required);
+                }
+
+                // habilitar o deshabilitar el botón según si el intento tiene exactamente la longitud requerida
+                checkEnableSubmit();
+            }
+
+            // Comprueba si el botón Enviar debe estar activo
+            function checkEnableSubmit() {
+                const required = pwEl.value.length;
+                const guessLen = guessEl.value.length;
+                // el botón se habilita solo si: existe contraseña, el jugador actual no ha jugado y la longitud del intento es EXACTAMENTE la requerida
+                const can = required > 0 && !played[current] && guessLen === required;
+                goBtn.disabled = !can;
+            }
+
+            // ---------- Funciones auxiliares: renderizado del marcador y estado ----------
             function renderScores() {
                 scoresEl.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
             }
 
-            // Actualiza la UI del jugador actual y el estado (cuántos quedan)
             function renderState() {
-                // mostrar nombre del jugador actual (si ya han jugado todos, indicamos finalizado)
                 const remaining = played.filter(x => !x).length;
                 if (remaining === 0) {
                     currentPlayerEl.textContent = '— todos han jugado —';
-                    goBtn.disabled = true; // bloquear envíos adicionales
+                    goBtn.disabled = true;
                     guessEl.disabled = true;
                     statusEl.textContent = 'Partida finalizada.';
-                    // mostramos ganador(es)
                     const max = Math.max(...scores);
                     const winners = [];
                     for (let i = 0; i < 3; i++) if (scores[i] === max) winners.push(nameEls[i].value || `Jugador ${i + 1}`);
@@ -145,24 +194,21 @@
 
                 // asegurar que 'current' apunte a un jugador que no ha jugado
                 if (played[current]) {
-                    // buscar siguiente no jugado (circular)
                     for (let i = 1; i <= 3; i++) {
                         const idx = (current + i) % 3;
                         if (!played[idx]) { current = idx; break; }
                     }
                 }
 
-                // Mostrar nombre del jugador actual
                 currentPlayerEl.textContent = nameEls[current].value || `Jugador ${current + 1}`;
                 statusEl.textContent = `Quedan ${remaining} jugador(es) por jugar.`;
+                for (let i = 0; i < 3; i++) nameEls[i].className = played[i] ? 'played' : '';
 
-                // Marcar visualmente nombres ya jugados (opcional): cambiamos estilo (se usa clase CSS 'played')
-                for (let i = 0; i < 3; i++) {
-                    nameEls[i].className = played[i] ? 'played' : '';
-                }
+                // cada vez que cambiamos estado, comprobamos habilitación del botón según longitud
+                updateGuessConstraints();
             }
 
-            // Compara intento con contraseña y devuelve detalle + total
+            // ---------- Lógica de puntuación ----------
             function scoreGuess(guess, pw) {
                 let total = 0; const parts = [];
                 for (let ch of guess) {
@@ -173,30 +219,33 @@
                 return { parts, total };
             }
 
-            // Manejo del botón Enviar
+            // ---------- Manejo del botón Enviar ----------
             goBtn.addEventListener('click', () => {
                 const pw = pwEl.value || '';
                 const guess = guessEl.value || '';
-                if (!guess) { alert('Escribe un intento.'); guessEl.focus(); return; }
 
-                // Si el jugador actual ya jugó (por seguridad), se ignora
+                // seguridad: requerimos que el intento tenga exactamente la longitud de la contraseña
+                const required = pw.length;
+                if (required === 0) { alert('No hay contraseña definida.'); return; }
+                if (guess.length !== required) { alert(`El intento debe tener exactamente ${required} caracteres.`); return; }
+
+                // si el jugador actual ya jugó (por seguridad), se ignora
                 if (played[current]) { alert('Este jugador ya ha jugado.'); renderState(); return; }
 
-                // Calcular puntuación
+                // calcular puntuación y marcar como jugado
                 const res = scoreGuess(guess, pw);
                 scores[current] += res.total;
-                played[current] = true; // consumir la única oportunidad del jugador
+                played[current] = true;
 
-                // Mostrar resultado del intento actual (detalle por caracter)
+                // mostrar resultado del intento
                 out.innerHTML = `<div><strong>${escapeHtml(nameEls[current].value || `Jugador ${current + 1}`)}</strong> intentó "${escapeHtml(guess)}" — puntos: ${res.total}</div>` +
                     `<div style="margin-top:6px">` +
                     res.parts.map(p => `
         <span class="tag" style="background:${p.matched ? '#e6f7e6' : '#fff2f2'}">${escapeHtml(p.ch)}${p.matched ? (' +' + p.p) : ''}</span>
       `).join('') + `</div>` + (out.innerHTML || '');
 
-                // Limpiar campo y avanzar automáticamente al siguiente jugador no jugado
+                // limpiar campo y avanzar automáticamente
                 guessEl.value = '';
-
                 // buscar siguiente índice no jugado
                 let next = -1;
                 for (let i = 1; i <= 3; i++) {
@@ -207,18 +256,29 @@
 
                 renderScores();
                 renderState();
-
-                // Si ya no quedan jugadores, renderState se encargará de desactivar y mostrar resultado final
             });
 
-            // Permitir iniciar la partida con Enter en el input de intento
-            guessEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') goBtn.click(); });
+            // actualizar estado cuando el usuario escribe en el input de intento (para habilitar boton solo cuando longitud exacta)
+            guessEl.addEventListener('input', () => {
+                const required = pwEl.value.length;
+                const remaining = required - guessEl.value.length;
+                lengthInfoEl.textContent = required > 0 ? `Longitud requerida: ${required} caracteres — restantes: ${remaining >= 0 ? remaining : 0}` : 'Introduce una contraseña para habilitar el juego.';
+                checkEnableSubmit();
+            });
 
-            // Inicialización
+            // cuando la contraseña cambia, actualizamos las restricciones (maxlength, mensajes, etc.)
+            pwEl.addEventListener('input', () => {
+                updateGuessConstraints();
+            });
+
+            // permitir enviar con Enter (si el botón está habilitado)
+            guessEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') { if (!goBtn.disabled) goBtn.click(); } });
+
+            // inicialización
             renderScores();
             renderState();
 
-            // Escape minimal para evitar inyección HTML en salida
+            // escape mínimo para evitar inyección HTML en salida
             function escapeHtml(str) { return String(str).replace(/[&<>\"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[s]); }
 
         })();
