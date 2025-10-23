@@ -2,102 +2,102 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <title>Adivina la contraseña</title>
+  <meta charset="utf-8" />
+  <title>Adivina la contraseña</title>
 </head>
 
 <body>
-    <main>
-        <h2 style="margin-bottom:12px">Adivina la contraseña</h2>
-        <p style="margin-bottom:14px">Reglas: vocal=1, consonante=2, número=3.</p>
+  <main>
+    <h2 style="margin-bottom:12px">Adivina la contraseña</h2>
+    <p style="margin-bottom:14px">Reglas: vocal=1, consonante=2, número=3.</p>
 
-        <div style="margin-bottom:12px">
-            <strong>Contraseña:</strong>
-            <span id="pw-mask">••••••••••</span>
-            <span id="length-info"></span>
-        </div>
+    <div style="margin-bottom:12px">
+      <strong>Contraseña:</strong>
+      <span id="pw-mask">••••••••••</span>
+      <span id="length-info"></span>
+    </div>
 
-        <div style="margin-bottom:12px">
-            <input id="name1" value="Jugador 1" style="margin-right:8px">
-            <input id="name2" value="Jugador 2" style="margin-right:8px">
-            <input id="name3" value="Jugador 3">
-        </div>
+    <div style="margin-bottom:12px">
+      <input id="name1" value="Jugador 1" style="margin-right:8px">
+      <input id="name2" value="Jugador 2" style="margin-right:8px">
+      <input id="name3" value="Jugador 3">
+    </div>
 
-        <div style="margin-bottom:12px">
-            <strong style="margin-right:8px">Turno:</strong>
-            <span id="current-player" style="margin-right:12px">Jugador 1</span>
-            <input id="guess" placeholder="Tu intento" style="margin-right:8px">
-            <button id="go">Enviar</button>
-        </div>
+    <div style="margin-bottom:12px">
+      <strong style="margin-right:8px">Turno:</strong>
+      <span id="current-player" style="margin-right:12px">Jugador 1</span>
+      <input id="guess" placeholder="Tu intento" style="margin-right:8px">
+      <button id="go">Enviar</button>
+    </div>
 
-        <div id="out" style="margin-bottom:12px"></div>
-        <hr>
-        <div style="margin-top:12px">
-            <strong>Marcador:</strong>
-            <div id="scores" style="margin-top:6px">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
-            <div id="status" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
-        </div>
-    </main>
+    <div id="out" style="margin-bottom:12px"></div>
+    <hr>
+    <div style="margin-top:12px">
+      <strong>Marcador:</strong>
+      <div id="scores" style="margin-top:6px">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
+      <div id="status" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
+    </div>
+  </main>
 
-    <script>
-        (function () {
-            // helpers y selectores
-            const $ = id => document.getElementById(id);
-            const names = [$('name1'), $('name2'), $('name3')];
-            const pwMask = $('pw-mask'), lenInfo = $('length-info'), guess = $('guess'), go = $('go'), out = $('out');
-            const currentPlayer = $('current-player'), scoresEl = $('scores'), status = $('status');
+  <script>
+    (function () {
+      // helpers y selectores
+      const $ = id => document.getElementById(id);
+      const names = [$('name1'), $('name2'), $('name3')];
+      const pwMask = $('pw-mask'), lenInfo = $('length-info'), guess = $('guess'), go = $('go'), out = $('out');
+      const currentPlayer = $('current-player'), scoresEl = $('scores'), status = $('status');
 
-            // configuración y estado
-            const PW = 'Vhiwklñs18', PW_LEN = PW.length;
-            const scores = [0, 0, 0], played = [false, false, false];
-            let cur = 0;
+      // configuración y estado
+      const PW = 'Vhiwklñs18', PW_LEN = PW.length;
+      const scores = [0, 0, 0], played = [false, false, false];
+      let cur = 0;
 
-            // cálculo de puntos por caracter
-            const pts = ch => /[0-9]/.test(ch) ? 3 : /[A-Za-z]/.test(ch) ? ('aeiouAEIOU'.includes(ch) ? 1 : 2) : 0;
-            const esc = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
+      // cálculo de puntos por caracter
+      const pts = ch => /[0-9]/.test(ch) ? 3 : /[A-Za-z]/.test(ch) ? ('aeiouAEIOU'.includes(ch) ? 1 : 2) : 0;
+      const esc = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
 
-            // inicializar máscara y longitud
-            pwMask.textContent = '•'.repeat(PW_LEN);
-            lenInfo.textContent = ' Longitud requerida: ' + PW_LEN + ' caracteres.';
+      // inicializar máscara y longitud
+      pwMask.textContent = '•'.repeat(PW_LEN);
+      lenInfo.textContent = ' Longitud requerida: ' + PW_LEN + ' caracteres.';
 
-            const renderScores = () => scoresEl.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
+      const renderScores = () => scoresEl.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
 
-            // actualizar UI (turno, estado, habilitación)
-            function render() {
-                const rem = played.filter(x => !x).length;
-                if (rem === 0) {
-                    currentPlayer.textContent = '— todos han jugado —'; go.disabled = true; guess.disabled = true; status.textContent = 'Partida finalizada.';
-                    const max = Math.max(...scores); const winners = names.filter((n, i) => scores[i] === max).map(n => n.value || 'Jugador');
-                    out.innerHTML = `<div style="margin-bottom:8px"><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + out.innerHTML;
-                    return;
-                }
-                if (played[cur]) for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } }
-                currentPlayer.textContent = names[cur].value || `Jugador ${cur + 1}`;
-                status.textContent = `Quedan ${rem} jugador(es) por jugar.`;
-                guess.maxLength = PW_LEN;
-                go.disabled = !(guess.value.length > 0 && !played[cur]);
-            }
+      // actualizar UI (turno, estado, habilitación)
+      function render() {
+        const rem = played.filter(x => !x).length;
+        if (rem === 0) {
+          currentPlayer.textContent = '— todos han jugado —'; go.disabled = true; guess.disabled = true; status.textContent = 'Partida finalizada.';
+          const max = Math.max(...scores); const winners = names.filter((n, i) => scores[i] === max).map(n => n.value || 'Jugador');
+          out.innerHTML = `<div style="margin-bottom:8px"><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + out.innerHTML;
+          return;
+        }
+        if (played[cur]) for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } }
+        currentPlayer.textContent = names[cur].value || `Jugador ${cur + 1}`;
+        status.textContent = `Quedan ${rem} jugador(es) por jugar.`;
+        guess.maxLength = PW_LEN;
+        go.disabled = !(guess.value.length > 0 && !played[cur]);
+      }
 
-            // puntuar intento
-            function scoreGuess(g) { let total = 0, parts = []; for (const ch of g) { const p = (PW.indexOf(ch) !== -1) ? pts(ch) : 0; total += p; parts.push({ ch, p }); } return { parts, total }; }
+      // puntuar intento
+      function scoreGuess(g) { let total = 0, parts = []; for (const ch of g) { const p = (PW.indexOf(ch) !== -1) ? pts(ch) : 0; total += p; parts.push({ ch, p }); } return { parts, total }; }
 
-            // enviar intento
-            go.addEventListener('click', () => {
-                const g = guess.value || ''; if (!g) { alert('Escribe al menos un caracter antes de enviar.'); return; }
-                if (played[cur]) { alert('Este jugador ya ha jugado.'); render(); return; }
-                const r = scoreGuess(g); scores[cur] += r.total; played[cur] = true;
-                out.innerHTML = `<div style="margin-bottom:6px"><strong>${esc(names[cur].value || `Jugador ${cur + 1}`)}</strong> intentó "${esc(g)}" — puntos: ${r.total}</div>` +
-                    `<div style="margin-bottom:6px">` + r.parts.map(p => `<span style="margin-right:6px">${esc(p.ch)}${p.p ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + out.innerHTML;
-                guess.value = ''; for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } } renderScores(); render();
-            });
+      // enviar intento
+      go.addEventListener('click', () => {
+        const g = guess.value || ''; if (!g) { alert('Escribe al menos un caracter antes de enviar.'); return; }
+        if (played[cur]) { alert('Este jugador ya ha jugado.'); render(); return; }
+        const r = scoreGuess(g); scores[cur] += r.total; played[cur] = true;
+        out.innerHTML = `<div style="margin-bottom:6px"><strong>${esc(names[cur].value || `Jugador ${cur + 1}`)}</strong> intentó "${esc(g)}" — puntos: ${r.total}</div>` +
+          `<div style="margin-bottom:6px">` + r.parts.map(p => `<span style="margin-right:6px">${esc(p.ch)}${p.p ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + out.innerHTML;
+        guess.value = ''; for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } } renderScores(); render();
+      });
 
-            // atajos de teclado y control de habilitación
-            guess.addEventListener('keydown', e => { if (e.key === 'Enter' && !go.disabled) go.click(); });
-            guess.addEventListener('input', () => { go.disabled = !(guess.value.length > 0 && !played[cur]); });
+      // atajos de teclado y control de habilitación
+      guess.addEventListener('keydown', e => { if (e.key === 'Enter' && !go.disabled) go.click(); });
+      guess.addEventListener('input', () => { go.disabled = !(guess.value.length > 0 && !played[cur]); });
 
-            renderScores(); render();
-        })();
-    </script>
+      renderScores(); render();
+    })();
+  </script>
 </body>
 
 </html>
