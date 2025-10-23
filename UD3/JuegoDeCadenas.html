@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Adivina la contraseña — versión sin CSS</title>
+    <title>Adivina la contraseña — versión limpia de comentarios</title>
 </head>
 
 <body>
@@ -41,23 +41,28 @@
 
     <script>
         (function () {
+            // helpers y selectores
             const $ = id => document.getElementById(id);
             const names = [$('name1'), $('name2'), $('name3')];
             const pwMask = $('pw-mask'), lenInfo = $('length-info'), guess = $('guess'), go = $('go'), out = $('out');
             const currentPlayer = $('current-player'), scoresEl = $('scores'), status = $('status');
 
+            // configuración y estado
             const PW = 'Vhiwklñs18', PW_LEN = PW.length;
             const scores = [0, 0, 0], played = [false, false, false];
             let cur = 0;
 
+            // cálculo de puntos por caracter
             const pts = ch => /[0-9]/.test(ch) ? 3 : /[A-Za-z]/.test(ch) ? ('aeiouAEIOU'.includes(ch) ? 1 : 2) : 0;
             const esc = s => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[ch]);
 
+            // inicializar máscara y longitud
             pwMask.textContent = '•'.repeat(PW_LEN);
             lenInfo.textContent = ' Longitud requerida: ' + PW_LEN + ' caracteres.';
 
             const renderScores = () => scoresEl.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
 
+            // actualizar UI (turno, estado, habilitación)
             function render() {
                 const rem = played.filter(x => !x).length;
                 if (rem === 0) {
@@ -69,19 +74,24 @@
                 if (played[cur]) for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } }
                 currentPlayer.textContent = names[cur].value || `Jugador ${cur + 1}`;
                 status.textContent = `Quedan ${rem} jugador(es) por jugar.`;
-                guess.maxLength = PW_LEN; go.disabled = !(guess.value.length > 0 && !played[cur]);
+                guess.maxLength = PW_LEN;
+                go.disabled = !(guess.value.length > 0 && !played[cur]);
             }
 
+            // puntuar intento
             function scoreGuess(g) { let total = 0, parts = []; for (const ch of g) { const p = (PW.indexOf(ch) !== -1) ? pts(ch) : 0; total += p; parts.push({ ch, p }); } return { parts, total }; }
 
+            // enviar intento
             go.addEventListener('click', () => {
-                const g = guess.value || ''; if (!g) { alert('Escribe al menos un caracter antes de enviar.'); return; } if (played[cur]) { alert('Este jugador ya ha jugado.'); render(); return; }
+                const g = guess.value || ''; if (!g) { alert('Escribe al menos un caracter antes de enviar.'); return; }
+                if (played[cur]) { alert('Este jugador ya ha jugado.'); render(); return; }
                 const r = scoreGuess(g); scores[cur] += r.total; played[cur] = true;
                 out.innerHTML = `<div><strong>${esc(names[cur].value || `Jugador ${cur + 1}`)}</strong> intentó "${esc(g)}" — puntos: ${r.total}</div>` +
                     `<div>` + r.parts.map(p => `<span>${esc(p.ch)}${p.p ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + out.innerHTML;
                 guess.value = ''; for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } } renderScores(); render();
             });
 
+            // atajos de teclado y control de habilitación
             guess.addEventListener('keydown', e => { if (e.key === 'Enter' && !go.disabled) go.click(); });
             guess.addEventListener('input', () => { go.disabled = !(guess.value.length > 0 && !played[cur]); });
 
