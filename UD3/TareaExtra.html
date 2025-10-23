@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Adivina la contraseña - versión simple (comentada)</title>
+    <title>Adivina la contraseña - cada jugador 1 intento</title>
     <style>
-        /* Estilos mínimos para mantener la versión reducida legible */
         body {
             font-family: Arial;
             margin: 24px;
@@ -16,14 +15,13 @@
             background: #fff;
             padding: 14px;
             border-radius: 8px;
-            max-width: 650px;
+            max-width: 700px;
             margin: 0 auto;
             box-shadow: 0 6px 18px rgba(10, 20, 50, 0.06)
         }
 
         input,
-        button,
-        select {
+        button {
             padding: 8px;
             border-radius: 6px;
             border: 1px solid #d7e6ff
@@ -32,7 +30,8 @@
         .row {
             display: flex;
             gap: 8px;
-            margin: 8px 0
+            margin: 8px 0;
+            align-items: center
         }
 
         .small {
@@ -46,138 +45,181 @@
             border-radius: 6px;
             margin: 4px
         }
+
+        .player-list {
+            display: flex;
+            gap: 8px
+        }
+
+        .played {
+            opacity: 0.55;
+            text-decoration: line-through
+        }
     </style>
 </head>
 
 <body>
     <main class="box">
-        <h2>Adivina la contraseña (3 jugadores) — versión reducida</h2>
+        <h2>Adivina la contraseña — 1 intento por jugador (auto-avanza)</h2>
         <div class="small">Reglas: vocal=1, consonante=2, número=3. Comparación <strong>case-sensitive</strong>.</div>
 
-        <!-- Campo para establecer la contraseña que estará guardada 'en el sistema' (en este archivo) -->
+        <!-- Contraseña 'guardada' -->
         <div class="row">
             <label>Contraseña: <input id="pw" type="password" value="L4ultimavezKtelod1go"></label>
         </div>
 
-        <!-- Selector de jugador + campo de intento + botón enviar -->
+        <!-- Nombres de los 3 jugadores (se pueden editar antes de empezar) -->
+        <div class="row player-list">
+            <input id="name1" value="Jugador 1">
+            <input id="name2" value="Jugador 2">
+            <input id="name3" value="Jugador 3">
+        </div>
+
+        <!-- Área que indica el jugador actual (no editable) y el intento -->
         <div class="row">
-            <select id="player">
-                <option>Jugador 1</option>
-                <option>Jugador 2</option>
-                <option>Jugador 3</option>
-            </select>
-            <input id="guess" placeholder="Tu intento">
+            <div style="min-width:160px"><strong>Turno:</strong> <span id="current-player">Jugador 1</span></div>
+            <input id="guess" placeholder="Tu intento" style="flex:1">
             <button id="go">Enviar</button>
         </div>
 
-        <!-- Área de salida para mostrar resultado del intento -->
         <div id="out" style="margin-top:10px"></div>
         <hr />
         <div>
             <strong>Marcador:</strong>
             <div id="scores" class="small">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
+            <div id="status" class="small" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
         </div>
     </main>
 
     <script>
         /*
-          Versión reducida con comentarios explicativos.
-          Comentarios en español que describen qué hace cada bloque:
-          - utilidades de detección de caracteres
-          - referencias al DOM
-          - lógica de puntuación
-          - renderizado de marcador
-          - manejador del botón Enviar
+          Implementación compacta con comentarios en español.
+          Cambios principales respecto a la versión anterior:
+          - Cada jugador tiene solo 1 intento.
+          - Tras enviar, el sistema marca al jugador como "jugado" y avanza automáticamente al siguiente.
+          - Cuando todos han jugado, se desactiva el botón y se muestra el resultado final.
         */
         (() => {
-            // ---------- Utilidades de detección y puntuación ----------
-            // Devuelve true si el caracter es un dígito 0-9
+            // ---------- Utilidades ----------
             const isDigit = c => /[0-9]/.test(c);
-            // Devuelve true si el caracter es una letra A-Z o a-z
             const isLetter = c => /[A-Za-z]/.test(c);
-            // Devuelve true si es vocal (incluye mayúsculas y minúsculas)
             const isVowel = c => 'aeiouAEIOU'.includes(c);
-            // Calcula puntos según la regla: dígito=3, vocal=1, consonante=2, otro=0
             const pts = c => isDigit(c) ? 3 : isLetter(c) ? (isVowel(c) ? 1 : 2) : 0;
 
-            // ---------- Referencias DOM (elementos HTML que usaremos) ----------
-            const pwEl = document.getElementById('pw');         // input donde se escribe la contraseña "guardada"
-            const playerEl = document.getElementById('player'); // select para elegir jugador activo
-            const guessEl = document.getElementById('guess');   // input para poner el intento
-            const out = document.getElementById('out');         // div donde imprimimos detalle del intento
-            const scoresEl = document.getElementById('scores'); // div con marcador acumulado
-            const go = document.getElementById('go');           // botón Enviar
+            // ---------- Referencias DOM ----------
+            const pwEl = document.getElementById('pw');
+            const nameEls = [document.getElementById('name1'), document.getElementById('name2'), document.getElementById('name3')];
+            const currentPlayerEl = document.getElementById('current-player');
+            const guessEl = document.getElementById('guess');
+            const out = document.getElementById('out');
+            const scoresEl = document.getElementById('scores');
+            const statusEl = document.getElementById('status');
+            const goBtn = document.getElementById('go');
 
             // ---------- Estado del juego ----------
-            // Array con 3 posiciones: índices 0..2 para Jugador 1..3
-            const scores = [0, 0, 0];
+            const scores = [0, 0, 0];            // puntos acumulados
+            const played = [false, false, false]; // si el jugador ya ha usado su intento
+            let current = 0;                      // índice del jugador actual (0..2)
 
-            // ---------- Función para actualizar la vista del marcador ----------
-            // Es simple: actualiza el texto con los puntos acumulados de los 3 jugadores
+            // Actualiza el texto del marcador
             function renderScores() {
                 scoresEl.textContent = `Jugador 1: ${scores[0]} — Jugador 2: ${scores[1]} — Jugador 3: ${scores[2]}`;
             }
 
-            // ---------- Lógica que compara el intento con la contraseña ----------
-            // scoreGuess recibe el intento (guess) y la contraseña (pw)
-            // Recorre cada caracter del intento y determina:
-            //  - si existe en la contraseña (búsqueda case-sensitive con indexOf)
-            //  - cuántos puntos aporta ese caracter según pts()
-            // Devuelve un objeto con partes (detalle por caracter) y el total
+            // Actualiza la UI del jugador actual y el estado (cuántos quedan)
+            function renderState() {
+                // mostrar nombre del jugador actual (si ya han jugado todos, indicamos finalizado)
+                const remaining = played.filter(x => !x).length;
+                if (remaining === 0) {
+                    currentPlayerEl.textContent = '— todos han jugado —';
+                    goBtn.disabled = true; // bloquear envíos adicionales
+                    guessEl.disabled = true;
+                    statusEl.textContent = 'Partida finalizada.';
+                    // mostramos ganador(es)
+                    const max = Math.max(...scores);
+                    const winners = [];
+                    for (let i = 0; i < 3; i++) if (scores[i] === max) winners.push(nameEls[i].value || `Jugador ${i + 1}`);
+                    out.innerHTML = `<div><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + (out.innerHTML || '');
+                    return;
+                }
+
+                // asegurar que 'current' apunte a un jugador que no ha jugado
+                if (played[current]) {
+                    // buscar siguiente no jugado (circular)
+                    for (let i = 1; i <= 3; i++) {
+                        const idx = (current + i) % 3;
+                        if (!played[idx]) { current = idx; break; }
+                    }
+                }
+
+                // Mostrar nombre del jugador actual
+                currentPlayerEl.textContent = nameEls[current].value || `Jugador ${current + 1}`;
+                statusEl.textContent = `Quedan ${remaining} jugador(es) por jugar.`;
+
+                // Marcar visualmente nombres ya jugados (opcional): cambiamos estilo (se usa clase CSS 'played')
+                for (let i = 0; i < 3; i++) {
+                    nameEls[i].className = played[i] ? 'played' : '';
+                }
+            }
+
+            // Compara intento con contraseña y devuelve detalle + total
             function scoreGuess(guess, pw) {
-                let total = 0;
-                const parts = []; // array de {ch, matched: boolean, p: puntos}
+                let total = 0; const parts = [];
                 for (let ch of guess) {
-                    const matched = pw.indexOf(ch) !== -1; // true si ese caracter aparece en la contraseña
-                    const p = matched ? pts(ch) : 0;       // puntos solo si hay match
-                    total += p;
-                    parts.push({ ch, matched, p });
+                    const matched = pw.indexOf(ch) !== -1; // case-sensitive
+                    const p = matched ? pts(ch) : 0;
+                    total += p; parts.push({ ch, matched, p });
                 }
                 return { parts, total };
             }
 
-            // ---------- Evento: al pulsar Enviar ----------
-            go.addEventListener('click', () => {
-                const pw = pwEl.value || '';      // contraseña actual
-                const guess = guessEl.value || ''; // intento del jugador
+            // Manejo del botón Enviar
+            goBtn.addEventListener('click', () => {
+                const pw = pwEl.value || '';
+                const guess = guessEl.value || '';
+                if (!guess) { alert('Escribe un intento.'); guessEl.focus(); return; }
 
-                // Validación mínima: debe escribir algo
-                if (!guess) {
-                    alert('Escribe un intento.');
-                    return;
-                }
+                // Si el jugador actual ya jugó (por seguridad), se ignora
+                if (played[current]) { alert('Este jugador ya ha jugado.'); renderState(); return; }
 
-                // Calculamos puntuación y detalle
+                // Calcular puntuación
                 const res = scoreGuess(guess, pw);
+                scores[current] += res.total;
+                played[current] = true; // consumir la única oportunidad del jugador
 
-                // Determinamos qué jugador está jugando (selectedIndex: 0..2)
-                const idx = playerEl.selectedIndex;
-
-                // Sumamos puntos al marcador acumulado del jugador
-                scores[idx] += res.total;
-
-                // Mostramos resultado resumido y etiquetas por carácter
-                // - usamos una etiqueta visual simple para cada caracter
-                // - color de fondo indica si acertó o no
-                out.innerHTML = `<div><strong>${playerEl.value}</strong> intentó "${escapeHtml(guess)}" — puntos: ${res.total}</div>` +
+                // Mostrar resultado del intento actual (detalle por caracter)
+                out.innerHTML = `<div><strong>${escapeHtml(nameEls[current].value || `Jugador ${current + 1}`)}</strong> intentó "${escapeHtml(guess)}" — puntos: ${res.total}</div>` +
                     `<div style="margin-top:6px">` +
                     res.parts.map(p => `
         <span class="tag" style="background:${p.matched ? '#e6f7e6' : '#fff2f2'}">${escapeHtml(p.ch)}${p.matched ? (' +' + p.p) : ''}</span>
-      `).join('') + `</div>`;
+      `).join('') + `</div>` + (out.innerHTML || '');
 
-                // Actualizamos marcador y limpiamos el campo de intento
-                renderScores();
+                // Limpiar campo y avanzar automáticamente al siguiente jugador no jugado
                 guessEl.value = '';
-                guessEl.focus();
+
+                // buscar siguiente índice no jugado
+                let next = -1;
+                for (let i = 1; i <= 3; i++) {
+                    const idx = (current + i) % 3;
+                    if (!played[idx]) { next = idx; break; }
+                }
+                if (next !== -1) current = next;
+
+                renderScores();
+                renderState();
+
+                // Si ya no quedan jugadores, renderState se encargará de desactivar y mostrar resultado final
             });
 
-            // ---------- Inicialización ----------
-            renderScores();
+            // Permitir iniciar la partida con Enter en el input de intento
+            guessEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') goBtn.click(); });
 
-            // ---------- Utilidad: escape simple para evitar inyección HTML en la salida ----------
-            function escapeHtml(str) {
-                return String(str).replace(/[&<>\"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[s]);
-            }
+            // Inicialización
+            renderScores();
+            renderState();
+
+            // Escape minimal para evitar inyección HTML en salida
+            function escapeHtml(str) { return String(str).replace(/[&<>\"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" })[s]); }
 
         })();
     </script>
