@@ -8,33 +8,34 @@
 
 <body>
     <main>
-        <h2>Adivina la contraseña</h2>
-        <p>Reglas: vocal=1, consonante=2, número=3.</p>
+        <h2 style="margin-bottom:12px">Adivina la contraseña</h2>
+        <p style="margin-bottom:14px">Reglas: vocal=1, consonante=2, número=3.</p>
 
-        <div>
+        <div style="margin-bottom:12px">
             <strong>Contraseña:</strong>
             <span id="pw-mask">••••••••••</span>
             <span id="length-info"></span>
         </div>
 
-        <div>
-            <input id="name1" value="Jugador 1">
-            <input id="name2" value="Jugador 2">
+        <div style="margin-bottom:12px">
+            <input id="name1" value="Jugador 1" style="margin-right:8px">
+            <input id="name2" value="Jugador 2" style="margin-right:8px">
             <input id="name3" value="Jugador 3">
         </div>
 
-        <div>
-            <strong>Turno:</strong> <span id="current-player">Jugador 1</span>
-            <input id="guess" placeholder="Tu intento">
+        <div style="margin-bottom:12px">
+            <strong style="margin-right:8px">Turno:</strong>
+            <span id="current-player" style="margin-right:12px">Jugador 1</span>
+            <input id="guess" placeholder="Tu intento" style="margin-right:8px">
             <button id="go">Enviar</button>
         </div>
 
-        <div id="out"></div>
+        <div id="out" style="margin-bottom:12px"></div>
         <hr>
-        <div>
+        <div style="margin-top:12px">
             <strong>Marcador:</strong>
-            <div id="scores">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
-            <div id="status">Quedan 3 jugadores por jugar.</div>
+            <div id="scores" style="margin-top:6px">Jugador 1: 0 — Jugador 2: 0 — Jugador 3: 0</div>
+            <div id="status" style="margin-top:6px">Quedan 3 jugadores por jugar.</div>
         </div>
     </main>
 
@@ -67,7 +68,7 @@
                 if (rem === 0) {
                     currentPlayer.textContent = '— todos han jugado —'; go.disabled = true; guess.disabled = true; status.textContent = 'Partida finalizada.';
                     const max = Math.max(...scores); const winners = names.filter((n, i) => scores[i] === max).map(n => n.value || 'Jugador');
-                    out.innerHTML = `<div><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + out.innerHTML;
+                    out.innerHTML = `<div style="margin-bottom:8px"><strong>Ganador(es):</strong> ${winners.join(', ')} — ${max} puntos</div>` + out.innerHTML;
                     return;
                 }
                 if (played[cur]) for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } }
@@ -85,8 +86,8 @@
                 const g = guess.value || ''; if (!g) { alert('Escribe al menos un caracter antes de enviar.'); return; }
                 if (played[cur]) { alert('Este jugador ya ha jugado.'); render(); return; }
                 const r = scoreGuess(g); scores[cur] += r.total; played[cur] = true;
-                out.innerHTML = `<div><strong>${esc(names[cur].value || `Jugador ${cur + 1}`)}</strong> intentó "${esc(g)}" — puntos: ${r.total}</div>` +
-                    `<div>` + r.parts.map(p => `<span>${esc(p.ch)}${p.p ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + out.innerHTML;
+                out.innerHTML = `<div style="margin-bottom:6px"><strong>${esc(names[cur].value || `Jugador ${cur + 1}`)}</strong> intentó "${esc(g)}" — puntos: ${r.total}</div>` +
+                    `<div style="margin-bottom:6px">` + r.parts.map(p => `<span style="margin-right:6px">${esc(p.ch)}${p.p ? (' +' + p.p) : ''}</span>`).join('') + `</div>` + out.innerHTML;
                 guess.value = ''; for (let i = 1; i <= 3; i++) { const idx = (cur + i) % 3; if (!played[idx]) { cur = idx; break; } } renderScores(); render();
             });
 
