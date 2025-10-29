@@ -1,217 +1,504 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Currículum Vitae - Ángel Nieto</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Currículum — Ángel Nieto</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#1e2a36">
     <style>
-        /* Estilo global */
+        /* -------------------------
+       Reset ligero y variables
+       ------------------------- */
+        :root {
+            --sidebar-w: 300px;
+            --accent: #2980b9;
+            --bg: #f4f6f8;
+            --muted: #7f8c8d;
+            --card: #ffffff;
+            --text: #222;
+            --dark: #1e2a36;
+            --radius: 12px;
+            --gap: 1rem;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4; /* Fondo claro y neutral */
-            color: #333;
+            height: 100%
+        }
+
+        body {
+            font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
             margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.4;
+        }
+
+        /* Layout */
+        .wrap {
             display: flex;
-            justify-content: flex-start;
+            gap: var(--gap);
+            padding: 28px;
+            min-height: 100vh;
             align-items: flex-start;
-            height: 100vh;
+            justify-content: center;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background-color: #1e2a36; /* Fondo azul oscuro */
-            color: white;
-            padding: 30px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-            border-top-right-radius: 20px;
-            border-bottom-right-radius: 20px;
+        aside.sidebar {
+            width: var(--sidebar-w);
+            background: var(--dark);
+            color: #fff;
+            padding: 26px;
+            border-radius: var(--radius);
+            box-shadow: 0 6px 30px rgba(30, 42, 54, 0.12);
+            position: sticky;
+            top: 28px;
+            align-self: flex-start;
+            overflow: hidden;
         }
 
-        .sidebar h1 {
-            text-align: center;
-            font-size: 30px;
-            margin-bottom: 10px;
-            color: #ffffff; /* Naranja dorado para el nombre */
-            font-weight: 600;
-        }
-
-        .sidebar p {
-            text-align: center;
-            font-size: 18px;
-            margin: 10px 0;
-            color: #bdc3c7; /* Gris suave para los subtítulos */
-        }
-
-        .sidebar .contact-info p {
-            margin: 10px 0;
-            font-size: 14px;
-            color: #ecf0f1; /* Gris claro para la información de contacto */
-        }
-
-        .sidebar .photo {
-            width: 120px;
-            height: 120px;
+        .photo {
+            width: 124px;
+            height: 124px;
             border-radius: 50%;
             overflow: hidden;
-            margin: 0 auto 20px;
-            border: 4px solid #ffffff; /* Borde dorado brillante */
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Sombra alrededor de la foto */
+            margin: 0 auto 14px;
+            border: 3px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
         }
 
-        .sidebar .photo img {
+        .photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block
         }
 
-        /* CV Container */
-        .cv-container {
-            margin-left: 320px; /* Ancho del sidebar */
-            padding: 40px;
-            width: 75%;
-            background-color: #ffffff; /* Fondo blanco para el contenido */
-            box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.1); /* Sombra más fuerte */
-            border-radius: 10px;
-            max-width: 1200px;
-            overflow-y: auto;
-        }
-
-        h2 {
-            margin-top: 20px;
-            color: #2980b9; /* Azul brillante para los títulos */
-            font-size: 24px;
-            font-weight: 600;
-            border-bottom: 2px solid #2980b9; /* Subrayado azul */
-            padding-bottom: 10px;
-        }
-
-        p, ul {
-            color: #7f8c8d; /* Gris oscuro para los párrafos */
-            font-size: 16px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        ul li {
-            margin: 10px 0;
-            font-size: 16px;
-            color: #000000; /* Gris más oscuro para los elementos de lista */
-        }
-
-        ul li strong {
-            color: #2980b9; /* Resaltado con azul para los cargos */
-        }
-
-        footer {
+        .name {
             text-align: center;
-            margin-top: 40px;
-            font-size: 14px;
-            color: #bdc3c7;
-            padding-top: 20px;
-            border-top: 1px solid #ecf0f1;
+            margin: 6px 0 2px;
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
         }
 
-        /* Información de la barra lateral */
-        .information ul li {
-            margin: 15px 0;
+        .role {
+            text-align: center;
+            color: #dfe6ea;
+            margin: 0 0 14px;
+            font-weight: 500
         }
 
-        .information ul li strong {
-            color: #ffffff; /* Resaltar con color naranja dorado */
+        /* Sidebar blocks */
+        .block {
+            margin-top: 18px
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .sidebar {
+        .block h3 {
+            font-size: 0.95rem;
+            margin: 0 0 8px;
+            color: #f1f6f8;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 6px;
+        }
+
+        .info-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            color: #ecf0f1;
+            font-size: 0.92rem
+        }
+
+        .info-list li {
+            margin: 8px 0;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+            line-height: 1.25
+        }
+
+        .info-list strong {
+            min-width: 92px;
+            color: rgba(255, 255, 255, 0.92);
+            font-weight: 600;
+            font-size: 0.92rem
+        }
+
+        a.contact-link {
+            color: #ecf0f1;
+            text-decoration: none;
+            word-break: break-all
+        }
+
+        a.contact-link:hover {
+            text-decoration: underline
+        }
+
+        /* Main CV card */
+        main.cv {
+            flex: 1 1 700px;
+            max-width: 980px;
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 40px rgba(30, 42, 54, 0.08);
+            overflow: auto;
+            min-height: 520px;
+        }
+
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .title {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin: 2px 0 0;
+            font-size: 0.95rem
+        }
+
+        section {
+            margin-top: 18px
+        }
+
+        section h2 {
+            font-size: 1.05rem;
+            color: var(--accent);
+            margin: 6px 0 10px;
+            font-weight: 700;
+            border-bottom: 2px solid rgba(41, 128, 185, 0.12);
+            padding-bottom: 8px;
+        }
+
+        p,
+        li {
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+
+        ul.clean {
+            list-style: none;
+            padding: 0;
+            margin: 0
+        }
+
+        ul.clean li {
+            margin: 8px 0;
+            color: var(--text)
+        }
+
+        /* Experience card */
+        .job {
+            border-left: 4px solid rgba(41, 128, 185, 0.12);
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: linear-gradient(180deg, rgba(41, 128, 185, 0.02), transparent);
+            margin-bottom: 10px;
+        }
+
+        .job h4 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--dark)
+        }
+
+        .job .meta {
+            font-size: 0.86rem;
+            color: var(--muted);
+            margin: 6px 0 8px
+        }
+
+        /* Skills grid */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .skill-pill {
+            background: #f7fbff;
+            border: 1px solid rgba(41, 128, 185, 0.06);
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        /* Projects */
+        .project {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(34, 34, 34, 0.03);
+            background: #fff;
+            margin-bottom: 10px
+        }
+
+        .project p {
+            margin: 6px 0 0;
+            color: var(--muted)
+        }
+
+        footer.cv-foot {
+            margin-top: 20px;
+            border-top: 1px solid #eef3f6;
+            padding-top: 12px;
+            color: var(--muted);
+            font-size: 0.88rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width:900px) {
+            .wrap {
+                padding: 18px;
+                flex-direction: column;
+                align-items: stretch
+            }
+
+            aside.sidebar {
                 width: 100%;
                 position: relative;
-                height: auto;
-                border-radius: 0;
+                top: auto;
+                border-radius: 10px;
+                order: 2
             }
-            .cv-container {
-                margin-left: 0;
-                width: 100%;
+
+            main.cv {
+                order: 1;
+                margin-bottom: 8px;
             }
+        }
+
+        @media (max-width:420px) {
+            .skills {
+                grid-template-columns: repeat(1, 1fr)
+            }
+
+            .photo {
+                width: 96px;
+                height: 96px
+            }
+
+            .name {
+                font-size: 1.1rem
+            }
+        }
+
+        /* Small helper (no drama) */
+        .muted-note {
+            font-size: 0.86rem;
+            color: var(--muted);
+            margin-top: 6px
         }
     </style>
 </head>
+
 <body>
+    <div class="wrap" role="application" aria-label="Currículum de Ángel Nieto">
 
-    <div class="sidebar">
-        <div class="photo">
-            <!-- Aquí puedes agregar tu foto -->
-            <img src="Foto.JPG" alt="Foto de Ángel Nieto">
-        </div>
-        <h1>Ángel Nieto</h1>
-        <p><strong>Desarrollador Web</strong></p>
+        <!-- SIDEBAR -->
+        <aside class="sidebar" aria-labelledby="perfil-name">
+            <div class="photo" aria-hidden="false">
+                <!-- Sustituye Foto.JPG por tu foto real o ruta -->
+                <img src="Foto.JPG" alt="Foto de Ángel Nieto — Desarrollador Web">
+            </div>
 
-        <!-- Información -->
-        <div class="information">
-            <h2>Información</h2>
-            <ul>
-                <li><strong>Carnet de conducir:</strong> B y A1</li>
-                <li><strong>Vehículo propio:</strong> Sí</li>
-                <li><strong>Disponibilidad horaria:</strong> Mañanas</li>
-            </ul>
-        </div>
+            <div id="perfil-name" class="name">Ángel Nieto</div>
+            <div class="role">Desarrollador Web — Grado Superior DAW</div>
 
-        <div class="contact-info">
-            <h2>Contacto</h2>
-            <p>📞 622 10 92 08</p>
-            <p>📧 aniecor1811@g.educaand.es</p>
-            <p>📍 Plaza Hermanos Álvarez Quintero, CP 11500</p>
-        </div>
-    </div>
+            <div class="block">
+                <h3>Contacto</h3>
+                <ul class="info-list" aria-label="Información de contacto">
+                    <li><strong>Teléfono:</strong> <a class="contact-link" href="tel:+34622015976">622 015 976</a></li>
+                    <li><strong>Email:</strong> <a class="contact-link"
+                            href="mailto:angel.nietoo2006@gmail.com">angel.nietoo2006@gmail.com</a></li>
+                    <li><strong>Dirección:</strong> Plaza Hermanos Álvarez Quintero, CP 11500</li>
+                </ul>
+            </div>
 
-    <div class="cv-container">
-        <div class="section">
-            <h2>Formación</h2>
-            <ul>
-                <li><strong>Sistemas Microinformáticos y Redes</strong> (2021)</li>
-                <li><strong>Bachillerato de ciencias Tecnológicas</strong> (2022 - 2024)</li>
-                <li><strong>Grado en Desarrollo de Aplicaciones Web</strong> (2019 - 2024)</li>
-            </ul>
-        </div>
+            <div class="block">
+                <h3>Información</h3>
+                <ul class="info-list">
+                    <li><strong>Carnet:</strong> A1 y B</li>
+                    <li><strong>Vehículo:</strong> Sí (disponible)</li>
+                    <li><strong>Disponibilidad:</strong> Mañanas</li>
+                    <li><strong>Idiomas:</strong> Español (nativo) · Inglés (básico)</li>
+                </ul>
+            </div>
 
-        <div class="section">
-            <h2>Experiencia</h2>
-            <ul>
-                <li><strong>PRACTICAS</strong> (2024) - Prácticas en centros de formación.</li>
-                <li><strong>MERCADONA</strong> (2010) - Marketing Manager</li>
-                <li><strong>TOMBOLA ANTOJITOS</strong> (2020-2024) - Marketing Manager</li>
-            </ul>
-        </div>
+            <div class="block">
+                <h3>Perfil</h3>
+                <p class="muted-note">Estudiante de Grado Superior en Desarrollo de Aplicaciones Web con experiencia en
+                    prácticas duales. Apasionado por la creación de soluciones digitales, con sólidos conocimientos en
+                    front-end y back-end. Responsable, adaptable y con buena capacidad para trabajar en equipo y de
+                    forma autónoma.</p>
+            </div>
+        </aside>
 
-        <div class="section">
-            <h2>Habilidades</h2>
-            <ul>
-                <li>Trabajo cooperativo</li>
-                <li>Resolución de problemas</li>
-                <li>Gestión de Proyectos</li>
-                <li>Edición de Video</li>
-            </ul>
-        </div>
+        <!-- MAIN CV -->
+        <main class="cv" role="main" aria-labelledby="cv-title">
+            <div class="top-row">
+                <div>
+                    <h1 id="cv-title" class="title">Currículum Vitae — Ángel Nieto</h1>
+                    <div class="subtitle">Desarrollador Web · HTML5 · CSS3 · JavaScript · PHP</div>
+                </div>
+                <div class="muted-note" aria-hidden="true">Última actualización: 2025</div>
+            </div>
 
-        <div class="section">
-            <h2>Idiomas</h2>
-            <ul>
-                <li><strong>Español:</strong> Nativo</li>
-                <li><strong>Inglés:</strong> Muy Básico</li>
-            </ul>
-        </div>
+            <!-- PERFIL PROFESIONAL -->
+            <section aria-labelledby="perfil">
+                <h2 id="perfil">Perfil profesional</h2>
+                <p>Soy estudiante de Grado Superior en Desarrollo de Aplicaciones Web con experiencia en prácticas
+                    duales. Me apasiona la creación de soluciones digitales y cuento con sólidos conocimientos en
+                    programación front-end y back-end. Destaco por mi responsabilidad, capacidad de trabajo tanto
+                    individual como en equipo, y mi rápida adaptación a nuevos retos.</p>
+            </section>
 
-        <footer>
-            <p>&copy; 2024 Ángel Nieto - Todos los derechos reservados</p>
-        </footer>
+            <!-- EXPERIENCIA -->
+            <section aria-labelledby="exp">
+                <h2 id="exp">Experiencia de trabajo</h2>
+
+                <article class="job" aria-labelledby="pascasoft">
+                    <h4 id="pascasoft">Pascasoft S.L. — Prácticas duales (Desarrollador Web)</h4>
+                    <div class="meta">2025 — ~1 mes (prácticas duales)</div>
+                    <p>Implementé diseños responsive en cabeceras, pies de página y contenidos para sitios del sector
+                        inmobiliario. Me encargué de adaptar plantillas, optimizar assets y asegurar compatibilidad
+                        móvil. Resultado: interfaces adaptativas y mejoras en la experiencia de usuario. <strong>Carta
+                            de recomendación</strong>.</p>
+                    <ul class="clean" aria-label="Tareas realizadas en Pascasoft">
+                        <li>Implementación de diseños responsive (header, footer, cuerpo).</li>
+                        <li>Creación de estructuras HTML reutilizables (index.html, header.html, footer.html).</li>
+                        <li>Colaboración con el equipo usando control de versiones (Git).</li>
+                    </ul>
+                </article>
+
+                <article class="job" aria-labelledby="dev-2025">
+                    <h4 id="dev-2025">Desarrollo de Páginas Web — Proyectos académicos y personales</h4>
+                    <div class="meta">2025 — Actualidad</div>
+                    <p>Diseño y desarrollo de portafolio personal y proyectos prácticos que integran front-end y
+                        back-end, formularios accesibles y bases de datos MySQL para almacenamiento.</p>
+                    <ul class="clean">
+                        <li>Sitio Web Personal Responsive — portafolio y showcase de proyectos.</li>
+                        <li>Formularios de registro accesibles y validación básica con JS y PHP.</li>
+                        <li>Optimización y organización de archivos y componentes reutilizables.</li>
+                    </ul>
+                </article>
+
+                <!-- Si deseas añadir más experiencia, copia y adapta el bloque .job -->
+            </section>
+
+            <!-- FORMACIÓN -->
+            <section aria-labelledby="formacion">
+                <h2 id="formacion">Formación profesional</h2>
+                <ul class="clean">
+                    <li><strong>Grado Superior — Desarrollo de Aplicaciones Web</strong>, IES Mar de Cádiz — 2025
+                        (Actualidad)</li>
+                    <li><strong>Bachillerato tecnológico</strong>, Instituto SAFA San Luis Gonzaga — 2022-2024
+                        (Finalizado 2024)</li>
+                    <li><strong>Formación complementaria:</strong> Cursos y prácticas en desarrollo web, control de
+                        versiones y diseño responsive.</li>
+                </ul>
+            </section>
+
+            <!-- HABILIDADES -->
+            <section aria-labelledby="habilidades">
+                <h2 id="habilidades">Habilidades destacadas</h2>
+
+                <div style="display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start">
+                    <div style="flex:1;min-width:220px">
+                        <h3 style="font-size:0.95rem;margin:0 0 8px;color:var(--accent)">Técnicas</h3>
+                        <div class="skills" role="list">
+                            <div class="skill-pill">HTML5</div>
+                            <div class="skill-pill">CSS3 (Responsive)</div>
+                            <div class="skill-pill">JavaScript</div>
+                            <div class="skill-pill">PHP</div>
+                            <div class="skill-pill">Bootstrap</div>
+                            <div class="skill-pill">jQuery</div>
+                            <div class="skill-pill">MySQL</div>
+                            <div class="skill-pill">Git</div>
+                            <div class="skill-pill">Visual Studio Code</div>
+                            <div class="skill-pill">Accesibilidad (A11y) básica</div>
+                        </div>
+                    </div>
+
+                    <div style="flex:1;min-width:220px">
+                        <h3 style="font-size:0.95rem;margin:0 0 8px;color:var(--accent)">Personales</h3>
+                        <ul class="clean">
+                            <li>Trabajo en equipo y cooperativo</li>
+                            <li>Resolución de problemas y pensamiento analítico</li>
+                            <li>Responsabilidad y buena gestión del tiempo</li>
+                            <li>Adaptabilidad y aprendizaje rápido</li>
+                            <li>Disciplina (practico gimnasio y fitness)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INFORMACIÓN ADICIONAL -->
+            <section aria-labelledby="info-add">
+                <h2 id="info-add">Información adicional</h2>
+                <ul class="clean">
+                    <li>Permisos de conducir: A1 y B. Vehículo propio (permite desplazamientos rápidos para prácticas o
+                        trabajo).</li>
+                    <li>Nivel de idiomas: Español (nativo). Inglés (básico).</li>
+                    <li>Disponibilidad: mañanas (por defecto), flexible según propuesta.</li>
+                </ul>
+            </section>
+
+            <!-- PROYECTOS ACADÉMICOS -->
+            <section aria-labelledby="proyectos">
+                <h2 id="proyectos">Proyectos académicos</h2>
+
+                <article class="project" aria-labelledby="proj-html">
+                    <h4 id="proj-html">Diseño de estructuras HTML reutilizables</h4>
+                    <p>Desarrollo de plantillas modulares con header.html y footer.html para reutilización en distintos
+                        proyectos, reduciendo duplicación y facilitando mantenimiento.</p>
+                </article>
+
+                <article class="project" aria-labelledby="proj-form">
+                    <h4 id="proj-form">Formulario de registro accesible</h4>
+                    <p>Interfaz de registro desarrollada con HTML y CSS enfocada en accesibilidad y responsive.
+                        Validación básica en front y back (JS + PHP).</p>
+                </article>
+
+                <article class="project" aria-labelledby="proj-portfolio">
+                    <h4 id="proj-portfolio">Sitio Web Personal — Portafolio</h4>
+                    <p>Portafolio responsive que muestra proyectos realizados, con secciones para habilidades,
+                        experiencia, y enlaces a demos. Implementación con buenas prácticas de rendimiento.</p>
+                </article>
+            </section>
+
+            <footer class="cv-foot" role="contentinfo">
+                <div>Contacto: <a href="mailto:angel.nietoo2006@gmail.com">angel.nietoo2006@gmail.com</a> · Tel: <a
+                        href="tel:+34622015976">622 015 976</a></div>
+                <div style="margin-top:6px">&copy; 2025 Ángel Nieto — Todos los derechos reservados</div>
+            </footer>
+        </main>
+
     </div>
 </body>
+
 </html>
