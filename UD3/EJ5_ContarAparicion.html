@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contador de subcadenas (compacto)</title>
+    <style>
+        /* CSS mínimo y limpio */
+        :root {
+            font-family: system-ui, Segoe UI, Roboto, Arial
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f3f4f6
+        }
+
+        .card {
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .08);
+            width: min(720px, 96%)
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e6edf3;
+            border-radius: 6px;
+            font-size: 14px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            align-items: center
+        }
+
+        button {
+            padding: 8px 10px;
+            border: 0;
+            border-radius: 6px;
+            background: #0ea5a4;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .opts {
+            margin-left: auto;
+            font-size: 13px;
+            color: #334155;
+            display: flex;
+            gap: 8px;
+            align-items: center
+        }
+
+        pre {
+            background: #f8fafc;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            white-space: pre-wrap
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h3 style="margin:0 0 8px">Contador de subcadenas — compacto</h3>
+
+        <label>Texto</label>
+        <textarea id="text" rows="6">abababa
+Hello HELLO hello
+aaaa</textarea>
+
+        <label style="margin-top:8px">Subcadena</label>
+        <input id="sub" type="text" value="aba" />
+
+        <div class="row">
+            <div class="opts">
+                <label><input id="ov" type="checkbox"> solapado</label>
+                <label><input id="ci" type="checkbox"> case-insensitive</label>
+            </div>
+            <button id="run">Contar</button>
+            <button id="copy" style="background:#64748b">Copiar</button>
+        </div>
+
+        <pre id="out">Pulsa "Contar" — resultado aquí.</pre>
+    </div>
+
+    <script>
+        /* Función compacta y rápida (indexOf loop) */
+        function countSubstr(hay, needle, { overlap = false, ci = false } = {}) {
+            if (!needle) return 0;
+            if (ci) { hay = hay.toLowerCase(); needle = needle.toLowerCase(); }
+            let i = 0, c = 0, step = overlap ? 1 : needle.length;
+            while ((i = hay.indexOf(needle, i)) !== -1) { c++; i += step; }
+            return c;
+        }
+
+        /* DOM */
+        const T = document.getElementById('text');
+        const S = document.getElementById('sub');
+        const OV = document.getElementById('ov');
+        const CI = document.getElementById('ci');
+        const OUT = document.getElementById('out');
+
+        document.getElementById('run').onclick = () => {
+            const n = countSubstr(T.value, S.value, { overlap: OV.checked, ci: CI.checked });
+            OUT.textContent = `Apariciones: ${n}`;
+        };
+
+        document.getElementById('copy').onclick = async () => {
+            try {
+                await navigator.clipboard.writeText(OUT.textContent);
+                const prev = OUT.textContent;
+                OUT.textContent = 'Copiado ✓';
+                setTimeout(() => OUT.textContent = prev, 900);
+            } catch {
+                OUT.textContent = 'No se pudo copiar';
+                setTimeout(() => OUT.textContent = 'Pulsa "Contar" — resultado aquí.', 900);
+            }
+        };
+
+        /* Ejecuta una vez al cargar */
+        document.getElementById('run').click();
+    </script>
+</body>
+
+</html>
