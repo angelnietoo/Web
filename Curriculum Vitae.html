@@ -1,396 +1,521 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curriculum Vitae</title>
+    <title>Currículum — Ángel Nieto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset de márgenes y padding */
+        /* Reset ligero */
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
-        /* Estilos generales del body */
+        html,
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #1a1a1a; /* Fondo oscuro */
-            color: #ffffff; /* Texto blanco */
-            line-height: 1.6;
-            padding: 20px;
+            height: 100%;
+            font-family: 'Poppins', Arial, sans-serif;
         }
 
-        /* Contenedor principal */
+        /* Variables */
+        :root {
+            --bg-dark: #1a1a1a;
+            --panel-dark: #2b2b2b;
+            --muted: #bdc3c7;
+            --accent: #2980b9;
+            --card-border: #444;
+            --light-bg: #f4f4f4;
+            --card-radius: 10px;
+        }
+
+        /* Body y contenedor */
+        body {
+            background: var(--bg-dark);
+            color: #fff;
+            line-height: 1.45;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         .container {
-            max-width: 900px;
+            max-width: 980px;
             margin: 0 auto;
-            background-color: #2b2b2b; /* Fondo del contenedor principal */
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            background: var(--panel-dark);
+            border-radius: var(--card-radius);
             padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.02);
         }
 
-        /* Encabezado con foto y datos básicos */
+        /* Header (foto + datos + botones) */
         .header {
             display: flex;
-            justify-content: space-between;
+            gap: 18px;
             align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 15px;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--card-border);
         }
 
-        .header .pfp {
-            width: 100px;
-            height: 100px;
+        .header-left {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .pfp {
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.06);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.08));
         }
 
-        .header .info {
-            flex-grow: 1;
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        .header .info .name {
-            font-size: 1.7rem;
-            font-weight: bold;
+        .name {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: #ffffff;
         }
 
-        .header .info .title {
-            font-size: 1.1rem;
-            color: #bdc3c7; /* Gris claro */
+        .role {
+            color: var(--muted);
+            font-weight: 500;
         }
 
-        /* Sección con botones en cubitos */
-        .header .social-buttons {
+        .social-buttons {
             display: flex;
+            gap: 10px;
             align-items: center;
         }
 
-        .header .social-buttons button {
+        .button {
             background: #333;
-            border: 1px solid #444;
-            cursor: pointer;
-            margin-left: 10px;
-            width: 50px; /* Tamaño más grande */
-            height: 50px; /* Tamaño más grande */
-            display: flex;
-            justify-content: center;
+            border: 1px solid var(--card-border);
+            width: 52px;
+            height: 52px;
+            display: inline-flex;
             align-items: center;
-            border-radius: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        /* Estilo de las imágenes dentro de los botones */
-        .header .social-buttons img {
-            width: 30px; /* Tamaño más grande */
-            height: 30px; /* Tamaño más grande */
-        }
-
-        /* Animación cuando el ratón pasa sobre el cubo */
-        .header .social-buttons button:hover {
-            transform: scale(1.2);
-            background-color: #444;
-        }
-
-        /* Resto del código igual a antes... */
-        /* Sección con Contacto e Información Personal */
-        .row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        /* Estilo de los cajones (contacto e info personal) */
-        .section {
-            flex: 1;
-            margin-right: 15px;
-            padding: 15px;
-            background-color: #333;
+            justify-content: center;
             border-radius: 8px;
-            border: 1px solid #444;
+            cursor: pointer;
+            transition: transform .18s ease, background-color .18s ease;
         }
 
-        .section:last-child {
-            margin-right: 0;
+        .button img {
+            width: 28px;
+            height: 28px;
+            display: block;
         }
 
-        /* Títulos de todas las secciones (h2) */
-        .section h2, .languages h2, .education h2, .about-me h2, .objectives h2 {
-            font-size: 1.5rem;  /* Tamaño de fuente uniforme */
-            color: #ffffff;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #444;
-            padding-bottom: 5px;
+        .button:hover {
+            transform: scale(1.08);
+            background: #3a3a3a;
         }
 
-        .section p, .section .data-title {
+        /* Layout de secciones */
+        .grid-two {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .main {
+            background: transparent;
+        }
+
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card {
+            padding: 14px;
+            background: #333;
+            border-radius: 8px;
+            border: 1px solid var(--card-border);
+        }
+
+        .card h2 {
+            font-size: 1.05rem;
+            color: var(--accent);
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding-bottom: 6px;
+        }
+
+        .card p {
+            color: var(--muted);
             font-size: 0.95rem;
-            color: #bdc3c7;
             margin-bottom: 8px;
         }
 
-        .section .data-title {
-            font-weight: bold;
-            color: #ffffff;
+        .card .muted {
+            color: var(--muted);
+            font-size: 0.92rem;
         }
 
-        .section .data {
-            margin-left: 15px;
+        /* Experience / lists */
+        .job {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 3px solid rgba(41, 128, 185, 0.12);
+            background: linear-gradient(180deg, rgba(41, 128, 185, 0.01), transparent);
+            border-radius: 6px;
         }
 
-        /* Ajustes para los cajones de idiomas y formación académica */
-        .row-two {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+        .job h4 {
+            margin: 0;
+            font-size: 0.98rem;
+            color: #fff;
         }
 
-        .languages, .education {
-            flex: 1;
-            margin-right: 15px;
-            padding: 15px;
-            background-color: #333;
+        .job .meta {
+            color: var(--muted);
+            font-size: 0.88rem;
+            margin: 6px 0;
+        }
+
+        ul.clean {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 6px;
+        }
+
+        ul.clean li {
+            margin: 6px 0;
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        /* Skills (grid dentro del card) */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .skill-pill {
+            padding: 8px 10px;
             border-radius: 8px;
-            border: 1px solid #444;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.92rem;
         }
 
-        .languages:last-child, .education:last-child {
-            margin-right: 0;
+        /* Footer / proyectos */
+        .projects .project {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
         }
 
-        /* Estilos de idiomas, experiencia, formación académica */
-        .languages .language-item, .education .education-item {
-            margin-bottom: 8px;
+        .projects .project p {
+            color: var(--muted);
         }
 
-        /* Sección de Experiencia Laboral */
-        .experience {
-            padding: 15px;
-            background-color: #333;
-            border-radius: 8px;
-            border: 1px solid #444;
-            margin-top: 20px;
-        }
-
-        .experience-item {
-            margin-bottom: 8px;
-        }
-
-        /* Sección de Sobre mí */
-        .about-me {
-            margin-top: 20px;
-            margin-bottom: 20px; /* Añadido para igualar el espacio con otros cajones */
-            padding: 15px;
-            background-color: #333;
-            border-radius: 8px;
-            border: 1px solid #444;
-        }
-
-        .about-me p {
-            color: #bdc3c7;
-            margin-bottom: 8px;
-        }
-
-        /* Sección de Objetivos */
-        .objectives {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #333;
-            border-radius: 8px;
-            border: 1px solid #444;
-        }
-
+        /* Objetivos / about */
+        .about p,
         .objectives p {
-            color: #bdc3c7;
-            margin-bottom: 8px;
+            color: var(--muted);
         }
 
-        /* Estilos para el tema claro */
+        /* Tema claro (toggle) */
+        .light-theme body,
         .light-theme {
-            background-color: #ffffff;
-            color: #000000;
+            background: var(--light-bg) !important;
+            color: #111;
         }
 
         .light-theme .container {
-            background-color: #f4f4f4;
+            background: #fff;
         }
 
-        .light-theme .section, .light-theme .languages, .light-theme .education,
-        .light-theme .about-me, .light-theme .objectives {
-            background-color: #e0e0e0;
+        .light-theme .card,
+        .light-theme .pfp {
+            background: #fff;
         }
 
-        .light-theme .section h2, .light-theme .languages h2, .light-theme .education h2,
-        .light-theme .about-me h2, .light-theme .objectives h2 {
-            color: #000000;
+        .light-theme .card h2 {
+            color: var(--accent);
         }
 
-        /* Ajustes para dispositivos móviles */
-        @media (max-width: 768px) {
-            .row, .row-two {
-                flex-direction: column;
+        .light-theme .button {
+            background: #f0f0f0;
+            border-color: #ddd;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .grid-two {
+                grid-template-columns: 1fr;
             }
 
             .header {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
+                gap: 12px;
             }
 
-            .header .pfp {
-                margin-bottom: 10px;
+            .social-buttons {
+                margin-left: auto;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .header {
+                padding-bottom: 10px;
             }
 
-            .header .social-buttons {
-                margin-top: 10px;
+            .pfp {
+                width: 88px;
+                height: 88px;
             }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Pequeño ajuste visual en links */
+        a.contact-link {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a.contact-link:hover {
+            text-decoration: underline;
+            color: var(--accent);
         }
     </style>
 </head>
-<body id="body" class="body">
-    <div class="container">
-        <!-- Encabezado con nombre y foto -->
-        <div class="header">
-            <img class="pfp" src="Foto.JPG" alt="Foto de Ángel Nieto">
-            <div class="info">
-                <p class="name">Ángel Nieto</p>
-                <p class="title">Curriculum Vitae</p>
+
+<body id="body">
+    <div class="container" role="document" aria-label="Currículum de Ángel Nieto">
+
+        <!-- HEADER -->
+        <header class="header" role="banner">
+            <div class="header-left">
+                <img class="pfp" src="Foto.JPG" alt="Foto de Ángel Nieto">
+                <div class="info">
+                    <div class="name">Ángel Nieto</div>
+                    <div class="role">Desarrollador Web — Grado Superior DAW</div>
+                    <div class="muted" style="font-size:0.9rem; margin-top:6px">
+                        Tel: <a class="contact-link" href="tel:+34622015976">622 015 976</a> ·
+                        Email: <a class="contact-link"
+                            href="mailto:angel.nietoo2006@gmail.com">angel.nietoo2006@gmail.com</a>
+                    </div>
+                </div>
             </div>
-            <div class="social-buttons">
-                <!-- Botón de descarga -->
-                <a href="Curriculum_Vitae.pdf" download="Curriculum_Vitae.pdf">
-                    <button id="download-btn" class="button">
-                        <img id="download" class="download" src="download.png" alt="Descargar">
+
+            <div class="social-buttons" role="group" aria-label="Acciones rápidas">
+                <!-- Descargar (archivo debe existir en servidor) -->
+                <a href="Curriculum_Vitae.pdf" download="Curriculum_Vitae_Angel_Nieto.pdf" title="Descargar CV">
+                    <button class="button" aria-label="Descargar CV">
+                        <img src="download.png" alt="Icono descargar">
                     </button>
                 </a>
-                <button id="theme" class="button">
-                    <img id="sun" class="sun" src="img/sun.png" alt="Cambiar tema">
+
+                <!-- Tema -->
+                <button id="theme" class="button" aria-pressed="false" title="Cambiar tema">
+                    <img id="theme-icon" src="sun.png" alt="Cambiar tema">
                 </button>
-                <a target="_blank" href="https://github.com/angelnietoo">
-                    <button class="button">
-                        <img id="github" class="github" src="imagen_github.png" alt="GitHub">
+
+                <!-- GitHub -->
+                <a href="https://github.com/angelnietoo" target="_blank" rel="noopener noreferrer"
+                    title="Perfil GitHub">
+                    <button class="button" aria-label="Ir a GitHub">
+                        <img src="imagen_github.png" alt="GitHub">
                     </button>
                 </a>
             </div>
-        </div>
+        </header>
 
-        <!-- Sobre mí -->
-        <div class="about-me">
-            <h2>Perfil profesional</h2>
-            <p>Soy estudiante de Grado Superior en Desarrollo de Aplicaciones Web con experiencia en prácticas
-            duales. Me apasiona la creación de soluciones digitales y cuento con sólidos conocimientos en
-            programación front‐end y back‐end. Destaco por mi responsabilidad, capacidad de trabajo tanto
-            individual como en equipo, y mi rápida adaptación a nuevos retos.</p>
-        </div>
+        <!-- GRID PRINCIPAL -->
+        <div class="grid-two" role="main">
 
-        <!-- Fila con Contacto e Información Personal -->
-        <div class="row">
-            <!-- Sección de Contacto -->
-            <div class="section contact">
-                <h2>Contacto</h2>
-                <div class="contact-item">
-                    <p class="data-title">Correo:</p>
-                    <p class="data">angel.nietoo2006@gmail.com</p>
-                </div>
-                <div class="contact-item">
-                    <p class="data-title">Teléfono:</p>
-                    <p class="data">622015976</p>
-                </div>
+            <!-- CONTENIDO PRINCIPAL -->
+            <div class="main">
+
+                <!-- PERFIL PROFESIONAL -->
+                <section class="card" aria-labelledby="perfil">
+                    <h2 id="perfil">Perfil profesional</h2>
+                    <p>Soy estudiante de Grado Superior en Desarrollo de Aplicaciones Web con experiencia en prácticas
+                        duales. Me apasiona la creación de soluciones digitales y cuento con sólidos conocimientos en
+                        programación front-end y back-end. Destaco por mi responsabilidad, capacidad de trabajo tanto
+                        individual como en equipo, y mi rápida adaptación a nuevos retos.</p>
+                </section>
+
+                <!-- EXPERIENCIA -->
+                <section class="card" aria-labelledby="experiencia" style="margin-top:14px">
+                    <h2 id="experiencia">Experiencia de trabajo</h2>
+
+                    <article class="job" aria-labelledby="pascasoft">
+                        <h4 id="pascasoft">Pascasoft S.L. — Prácticas duales (Desarrollador Web)</h4>
+                        <div class="meta">2025 — Aproximadamente 1 mes (prácticas)</div>
+                        <p class="muted">Empresa dedicada al desarrollo de páginas web en el sector inmobiliario.
+                            Responsable de implementar diseños responsive en cabecera, pie de página y cuerpo de sitios
+                            web. Carta de recomendación disponible.</p>
+                        <ul class="clean">
+                            <li>Implementación de diseños responsive (header, footer, cuerpo).</li>
+                            <li>Creación de estructuras HTML reutilizables (index.html, header.html, footer.html).</li>
+                            <li>Optimización de recursos y colaboración con control de versiones (Git).</li>
+                        </ul>
+                    </article>
+
+                    <article class="job" aria-labelledby="dev-personal">
+                        <h4 id="dev-personal">Desarrollo de Páginas Web — Proyectos académicos y personales</h4>
+                        <div class="meta">2025 — Actualidad</div>
+                        <p class="muted">Proyectos personales y académicos donde he integrado front-end y back-end, con
+                            uso de bases de datos y buenas prácticas responsive.</p>
+                        <ul class="clean">
+                            <li>Sitio Web Personal Responsive — portafolio y showcase de proyectos.</li>
+                            <li>Formularios accesibles con validación en front (JS) y back (PHP).</li>
+                        </ul>
+                    </article>
+                </section>
+
+                <!-- PROYECTOS ACADÉMICOS -->
+                <section class="card projects" aria-labelledby="proyectos" style="margin-top:14px">
+                    <h2 id="proyectos">Proyectos académicos</h2>
+
+                    <div class="project">
+                        <h4>Diseño de estructuras HTML reutilizables</h4>
+                        <p>Desarrollo de archivos index.html, header.html y footer.html para distintas páginas,
+                            facilitando la reutilización y mantenimiento del código.</p>
+                    </div>
+
+                    <div class="project">
+                        <h4>Formulario de registro</h4>
+                        <p>Interfaz de registro de usuario construida con HTML y CSS, enfocada en accesibilidad (A11y) y
+                            diseño responsive; validación básica con JavaScript y procesamiento en PHP.</p>
+                    </div>
+
+                    <div class="project">
+                        <h4>Sitio Web Personal Responsive</h4>
+                        <p>Portafolio adaptable a dispositivos móviles que destaca habilidades y proyectos realizados,
+                            implementando buenas prácticas de rendimiento y SEO básico.</p>
+                    </div>
+                </section>
+
+                <!-- OBJETIVOS -->
+                <section class="card objectives" aria-labelledby="objetivos" style="margin-top:14px">
+                    <h2 id="objetivos">Objetivos</h2>
+                    <p>Quiero formar parte de una empresa donde pueda aplicar y ampliar los conocimientos adquiridos en
+                        Desarrollo de Aplicaciones Web. Busco oportunidades que me permitan crecer profesionalmente y
+                        asumir responsabilidades en proyectos reales, aportando valor con soluciones eficientes y
+                        mantenibles.</p>
+                </section>
+
             </div>
 
-            <!-- Sección de Información Personal -->
-            <div class="section personal">
-                <h2>Información Personal</h2>
-                <div class="personal-item">
-                    <p class="data-title">Nombre:</p>
-                    <p class="data">Ángel Nieto Cordero</p>
+            <!-- COLUMNA LATERAL -->
+            <aside class="side">
+
+                <!-- CONTACTO -->
+                <div class="card" aria-labelledby="contacto">
+                    <h2 id="contacto">Contacto</h2>
+                    <p class="muted">Teléfono: <a class="contact-link" href="tel:+34622015976">622 015 976</a></p>
+                    <p class="muted">Correo: <a class="contact-link"
+                            href="mailto:angel.nietoo2006@gmail.com">angel.nietoo2006@gmail.com</a></p>
+                    <p class="muted">Dirección: Plaza Hermanos Álvarez Quintero, CP 11500</p>
                 </div>
-                <div class="personal-item">
-                    <p class="data-title">Fecha de nacimiento:</p>
-                    <p class="data">18/11/2006</p>
+
+                <!-- FORMACIÓN -->
+                <div class="card" aria-labelledby="formacion">
+                    <h2 id="formacion">Formación profesional</h2>
+                    <p class="muted"><strong>Grado Superior — Desarrollo de Aplicaciones Web</strong>, IES Mar de Cádiz
+                        — 2025 (Actualidad)</p>
+                    <p class="muted"><strong>Bachillerato tecnológico</strong>, Instituto SAFA San Luis Gonzaga —
+                        2022-2024 (Finalizado en 2024)</p>
+                    <p class="muted">Modalidad centrada en Matemáticas, Física, Tecnología Industrial y Programación.
+                        Base sólida en lógica y pensamiento analítico.</p>
                 </div>
-                <div class="personal-item">
-                    <p class="data-title">DNI:</p>
-                    <p class="data">55083571C</p>
+
+                <!-- HABILIDADES DESTACADAS -->
+                <div class="card" aria-labelledby="habilidades">
+                    <h2 id="habilidades">Habilidades destacadas</h2>
+
+                    <div style="margin-bottom:8px">
+                        <strong class="muted">Lenguajes y tecnologías</strong>
+                        <div class="skills" style="margin-top:8px">
+                            <div class="skill-pill">HTML5</div>
+                            <div class="skill-pill">CSS3 (Responsive)</div>
+                            <div class="skill-pill">JavaScript</div>
+                            <div class="skill-pill">PHP</div>
+                            <div class="skill-pill">Bootstrap</div>
+                            <div class="skill-pill">jQuery</div>
+                            <div class="skill-pill">MySQL</div>
+                            <div class="skill-pill">Git</div>
+                            <div class="skill-pill">VS Code</div>
+                            <div class="skill-pill">Accesibilidad (A11y)</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:10px">
+                        <strong class="muted">Competencias personales</strong>
+                        <ul class="clean" style="margin-top:8px">
+                            <li>Trabajo en equipo</li>
+                            <li>Resolución de problemas</li>
+                            <li>Adaptabilidad</li>
+                            <li>Responsabilidad y autonomía</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="personal-item">
-                    <p class="data-title">Permisos de conducir:</p>
-                    <p class="data">A1 y B</p>
+
+                <!-- INFORMACIÓN ADICIONAL -->
+                <div class="card" aria-labelledby="info-add">
+                    <h2 id="info-add">Información adicional</h2>
+                    <p class="muted"><strong>Permisos:</strong> A1 y B. Dispongo de vehículo propio para A1.</p>
+                    <p class="muted"><strong>Idiomas:</strong> Español (nativo) · Inglés (básico)</p>
+                    <p class="muted"><strong>Disponibilidad:</strong> Mañanas y tardes (flexible según oferta)</p>
+                    <p class="muted"><strong>Intereses:</strong> Gimnasio y fitness — practico deporte regularmente para
+                        mejorar disciplina y salud.</p>
                 </div>
-                <div class="personal-item">
-                    <p class="data-title">Vehículo Propio A1:</p>
-                    <p class="data">Sí</p>
-                </div>
-                <div class="personal-item">
-                    <p class="data-title">Disponibilidad:</p>
-                    <p class="data">Mañanas y tardes</p>
-                </div>
-            </div>
+
+            </aside>
         </div>
 
-        <!-- Fila con Idiomas y Formación Académica -->
-        <div class="row-two">
-            <!-- Idiomas -->
-            <div class="languages">
-                <h2>Idiomas</h2>
-                <div class="language-item">
-                    <p class="data-title">Español:</p>
-                    <p class="data">Nativo</p>
-                </div>
-                <div class="language-item">
-                    <p class="data-title">Inglés:</p>
-                    <p class="data">Nivel básico (Equivalente a bachillerato)</p>
-                </div>
-            </div>
-
-            <!-- Formación Académica -->
-            <div class="education">
-                <h2>Formación Académica</h2>
-                <div class="education-item">
-                    <p class="data-title">Educación Secundaria Obligatoria:</p>
-                    <p class="data">2018/2022 - Centro de estudios Safa San Luis Gonzaga</p>
-                </div>
-                <div class="education-item">
-                    <p class="data-title">Bachillerato de Ciencias Tecnológicas:</p>
-                    <p class="data">2022/2024 - Safa San Luis Gonzaga</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Objetivos -->
-        <div class="objectives">
-            <h2>Objetivos</h2>
-            <p>Quiero formar parte de una empresa donde pueda poner en práctica todo lo que he aprendido. Además, busco una oportunidad que me permita cumplir mis metas a mediano y largo plazo, mientras desarrollo mis habilidades y crezco tanto a nivel personal como profesional.</p>
-        </div>
     </div>
 
     <script>
-        // Función para cambiar el tema de oscuro a claro
-        const themeButton = document.getElementById("theme");
-        const body = document.body;
-        const sunIcon = document.getElementById("sun");
+        // Toggle de tema claro/oscuro
+        const themeBtn = document.getElementById('theme');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlEl = document.documentElement;
 
-        // Al cargar la página, aseguramos que el tema oscuro esté activado por defecto
-        window.addEventListener("load", () => {
-            // Si no está activado el tema claro, se deja el oscuro por defecto
-            if (!body.classList.contains("light-theme")) {
-                sunIcon.src = "sun.png"; // El sol para el tema oscuro
-            }
+        // Estado inicial (oscuro)
+        window.addEventListener('load', () => {
+            // Aseguramos icono correcto al iniciar
+            themeIcon.src = 'sun.png'; // icono para mostrar (modo oscuro)
+            themeBtn.setAttribute('aria-pressed', 'false');
         });
 
-        themeButton.addEventListener("click", () => {
-            body.classList.toggle("light-theme");
-
-            // Cambiar la imagen del icono dependiendo del tema
-            if (body.classList.contains("light-theme")) {
-                sunIcon.src = "moon.png"; // Reemplaza con la imagen de luna para tema claro
-            } else {
-                sunIcon.src = "sun.png"; // Reemplaza con la imagen de sol para tema oscuro
-            }
+        themeBtn.addEventListener('click', () => {
+            htmlEl.classList.toggle('light-theme');
+            const isLight = htmlEl.classList.contains('light-theme');
+            themeBtn.setAttribute('aria-pressed', String(isLight));
+            themeIcon.src = isLight ? 'moon.png' : 'sun.png';
+            themeIcon.alt = isLight ? 'Modo claro activo (hacer clic para oscuro)' : 'Modo oscuro activo (hacer clic para claro)';
         });
     </script>
 </body>
+
 </html>
