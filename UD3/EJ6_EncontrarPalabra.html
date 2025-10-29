@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Búsqueda de palabra</title>
+    <style>
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            background: #f6f7fb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: #fff;
+            padding: 20px 24px;
+            border-radius: 10px;
+            box-shadow: 0 6px 18px rgba(15, 23, 42, .08);
+            width: min(500px, 95%);
+            box-sizing: border-box;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 6px;
+            font-size: 14px;
+            color: #0f172a;
+        }
+
+        textarea,
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #e6edf3;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            align-items: center;
+        }
+
+        button {
+            padding: 8px 10px;
+            border: 0;
+            border-radius: 6px;
+            background: #0ea5a4;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button.ghost {
+            background: #64748b;
+        }
+
+        pre {
+            margin-top: 12px;
+            padding: 10px;
+            background: #fbfdff;
+            border-radius: 6px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <h3 style="margin:0 0 8px">Búsqueda de palabra</h3>
+
+        <label for="text">Texto</label>
+        <textarea id="text" rows="5">El zorro marrón
+aa, bb, aa</textarea>
+
+        <label for="word">Palabra a buscar</label>
+        <input id="word" type="text" value="zorro">
+
+        <div class="row">
+            <button id="run">Buscar</button>
+            <button id="copy" class="ghost">Copiar resultado</button>
+        </div>
+
+        <pre id="out">Pulsa "Buscar" — resultado aquí.</pre>
+    </div>
+
+    <script>
+        // Función para buscar palabra exacta
+        function palabra_busqueda(texto, palabra) {
+            if (!palabra) return `'${palabra}' se encontró 0 veces.`;
+            const palabras = texto.split(/[\s,]+/);
+            const count = palabras.filter(p => p === palabra).length;
+            return `'${palabra}' se encontró ${count} ${count === 1 ? 'vez' : 'veces'}.`;
+        }
+
+        // DOM
+        const T = document.getElementById('text');
+        const W = document.getElementById('word');
+        const OUT = document.getElementById('out');
+
+        document.getElementById('run').onclick = () => {
+            OUT.textContent = palabra_busqueda(T.value, W.value);
+        };
+
+        document.getElementById('copy').onclick = async () => {
+            try {
+                await navigator.clipboard.writeText(OUT.textContent);
+                const prev = OUT.textContent;
+                OUT.textContent = 'Copiado ✓';
+                setTimeout(() => OUT.textContent = prev, 900);
+            } catch {
+                OUT.textContent = 'No se pudo copiar';
+                setTimeout(() => OUT.textContent = 'Pulsa "Buscar" — resultado aquí.', 900);
+            }
+        };
+
+        // Ejecuta al cargar
+        document.getElementById('run').click();
+    </script>
+
+</body>
+
+</html>
