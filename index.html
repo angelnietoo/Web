@@ -282,6 +282,7 @@
       color: var(--muted);
       border: 1px dashed rgba(255,255,255,0.03);
       font-style: italic;
+      grid-column: 1 / -1;
     }
 
     /* right sidebar: perfil */
@@ -360,8 +361,27 @@
       box-shadow: 0 10px 28px rgba(0,176,255,0.08);
     }
 
-    /* footer note */
     .note { margin-top:12px; color:var(--muted); font-size:0.88rem; }
+
+    /* Styles para fases dentro de un tema */
+    .fase {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    .fase h3 {
+      margin: 0 0 10px 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      font-weight: 800;
+    }
+
+    .fase .grid {
+      gap: 12px;
+    }
 
     /* responsive */
     @media (max-width: 980px){
@@ -387,7 +407,6 @@
     <section class="card" aria-labelledby="main-title">
       <header class="top">
         <div class="title">
-          <!-- Aquí he sustituido el texto "AI" por la imagen que indicaste -->
           <div class="logo" aria-hidden="false">
             <img src="https://cdn-icons-png.flaticon.com/512/18199/18199102.png" alt="Icono AI" loading="lazy" />
           </div>
@@ -470,7 +489,9 @@
           </div>
         </article>
 
-        <article id="tema3" class="tema" aria-labelledby="t3h"><h2 id="t3h">TEMA 3: CSS y Grid</h2>
+        <!-- TEMA 3 del PRIMER AÑO: mantenemos los ejercicios simples (sin fases) -->
+        <article id="tema3" class="tema" aria-labelledby="t3h">
+          <h2 id="t3h">TEMA 3: CSS y Grid</h2>
           <div class="grid">
             <a class="ej-btn" href="CSSyGrid.html">Ejercicio — CSS & Grid</a>
             <a class="ej-btn" href="Bootstrap_Ej1.html">Bootstrap — Ejercicio 1</a>
@@ -502,7 +523,7 @@
           </div>
         </article>
 
-        <!-- CONTENIDOS CLIENTE (ahora con .grid para que queden como 1º) -->
+        <!-- CONTENIDOS CLIENTE (SEGUNDO AÑO) -->
         <article id="cliente_tema1" class="tema" aria-labelledby="ct1h">
           <h2 id="ct1h">TEMA 1 — JS</h2>
           <div class="grid">
@@ -525,16 +546,30 @@
           </div>
         </article>
 
+        <!-- TEMA 3 del SEGUNDO AÑO: aquí añadimos Fase 3 y Fase 4 -->
         <article id="cliente_tema3" class="tema" aria-labelledby="ct3h">
           <h2 id="ct3h">TEMA 3 — Objetos predefinidos</h2>
-          <div class="grid">
-            <a class="ej-btn" href="UD3/EJ1_ExtraerNumCaracteres.html">Ejercicio 1 - Extraer Número de Carácteres</a>
+
+          <!-- Fase 3: ejercicios actuales (AHORA en SEGUNDO AÑO) -->
+          <div class="fase" id="cliente_tema3-fase3" aria-labelledby="cliente_tema3-fase3-h">
+            <h3 id="cliente_tema3-fase3-h">Fase 3 — JavaScript</h3>
+            <div class="grid">
+              <a class="ej-btn" href="UD3/EJ1_ExtraerNumCaracteres.html">Ejercicio 1 - Extraer Número de Carácteres</a>
             <a class="ej-btn" href="UD3/EJ2_OcultarCorreo.html">Ejercicio 2 - Ocultar direcciones</a>
             <a class="ej-btn" href="UD3/EJ3_Mayusculas.html">Ejercicio 3 - Mayúsculas al principio</a>
             <a class="ej-btn" href="UD3/EJ4_InsertarCadena.html">Ejercicio 4 - Insertar cadena en otra cadena</a>
             <a class="ej-btn" href="UD3/EJ5_ContarAparicion.html">Ejercicio 5 - Contar aparición</a>
             <a class="ej-btn" href="UD3/EJ6_EncontrarPalabra.html">Ejercicio 6 - Encontrar palabra en cadena</a>
             <a class="ej-btn" href="UD3/JuegoDeCadenas.html">Juego de Cadenas - Ahorcado</a>
+            </div>
+          </div>
+
+          <!-- Fase 4: por implementar (vacía, mensaje) -->
+          <div class="fase" id="cliente_tema3-fase4" aria-labelledby="cliente_tema3-fase4-h" style="margin-top:14px">
+            <h3 id="cliente_tema3-fase4-h">Fase 4 — JavaScript</h3>
+            <div class="grid">
+              <div class="cliente-empty">— Sin ejercicios disponibles en esta fase —</div>
+            </div>
           </div>
         </article>
 
