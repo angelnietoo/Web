@@ -93,17 +93,13 @@
       overflow: hidden;
     }
 
-    /* Imagen dentro del logo: centrada y limitada */
+    /* Imagen dentro del logo */
     .logo img {
-      max-width: 76%;
-      max-height: 76%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      object-position: center center;
+      width:48px;
+      height:48px;
+      object-fit:contain;
       display:block;
       border-radius:8px;
-      margin: 0 auto;
     }
 
     h1 {
@@ -322,14 +318,15 @@
 
     /* NUEVO: asegurar que la imagen se ajuste al contenedor sin salirse */
     .avatar img {
-      width: auto;
+      width: 100%;
       height: 100%;
-      max-width: 100%;
-      object-fit: contain;         /* mostrar la imagen completa, centrada dentro del contenedor */
-      object-position: center center;
+      object-fit: cover;         /* uso default: cover para rellenar y recortar centrado */
+      object-position: center;
       display: block;
-      border-radius: 0;
-      margin: 0 auto;
+      border-radius: 12px;
+      margin: 0;
+      padding: 0;
+      max-width: none;
     }
 
     .name { font-weight:800; font-size:1.05rem; color:#fff; margin:6px 0 0 0; }
@@ -397,7 +394,6 @@
       .grid { grid-template-columns: 1fr; }
       .logo { width:56px; height:56px; font-size:16px; }
       .avatar { height:120px; }
-      .avatar img { height: 100%; } /* asegurar que siga llenando la altura en pantallas pequeñas */
     }
 
     /* focus visible */
