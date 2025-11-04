@@ -82,10 +82,9 @@
             const count = new Map();
             let maxCount = 0, maxItem = null;
             for (const item of arr) {
-                const key = isNaN(item) ? item : String(Number(item)); // normalize numerics
-                const v = (count.get(key) || 0) + 1;
-                count.set(key, v);
-                if (v > maxCount) { maxCount = v; maxItem = key; }
+                const v = (count.get(item) || 0) + 1;
+                count.set(item, v);
+                if (v > maxCount) { maxCount = v; maxItem = item; }
             }
             return { item: maxItem, count: maxCount };
         }
@@ -96,7 +95,7 @@
                 const items = parseItems(inp.value);
                 if (items.length === 0) throw 'Entrada vacía';
                 const r = mostFrequent(items);
-                out.textContent = `Más frecuente: "${r.item}" — ${r.count} vez${r.count > 1 ? 'es' : ''}`;
+                out.textContent = `Más frecuente: "${r.item}" — ${r.count} ${r.count > 1 ? 'veces' : 'vez'}`;
             } catch (e) { msg.textContent = e; }
         };
 
