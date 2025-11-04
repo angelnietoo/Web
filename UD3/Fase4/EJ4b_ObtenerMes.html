@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>4b — Nombre mes y días</title>
+    <style>
+        body {
+            font-family: system-ui, Roboto, Arial;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: #f3f4f6
+        }
+
+        .box {
+            background: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .06);
+            width: min(520px, 94vw)
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e6eef9;
+            width: 100%;
+            margin-bottom: 8px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        button {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 0;
+            background: #2563eb;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .res {
+            font-weight: 700;
+            margin-top: 8px
+        }
+
+        .mut {
+            color: #6b7280;
+            font-size: 13px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h3 style="margin:0 0 8px">Nombre del mes y días (función mes,año)</h3>
+        <input id="m" placeholder="Mes (1-12 o nombre, ej. 2 o febrero)" value="2">
+        <input id="y" placeholder="Año (ej. 2024)" value="2024">
+        <div class="row" style="margin-top:6px">
+            <button id="run">Calcular</button>
+            <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
+        </div>
+        <div id="out" class="res">—</div>
+        <div id="msg" class="mut"></div>
+    </div>
+
+    <script>
+        const names = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const elM = document.getElementById('m'), elY = document.getElementById('y'), out = document.getElementById('out'), msg = document.getElementById('msg');
+
+        function parseMonth(v) {
+            if (!v) throw 'Mes vacío';
+            v = v.toString().trim().toLowerCase();
+            if (/^-?\d+$/.test(v)) { const n = Math.abs(Number(v)); if (n < 1 || n > 12) throw 'Mes fuera de rango'; return n; }
+            const idx = names.findIndex(n => n.startsWith(v)); if (idx === -1) throw 'Nombre de mes no reconocido';
+            return idx + 1;
+        }
+
+        function daysInMonth(month, year) {
+            const m = parseMonth(month);
+            const y = Number(year);
+            if (!Number.isInteger(y) || y < 1) throw 'Año inválido';
+            return { name: names[m - 1][0].toUpperCase() + names[m - 1].slice(1), days: new Date(y, m, 0).getDate() };
+        }
+
+        document.getElementById('run').onclick = () => {
+            msg.textContent = ''; out.textContent = '—';
+            try {
+                const r = daysInMonth(elM.value, elY.value);
+                out.textContent = `${r.name} — ${r.days} días`;
+            } catch (e) { msg.textContent = e; }
+        };
+
+        document.getElementById('clr').onclick = () => { elM.value = ''; elY.value = ''; out.textContent = '—'; msg.textContent = ''; };
+    </script>
+</body>
+
+</html>
