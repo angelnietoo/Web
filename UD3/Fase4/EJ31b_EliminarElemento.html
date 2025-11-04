@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Eliminar elemento — 32</title>
+    <style>
+        body {
+            font-family: system-ui, Segoe UI, Roboto;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: #f3f4f6
+        }
+
+        .box {
+            background: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .06);
+            width: min(420px, 94vw)
+        }
+
+        input,
+        button {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e6eef9;
+            width: 100%;
+            margin-bottom: 6px
+        }
+
+        button {
+            background: #2563eb;
+            color: #fff;
+            border: 0;
+            cursor: pointer
+        }
+
+        .res {
+            font-weight: 700;
+            margin-top: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h3 style="margin:0 0 8px">Eliminar elemento de un array</h3>
+        <input id="arr" value="2,4,5,9" placeholder="Array (separado por comas)">
+        <input id="val" value="5" placeholder="Valor a eliminar">
+        <button id="run">Eliminar</button>
+        <div id="out" class="res">Resultado: —</div>
+    </div>
+
+    <script>
+        const arr = document.getElementById('arr'), val = document.getElementById('val'), out = document.getElementById('out');
+        document.getElementById('run').onclick = () => {
+            const a = arr.value.split(/[\s,]+/).map(Number).filter(x => !isNaN(x));
+            const v = Number(val.value);
+            const r = a.filter(x => x !== v);
+            out.textContent = 'Resultado: [' + r.join(', ') + ']';
+        };
+    </script>
+</body>
+
+</html>

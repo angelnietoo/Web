@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Número más alto — 31</title>
+    <style>
+        body {
+            font-family: system-ui, Segoe UI, Roboto;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: #f3f4f6
+        }
+
+        .box {
+            background: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .06);
+            width: min(420px, 94vw)
+        }
+
+        input,
+        button {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e6eef9;
+            width: 100%;
+            margin-bottom: 6px
+        }
+
+        button {
+            background: #2563eb;
+            color: #fff;
+            border: 0;
+            cursor: pointer
+        }
+
+        .res {
+            font-weight: 700;
+            margin-top: 6px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h3 style="margin:0 0 8px">Número más alto de tres</h3>
+        <input id="n1" type="number" placeholder="Primer número">
+        <input id="n2" type="number" placeholder="Segundo número">
+        <input id="n3" type="number" placeholder="Tercer número">
+        <button id="run">Calcular</button>
+        <div id="out" class="res">Resultado: —</div>
+    </div>
+
+    <script>
+        const n1 = document.getElementById('n1'), n2 = document.getElementById('n2'), n3 = document.getElementById('n3'), out = document.getElementById('out');
+        document.getElementById('run').onclick = () => {
+            const a = [n1.value, n2.value, n3.value].map(Number);
+            out.textContent = 'Resultado: ' + (a.every(x => !isNaN(x)) ? Math.max(...a) : '—');
+        };
+    </script>
+</body>
+
+</html>
