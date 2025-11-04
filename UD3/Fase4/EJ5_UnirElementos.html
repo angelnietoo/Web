@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Unir array — 5</title>
+    <style>
+        body {
+            font-family: system-ui, Segoe UI, Roboto;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: #f3f4f6
+        }
+
+        .box {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .06);
+            width: min(520px, 94vw)
+        }
+
+        input,
+        button {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e6eef9
+        }
+
+        input {
+            width: 100%;
+            margin-bottom: 8px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        button {
+            background: #2563eb;
+            color: #fff;
+            border: 0;
+            cursor: pointer
+        }
+
+        .res {
+            font-weight: 700;
+            margin-top: 8px
+        }
+
+        .mut {
+            color: #6b7280;
+            font-size: 13px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h3 style="margin:0 0 8px">Unir elementos de un array en una cadena</h3>
+        <input id="in" value="hola, mundo, esto, es, prueba" aria-label="Array de elementos (separados por comas)">
+        <input id="sep" value=", " aria-label="Separador (ej: , o - o nada)" placeholder="Separador (por defecto ', ')">
+        <div class="row">
+            <button id="run">Unir</button>
+            <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
+        </div>
+        <div id="out" class="res">Cadena: —</div>
+        <div id="msg" class="mut"></div>
+    </div>
+
+    <script>
+        const inp = document.getElementById('in'), sep = document.getElementById('sep'), out = document.getElementById('out'), msg = document.getElementById('msg');
+
+        function parseItems(s) {
+            if (!s) return [];
+            return s.split(/[\r\n,]+/).map(x => x.trim()).filter(Boolean);
+        }
+
+        document.getElementById('run').onclick = () => {
+            msg.textContent = ''; out.textContent = 'Cadena: —';
+            try {
+                const items = parseItems(inp.value);
+                const s = sep.value == null ? ',' : sep.value;
+                out.textContent = 'Cadena: ' + items.join(s);
+            } catch (e) { msg.textContent = e; }
+        };
+
+        document.getElementById('clr').onclick = () => { inp.value = ''; sep.value = ', '; out.textContent = 'Cadena: —'; msg.textContent = ''; };
+    </script>
+</body>
+
+</html>
