@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Máximo de array — 6</title>
+    <style>
+        body {
+            font-family: system-ui, Segoe UI, Roboto;
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            background: #f3f4f6
+        }
+
+        .box {
+            background: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(2, 6, 23, .06);
+            width: min(520px, 94vw)
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e6eef9;
+            width: 100%;
+            margin-bottom: 8px
+        }
+
+        .row {
+            display: flex;
+            gap: 8px
+        }
+
+        button {
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 0;
+            background: #2563eb;
+            color: #fff;
+            cursor: pointer
+        }
+
+        .res {
+            font-weight: 700;
+            margin-top: 8px
+        }
+
+        .mut {
+            color: #6b7280;
+            font-size: 13px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h3 style="margin:0 0 8px">Máximo en array</h3>
+        <input id="in" value="11, 3, 16, 90" aria-label="Array de números (separados por comas)">
+        <div class="row">
+            <button id="run">Calcular</button>
+            <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
+        </div>
+        <div id="out" class="res">Resultado: —</div>
+        <div id="msg" class="mut"></div>
+    </div>
+
+    <script>
+        const inp = document.getElementById('in'), out = document.getElementById('out'), msg = document.getElementById('msg');
+
+        function parseNums(s) {
+            if (!s) throw 'Entrada vacía';
+            return s.split(/[\s,]+/).filter(Boolean).map(x => {
+                if (!/^-?\d+(\.\d+)?$/.test(x)) throw 'Valor no numérico: ' + x;
+                return Number(x);
+            });
+        }
+
+        document.getElementById('run').onclick = () => {
+            msg.textContent = ''; out.textContent = 'Resultado: —';
+            try {
+                const nums = parseNums(inp.value);
+                const max = nums.length ? Math.max(...nums) : null;
+                out.textContent = max === null ? 'Resultado: —' : 'Resultado: ' + max;
+            } catch (e) { msg.textContent = e; }
+        };
+
+        document.getElementById('clr').onclick = () => { inp.value = ''; out.textContent = 'Resultado: —'; msg.textContent = ''; };
+    </script>
+</body>
+
+</html>
