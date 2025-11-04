@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Suma de una matriz — Ejercicio 4a</title>
+    <style>
+        /* CSS básico, limpio y accesible */
+        :root {
+            --bg: #f1f2f3;
+            --card: #ffffff;
+            --accent: #2563eb;
+            --muted: #6b7280;
+            --success: #16a34a;
+            --danger: #dc2626;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--bg), #eef2ff 60%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 760px;
+            background: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 6px 24px rgba(16, 24, 40, 0.08);
+            padding: 22px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 20px;
+            letter-spacing: -0.2px;
+        }
+
+        p.lead {
+            margin: 0 0 18px 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        form {
+            display: grid;
+            gap: 12px;
+        }
+
+        label {
+            font-size: 13px;
+            color: #0f172a;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .input,
+        .textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid #e6edf3;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: var(--accent);
+            color: #fff;
+            border: 0;
+            padding: 10px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        button.secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid rgba(37, 99, 235, 0.14);
+            font-weight: 600;
+        }
+
+        .result {
+            padding: 12px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid #e6eef9;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .msg {
+            font-size: 13px;
+        }
+
+        .msg.error {
+            color: var(--danger);
+            font-weight: 600;
+        }
+
+        .msg.ok {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        @media (max-width:520px) {
+            .row {
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card" role="main">
+        <h1>Ejercicio 4a — Suma de una matriz de enteros</h1>
+        <p class="lead">Introduce números enteros separados por comas (ej.: <code>1,2,3,4</code>) o usa el ejemplo.
+            Validación incluida.</p>
+
+        <form id="sumForm" onsubmit="return false;" aria-describedby="desc">
+            <div>
+                <label for="inputArray">Array de enteros</label>
+                <input id="inputArray" class="input" type="text" aria-label="Array de enteros"
+                    value="1, 2, 3, 4, 5, 6" />
+                <div id="desc" class="msg" style="margin-top:6px;color:var(--muted)">
+                    Usa comas para separar. No se permiten decimales ni textos.
+                </div>
+            </div>
+
+            <div class="row">
+                <button id="btnSum" type="button">Calcular suma</button>
+                <button id="btnClear" class="secondary" type="button">Limpiar</button>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:center;margin-top:6px;">
+                <div id="output" class="result" aria-live="polite">Resultado: —</div>
+                <div id="message" class="msg" aria-live="assertive"></div>
+            </div>
+        </form>
+
+        <footer>
+            Código seguro: la función comprueba que la entrada sea un array de enteros y muestra errores claros.
+        </footer>
+    </main>
+
+    <script>
+        /**
+         * Suma los elementos de un array de enteros.
+         * Lanza TypeError si la entrada no es válida.
+         * @param {number[]} arr
+         * @returns {number}
+         */
+        function sumArray(arr) {
+            if (!Array.isArray(arr)) throw new TypeError('Se espera un array.');
+            let sum = 0;
+            for (const v of arr) {
+                if (!Number.isInteger(v)) throw new TypeError('Todos los elementos deben ser enteros. Encontrado: ' + v);
+                sum += v;
+            }
+            return sum;
+        }
+
+        // Helpers para parsear string -> array de enteros
+        function parseInputToIntArray(str) {
+            if (typeof str !== 'string') throw new TypeError('Entrada debe ser una cadena.');
+            // Split por comas, trim y filtrar strings vacíos
+            const parts = str.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            if (parts.length === 0) return [];
+            const nums = parts.map(s => {
+                // comprobar que sea entero (no floats, no NaN)
+                if (!/^[-+]?\d+$/.test(s)) {
+                    throw new TypeError('Valor no entero detectado: "' + s + '"');
+                }
+                return Number(s);
+            });
+            return nums;
+        }
+
+        // DOM
+        const input = document.getElementById('inputArray');
+        const btnSum = document.getElementById('btnSum');
+        const btnClear = document.getElementById('btnClear');
+        const output = document.getElementById('output');
+        const message = document.getElementById('message');
+
+        btnSum.addEventListener('click', () => {
+            message.textContent = '';
+            output.textContent = 'Resultado: —';
+            try {
+                const arr = parseInputToIntArray(input.value);
+                const result = sumArray(arr);
+                output.textContent = 'Resultado: ' + result;
+                message.textContent = 'Suma calculada correctamente.';
+                message.className = 'msg ok';
+            } catch (err) {
+                output.textContent = 'Resultado: —';
+                message.textContent = err.message || 'Error al procesar la entrada.';
+                message.className = 'msg error';
+            }
+        });
+
+        btnClear.addEventListener('click', () => {
+            input.value = '';
+            output.textContent = 'Resultado: —';
+            message.textContent = '';
+        });
+
+        // Permitir calcular con Ctrl+Enter en el campo
+        input.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                btnSum.click();
+            }
+        });
+
+        // Demo: calcular al cargar la página (opcional)
+        window.addEventListener('load', () => {
+            // No autoejecutamos para no sorprender al usuario; dejamos listo el ejemplo
+        });
+    </script>
+</body>
+
+</html>
