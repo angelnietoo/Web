@@ -50,17 +50,31 @@
 <body>
     <div class="box">
         <h3 style="margin:0 0 8px">Número más alto de tres</h3>
+
+        <!-- Escribe tres números aquí -->
         <input id="n1" type="number" placeholder="Primer número">
         <input id="n2" type="number" placeholder="Segundo número">
         <input id="n3" type="number" placeholder="Tercer número">
+
         <button id="run">Calcular</button>
+
         <div id="out" class="res">Resultado: —</div>
     </div>
 
     <script>
-        const n1 = document.getElementById('n1'), n2 = document.getElementById('n2'), n3 = document.getElementById('n3'), out = document.getElementById('out');
+        // Cogemos las cajas de la página: los tres números y el sitio donde mostramos el resultado
+        const n1 = document.getElementById('n1'),
+            n2 = document.getElementById('n2'),
+            n3 = document.getElementById('n3'),
+            out = document.getElementById('out');
+
+        // Al pulsar "Calcular": leemos los valores, comprobamos que sean números y mostramos el mayor
         document.getElementById('run').onclick = () => {
+            // Tomamos los tres valores escritos y los transformamos a números reales
             const a = [n1.value, n2.value, n3.value].map(Number);
+
+            // a.every(...) comprueba que todos sean números válidos.
+            // Si hay algún campo vacío o no numérico mostramos '—', si no mostramos el máximo.
             out.textContent = 'Resultado: ' + (a.every(x => !isNaN(x)) ? Math.max(...a) : '—');
         };
     </script>
