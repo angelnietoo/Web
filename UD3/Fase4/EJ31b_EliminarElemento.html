@@ -70,13 +70,10 @@
 
         // Al pulsar "Eliminar": hacemos la transformación y mostramos la nueva lista
         document.getElementById('run').onclick = () => {
-            // 1) Tomamos el texto del array y lo separamos por comas o espacios
-            // 2) Convertimos cada pedazo a número
-            // 3) Quitamos los que no son números válidos (por si hay errores en la entrada)
             const a = arr.value
                 .split(/[\s,]+/)       // separar por comas o espacios
                 .map(Number)           // convertir texto a número
-                .filter(x => !isNaN(x)); // quitar entradas que no sean números
+                .filter(x => !isNaN(x)); // quitar las cosas que no sean números
 
             // Valor que queremos eliminar, también convertido a número
             const v = Number(val.value);
