@@ -61,45 +61,73 @@
 <body>
     <div class="box">
         <h3 style="margin:0 0 8px">Elemento más frecuente en un array</h3>
+
+        <!-- Escribe elementos separados por comas o espacios, p. ej.: a, b, a, c, a, b -->
         <input id="in" value="a, b, a, c, a, b" aria-label="Elementos separados por comas">
+
         <div class="row">
             <button id="run">Encontrar</button>
             <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
         </div>
+
         <div id="out" class="res">Más frecuente: —</div>
         <div id="msg" class="mut"></div>
     </div>
 
     <script>
-        const inp = document.getElementById('in'), out = document.getElementById('out'), msg = document.getElementById('msg');
+        // Tomamos las cajas de la página: donde escribes, dónde mostramos resultado y avisos
+        const inp = document.getElementById('in'),
+            out = document.getElementById('out'),
+            msg = document.getElementById('msg');
 
         function parseItems(s) {
-            return s.split(/[\s,]+/).map(x => x.trim()).filter(Boolean);
+            return s.split(/[\s,]+/).map(x => x.trim()).filter(Boolean); // Usa comas o espacios para separar las palabras.
         }
 
         function mostFrequent(arr) {
             if (!arr.length) return null;
-            const count = new Map();
+
+            const count = new Map();   // guardamos cada elemento y su contador
             let maxCount = 0, maxItem = null;
+
             for (const item of arr) {
+                // aumentamos el contador para este elemento
                 const v = (count.get(item) || 0) + 1;
                 count.set(item, v);
-                if (v > maxCount) { maxCount = v; maxItem = item; }
+
+                // si este elemento ahora tiene más apariciones, lo marcamos como el máximo
+                if (v > maxCount) {
+                    maxCount = v;
+                    maxItem = item;
+                }
             }
+
             return { item: maxItem, count: maxCount };
         }
 
+        // Al pulsar "Encontrar": procesamos la entrada y mostramos el resultado o un aviso
         document.getElementById('run').onclick = () => {
-            msg.textContent = ''; out.textContent = 'Más frecuente: —';
+            msg.textContent = '';
+            out.textContent = 'Más frecuente: —';
             try {
                 const items = parseItems(inp.value);
-                if (items.length === 0) throw 'Entrada vacía';
+                if (items.length === 0) throw 'Entrada vacía'; // avisar si no hay nada
+
                 const r = mostFrequent(items);
+                // mostramos el elemento y la cantidad, cuidando el singular/plural
                 out.textContent = `Más frecuente: "${r.item}" — ${r.count} ${r.count > 1 ? 'veces' : 'vez'}`;
-            } catch (e) { msg.textContent = e; }
+            } catch (e) {
+                // mostrar por qué no se pudo calcular
+                msg.textContent = e;
+            }
         };
 
-        document.getElementById('clr').onclick = () => { inp.value = ''; out.textContent = 'Más frecuente: —'; msg.textContent = ''; };
+        // Botón "Limpiar": deja todo como al principio
+        document.getElementById('clr').onclick = () => {
+            inp.value = '';
+            out.textContent = 'Más frecuente: —';
+            msg.textContent = '';
+        };
     </script>
 </body>
 
