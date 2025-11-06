@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Máximo de array — 6</title>
     <style>
+        /* Estilos básicos para presentación — nada crítico para la lógica */
         body {
             font-family: system-ui, Segoe UI, Roboto;
             display: flex;
@@ -61,36 +62,65 @@
 <body>
     <div class="box">
         <h3 style="margin:0 0 8px">Máximo en array</h3>
+
+        <!-- input: se espera una lista de números separados por comas/espacios -->
         <input id="in" value="11, 3, 16, 90" aria-label="Array de números (separados por comas)">
+
         <div class="row">
             <button id="run">Calcular</button>
             <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
         </div>
+
         <div id="out" class="res">Resultado: —</div>
         <div id="msg" class="mut"></div>
     </div>
 
     <script>
-        const inp = document.getElementById('in'), out = document.getElementById('out'), msg = document.getElementById('msg');
+        // Referencias a elementos del DOM (una sola búsqueda por elemento — más eficiente)
+        const inp = document.getElementById('in'),
+            out = document.getElementById('out'),
+            msg = document.getElementById('msg');
 
+        /**
+         * parseNums(s)
+         * - Convierte la cadena de entrada en un array de Numbers.
+         * - Acepta separadores: comas y/o espacios (regex /[\s,]+/).
+         * - Valida que cada token sea un número (enteros o decimales, negativos permitidos).
+         * - Lanza excepciones con mensajes claros si algo no es correcto.
+         */
         function parseNums(s) {
-            if (!s) throw 'Entrada vacía';
-            return s.split(/[\s,]+/).filter(Boolean).map(x => {
-                if (!/^-?\d+(\.\d+)?$/.test(x)) throw 'Valor no numérico: ' + x;
-                return Number(x);
-            });
+            if (!s) throw 'Entrada vacía';                 // validación rápida
+            return s
+                .split(/[\s,]+/)                           // separar por comas/espacios
+                .filter(Boolean)                          // eliminar tokens vacíos
+                .map(x => {
+                    // regex sencillo para números (soporta - y decimales)
+                    if (!/^-?\d+(\.\d+)?$/.test(x)) throw 'Valor no numérico: ' + x;
+                    return Number(x);                     // convertir a Number
+                });
         }
 
+        // Evento del botón "Calcular"
         document.getElementById('run').onclick = () => {
-            msg.textContent = ''; out.textContent = 'Resultado: —';
+            msg.textContent = '';               // limpiar mensajes previos
+            out.textContent = 'Resultado: —';   // reset salida mientras procesamos
             try {
-                const nums = parseNums(inp.value);
+                const nums = parseNums(inp.value);        // parseo + validación
+                // si hay valores usamos Math.max con spread; si no, mostramos guión
                 const max = nums.length ? Math.max(...nums) : null;
                 out.textContent = max === null ? 'Resultado: —' : 'Resultado: ' + max;
-            } catch (e) { msg.textContent = e; }
+            } catch (e) {
+                // mostrar error amigable al usuario (p. ej. "Valor no numérico: foo")
+                msg.textContent = e;
+            }
         };
 
-        document.getElementById('clr').onclick = () => { inp.value = ''; out.textContent = 'Resultado: —'; msg.textContent = ''; };
+        // Botón "Limpiar": deja el formulario listo para nuevo uso
+        document.getElementById('clr').onclick = () => {
+            inp.value = '';
+            out.textContent = 'Resultado: —';
+            msg.textContent = '';
+        };
     </script>
 </body>
 
