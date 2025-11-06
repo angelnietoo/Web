@@ -55,21 +55,39 @@
 <body>
     <div class="box">
         <h3 style="margin:0 0 8px">Producto de valores en una matriz</h3>
+
+        <!-- Escribe números separados por comas o espacios, por ejemplo: 2, 3, 4 -->
         <input id="in" value="2, 3, 4" aria-label="Array de números separados por comas">
+
         <div class="row">
             <button id="run">Calcular</button>
             <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
         </div>
+
         <div id="out" class="res">Producto: —</div>
     </div>
 
     <script>
-        const inp = document.getElementById('in'), out = document.getElementById('out');
+        // Cogemos los elementos de la página: la caja donde escribes y donde mostramos el resultado
+        const inp = document.getElementById('in'),
+            out = document.getElementById('out');
+
+        // Al pulsar "Calcular":
         document.getElementById('run').onclick = () => {
-            const nums = inp.value.split(/[\s,]+/).map(Number).filter(x => !isNaN(x));
+            const nums = inp.value
+                .split(/[\s,]+/)        // separar por comas o espacios lo que has escrito
+                .map(Number)            // transformar cada texto en número
+                .filter(x => !isNaN(x)); // quitar lo que no sea número
+
+            // Si hay números, los multiplicamos todos; si no, mostramos un guión
             out.textContent = 'Producto: ' + (nums.length ? nums.reduce((a, b) => a * b, 1) : '—');
         };
-        document.getElementById('clr').onclick = () => { inp.value = ''; out.textContent = 'Producto: —'; };
+
+        // Al pulsar "Limpiar": dejamos la caja y el resultado como al principio
+        document.getElementById('clr').onclick = () => {
+            inp.value = '';
+            out.textContent = 'Producto: —';
+        };
     </script>
 </body>
 
