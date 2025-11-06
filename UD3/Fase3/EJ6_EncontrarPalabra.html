@@ -94,36 +94,50 @@ aa, bb, aa</textarea>
     </div>
 
     <script>
-        // Función para buscar palabra exacta
+        // Busca coincidencias exactas de 'palabra' en 'texto'
         function palabra_busqueda(texto, palabra) {
+            // Si la palabra es vacía o falsy devolvemos mensaje indicando 0 (evita búsquedas inválidas)
             if (!palabra) return `'${palabra}' se encontró 0 veces.`;
+
+            // Separa el texto en tokens usando espacios y comas como separadores
+            // (expresión regular: cualquier cantidad de espacios o comas)
             const palabras = texto.split(/[\s,]+/);
+
+            // Filtra comparando exactamente (case-sensitive) y cuenta resultados
             const count = palabras.filter(p => p === palabra).length;
+
+            // Devuelve mensaje con singular/plural correcto
             return `'${palabra}' se encontró ${count} ${count === 1 ? 'vez' : 'veces'}.`;
         }
 
-        // DOM
-        const T = document.getElementById('text');
-        const W = document.getElementById('word');
-        const OUT = document.getElementById('out');
+        /* Referencias DOM */
+        const T = document.getElementById('text'); // textarea con el texto a analizar
+        const W = document.getElementById('word'); // input con la palabra a buscar
+        const OUT = document.getElementById('out'); // elemento donde mostramos el resultado
 
+        // Botón "Buscar": ejecuta la búsqueda y muestra el mensaje
         document.getElementById('run').onclick = () => {
             OUT.textContent = palabra_busqueda(T.value, W.value);
         };
 
+        // Botón "Copiar resultado": intenta copiar el texto mostrado al portapapeles
         document.getElementById('copy').onclick = async () => {
             try {
+                // Uso de la API moderna del portapapeles (requiere HTTPS en la mayoría de casos)
                 await navigator.clipboard.writeText(OUT.textContent);
+
+                // Mensaje temporal de confirmación y restauración del texto original
                 const prev = OUT.textContent;
                 OUT.textContent = 'Copiado ✓';
                 setTimeout(() => OUT.textContent = prev, 900);
             } catch {
+                // Fallback visual si la copia falla (permisos, entorno no seguro, etc.)
                 OUT.textContent = 'No se pudo copiar';
                 setTimeout(() => OUT.textContent = 'Pulsa "Buscar" — resultado aquí.', 900);
             }
         };
 
-        // Ejecuta al cargar
+        // Ejecuta una búsqueda inicial al cargar para mostrar resultado por defecto
         document.getElementById('run').click();
     </script>
 
