@@ -64,34 +64,63 @@
 <body>
     <div class="box">
         <h3 style="margin:0 0 8px">Diferencia entre fechas (días)</h3>
+
+        <!-- Elige dos fechas aquí -->
         <input id="d1" type="date" value="">
         <input id="d2" type="date" value="">
+
         <div class="row">
             <button id="run">Calcular</button>
             <button id="clr" style="background:#fff;color:#2563eb;border:1px solid rgba(37,99,235,.12)">Limpiar</button>
         </div>
+
         <div id="out" class="res">Diferencia: —</div>
         <div id="msg" class="mut"></div>
     </div>
 
     <script>
-        const d1 = document.getElementById('d1'), d2 = document.getElementById('d2'), out = document.getElementById('out'), msg = document.getElementById('msg');
+        // Cogemos las casillas de la página: las dos fechas, el lugar donde mostramos el resultado
+        // y el lugar donde mostramos avisos o errores.
+        const d1 = document.getElementById('d1'),
+            d2 = document.getElementById('d2'),
+            out = document.getElementById('out'),
+            msg = document.getElementById('msg');
 
         function daysBetween(a, b) {
-            if (!a || !b) throw 'Selecciona ambas fechas';
-            const [y1, m1, dd1] = a.split('-').map(Number), [y2, m2, dd2] = b.split('-').map(Number);
-            const t1 = Date.UTC(y1, m1 - 1, dd1), t2 = Date.UTC(y2, m2 - 1, dd2);
+            if (!a || !b) throw 'Selecciona ambas fechas'; // pedir ambas fechas
+
+            // Separamos el texto de la fecha en año, mes y día y los convertimos a números.
+            const [y1, m1, dd1] = a.split('-').map(Number),
+                [y2, m2, dd2] = b.split('-').map(Number);
+
+            // Convertimos cada fecha a un valor que represente ese día (así se puede restar).
+            // Esto evita problemas con las horas y cambios de zona.
+            const t1 = Date.UTC(y1, m1 - 1, dd1),
+                t2 = Date.UTC(y2, m2 - 1, dd2);
+
+            // Restamos, convertimos a días y devolvemos el valor absoluto (sin signo).
             return Math.abs(Math.floor((t2 - t1) / (24 * 60 * 60 * 1000)));
         }
 
+        // Al pulsar "Calcular": intentamos obtener la diferencia y la mostramos o mostramos el error.
         document.getElementById('run').onclick = () => {
-            msg.textContent = ''; out.textContent = 'Diferencia: —';
+            msg.textContent = ''; out.textContent = 'Diferencia: —'; // limpiar antes
             try {
                 const diff = daysBetween(d1.value, d2.value);
                 out.textContent = 'Diferencia: ' + diff + ' día' + (diff !== 1 ? 's' : '');
-            } catch (e) { msg.textContent = e; }
+            } catch (e) {
+                // Si falta una fecha o hay otro problema, lo mostramos aquí.
+                msg.textContent = e;
+            }
         };
-        document.getElementById('clr').onclick = () => { d1.value = ''; d2.value = ''; out.textContent = 'Diferencia: —'; msg.textContent = ''; };
+
+        // Botón "Limpiar": dejar todo como al principio
+        document.getElementById('clr').onclick = () => {
+            d1.value = '';
+            d2.value = '';
+            out.textContent = 'Diferencia: —';
+            msg.textContent = '';
+        };
     </script>
 </body>
 
