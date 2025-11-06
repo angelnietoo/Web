@@ -113,40 +113,54 @@
     </div>
 
     <script>
-        /* Cuenta apariciones NO solapadas (case-sensitive) */
+        // Función: cuenta apariciones NO solapadas de 'needle' en 'hay' (case-sensitive).
         function countNonOverlapping(hay, needle) {
+            // Si la subcadena es vacía o falsy, devolvemos 0 (evita bucle infinito).
             if (!needle) return 0;
+
+            // pos: posición desde la que buscamos; count: contador de coincidencias;
+            // step: longitud de la subcadena (se usa para saltar y evitar solapamientos).
             let pos = 0, count = 0, step = needle.length;
+
+            // indexOf busca la siguiente ocurrencia empezando en pos.
+            // Cuando no encuentra devuelve -1 y termina el bucle.
             while ((pos = hay.indexOf(needle, pos)) !== -1) {
-                count++;
-                pos += step;
+                count++;         // contabiliza la coincidencia encontrada
+                pos += step;     // avanza pos para NO contar coincidencias solapadas
             }
+
             return count;
         }
 
-        /* DOM */
-        const T = document.getElementById('text');
-        const S = document.getElementById('sub');
-        const OUT = document.getElementById('out');
+        /* Referencias a elementos del DOM (entrada, subcadena y salida) */
+        const T = document.getElementById('text'); // textarea con el texto
+        const S = document.getElementById('sub');  // input con la subcadena
+        const OUT = document.getElementById('out'); // área donde se muestra el resultado
 
+        // Manejador del botón "Contar": obtiene valores, llama a la función y muestra el resultado.
         document.getElementById('run').onclick = () => {
             const n = countNonOverlapping(T.value, S.value);
             OUT.textContent = `Apariciones (no solapado): ${n}`;
         };
 
+        // Manejador del botón "Copiar resultado": usa la API del portapapeles (async).
         document.getElementById('copy').onclick = async () => {
             try {
+                // Intento de copiar el texto mostrado. Requiere HTTPS en la mayoría de navegadores.
                 await navigator.clipboard.writeText(OUT.textContent);
+
+                // Mensaje temporal de éxito: lo mostramos y lo restauramos tras 900 ms.
                 const prev = OUT.textContent;
                 OUT.textContent = 'Copiado ✓';
                 setTimeout(() => OUT.textContent = prev, 900);
             } catch {
+                // Si falla (permiso, no HTTPS, navegador antiguo), mostramos error temporal.
                 OUT.textContent = 'No se pudo copiar';
                 setTimeout(() => OUT.textContent = 'Pulsa "Contar" — resultado aquí.', 900);
             }
         };
 
-        /* Ejecuta al cargar */
+        // Autoejecución: simula un clic en "Contar" al cargar para mostrar resultado inicial.
         document.getElementById('run').click();
     </script>
 </body>
