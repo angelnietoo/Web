@@ -74,23 +74,36 @@
     </div>
 
     <script>
-        const inp = document.getElementById('in'), sep = document.getElementById('sep'), out = document.getElementById('out'), msg = document.getElementById('msg');
+        // Referencias DOM clave
+        const inp = document.getElementById('in'),   // campo con elementos (texto)
+            sep = document.getElementById('sep'),  // separador elegido por el usuario
+            out = document.getElementById('out'),  // donde mostramos la cadena resultante
+            msg = document.getElementById('msg');  // mensajes de error/información
 
         function parseItems(s) {
-            if (!s) return [];
-            return s.split(/[\r\n,]+/).map(x => x.trim()).filter(Boolean);
+            if (!s) return []; // entrada vacía -> array vacío
+            return s.split(/[\r\n,]+/)   // dividir por comas o líneas
+                .map(x => x.trim())  // quitar espacios sobrantes
+                .filter(Boolean);    // eliminar strings vacíos
         }
 
+        // Al pulsar "Unir": parsear, determinar separador y unir con join()
         document.getElementById('run').onclick = () => {
             msg.textContent = ''; out.textContent = 'Cadena: —';
             try {
-                const items = parseItems(inp.value);
+                const items = parseItems(inp.value);                 // array de elementos
+                // si sep.value es null/undefined usamos ',' como fallback (raro en practice)
                 const s = sep.value == null ? ',' : sep.value;
-                out.textContent = 'Cadena: ' + items.join(s);
-            } catch (e) { msg.textContent = e; }
+                out.textContent = 'Cadena: ' + items.join(s);       // join une con el separador
+            } catch (e) {
+                msg.textContent = e; // mostrar cualquier error inesperado
+            }
         };
 
-        document.getElementById('clr').onclick = () => { inp.value = ''; sep.value = ', '; out.textContent = 'Cadena: —'; msg.textContent = ''; };
+        // Botón "Limpiar": reset simple de campos y mensajes
+        document.getElementById('clr').onclick = () => {
+            inp.value = ''; sep.value = ', '; out.textContent = 'Cadena: —'; msg.textContent = '';
+        };
     </script>
 </body>
 
