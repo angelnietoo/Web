@@ -72,33 +72,61 @@
     </div>
 
     <script>
+        // names: nombres de los meses (índice 0 = enero)
         const names = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-        const elM = document.getElementById('m'), elY = document.getElementById('y'), out = document.getElementById('out'), msg = document.getElementById('msg');
 
+        // Referencias DOM importantes
+        const elM = document.getElementById('m'), // input mes (texto o número)
+            elY = document.getElementById('y'), // input año
+            out = document.getElementById('out'),// resultado mostrado
+            msg = document.getElementById('msg');// mensajes de error
+
+        // parseMonth(v): devuelve número de mes 1..12 o lanza error
         function parseMonth(v) {
             if (!v) throw 'Mes vacío';
             v = v.toString().trim().toLowerCase();
-            if (/^-?\d+$/.test(v)) { const n = Math.abs(Number(v)); if (n < 1 || n > 12) throw 'Mes fuera de rango'; return n; }
-            const idx = names.findIndex(n => n.startsWith(v)); if (idx === -1) throw 'Nombre de mes no reconocido';
+
+            // Si es dígito (ej. "2" o "-2"), usar valor absoluto y validar rango
+            if (/^-?\d+$/.test(v)) {
+                const n = Math.abs(Number(v));
+                if (n < 1 || n > 12) throw 'Mes fuera de rango';
+                return n;
+            }
+
+            // Buscar por nombre (acepta abreviaturas que empiecen igual)
+            const idx = names.findIndex(n => n.startsWith(v));
+            if (idx === -1) throw 'Nombre de mes no reconocido';
             return idx + 1;
         }
 
+        // daysInMonth(month, year): devuelve { name, days }
         function daysInMonth(month, year) {
-            const m = parseMonth(month);
-            const y = Number(year);
+            const m = parseMonth(month);         // m: 1..12
+            const y = Number(year);             // y: año numérico
             if (!Number.isInteger(y) || y < 1) throw 'Año inválido';
-            return { name: names[m - 1][0].toUpperCase() + names[m - 1].slice(1), days: new Date(y, m, 0).getDate() };
+
+            // name: nombre del mes con inicial en mayúscula
+            const name = names[m - 1][0].toUpperCase() + names[m - 1].slice(1);
+
+            // days: último día del mes m -> new Date(y, m, 0).getDate()
+            const days = new Date(y, m, 0).getDate();
+
+            return { name, days };
         }
 
+        // Botón "Calcular": mostrar resultado o error
         document.getElementById('run').onclick = () => {
             msg.textContent = ''; out.textContent = '—';
             try {
-                const r = daysInMonth(elM.value, elY.value);
+                const r = daysInMonth(elM.value, elY.value); // r.name, r.days
                 out.textContent = `${r.name} — ${r.days} días`;
             } catch (e) { msg.textContent = e; }
         };
 
-        document.getElementById('clr').onclick = () => { elM.value = ''; elY.value = ''; out.textContent = '—'; msg.textContent = ''; };
+        // Botón "Limpiar"
+        document.getElementById('clr').onclick = () => {
+            elM.value = ''; elY.value = ''; out.textContent = '—'; msg.textContent = '';
+        };
     </script>
 </body>
 
