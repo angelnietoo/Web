@@ -72,58 +72,73 @@
     </div>
 
     <script>
-        // names: nombres de los meses (índice 0 = enero)
+        // Nombres de los meses (enero = posición 0)
         const names = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
-        // Referencias DOM importantes
-        const elM = document.getElementById('m'), // input mes (texto o número)
-            elY = document.getElementById('y'), // input año
-            out = document.getElementById('out'),// resultado mostrado
-            msg = document.getElementById('msg');// mensajes de error
+        // Cogemos las cajas de la página para leer y mostrar datos
+        const elM = document.getElementById('m'), // donde el usuario escribe el mes
+            elY = document.getElementById('y'),   // donde el usuario escribe el año
+            out = document.getElementById('out'), // aquí mostramos el resultado
+            msg = document.getElementById('msg'); // aquí mostramos errores o avisos
 
-        // parseMonth(v): devuelve número de mes 1..12 o lanza error
+        /**
+         * parseMonth(v)
+         * Toma lo que escribió el usuario y devuelve un mes en número (1-12).
+         * - Acepta un número (por ejemplo "2") o un nombre (por ejemplo "febrero" o "feb").
+         * - Si algo no encaja, avisa con un mensaje.
+         */
         function parseMonth(v) {
             if (!v) throw 'Mes vacío';
             v = v.toString().trim().toLowerCase();
 
-            // Si es dígito (ej. "2" o "-2"), usar valor absoluto y validar rango
+            // Si parece un número entero (p. ej. "2" o "-2"), lo usamos y comprobamos que esté entre 1 y 12
             if (/^-?\d+$/.test(v)) {
                 const n = Math.abs(Number(v));
                 if (n < 1 || n > 12) throw 'Mes fuera de rango';
                 return n;
             }
 
-            // Buscar por nombre (acepta abreviaturas que empiecen igual)
+            // Si escribió texto, buscamos un mes cuyo nombre empiece por lo que puso
+            // Esto permite escribir abreviaturas como "feb" o "febr"
             const idx = names.findIndex(n => n.startsWith(v));
             if (idx === -1) throw 'Nombre de mes no reconocido';
-            return idx + 1;
+            return idx + 1; // volvemos al sistema de 1..12
         }
 
-        // daysInMonth(month, year): devuelve { name, days }
+        /**
+         * daysInMonth(month, year)
+         * Devuelve un objeto con:
+         *  - name: nombre del mes con la primera letra en mayúscula
+         *  - days: cuántos días tiene ese mes en el año indicado
+         */
         function daysInMonth(month, year) {
-            const m = parseMonth(month);         // m: 1..12
-            const y = Number(year);             // y: año numérico
+            const m = parseMonth(month);         // obtener mes como número 1..12
+            const y = Number(year);             // convertir año a número
             if (!Number.isInteger(y) || y < 1) throw 'Año inválido';
 
-            // name: nombre del mes con inicial en mayúscula
+            // Nombre bonito: primera letra en mayúscula
             const name = names[m - 1][0].toUpperCase() + names[m - 1].slice(1);
 
-            // days: último día del mes m -> new Date(y, m, 0).getDate()
+            // Para saber los días usamos el calendario del navegador:
+            // pedimos el último día del mes y ese número es la cantidad de días.
             const days = new Date(y, m, 0).getDate();
 
             return { name, days };
         }
 
-        // Botón "Calcular": mostrar resultado o error
+        // Al pulsar "Calcular": intentamos obtener nombre y días, o mostramos error
         document.getElementById('run').onclick = () => {
             msg.textContent = ''; out.textContent = '—';
             try {
-                const r = daysInMonth(elM.value, elY.value); // r.name, r.days
+                const r = daysInMonth(elM.value, elY.value); // r tiene r.name y r.days
                 out.textContent = `${r.name} — ${r.days} días`;
-            } catch (e) { msg.textContent = e; }
+            } catch (e) {
+                // Si algo no es correcto (mes no válido, año mal escrito...), se muestra aquí
+                msg.textContent = e;
+            }
         };
 
-        // Botón "Limpiar"
+        // Al pulsar "Limpiar" dejamos todo como al principio
         document.getElementById('clr').onclick = () => {
             elM.value = ''; elY.value = ''; out.textContent = '—'; msg.textContent = '';
         };
