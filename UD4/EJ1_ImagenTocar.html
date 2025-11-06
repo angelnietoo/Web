@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Imagen: cambia mientras mantienes</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            font-family: Arial, Helvetica, sans-serif
+        }
+
+        img {
+            max-width: 90vw;
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            touch-action: manipulation
+        }
+    </style>
+</head>
+
+<body>
+    <img id="img" tabindex="0" alt="Imagen interactiva">
+
+    <script>
+        /* imágenes SVG embebidas (auto-contenidas) */
+        const svgA = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 360'><rect width='100%' height='100%' fill='#9fd3c7'/><text x='50%' y='50%' font-size='40' text-anchor='middle' dominant-baseline='middle' fill='#043047'>Imagen 1</text></svg>`;
+        const svgB = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 360'><rect width='100%' height='100%' fill='#ffd1c1'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' fill='#4a0b0b'>Imagen 2</text></svg>`;
+
+        const img = document.getElementById('img');
+        const normal = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgA);
+        const pressed = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgB);
+
+        let pressedState = false;
+        const set = v => { pressedState = v; img.src = v ? pressed : normal; };
+
+        set(false);
+
+        /* pointer covers mouse+touch */
+        img.addEventListener('pointerdown', e => { e.preventDefault(); set(true); try { img.setPointerCapture(e.pointerId) } catch { } });
+        img.addEventListener('pointerup', e => { set(false); try { img.releasePointerCapture(e.pointerId) } catch { } });
+        img.addEventListener('pointercancel', () => set(false));
+        document.addEventListener('pointerup', () => set(false));
+
+        /* teclado: mantener espacio/enter */
+        img.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); set(true); } });
+        img.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); set(false); } });
+
+        /* evitar arrastrar imagen */
+        img.addEventListener('dragstart', e => e.preventDefault());
+    </script>
+</body>
+
+</html>
