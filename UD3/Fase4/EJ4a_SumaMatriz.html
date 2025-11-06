@@ -67,23 +67,42 @@
     </div>
 
     <script>
-        const inEl = document.getElementById('in'), out = document.getElementById('out'), msg = document.getElementById('msg');
+        // referencias DOM: entrada, salida principal y mensaje de error
+        const inEl = document.getElementById('in'),
+            out = document.getElementById('out'),
+            msg = document.getElementById('msg');
+
         function parse(s) {
-            if (!s) return [];
-            return s.split(/[\s,]+/).filter(Boolean).map(x => {
-                if (!/^-?\d+$/.test(x)) throw 'No es entero: ' + x;
-                return Number(x);
-            });
+            if (!s) return []; // array vacío
+            return s.split(/[\s,]+/)           // separadores : espacios y comas
+                .filter(Boolean)           // elimina entradas vacías
+                .map(x => {
+                    // validación estricta: solo números enteros (sin decimales)
+                    if (!/^-?\d+$/.test(x)) throw 'No es entero: ' + x;
+                    return Number(x);      // conversión segura a Number
+                });
         }
+
+        // botón "Calcular": parsea la entrada, suma con reduce y muestra resultado
+        // manejo de errores: si parse() lanza, mostramos mensaje en #msg
         document.getElementById('run').onclick = () => {
-            msg.textContent = '';
+            msg.textContent = ''; // limpiar mensaje previo
             try {
-                const nums = parse(inEl.value);
-                const sum = nums.reduce((a, b) => a + b, 0);
-                out.textContent = 'Resultado: ' + sum;
-            } catch (e) { out.textContent = 'Resultado: —'; msg.textContent = e; }
+                const nums = parse(inEl.value);                 // parseo y validación
+                const sum = nums.reduce((a, b) => a + b, 0);    // reduce para sumar
+                out.textContent = 'Resultado: ' + sum;         // muestro el resultado
+            } catch (e) {
+                out.textContent = 'Resultado: —';              // no mostrar resultado inválido
+                msg.textContent = e;                           // motivo del error (ej. token no entero)
+            }
         };
-        document.getElementById('clr').onclick = () => { inEl.value = ''; out.textContent = 'Resultado: —'; msg.textContent = ''; };
+
+        // botón "Limpiar": resetea input y mensajes
+        document.getElementById('clr').onclick = () => {
+            inEl.value = '';
+            out.textContent = 'Resultado: —';
+            msg.textContent = '';
+        };
     </script>
 </body>
 
