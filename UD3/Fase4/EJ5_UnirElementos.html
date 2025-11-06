@@ -74,35 +74,41 @@
     </div>
 
     <script>
-        // Referencias DOM clave
-        const inp = document.getElementById('in'),   // campo con elementos (texto)
-            sep = document.getElementById('sep'),  // separador elegido por el usuario
-            out = document.getElementById('out'),  // donde mostramos la cadena resultante
-            msg = document.getElementById('msg');  // mensajes de error/información
+        // Cogemos los campos de la página: donde escribes, el separador y dónde ponemos el resultado.
+        const inp = document.getElementById('in'),   // caja con los elementos que quieres unir
+            sep = document.getElementById('sep'),   // caja donde pones el separador (p. ej. ", ")
+            out = document.getElementById('out'),   // aquí mostramos la cadena final
+            msg = document.getElementById('msg');   // aquí mostramos avisos o errores
 
         function parseItems(s) {
-            if (!s) return []; // entrada vacía -> array vacío
-            return s.split(/[\r\n,]+/)   // dividir por comas o líneas
-                .map(x => x.trim())  // quitar espacios sobrantes
-                .filter(Boolean);    // eliminar strings vacíos
+            if (!s) return []; // si no escribiste nada devolvemos lista vacía
+            return s
+                .split(/[\r\n,]+/)   // separa por comas o por saltos de línea
+                .map(x => x.trim())  // quita espacios al principio y al final de cada trozo
+                .filter(Boolean);    // elimina trozos que queden vacíos
         }
 
-        // Al pulsar "Unir": parsear, determinar separador y unir con join()
+        // Al pulsar "Unir": leemos lo escrito, preparamos el separador y juntamos todo.
         document.getElementById('run').onclick = () => {
             msg.textContent = ''; out.textContent = 'Cadena: —';
             try {
-                const items = parseItems(inp.value);                 // array de elementos
-                // si sep.value es null/undefined usamos ',' como fallback (raro en practice)
+                const items = parseItems(inp.value);                 // obtener lista limpia
+                // si el separador está vacío usamos una coma por defecto
                 const s = sep.value == null ? ',' : sep.value;
-                out.textContent = 'Cadena: ' + items.join(s);       // join une con el separador
+                // unimos las palabras/frases con el separador elegido y lo mostramos
+                out.textContent = 'Cadena: ' + items.join(s);
             } catch (e) {
-                msg.textContent = e; // mostrar cualquier error inesperado
+                // si pasa algo raro lo mostramos aquí
+                msg.textContent = e;
             }
         };
 
-        // Botón "Limpiar": reset simple de campos y mensajes
+        // Al pulsar "Limpiar": dejamos las cajas como al principio
         document.getElementById('clr').onclick = () => {
-            inp.value = ''; sep.value = ', '; out.textContent = 'Cadena: —'; msg.textContent = '';
+            inp.value = '';
+            sep.value = ', ';
+            out.textContent = 'Cadena: —';
+            msg.textContent = '';
         };
     </script>
 </body>
