@@ -57,6 +57,8 @@
 <body>
     <div class="box">
         <h3 style="margin:0 0 8px">Suma array (enteros)</h3>
+
+        <!-- Escribe números separados por comas o espacios, p. ej. "1, 2, 3" -->
         <input id="in" value="1, 2, 3, 4, 5, 6" aria-label="Array de enteros">
         <div style="display:flex;gap:8px">
             <button id="run">Calcular</button>
@@ -67,37 +69,42 @@
     </div>
 
     <script>
-        // referencias DOM: entrada, salida principal y mensaje de error
+        // Cogemos los elementos de la página: lo que escribes, dónde mostramos el resultado y dónde dejamos avisos
         const inEl = document.getElementById('in'),
             out = document.getElementById('out'),
             msg = document.getElementById('msg');
 
+        /**
+         * parse(s)
+         * - Toma el texto que escribiste y lo transforma en una lista de números enteros.
+         * - Si encuentra algo que no es un entero, avisa con un mensaje indicando cuál es.
+         */
         function parse(s) {
-            if (!s) return []; // array vacío
-            return s.split(/[\s,]+/)           // separadores : espacios y comas
-                .filter(Boolean)           // elimina entradas vacías
+            if (!s) return []; // si no escribiste nada, devolvemos lista vacía
+
+            return s.split(/[\s,]+/)      // separa por comas o espacios
+                .filter(Boolean)          // quita piezas vacías (por si hay dobles comas/espacios)
                 .map(x => {
-                    // validación estricta: solo números enteros (sin decimales)
+                    // comprobamos que cada trozo sea un número entero (sin decimales)
                     if (!/^-?\d+$/.test(x)) throw 'No es entero: ' + x;
-                    return Number(x);      // conversión segura a Number
+                    return Number(x);     // convertimos el texto en número real
                 });
         }
 
-        // botón "Calcular": parsea la entrada, suma con reduce y muestra resultado
-        // manejo de errores: si parse() lanza, mostramos mensaje en #msg
+        // Al pulsar "Calcular": leemos, convertimos y sumamos. Si hay un error, lo mostramos.
         document.getElementById('run').onclick = () => {
-            msg.textContent = ''; // limpiar mensaje previo
+            msg.textContent = ''; // quitar aviso anterior
             try {
-                const nums = parse(inEl.value);                 // parseo y validación
-                const sum = nums.reduce((a, b) => a + b, 0);    // reduce para sumar
-                out.textContent = 'Resultado: ' + sum;         // muestro el resultado
+                const nums = parse(inEl.value);                // obtener la lista de enteros
+                const sum = nums.reduce((a, b) => a + b, 0);   // sumar todos los números
+                out.textContent = 'Resultado: ' + sum;        // mostrar la suma
             } catch (e) {
-                out.textContent = 'Resultado: —';              // no mostrar resultado inválido
-                msg.textContent = e;                           // motivo del error (ej. token no entero)
+                out.textContent = 'Resultado: —';             // no dejamos resultado confuso
+                msg.textContent = e;                          // mostramos por qué falló
             }
         };
 
-        // botón "Limpiar": resetea input y mensajes
+        // Al pulsar "Limpiar": dejamos todo como al principio
         document.getElementById('clr').onclick = () => {
             inEl.value = '';
             out.textContent = 'Resultado: —';
