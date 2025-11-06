@@ -81,13 +81,6 @@
             out = document.getElementById('out'),
             msg = document.getElementById('msg');
 
-        /**
-         * parseNums(s)
-         * - Convierte la cadena de entrada en un array de Numbers.
-         * - Acepta separadores: comas y/o espacios (regex /[\s,]+/).
-         * - Valida que cada token sea un número (enteros o decimales, negativos permitidos).
-         * - Lanza excepciones con mensajes claros si algo no es correcto.
-         */
         function parseNums(s) {
             if (!s) throw 'Entrada vacía';                 // validación rápida
             return s
