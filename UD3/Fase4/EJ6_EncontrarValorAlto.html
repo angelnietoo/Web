@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Máximo de array — 6</title>
     <style>
-        /* Estilos básicos para presentación — nada crítico para la lógica */
+        /* Apariencia: hace que se vea bien, no cambia la lógica */
         body {
             font-family: system-ui, Segoe UI, Roboto;
             display: flex;
@@ -63,7 +63,7 @@
     <div class="box">
         <h3 style="margin:0 0 8px">Máximo en array</h3>
 
-        <!-- input: se espera una lista de números separados por comas/espacios -->
+        <!-- Aquí escribes números separados por comas o espacios, p.ej: 11, 3, 16, 90 -->
         <input id="in" value="11, 3, 16, 90" aria-label="Array de números (separados por comas)">
 
         <div class="row">
@@ -76,39 +76,47 @@
     </div>
 
     <script>
-        // Referencias a elementos del DOM (una sola búsqueda por elemento — más eficiente)
+        // Tomamos las cajas de la página para poder leer lo que escribe el usuario
+        // y para mostrar el resultado y mensajes.
         const inp = document.getElementById('in'),
             out = document.getElementById('out'),
             msg = document.getElementById('msg');
 
+        /*
+         parseNums(s)
+         - Toma el texto que escribiste en la caja y devuelve una lista de números.
+         - Si el texto está vacío o hay algo que no es número, avisa con un error.
+        */
         function parseNums(s) {
-            if (!s) throw 'Entrada vacía';                 // validación rápida
+            if (!s) throw 'Entrada vacía'; // Si no hay nada escrito, lo decimos
+
             return s
-                .split(/[\s,]+/)                           // separar por comas/espacios
-                .filter(Boolean)                          // eliminar tokens vacíos
+                .split(/[,\s]+/) // Separa por comas o espacios
+                .filter(Boolean) // Quita pedazos vacíos si hay dobles comas/espacios
                 .map(x => {
-                    // regex sencillo para números (soporta - y decimales)
+                    // Miramos si el pedazo tiene formato de número (acepta negativos y decimales).
+                    // Si no parece un número, avisamos cuál es el problema.
                     if (!/^-?\d+(\.\d+)?$/.test(x)) throw 'Valor no numérico: ' + x;
-                    return Number(x);                     // convertir a Number
+                    return Number(x); // Convertimos el texto en número real
                 });
         }
 
-        // Evento del botón "Calcular"
+        // Cuando pulsas "Calcular": limpiamos mensajes previos y tratamos de obtener el máximo
         document.getElementById('run').onclick = () => {
-            msg.textContent = '';               // limpiar mensajes previos
-            out.textContent = 'Resultado: —';   // reset salida mientras procesamos
+            msg.textContent = ''; // quitar aviso anterior
+            out.textContent = 'Resultado: —'; // mostramos guión mientras se procesa
             try {
-                const nums = parseNums(inp.value);        // parseo + validación
-                // si hay valores usamos Math.max con spread; si no, mostramos guión
+                const nums = parseNums(inp.value); // convertir lo escrito en números
+                // si hay números usamos Math.max, si no hay ninguno mostramos guión
                 const max = nums.length ? Math.max(...nums) : null;
                 out.textContent = max === null ? 'Resultado: —' : 'Resultado: ' + max;
             } catch (e) {
-                // mostrar error amigable al usuario (p. ej. "Valor no numérico: foo")
+                // Si hubo un error (entrada vacía o texto no numérico), lo mostramos aquí
                 msg.textContent = e;
             }
         };
 
-        // Botón "Limpiar": deja el formulario listo para nuevo uso
+        // Botón "Limpiar": deja todo como al principio
         document.getElementById('clr').onclick = () => {
             inp.value = '';
             out.textContent = 'Resultado: —';
