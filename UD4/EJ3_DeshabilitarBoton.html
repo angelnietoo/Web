@@ -33,8 +33,8 @@
 <body>
   <div class="container">
     <h2>EJ3 — Deshabilitar botón derecho</h2>
-    <p>El menú contextual está deshabilitado en esta página. Intenta hacer clic derecho.</p>
-    <div class="status" id="status">Context menu: DESHABILITADO</div>
+    <p>El click derecho está deshabilitado en esta página. Intenta hacer clic derecho.</p>
+    <div class="status" id="status">Click derecho: DESHABILITADO</div>
   </div>
 
 <script>
@@ -42,8 +42,8 @@
   window.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     const s = document.getElementById('status');
-    s.textContent = 'Intento de menú contextual bloqueado';
-    setTimeout(()=> s.textContent = 'Context menu: DESHABILITADO', 900);
+    s.textContent = 'Intento de click derecho bloqueado';
+    setTimeout(()=> s.textContent = 'Click derecho: DESHABILITADO', 900);
   }, {passive:false});
 })();
 </script>
