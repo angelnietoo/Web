@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contador de palabras</title>
+    <style>
+        body {
+            font-family: system-ui, Segoe UI, Roboto, Arial;
+            margin: 24px;
+            background: #f7f7f8;
+            color: #111
+        }
+
+        main {
+            max-width: 720px;
+            margin: 0 auto
+        }
+
+        pre {
+            background: #111;
+            color: #f7f7f8;
+            padding: 16px;
+            border-radius: 8px;
+            overflow: auto
+        }
+
+        .card {
+            background: #fff;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .06)
+        }
+
+        h1 {
+            font-size: 18px;
+            margin: 0 0 12px
+        }
+
+        small {
+            color: #555
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="card">
+            <h1>Contador de palabras</h1>
+            <p><small>El script ejecuta el código que proporcionaste y muestra el resultado.</small></p>
+            <pre id="output" aria-live="polite"></pre>
+        </div>
+    </main>
+
+    <script>
+        // Código proporcionado por el usuario
+        const frase = 'hola mundo hola javascript mundo javascript javascript';
+        const palabras = frase.split(' ');
+        const contador = new Map();
+        palabras.forEach((palabra) => {
+            if (contador.has(palabra)) {
+                contador.set(palabra, contador.get(palabra) + 1);
+            } else {
+                contador.set(palabra, 1);
+            }
+        });
+        console.log(contador);
+
+        // Mostrar resultado en la página
+        const out = document.getElementById('output');
+        out.textContent = Array.from(contador.entries()).map(([k, v]) => `${k}: ${v}`).join('\n');
+    </script>
+</body>
+
+</html>
