@@ -5,36 +5,46 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EJ2 - Cambios cuadro</title>
 <style>
-  body{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-    padding-top:28px;
-    background:#071126;
-    color:#dfefff;
-    margin:0;
-    font-family:system-ui,Arial;
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fa;
+    color: #111;
+    margin: 30px 0 0 0;
+    text-align: center;
   }
-  .card{
-    background:rgba(255,255,255,0.03);
-    padding:16px;
-    border-radius:10px;
-    max-width:700px;
-    width:100%;
-    box-sizing:border-box;
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    max-width: 520px;
+    margin: 0 auto;
   }
-  #box{padding:20px;border-radius:8px;background:#fff;color:#071125;font-weight:700}
-  .log{margin-top:12px;font-family:monospace;color:#a9d9ff}
+  #box {
+    padding: 18px;
+    border-radius: 6px;
+    background: #fff;
+    color: #071125;
+    font-weight:700;
+    border:1px solid #e6eef7;
+  }
+  .log {
+    margin-top: 12px;
+    background: #eef2ff;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: monospace;
+  }
 </style>
 </head>
 <body>
-  <main class="card">
-    <h1>EJ2 — Cuadro que cambia</h1>
+  <div class="container">
+    <h2>EJ2 — Cuadro que cambia</h2>
     <p>mousedown → amarillo. keydown → azul claro. mousemove → blanco.</p>
+
     <div id="box">Aquí verás el color según evento</div>
     <div class="log" id="log">Esperando eventos...</div>
-  </main>
+  </div>
 
 <script>
 (() => {

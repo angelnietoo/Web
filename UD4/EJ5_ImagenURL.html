@@ -5,34 +5,60 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EJ5 - URL imagen</title>
 <style>
-  body{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-    padding-top:28px;
-    background:#071126;
-    color:#dfefff;
-    margin:0;
-    font-family:system-ui,Arial;
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fa;
+    color: #111;
+    margin: 30px 0 0 0;
+    text-align: center;
   }
-  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:820px;width:100%;box-sizing:border-box}
-  img.preview{width:140px;height:90px;object-fit:cover;border-radius:6px;border:1px solid rgba(255,255,255,0.04);cursor:pointer}
-  .status{margin-left:12px;font-family:monospace;color:#a9d9ff}
-  .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .container {
+    background: #fff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .row {
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-top:10px;
+  }
+  img.preview {
+    width: 160px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border:1px solid #e6eef7;
+    cursor:pointer;
+  }
+  .status {
+    margin-top: 12px;
+    background: #eef2ff;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: monospace;
+  }
+  small { color: #666; display:block; margin-top:6px; }
 </style>
 </head>
 <body>
-  <main class="card">
-    <h1>EJ5 — Mostrar URL de la imagen</h1>
+  <div class="container">
+    <h2>EJ5 — Mostrar URL de la imagen</h2>
     <p>Pasa el ratón por una imagen para ver su URL. Haz click para copiarla.</p>
+
     <div class="row">
       <img class="preview" src="https://picsum.photos/id/1011/400/300" alt="1">
       <img class="preview" src="https://picsum.photos/id/1005/400/300" alt="2">
       <img class="preview" src="https://picsum.photos/id/1003/400/300" alt="3">
-      <div class="status" id="status">Pasa el ratón por una imagen...</div>
     </div>
-  </main>
+
+    <div class="status" id="status">Pasa el ratón por una imagen...</div>
+  </div>
 
 <script>
 (() => {

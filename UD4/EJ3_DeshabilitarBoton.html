@@ -5,27 +5,36 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EJ3 - Sin menú contextual</title>
 <style>
-  body{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    min-height:100vh;
-    padding-top:28px;
-    background:#071126;
-    color:#dfefff;
-    margin:0;
-    font-family:system-ui,Arial;
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fa;
+    color: #111;
+    margin: 30px 0 0 0;
+    text-align: center;
   }
-  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:640px;width:100%;box-sizing:border-box}
-  .status{margin-top:12px;font-weight:700;color:#a9d9ff}
+  .container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .status {
+    margin-top: 12px;
+    background: #eef2ff;
+    padding: 10px;
+    border-radius: 6px;
+    font-family: monospace;
+  }
 </style>
 </head>
 <body>
-  <main class="card">
-    <h1>EJ3 — Deshabilitar botón derecho</h1>
+  <div class="container">
+    <h2>EJ3 — Deshabilitar botón derecho</h2>
     <p>El menú contextual está deshabilitado en esta página. Intenta hacer clic derecho.</p>
     <div class="status" id="status">Context menu: DESHABILITADO</div>
-  </main>
+  </div>
 
 <script>
 (() => {
