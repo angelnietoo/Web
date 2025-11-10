@@ -5,9 +5,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EJ1 - Imagen press</title>
 <style>
-  body{font-family:system-ui,Arial;margin:20px;background:#071126;color:#dfefff}
-  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:680px;}
-  img{width:320px;height:240px;object-fit:cover;border-radius:8px;cursor:pointer}
+  /* Centrado arriba: body como contenedor flex */
+  body{
+    display:flex;
+    justify-content:center;    /* centra horizontalmente */
+    align-items:flex-start;    /* pegado arriba */
+    min-height:100vh;
+    padding-top:28px;          /* separación superior */
+    background:#071126;
+    color:#dfefff;
+    margin:0;
+    font-family:system-ui,Arial;
+  }
+  .card{
+    background:rgba(255,255,255,0.03);
+    padding:16px;
+    border-radius:10px;
+    max-width:680px;
+    width:100%;
+    box-sizing:border-box;
+  }
+  img{width:320px;height:240px;object-fit:cover;border-radius:8px;cursor:pointer;display:block;margin:8px 0}
   .status{margin-top:10px;font-weight:700;color:#a9d9ff}
 </style>
 </head>
@@ -36,11 +54,8 @@
     status.textContent = 'Estado: reposo';
   }
 
-  // mouse
   img.addEventListener('mousedown', activate);
   window.addEventListener('mouseup', deactivate);
-
-  // touch
   img.addEventListener('touchstart', activate, {passive:false});
   window.addEventListener('touchend', deactivate);
 })();

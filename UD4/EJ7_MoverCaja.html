@@ -5,8 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>EJ7 - Mover caja</title>
 <style>
-  body{font-family:system-ui,Arial;background:#071126;color:#dfefff;padding:20px}
-  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:740px}
+  body{
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    min-height:100vh;
+    padding-top:28px;
+    background:#071126;
+    color:#dfefff;
+    margin:0;
+    font-family:system-ui,Arial;
+  }
+  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:740px;width:100%;box-sizing:border-box}
   .arena{width:100%;height:260px;border:1px dashed rgba(255,255,255,0.06);border-radius:8px;position:relative;margin-top:12px;background:rgba(0,0,0,0.12)}
   .box{width:48px;height:48px;border-radius:6px;background:linear-gradient(90deg,#00b0ff,#007acb);position:absolute;display:grid;place-items:center;font-weight:800;color:#021;cursor:grab}
   .log{margin-top:10px;font-family:monospace;color:#a9d9ff}
@@ -65,7 +75,6 @@
     clampAndApply();
   });
 
-  // drag
   (function drag(){
     let dragging = false, start = {};
     box.addEventListener('mousedown', (e) => {
@@ -83,7 +92,6 @@
     window.addEventListener('mouseup', () => { dragging = false; box.style.cursor = 'grab'; });
   })();
 
-  // init
   clampAndApply();
 })();
 </script>
