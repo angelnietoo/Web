@@ -4,42 +4,60 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Contador de palabras</title>
+    <title>Ejemplo Básico: Contador de Palabras</title>
     <style>
         body {
-            font-family: system-ui, Segoe UI, Roboto, Arial;
+            font-family: system-ui, "Segoe UI", Roboto, Arial;
             margin: 24px;
             background: #f7f7f8;
-            color: #111
+            color: #111;
         }
 
         main {
-            max-width: 720px;
-            margin: 0 auto
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        pre {
-            background: #111;
-            color: #f7f7f8;
+        pre.code {
+            background: #0b1220;
+            color: #d6f3ff;
             padding: 16px;
             border-radius: 8px;
-            overflow: auto
+            overflow: auto;
         }
 
         .card {
             background: #fff;
-            padding: 16px;
+            padding: 18px;
             border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, .06)
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
         }
 
         h1 {
-            font-size: 18px;
-            margin: 0 0 12px
+            font-size: 20px;
+            margin: 0 0 8px;
         }
 
-        small {
-            color: #555
+        p.lead {
+            color: #333;
+            margin: 8px 0 16px;
+        }
+
+        #output {
+            white-space: pre-wrap;
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -47,14 +65,33 @@
 <body>
     <main>
         <div class="card">
-            <h1>Contador de palabras</h1>
-            <p><small>El script ejecuta el código que proporcionaste y muestra el resultado.</small></p>
-            <pre id="output" aria-live="polite"></pre>
+            <h1>Ejemplo Básico: Contador de Palabras</h1>
+            <p class="lead">
+                Un <strong>Map</strong> es ideal para contar la cantidad de veces que aparece
+                un elemento en una colección, como palabras en un texto.
+            </p>
+
+            <pre class="code"><code class="language-javascript">const frase = 'hola mundo hola javascript mundo javascript javascript';
+const palabras = frase.split(' ');
+const contador = new Map();
+palabras.forEach((palabra) => {
+  if (contador.has(palabra)) {
+    contador.set(palabra, contador.get(palabra) + 1);
+  } else {
+    contador.set(palabra, 1);
+  }
+});
+console.log(contador);</code></pre>
+
+            <button id="run">Ejecutar y ver resultado</button>
+            <div id="output" aria-live="polite">
+                Pulsa "Ejecutar y ver resultado" para mostrar el Map en formato legible.
+            </div>
         </div>
     </main>
 
     <script>
-        // Código proporcionado por el usuario
+        // Código que ejecuta exactamente el ejemplo y lo muestra de forma legible en la página
         const frase = 'hola mundo hola javascript mundo javascript javascript';
         const palabras = frase.split(' ');
         const contador = new Map();
@@ -65,11 +102,17 @@
                 contador.set(palabra, 1);
             }
         });
+
+        // Mostrar también en consola (como en tu ejemplo)
         console.log(contador);
 
-        // Mostrar resultado en la página
-        const out = document.getElementById('output');
-        out.textContent = Array.from(contador.entries()).map(([k, v]) => `${k}: ${v}`).join('\n');
+        function mostrarMap(m) {
+            return Array.from(m.entries()).map(([k, v]) => `${k}: ${v}`).join('\n');
+        }
+
+        document.getElementById('run').addEventListener('click', () => {
+            document.getElementById('output').textContent = mostrarMap(contador);
+        });
     </script>
 </body>
 

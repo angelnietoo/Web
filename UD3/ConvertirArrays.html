@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ejemplos: Map — Contador y Conversión a Arrays</title>
+    <style>
+        body {
+            font-family: system-ui, "Segoe UI", Roboto, Arial;
+            margin: 24px;
+            background: #f7f7f8;
+            color: #111;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 18px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 18px;
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            font-size: 20px;
+            margin: 0 0 8px;
+        }
+
+        p.lead {
+            color: #333;
+            margin: 8px 0 12px;
+        }
+
+        pre.code {
+            background: #0b1220;
+            color: #d6f3ff;
+            padding: 16px;
+            border-radius: 8px;
+            overflow: auto;
+        }
+
+        #output,
+        #out-conv {
+            white-space: pre-wrap;
+            background: #f3f4f6;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .flex {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            background: #fff;
+            cursor: pointer;
+        }
+
+        code.inline {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <!-- Contador de palabras -->
+        <section class="card" aria-labelledby="titulo-contador">
+            <h1 id="titulo-contador">Ejemplo Básico: Contador de Palabras</h1>
+            <p class="lead">Un <strong>Map</strong> es ideal para contar la cantidad de veces que aparece un elemento en
+                una colección.</p>
+
+            <pre class="code"><code>const frase = 'hola mundo js js';
+const palabras = frase.split(' ');
+const contador = new Map();
+palabras.forEach(p => contador.set(p, (contador.get(p) || 0) + 1));
+console.log(contador);</code></pre>
+
+            <div class="flex">
+                <button id="run">Ejecutar y ver resultado</button>
+                <small>Pulsa para mostrar el Map en formato legible.</small>
+            </div>
+            <div id="output" aria-live="polite">Pulsa "Ejecutar y ver resultado" para mostrar el Map en formato legible.
+            </div>
+        </section>
+
+        <!-- Conversión Map → Array -->
+        <section class="card" aria-labelledby="titulo-conversion">
+            <h1 id="titulo-conversion">Convertir a Arrays</h1>
+            <p class="lead">Convertimos un <code class="inline">Map</code> de ejemplo a <code
+                    class="inline">Array</code> usando spread.</p>
+
+            <pre class="code"><code>const map = new Map([[1,'uno'],[2,'dos'],[3,'tres']]);
+// clone corto y convertir
+const entries = [...(typeof structuredClone==='function' ? structuredClone(map) : map)];
+console.log(entries);</code></pre>
+
+            <div class="flex">
+                <button id="run-conv">Convertir Map → Array</button>
+                <small>Muestra las entradas clonadas y su constructor.</small>
+            </div>
+            <div id="out-conv" aria-live="polite">Pulsa "Convertir Map → Array" para ver el resultado.</div>
+        </section>
+    </main>
+
+    <script>
+        // --- Contador de palabras (const más cortos y legibles) ---
+        const frase = 'hola mundo js js';
+        const palabras = frase.split(' ');
+        const contador = new Map();
+        palabras.forEach(p => contador.set(p, (contador.get(p) || 0) + 1));
+        console.log('contador (Map):', contador);
+
+        function mostrarMap(m) { return Array.from(m.entries()).map(([k, v]) => `${k}: ${v}`).join('\n'); }
+        document.getElementById('run').addEventListener('click', () => {
+            document.getElementById('output').textContent = mostrarMap(contador);
+        });
+
+        // --- Conversión Map → Array (fallback para structuredClone) ---
+        document.getElementById('run-conv').addEventListener('click', () => {
+            const map = new Map([[1, 'uno'], [2, 'dos'], [3, 'tres']]);
+            const cloned = (typeof structuredClone === 'function') ? structuredClone(map) : new Map(map);
+            const entries = [...cloned];
+            const info = [`map.size: ${map.size}`, `entries.constructor.name: ${entries.constructor.name}`, `entries: ${JSON.stringify(entries)}`];
+            document.getElementById('out-conv').textContent = info.join('\n');
+            console.log('map:', map, 'entries:', entries);
+        });
+    </script>
+</body>
+
+</html>
