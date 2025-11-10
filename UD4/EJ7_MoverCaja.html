@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EJ7 - Mover caja</title>
+<style>
+  body{font-family:system-ui,Arial;background:#071126;color:#dfefff;padding:20px}
+  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:740px}
+  .arena{width:100%;height:260px;border:1px dashed rgba(255,255,255,0.06);border-radius:8px;position:relative;margin-top:12px;background:rgba(0,0,0,0.12)}
+  .box{width:48px;height:48px;border-radius:6px;background:linear-gradient(90deg,#00b0ff,#007acb);position:absolute;display:grid;place-items:center;font-weight:800;color:#021;cursor:grab}
+  .log{margin-top:10px;font-family:monospace;color:#a9d9ff}
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>EJ7 — Mover caja con teclado</h1>
+    <p>Usa ArrowUp/Down/Left/Right o Numpad 8/2/4/6 para mover la caja. También arrástrala con el ratón.</p>
+
+    <div class="arena" id="arena">
+      <div class="box" id="box" tabindex="0">BOX</div>
+    </div>
+    <div class="log" id="log">Posición: —</div>
+  </main>
+
+<script>
+(() => {
+  const arena = document.getElementById('arena');
+  const box = document.getElementById('box');
+  const log = document.getElementById('log');
+  const step = 12;
+  let pos = { x: 18, y: 18 };
+
+  function clampAndApply(){
+    const maxX = arena.clientWidth - box.offsetWidth;
+    const maxY = arena.clientHeight - box.offsetHeight;
+    pos.x = Math.max(0, Math.min(maxX, pos.x));
+    pos.y = Math.max(0, Math.min(maxY, pos.y));
+    box.style.left = pos.x + 'px';
+    box.style.top = pos.y + 'px';
+    log.textContent = `Posición: x=${pos.x}px y=${pos.y}px`;
+  }
+
+  window.addEventListener('keydown', (e) => {
+    const k = e.key;
+    switch(k){
+      case 'ArrowLeft':
+      case '4':
+        if (k==='4' && e.location !== KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) break;
+        pos.x -= step; e.preventDefault(); break;
+      case 'ArrowRight':
+      case '6':
+        if (k==='6' && e.location !== KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) break;
+        pos.x += step; e.preventDefault(); break;
+      case 'ArrowUp':
+      case '8':
+        if (k==='8' && e.location !== KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) break;
+        pos.y -= step; e.preventDefault(); break;
+      case 'ArrowDown':
+      case '2':
+        if (k==='2' && e.location !== KeyboardEvent.DOM_KEY_LOCATION_NUMPAD) break;
+        pos.y += step; e.preventDefault(); break;
+      default: return;
+    }
+    clampAndApply();
+  });
+
+  // drag
+  (function drag(){
+    let dragging = false, start = {};
+    box.addEventListener('mousedown', (e) => {
+      dragging = true;
+      start.mx = e.clientX; start.my = e.clientY; start.x = pos.x; start.y = pos.y;
+      box.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      pos.x = start.x + (e.clientX - start.mx);
+      pos.y = start.y + (e.clientY - start.my);
+      clampAndApply();
+    });
+    window.addEventListener('mouseup', () => { dragging = false; box.style.cursor = 'grab'; });
+  })();
+
+  // init
+  clampAndApply();
+})();
+</script>
+</body>
+</html>

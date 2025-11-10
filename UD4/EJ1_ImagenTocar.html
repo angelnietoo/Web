@@ -1,60 +1,49 @@
 <!doctype html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Imagen: cambia mientras mantienes</title>
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            font-family: Arial, Helvetica, sans-serif
-        }
-
-        img {
-            max-width: 90vw;
-            border-radius: 8px;
-            cursor: pointer;
-            user-select: none;
-            touch-action: manipulation
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EJ1 - Imagen press</title>
+<style>
+  body{font-family:system-ui,Arial;margin:20px;background:#071126;color:#dfefff}
+  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:680px;}
+  img{width:320px;height:240px;object-fit:cover;border-radius:8px;cursor:pointer}
+  .status{margin-top:10px;font-weight:700;color:#a9d9ff}
+</style>
 </head>
-
 <body>
-    <img id="img" tabindex="0" alt="Imagen interactiva">
+  <main class="card">
+    <h1>EJ1 — Mantener pulsado</h1>
+    <p>Mantén pulsada la imagen (mouse o touch) para verla cambiar. Suelta para restaurar.</p>
+    <img id="img" src="https://picsum.photos/id/1025/640/480" alt="original" draggable="false">
+    <div class="status" id="status">Estado: reposo</div>
+  </main>
 
-    <script>
-        /* imágenes SVG embebidas (auto-contenidas) */
-        const svgA = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 360'><rect width='100%' height='100%' fill='#9fd3c7'/><text x='50%' y='50%' font-size='40' text-anchor='middle' dominant-baseline='middle' fill='#043047'>Imagen 1</text></svg>`;
-        const svgB = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 360'><rect width='100%' height='100%' fill='#ffd1c1'/><text x='50%' y='50%' font-size='36' text-anchor='middle' dominant-baseline='middle' fill='#4a0b0b'>Imagen 2</text></svg>`;
+<script>
+(() => {
+  const img = document.getElementById('img');
+  const status = document.getElementById('status');
+  const orig = img.src;
+  const alt = 'https://picsum.photos/id/237/640/480';
 
-        const img = document.getElementById('img');
-        const normal = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgA);
-        const pressed = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgB);
+  function activate(e){
+    if (e) e.preventDefault();
+    img.src = alt;
+    status.textContent = 'Estado: PULSADO';
+  }
+  function deactivate(){
+    img.src = orig;
+    status.textContent = 'Estado: reposo';
+  }
 
-        let pressedState = false;
-        const set = v => { pressedState = v; img.src = v ? pressed : normal; };
+  // mouse
+  img.addEventListener('mousedown', activate);
+  window.addEventListener('mouseup', deactivate);
 
-        set(false);
-
-        /* pointer covers mouse+touch */
-        img.addEventListener('pointerdown', e => { e.preventDefault(); set(true); try { img.setPointerCapture(e.pointerId) } catch { } });
-        img.addEventListener('pointerup', e => { set(false); try { img.releasePointerCapture(e.pointerId) } catch { } });
-        img.addEventListener('pointercancel', () => set(false));
-        document.addEventListener('pointerup', () => set(false));
-
-        /* teclado: mantener espacio/enter */
-        img.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); set(true); } });
-        img.addEventListener('keyup', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); set(false); } });
-
-        /* evitar arrastrar imagen */
-        img.addEventListener('dragstart', e => e.preventDefault());
-    </script>
+  // touch
+  img.addEventListener('touchstart', activate, {passive:false});
+  window.addEventListener('touchend', deactivate);
+})();
+</script>
 </body>
-
 </html>

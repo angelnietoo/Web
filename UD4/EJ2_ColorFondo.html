@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EJ2 - Cambios cuadro</title>
+<style>
+  body{font-family:system-ui,Arial;background:#071126;color:#dfefff;padding:20px}
+  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:700px}
+  #box{padding:20px;border-radius:8px;background:#fff;color:#071125;font-weight:700}
+  .log{margin-top:12px;font-family:monospace;color:#a9d9ff}
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>EJ2 — Cuadro que cambia</h1>
+    <p>mousedown → amarillo. keydown → azul claro. mousemove → blanco.</p>
+    <div id="box">Aquí verás el color según evento</div>
+    <div class="log" id="log">Esperando eventos...</div>
+  </main>
+
+<script>
+(() => {
+  const box = document.getElementById('box');
+  const log = document.getElementById('log');
+
+  window.addEventListener('mousedown', () => {
+    box.style.background = '#FFFF00';
+    box.style.color = '#071125';
+    log.textContent = 'mousedown → amarillo';
+  });
+
+  window.addEventListener('keydown', (e) => {
+    box.style.background = '#CCE6FF';
+    box.style.color = '#071125';
+    log.textContent = `keydown (${e.key}) → azul claro`;
+  });
+
+  window.addEventListener('mousemove', () => {
+    box.style.background = '#FFFFFF';
+    box.style.color = '#071125';
+    log.textContent = 'mousemove → blanco';
+  });
+})();
+</script>
+</body>
+</html>

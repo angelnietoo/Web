@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EJ6 - Tecla y modificadores</title>
+<style>
+  body{font-family:system-ui,Arial;background:#071126;color:#dfefff;padding:20px}
+  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:720px}
+  .info{margin-top:12px;font-family:monospace;color:#a9d9ff}
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>EJ6 — Tecla y modificadores</h1>
+    <p>Pulsa cualquier tecla (asegúrate de que la ventana tiene foco).</p>
+    <div class="info" id="info">Tecla: —</div>
+  </main>
+
+<script>
+(() => {
+  const out = document.getElementById('info');
+  window.addEventListener('keydown', (e) => {
+    const key = e.key === ' ' ? 'Space' : e.key;
+    const mods = [];
+    if (e.altKey) mods.push('Alt');
+    if (e.shiftKey) mods.push('Shift');
+    if (e.ctrlKey) mods.push('Ctrl');
+    if (e.metaKey) mods.push('Meta');
+    out.textContent = `Tecla: ${key}${mods.length ? ' + ' + mods.join(' + ') : ''}`;
+  });
+})();
+</script>
+</body>
+</html>

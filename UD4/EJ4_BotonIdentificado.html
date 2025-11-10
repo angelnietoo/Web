@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EJ4 - Qué botón?</title>
+<style>
+  body{font-family:system-ui,Arial;background:#071126;color:#dfefff;padding:20px}
+  .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:10px;max-width:700px}
+  .log{margin-top:12px;font-family:monospace;color:#a9d9ff}
+</style>
+</head>
+<body>
+  <main class="card">
+    <h1>EJ4 — Identificar botón pulsado</h1>
+    <p>Pulsa en cualquier parte de la ventana para ver qué botón has usado.</p>
+    <div class="log" id="log">Último click: —</div>
+  </main>
+
+<script>
+(() => {
+  const out = document.getElementById('log');
+  function botonNombre(b){
+    return b === 0 ? 'IZQUIERDO' : b === 1 ? 'CENTRO' : b === 2 ? 'DERECHO' : `botón(${b})`;
+  }
+  window.addEventListener('mousedown', (e) => {
+    out.textContent = `Último click: ${botonNombre(e.button)} en (${e.clientX}, ${e.clientY})`;
+  });
+})();
+</script>
+</body>
+</html>
