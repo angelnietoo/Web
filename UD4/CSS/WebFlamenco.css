@@ -1,0 +1,114 @@
+:root {
+    --bg: #fff;
+    --muted: #666;
+    --accent: #1f2937;
+}
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    font-family: Inter, system-ui, Arial, sans-serif;
+    line-height: 1.4;
+    padding: 24px;
+    background: #f8fafc;
+    color: var(--accent);
+}
+
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(31, 41, 55, 0.06);
+    padding: 18px;
+    max-width: 880px;
+    margin: 12px auto;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 0 0 8px
+}
+
+label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 600
+}
+
+select,
+button {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #e6e9ee
+}
+
+.info {
+    margin-top: 12px
+}
+
+.field {
+    margin: 8px 0
+}
+
+.compas {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px
+}
+
+.beat {
+    min-width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9
+}
+
+.beat.strong {
+    font-weight: 800;
+    background: #fde68a
+}
+
+.beat.very-strong {
+    font-weight: 900;
+    background: #fca5a5
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px
+}
+
+.small {
+    font-size: 13px;
+    color: var(--muted)
+}
+
+.output {
+    white-space: pre-wrap;
+    background: #fbfbfd;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #eef2ff;
+    margin-top: 12px
+}
+
+@media (max-width:520px) {
+    body {
+        padding: 12px
+    }
+
+    .card {
+        padding: 14px
+    }
+
+    .beat {
+        min-width: 26px;
+        height: 26px
+    }
+}
