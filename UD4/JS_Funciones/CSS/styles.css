@@ -1,0 +1,120 @@
+/* styles.css */
+:root{
+  --blue: #0b79d0;
+  --bg: #f5f7fb;
+  --card-radius: 12px;
+  --max-w: 820px;
+  --gap: 12px;
+  --text: #111827;
+}
+
+*{box-sizing:border-box}
+
+/* Página centrada */
+html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:var(--text)}
+body{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+/* Contenedor principal del ejercicio */
+.exercise{
+  width:100%;
+  max-width:var(--max-w);
+  background:#ffffff;
+  border-radius:var(--card-radius);
+  padding:24px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
+  text-align:left;
+  /* centra el contenido interno horizontalmente */
+  display:flex;
+  flex-direction:column;
+  gap:var(--gap);
+}
+
+/* Título: en negrita */
+.exercise h1{
+  margin:0 0 8px 0;
+  font-size:1.4rem;
+  font-weight:700; /* negrita */
+  color:var(--text);
+}
+
+/* Texto normal (por defecto) */
+.exercise p,
+.exercise label,
+.exercise small,
+.exercise pre,
+.exercise li{
+  margin:0;
+  font-weight:400; /* texto normal */
+  color:var(--text);
+}
+
+/* Formularios y elementos */
+.exercise form,
+.exercise .controls{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea{
+  width:100%;
+  padding:8px 10px;
+  border-radius:8px;
+  border:1px solid rgba(0,0,0,0.08);
+  font-size:1rem;
+  font-weight:400;
+  color:var(--text);
+}
+
+/* Botones azules (centrados) */
+.exercise .actions{
+  display:flex;
+  gap:10px;
+  justify-content:center; /* botones centrados */
+  margin-top:6px;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+a.btn{
+  background:var(--blue);
+  color:#fff;
+  border: none;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:1rem;
+  font-weight:400; /* texto normal en botones */
+  text-decoration:none;
+  display:inline-block;
+}
+
+button:hover,
+a.btn:hover{
+  filter:brightness(.95);
+}
+
+/* Pre visual (salida) */
+pre{
+  background: #f7f9fc;
+  padding:10px;
+  border-radius:8px;
+  overflow:auto;
+  color: #0b1220;
+  border:1px solid rgba(2,6,23,0.04);
+}
+
+/* Responsivo */
+@media (max-width:520px){
+  .exercise{padding:16px}
+  .exercise h1{font-size:1.15rem}
+}
