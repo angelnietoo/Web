@@ -1,120 +1,159 @@
-/* styles.css */
+/* styles.css 
+*/
+
 :root{
-  --blue: #0b79d0;
-  --bg: #f5f7fb;
-  --card-radius: 12px;
-  --max-w: 820px;
-  --gap: 12px;
-  --text: #111827;
+  --bg: #f3f4f6;
+  --card-bg: #ffffff;
+  --accent: #2563eb;      /* azul principal (button) */
+  --accent-strong: #1d4ed8;
+  --muted: #6b7280;
+  --border: #e6eef9;
+  --shadow: 0 6px 18px rgba(2,6,23,.06);
+  --radius: 8px;
+  --pad: 14px;
+  --max-w: min(520px, 94vw);
+  --text: #0f1720;
+  --success: #059669;
+  --error: #dc2626;
+  --font: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-*{box-sizing:border-box}
+/* Reseteo sencillo */
+* { box-sizing: border-box; }
+html,body { height: 100%; margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
 
-/* Página centrada */
-html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:var(--text)}
-body{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+/* Centrado de la página */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
-/* Contenedor principal del ejercicio */
-.exercise{
-  width:100%;
-  max-width:var(--max-w);
-  background:#ffffff;
-  border-radius:var(--card-radius);
-  padding:24px;
-  box-shadow: 0 10px 30px rgba(2,6,23,0.06);
-  text-align:left;
-  /* centra el contenido interno horizontalmente */
-  display:flex;
-  flex-direction:column;
-  gap:var(--gap);
+/* Caja principal: puedes usar .box (ejemplo) o .exercise (mi estilo anterior) */
+.box, .exercise {
+  background: var(--card-bg);
+  padding: var(--pad);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: var(--max-w);
+  min-width: 260px;
+  border: 1px solid rgba(2,6,23,0.02);
+  display: block;
+  line-height: 1.4;
 }
 
 /* Título: en negrita */
-.exercise h1{
-  margin:0 0 8px 0;
-  font-size:1.4rem;
-  font-weight:700; /* negrita */
-  color:var(--text);
+.box h1, .box h2, .box h3,
+.exercise h1, .exercise h2, .exercise h3 {
+  margin: 0 0 8px 0;
+  font-weight: 700; /* negrita */
+  color: var(--text);
 }
 
-/* Texto normal (por defecto) */
-.exercise p,
-.exercise label,
-.exercise small,
-.exercise pre,
-.exercise li{
-  margin:0;
-  font-weight:400; /* texto normal */
-  color:var(--text);
+/* Texto normal por defecto */
+.box p, .box label, .box small,
+.exercise p, .exercise label, .exercise small {
+  margin: 0 0 8px 0;
+  font-weight: 400;
+  color: var(--text);
 }
 
-/* Formularios y elementos */
-.exercise form,
-.exercise .controls{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
+/* Inputs */
 input[type="text"],
 input[type="number"],
-select,
-textarea{
-  width:100%;
-  padding:8px 10px;
-  border-radius:8px;
-  border:1px solid rgba(0,0,0,0.08);
-  font-size:1rem;
-  font-weight:400;
-  color:var(--text);
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 1rem;
+  color: var(--text);
 }
 
-/* Botones azules (centrados) */
-.exercise .actions{
-  display:flex;
-  gap:10px;
-  justify-content:center; /* botones centrados */
-  margin-top:6px;
+/* Pequeña fila (botones) */
+.row, .actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  align-items: center;
 }
 
+/* Si quieres que los botones estén centrados por defecto: */
+.actions { justify-content: center; }
+
+/* Botones azules principales */
 button,
+a.btn,
 input[type="button"],
-input[type="submit"],
-a.btn{
-  background:var(--blue);
-  color:#fff;
-  border: none;
-  padding:10px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  font-size:1rem;
-  font-weight:400; /* texto normal en botones */
-  text-decoration:none;
-  display:inline-block;
+input[type="submit"] {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 0.99rem;
+  min-height: 40px;           /* área táctil cómoda */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
-button:hover,
-a.btn:hover{
-  filter:brightness(.95);
+/* Botón alternativo (outline) */
+button.alt,
+a.btn.alt {
+  background: #fff;
+  color: var(--accent);
+  border: 1px solid rgba(37,99,235,.12);
 }
 
-/* Pre visual (salida) */
-pre{
-  background: #f7f9fc;
-  padding:10px;
-  border-radius:8px;
-  overflow:auto;
-  color: #0b1220;
-  border:1px solid rgba(2,6,23,0.04);
+/* Hover / active */
+button:hover, a.btn:hover { filter: brightness(.96); transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+
+/* Resultados y mensajes */
+.res, .out {
+  font-weight: 700;
+  margin-top: 8px;
+  color: var(--text);
 }
 
-/* Responsivo */
-@media (max-width:520px){
-  .exercise{padding:16px}
-  .exercise h1{font-size:1.15rem}
+/* Mensajes de ayuda / muted */
+.mut, .hint {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+/* Mensajes de error y éxito */
+.msg-error { color: var(--error); font-weight:600; margin-top:6px; }
+.msg-ok    { color: var(--success); font-weight:600; margin-top:6px; }
+
+/* Focus visible accesible */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid rgba(37,99,235,0.18);
+  border-radius: 6px;
+}
+
+/* Accessibility: aria-live container styling */
+[aria-live] { margin-top:8px; }
+
+/* Responsive tweaks */
+@media (max-width: 520px) {
+  .box, .exercise { padding: 12px; width: calc(100% - 24px); }
+  .row, .actions { flex-direction: column-reverse; gap: 10px; }
+  button { width: 100%; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
 }
