@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ejercicio 1 - crearUsuario</title>
+<style>body{font-family:system-ui,Segoe UI,Arial;padding:18px}label{display:block;margin-top:8px}input,button,pre{margin-top:6px;padding:8px}button{background:#0b79d0;color:#fff;border:0;border-radius:6px}</style>
+</head>
+<body>
+<h1>Ejercicio 1 — crearUsuario</h1>
+<p>Rellena los campos y pulsa <strong>Crear usuario</strong>.</p>
+<label>Nombre: <input id="u_nombre" value="Juan"></label>
+<label>Edad: <input id="u_edad" value="20"></label>
+<label>País: <input id="u_pais" value="España"></label>
+<button id="btn1">Crear usuario</button>
+<pre id="out1">Salida...</pre>
+
+
+<script>
+function crearUsuario({ nombre = "desconocido", edad = "desconocido", pais = "desconocido" } = {}) {
+return `${nombre}, ${edad} años, ${pais}`;
+}
+document.getElementById('btn1').addEventListener('click', ()=>{
+const nombre = document.getElementById('u_nombre').value;
+const edad = document.getElementById('u_edad').value;
+const pais = document.getElementById('u_pais').value;
+document.getElementById('out1').textContent = crearUsuario({ nombre, edad, pais });
+});
+</script>
+</body>
+</html>

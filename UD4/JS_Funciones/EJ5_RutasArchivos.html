@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ejercicio 4 - listarArchivos</title>
+<title>Ejercicio 5 - listarArchivos con rutas</title>
 <style>body{font-family:system-ui,Segoe UI,Arial;padding:18px}textarea,button,pre{width:100%;padding:8px;margin-top:6px}button{background:#0b79d0;color:#fff;border:0;border-radius:6px}</style>
 </head>
 <body>
-<h1>Ejercicio 4 — listarArchivos</h1>
-<p>Pega un objeto en formato JSON que represente carpetas y archivos (ver ejemplo por defecto).</p>
-<textarea id="fs_input" rows="8">{
+<h1>Ejercicio 5 — listarArchivos (con rutas)</h1>
+<p>Este ejemplo devuelve la lista de archivos incluyendo la ruta completa dentro del objeto.</p>
+<textarea id="fs2_input" rows="8">{
 "carpeta1": {
 "archivo1": "contenido1",
 "archivo2": "contenido2",
@@ -17,30 +17,31 @@
 },
 "carpeta2": { "archivo4": "contenido4" }
 }</textarea>
-<button id="btn4">Listar archivos</button>
-<pre id="out4">Salida...</pre>
+<button id="btn5">Listar archivos (con rutas)</button>
+<pre id="out5">Salida...</pre>
 
 
 <script>
-function listarArchivos(obj){
+function listarArchivosConRuta(obj, base = ''){
 const archivos = [];
 for(const [clave, valor] of Object.entries(obj)){
+const ruta = base ? `${base}/${clave}` : clave;
 if(valor && typeof valor === 'object' && !Array.isArray(valor)){
-archivos.push(...listarArchivos(valor));
+archivos.push(...listarArchivosConRuta(valor, ruta));
 } else {
-archivos.push(clave);
+archivos.push(ruta);
 }
 }
 return archivos;
 }
-document.getElementById('btn4').addEventListener('click', ()=>{
-const txt = document.getElementById('fs_input').value;
+document.getElementById('btn5').addEventListener('click', ()=>{
+const txt = document.getElementById('fs2_input').value;
 try{
 const obj = JSON.parse(txt);
 if(typeof obj !== 'object' || Array.isArray(obj)) throw new Error('Se esperaba un objeto');
-const res = listarArchivos(obj);
-document.getElementById('out4').textContent = JSON.stringify(res);
-}catch(e){ document.getElementById('out4').textContent = 'Error: ' + e.message }
+const res = listarArchivosConRuta(obj);
+document.getElementById('out5').textContent = JSON.stringify(res, null, 2);
+}catch(e){ document.getElementById('out5').textContent = 'Error: ' + e.message }
 });
 </script>
 </body>

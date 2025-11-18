@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ejercicio 6 - permutar</title>
+<style>body{font-family:system-ui,Segoe UI,Arial;padding:18px}textarea,button,pre{width:100%;padding:8px;margin-top:6px}button{background:#0b79d0;color:#fff;border:0;border-radius:6px}</style>
+</head>
+<body>
+<h1>Ejercicio 6 — permutar</h1>
+<p>Pega un array en JSON (p. ej. <code>[1,2,3]</code>) y genera todas las permutaciones.</p>
+<textarea id="perm_input" rows="3">[1,2,3]</textarea>
+<button id="btn6">Permutar</button>
+<pre id="out6">Salida...</pre>
+
+
+<script>
+function permutar(arr){
+const resultados = [];
+function backtrack(actual, restantes){
+if(restantes.length === 0){ resultados.push(actual.slice()); return }
+for(let i=0;i<restantes.length;i++){
+actual.push(restantes[i]);
+const next = restantes.slice(0,i).concat(restantes.slice(i+1));
+backtrack(actual,next);
+actual.pop();
+}
+}
+backtrack([], arr);
+return resultados;
+}
+document.getElementById('btn6').addEventListener('click', ()=>{
+const txt = document.getElementById('perm_input').value;
+try{
+const arr = JSON.parse(txt);
+if(!Array.isArray(arr)) throw new Error('Se esperaba un array');
+document.getElementById('out6').textContent = JSON.stringify(permutar(arr), null, 2);
+}catch(e){ document.getElementById('out6').textContent = 'Error: ' + e.message }
+});
+</script>
+</body>
+</html>
