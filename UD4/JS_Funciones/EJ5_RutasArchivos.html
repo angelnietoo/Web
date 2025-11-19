@@ -36,8 +36,10 @@
 
     <script>
         function listarArchivosConRuta(obj, base = '') {
+             // Array donde se acumulan las rutas
             const archivos = [];
             for (const [clave, valor] of Object.entries(obj)) {
+                 // Ruta completa del archivo o subcarpeta
                 const ruta = base ? `${base}/${clave}` : clave;
                 if (valor && typeof valor === 'object' && !Array.isArray(valor)) {
                     archivos.push(...listarArchivosConRuta(valor, ruta));
@@ -48,16 +50,18 @@
             return archivos;
         }
 
-        // Evento del botón
+        // Evento del botón y obtenemos el valor JSON ingresado del usuario y la salida
         document.getElementById('btn5').addEventListener('click', () => {
             const txt = document.getElementById('fs2_input').value.trim();
             const out = document.getElementById('out5');
 
             try {
+                 // Parse del JSON
                 const obj = JSON.parse(txt);
                 if (typeof obj !== 'object' || Array.isArray(obj) || obj === null) {
                     throw new Error('Se esperaba un objeto válido');
                 }
+                // Resultado final: rutas completas
                 const res = listarArchivosConRuta(obj);
                 out.textContent = JSON.stringify(res, null, 2);
             } catch (e) {
@@ -66,5 +70,4 @@
         });
     </script>
 </body>
-
 </html>
