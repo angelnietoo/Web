@@ -36,28 +36,32 @@
 
     <script>
         function listarArchivos(obj) {
+            // Array donde metemos los archivos
             const archivos = [];
             for (const [clave, valor] of Object.entries(obj)) {
                 if (valor && typeof valor === 'object' && !Array.isArray(valor)) {
                     archivos.push(...listarArchivos(valor));
                 } else {
+                    // Si es un archivo agregamos su clave al array
                     archivos.push(clave);
                 }
             }
             return archivos;
         }
 
-        // Evento del botón
+        // Evento del botón y obtenemos el valor JSON ingresado del usuario y la salida
         document.getElementById('btn4').addEventListener('click', () => {
             const txt = document.getElementById('fs_input').value.trim();
             const out = document.getElementById('out4');
 
+            // Analizamos el JSON ingresado por el usuario
             try {
                 const obj = JSON.parse(txt);
                 if (typeof obj !== 'object' || Array.isArray(obj)) {
                     throw new Error('Se esperaba un objeto');
                 }
                 const res = listarArchivos(obj);
+                // Mostramos resultado
                 out.textContent = JSON.stringify(res, null, 2);
             } catch (e) {
                 out.textContent = 'Error: ' + e.message;
