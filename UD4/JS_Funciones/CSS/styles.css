@@ -1,40 +1,149 @@
-/* --- Reemplaza la regla body actual por esta --- */
+:root {
+  --bg: #f3f4f6;
+  --card-bg: #fff;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --border: #e6eef9;
+  --radius: 8px;
+  --pad: 14px;
+  --max-w: min(720px, 94vw);
+  --text: #0f1720;
+  --shadow: 0 6px 18px rgba(2, 6, 23, .06);
+  --font: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* reset */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Centrado vertical (no horizontal) */
 body {
   display: flex;
   align-items: center;
-  /* centra verticalmente */
+  /* CENTRA verticalmente */
   justify-content: flex-start;
   /* NO centra horizontalmente (queda a la izquierda) */
   min-height: 100vh;
-  padding: 20px;
+  padding: 24px;
 }
 
-/* --- Añadir estas reglas mínimas para la estructura interna --- */
-.box,
-.exercise {
+/* Contenedor principal de cada ejercicio (envolver TODO el contenido de la página) */
+main.exercise {
+  background: var(--card-bg);
+  padding: var(--pad);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  width: var(--max-w);
+  border: 1px solid rgba(2, 6, 23, 0.03);
+
   display: flex;
   flex-direction: column;
-  /* título arriba, contenido en columna */
-  width: var(--max-w);
-  /* conserva tu ancho */
+  /* título arriba, contenido en el medio, acciones abajo */
   gap: 12px;
+  min-height: 48vh;
+  /* suficiente para empujar las acciones abajo */
 }
 
-/* área central que crece y empuja las acciones abajo */
-.box>.content,
-.exercise>.content {
+/* Título */
+main.exercise>h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Área central que crece y ocupa espacio disponible */
+main.exercise>.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   flex: 1;
+  /* esto empuja .actions al final */
 }
 
-/* empuja las acciones al fondo del contenedor */
-.box>.actions,
-.exercise>.actions {
-  margin-top: auto;
+/* Acciones / botones (se quedan abajo) */
+main.exercise>.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  /* por defecto a la izquierda */
+  margin-top: 0;
+  /* no necesario pero explícito */
 }
 
-/* (opcional) en móvil centramos horizontalmente */
-@media (max-width:520px) {
+/* Formularios básicos */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* Botones */
+button,
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Salidas */
+pre {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 6px;
+  overflow: auto;
+  margin: 0;
+}
+
+/* Small screens: centrar horizontalmente y adaptar */
+@media (max-width: 520px) {
   body {
     justify-content: center;
+    padding: 12px;
+  }
+
+  main.exercise {
+    width: calc(100% - 24px);
+    min-height: auto;
+  }
+
+  main.exercise>.actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
   }
 }
