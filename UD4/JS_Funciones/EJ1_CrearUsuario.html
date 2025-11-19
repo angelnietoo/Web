@@ -36,19 +36,22 @@
     </main>
 
     <script>
-        // Función pura que construye la cadena del usuario
+        // Función que construye la representación del usuario
         function crearUsuario({ nombre = "desconocido", edad = "desconocido", pais = "desconocido" } = {}) {
             return `${nombre}, ${edad} años, ${pais}`;
         }
 
-        // Inicialización de eventos
+        // Inicialización del evento del botón
         document.getElementById('btn1').addEventListener('click', () => {
+
+            // Obtenemos cada elemento
             const nombre = document.getElementById('u_nombre').value;
             const edad = document.getElementById('u_edad').value;
             const pais = document.getElementById('u_pais').value;
+
+            // Muestro resultado en pantalla
             document.getElementById('out1').textContent = crearUsuario({ nombre, edad, pais });
         });
     </script>
 </body>
-
 </html>
