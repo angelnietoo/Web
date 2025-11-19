@@ -1,34 +1,53 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ejercicio 3 - aplanar</title>
-<link rel="stylesheet" href="CSS/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ejercicio 3 - aplanar</title>
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
+
 <body>
-<h1>Ejercicio 3 — aplanar</h1>
-<p>Pega un array en formato JSON (por ejemplo: <code>[1, [2, [3, 4]], 5]</code>).</p>
-<textarea id="flat_input" rows="4">[1, [2, [3, 4]], 5]</textarea>
-<button id="btn3">Aplanar</button>
-<pre id="out3">Salida...</pre>
+    <main class="exercise">
+        <h1>Ejercicio 3 — aplanar</h1>
 
+        <div class="content">
+            <p>Pega un array en formato JSON (por ejemplo: <code>[1, [2, [3, 4]], 5]</code>).</p>
 
-<script>
-function aplanar(arr){
-return arr.reduce((acc, el)=>{
-if(Array.isArray(el)) return acc.concat(aplanar(el));
-return acc.concat(el);
-}, []);
-}
-document.getElementById('btn3').addEventListener('click', ()=>{
-const txt = document.getElementById('flat_input').value;
-try{
-const arr = JSON.parse(txt);
-if(!Array.isArray(arr)) throw new Error('No es un array');
-document.getElementById('out3').textContent = JSON.stringify(aplanar(arr));
-}catch(e){ document.getElementById('out3').textContent = 'Error: ' + e.message }
-});
-</script>
+            <label for="flat_input">Array JSON:
+                <textarea id="flat_input" name="flat_input" rows="4">[1, [2, [3, 4]], 5]</textarea>
+            </label>
+
+            <pre id="out3" aria-live="polite">Salida...</pre>
+        </div>
+
+        <div class="actions">
+            <button id="btn3" type="button">Aplanar</button>
+        </div>
+    </main>
+
+    <script>
+        function aplanar(arr) {
+            return arr.reduce((acc, el) => {
+                if (Array.isArray(el)) return acc.concat(aplanar(el));
+                return acc.concat(el);
+            }, []);
+        }
+
+        // Manejo del evento
+        document.getElementById('btn3').addEventListener('click', () => {
+            const txt = document.getElementById('flat_input').value.trim();
+            const out = document.getElementById('out3');
+
+            try {
+                const arr = JSON.parse(txt);
+                if (!Array.isArray(arr)) throw new Error('No es un array');
+                out.textContent = JSON.stringify(aplanar(arr), null, 2);
+            } catch (e) {
+                out.textContent = 'Error: ' + e.message;
+            }
+        });
+    </script>
 </body>
 </html>

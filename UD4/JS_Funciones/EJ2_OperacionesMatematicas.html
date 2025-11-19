@@ -1,45 +1,74 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ejercicio 2 - operar</title>
-<link rel="stylesheet" href="CSS/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ejercicio 2 - operar</title>
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
+
 <body>
-<h1>Ejercicio 2 — operar</h1>
-<p>Introduce dos números y elige la operación.</p>
-<label>A: <input id="op_a" value="2"></label>
-<label>B: <input id="op_b" value="3"></label>
-<label>Operación:
-<select id="op_sel">
-<option value="suma">Suma</option>
-<option value="resta">Resta</option>
-<option value="mul">Multiplicación</option>
-<option value="suma_mul">Suma + Multiplicación</option>
-</select>
-</label>
-<button id="btn2">Calcular</button>
-<pre id="out2">Salida...</pre>
+    <main class="exercise">
+        <h1>Ejercicio 2 — operar</h1>
 
+        <div class="content">
+            <p>Introduce dos números y elige la operación.</p>
 
-<script>
-function operar(a, b, operacion) { return operacion(a, b); }
-const suma = (x,y)=> x+y;
-const resta = (x,y)=> x-y;
-const multiplicacion = (x,y)=> x*y;
-const suma_mul = (x,y)=> (x+y) + (x*y);
-document.getElementById('btn2').addEventListener('click', ()=>{
-const a = Number(document.getElementById('op_a').value);
-const b = Number(document.getElementById('op_b').value);
-const sel = document.getElementById('op_sel').value;
-let fn = suma;
-if(sel==='resta') fn = resta;
-if(sel==='mul') fn = multiplicacion;
-if(sel==='suma_mul') fn = suma_mul;
-const res = operar(a,b,fn);
-document.getElementById('out2').textContent = `Resultado: ${res}`;
-});
-</script>
+            <label for="op_a">A:
+                <input id="op_a" name="op_a" type="number" value="2" />
+            </label>
+
+            <label for="op_b">B:
+                <input id="op_b" name="op_b" type="number" value="3" />
+            </label>
+
+            <label for="op_sel">Operación:
+                <select id="op_sel" name="op_sel">
+                    <option value="suma">Suma</option>
+                    <option value="resta">Resta</option>
+                    <option value="mul">Multiplicación</option>
+                    <option value="suma_mul">Suma + Multiplicación</option>
+                </select>
+            </label>
+
+            <pre id="out2" aria-live="polite">Salida...</pre>
+        </div>
+
+        <div class="actions">
+            <button id="btn2" type="button">Calcular</button>
+        </div>
+    </main>
+
+    <script>
+        // Operador de orden superior: aplica una función de operación a a y b
+        function operar(a, b, operacion) {
+            return operacion(a, b);
+        }
+
+        // Operaciones disponibles
+        const suma = (x, y) => x + y;
+        const resta = (x, y) => x - y;
+        const multiplicacion = (x, y) => x * y;
+        const suma_mul = (x, y) => (x + y) + (x * y);
+
+        // Mapeo simple para seleccionar función
+        const operaciones = {
+            suma,
+            resta,
+            mul: multiplicacion,
+            suma_mul
+        };
+
+        document.getElementById('btn2').addEventListener('click', () => {
+            const a = Number(document.getElementById('op_a').value);
+            const b = Number(document.getElementById('op_b').value);
+            const sel = document.getElementById('op_sel').value;
+            const fn = operaciones[sel] ?? suma; // fallback a suma
+
+            const res = operar(a, b, fn);
+            document.getElementById('out2').textContent = `Resultado: ${res}`;
+        });
+    </script>
 </body>
 </html>

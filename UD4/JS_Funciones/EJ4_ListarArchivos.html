@@ -1,47 +1,68 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Ejercicio 4 - listarArchivos</title>
-<link rel="stylesheet" href="CSS/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ejercicio 4 - listarArchivos</title>
+    <link rel="stylesheet" href="CSS/styles.css">
 </head>
+
 <body>
-<h1>Ejercicio 4 — listarArchivos</h1>
-<p>Pega un objeto en formato JSON que represente carpetas y archivos (ver ejemplo por defecto).</p>
-<textarea id="fs_input" rows="8">{
-"carpeta1": {
-"archivo1": "contenido1",
-"archivo2": "contenido2",
-"subcarpeta": { "archivo3": "contenido3" }
-},
-"carpeta2": { "archivo4": "contenido4" }
+    <main class="exercise">
+        <h1>Ejercicio 4 — listarArchivos</h1>
+
+        <div class="content">
+            <p>Pega un objeto en formato JSON que represente carpetas y archivos (ver ejemplo por defecto).</p>
+
+            <label for="fs_input">Estructura (JSON):
+                <textarea id="fs_input" name="fs_input" rows="8">{
+  "carpeta1": {
+    "archivo1": "contenido1",
+    "archivo2": "contenido2",
+    "subcarpeta": { "archivo3": "contenido3" }
+  },
+  "carpeta2": { "archivo4": "contenido4" }
 }</textarea>
-<button id="btn4">Listar archivos</button>
-<pre id="out4">Salida...</pre>
+            </label>
 
+            <pre id="out4" aria-live="polite">Salida...</pre>
+        </div>
 
-<script>
-function listarArchivos(obj){
-const archivos = [];
-for(const [clave, valor] of Object.entries(obj)){
-if(valor && typeof valor === 'object' && !Array.isArray(valor)){
-archivos.push(...listarArchivos(valor));
-} else {
-archivos.push(clave);
-}
-}
-return archivos;
-}
-document.getElementById('btn4').addEventListener('click', ()=>{
-const txt = document.getElementById('fs_input').value;
-try{
-const obj = JSON.parse(txt);
-if(typeof obj !== 'object' || Array.isArray(obj)) throw new Error('Se esperaba un objeto');
-const res = listarArchivos(obj);
-document.getElementById('out4').textContent = JSON.stringify(res);
-}catch(e){ document.getElementById('out4').textContent = 'Error: ' + e.message }
-});
-</script>
+        <div class="actions">
+            <button id="btn4" type="button">Listar archivos</button>
+        </div>
+    </main>
+
+    <script>
+        function listarArchivos(obj) {
+            const archivos = [];
+            for (const [clave, valor] of Object.entries(obj)) {
+                if (valor && typeof valor === 'object' && !Array.isArray(valor)) {
+                    archivos.push(...listarArchivos(valor));
+                } else {
+                    archivos.push(clave);
+                }
+            }
+            return archivos;
+        }
+
+        // Evento del botón
+        document.getElementById('btn4').addEventListener('click', () => {
+            const txt = document.getElementById('fs_input').value.trim();
+            const out = document.getElementById('out4');
+
+            try {
+                const obj = JSON.parse(txt);
+                if (typeof obj !== 'object' || Array.isArray(obj)) {
+                    throw new Error('Se esperaba un objeto');
+                }
+                const res = listarArchivos(obj);
+                out.textContent = JSON.stringify(res, null, 2);
+            } catch (e) {
+                out.textContent = 'Error: ' + e.message;
+            }
+        });
+    </script>
 </body>
 </html>
