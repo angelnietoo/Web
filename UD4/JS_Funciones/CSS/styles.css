@@ -17,6 +17,8 @@
   --success: #059669;
   --error: #dc2626;
   --font: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --box-min-h: 48vh;
+  /* altura mínima para que el contenido pueda "respirar" y los botones lleguen abajo */
 }
 
 /* Reseteo sencillo */
@@ -47,7 +49,7 @@ body {
   /* asegura que el body ocupe toda la altura disponible */
 }
 
-/* Caja principal: puedes usar .box (ejemplo) o .exercise (mi estilo anterior) */
+/* Caja principal: ahora es un contenedor en columna para forzar orden vertical */
 .box,
 .exercise {
   background: var(--card-bg);
@@ -57,11 +59,20 @@ body {
   width: var(--max-w);
   min-width: 260px;
   border: 1px solid rgba(2, 6, 23, 0.02);
-  display: block;
+
+  /* LAYOUT: columna vertical */
+  display: flex;
+  flex-direction: column;
+  /* título arriba, contenido en el medio, acciones abajo */
+  gap: 12px;
+  /* separación vertical entre hijos */
   line-height: 1.4;
+
+  /* Altura mínima para que el contenedor tenga espacio y permita empujar las acciones al fondo */
+  min-height: var(--box-min-h);
 }
 
-/* Título: en negrita */
+/* Título: en negrita (permanece arriba naturalmente) */
 .box h1,
 .box h2,
 .box h3,
@@ -74,7 +85,7 @@ body {
   color: var(--text);
 }
 
-/* Texto normal por defecto */
+/* Texto normal por defecto (esto formará el contenido central) */
 .box p,
 .box label,
 .box small,
@@ -107,10 +118,19 @@ select {
   gap: 8px;
   margin-top: 6px;
   align-items: center;
+  /* por defecto los botones se alinean al inicio (izquierda) */
+  justify-content: flex-start;
 }
 
-/* Si quieres que los botones estén centrados por defecto: */
-.actions {
+/* Empuja las acciones al final del contenedor (abajo del todo) */
+.box .actions,
+.exercise .actions {
+  margin-top: auto;
+}
+
+/* Si en algún caso quieres centrar los botones dentro del área de acciones,
+   añade la clase .center (ej: <div class="actions center">) */
+.actions.center {
   justify-content: center;
 }
 
@@ -206,10 +226,12 @@ button:active {
     justify-content: center;
   }
 
+  /* cajas más compactas en móvil: quita altura mínima para ajustarse al contenido */
   .box,
   .exercise {
     padding: 12px;
     width: calc(100% - 24px);
+    min-height: auto;
   }
 
   .row,
@@ -218,6 +240,7 @@ button:active {
     gap: 10px;
   }
 
+  /* Botones ocupan toda la fila en móvil */
   button {
     width: 100%;
   }
