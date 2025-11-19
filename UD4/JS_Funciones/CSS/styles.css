@@ -1,255 +1,40 @@
-/* styles.css 
-*/
-
-:root {
-  --bg: #f3f4f6;
-  --card-bg: #ffffff;
-  --accent: #2563eb;
-  /* azul principal (button) */
-  --accent-strong: #1d4ed8;
-  --muted: #6b7280;
-  --border: #e6eef9;
-  --shadow: 0 6px 18px rgba(2, 6, 23, .06);
-  --radius: 8px;
-  --pad: 14px;
-  --max-w: min(520px, 94vw);
-  --text: #0f1720;
-  --success: #059669;
-  --error: #dc2626;
-  --font: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --box-min-h: 48vh;
-  /* altura mínima para que el contenido pueda "respirar" y los botones lleguen abajo */
-}
-
-/* Reseteo sencillo */
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: var(--font);
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/* Centrado de la página (verticalmente) */
+/* --- Reemplaza la regla body actual por esta --- */
 body {
   display: flex;
   align-items: center;
   /* centra verticalmente */
   justify-content: flex-start;
-  /* NO centra horizontalmente (se queda a la izquierda/inicio) */
-  padding: 20px;
+  /* NO centra horizontalmente (queda a la izquierda) */
   min-height: 100vh;
-  /* asegura que el body ocupe toda la altura disponible */
+  padding: 20px;
 }
 
-/* Caja principal: ahora es un contenedor en columna para forzar orden vertical */
+/* --- Añadir estas reglas mínimas para la estructura interna --- */
 .box,
 .exercise {
-  background: var(--card-bg);
-  padding: var(--pad);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  width: var(--max-w);
-  min-width: 260px;
-  border: 1px solid rgba(2, 6, 23, 0.02);
-
-  /* LAYOUT: columna vertical */
   display: flex;
   flex-direction: column;
-  /* título arriba, contenido en el medio, acciones abajo */
+  /* título arriba, contenido en columna */
+  width: var(--max-w);
+  /* conserva tu ancho */
   gap: 12px;
-  /* separación vertical entre hijos */
-  line-height: 1.4;
-
-  /* Altura mínima para que el contenedor tenga espacio y permita empujar las acciones al fondo */
-  min-height: var(--box-min-h);
 }
 
-/* Título: en negrita (permanece arriba naturalmente) */
-.box h1,
-.box h2,
-.box h3,
-.exercise h1,
-.exercise h2,
-.exercise h3 {
-  margin: 0 0 8px 0;
-  font-weight: 700;
-  /* negrita */
-  color: var(--text);
+/* área central que crece y empuja las acciones abajo */
+.box>.content,
+.exercise>.content {
+  flex: 1;
 }
 
-/* Texto normal por defecto (esto formará el contenido central) */
-.box p,
-.box label,
-.box small,
-.exercise p,
-.exercise label,
-.exercise small {
-  margin: 0 0 8px 0;
-  font-weight: 400;
-  color: var(--text);
-}
-
-/* Inputs */
-input[type="text"],
-input[type="number"],
-textarea,
-select {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: #fff;
-  font-size: 1rem;
-  color: var(--text);
-}
-
-/* Pequeña fila (botones) */
-.row,
-.actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 6px;
-  align-items: center;
-  /* por defecto los botones se alinean al inicio (izquierda) */
-  justify-content: flex-start;
-}
-
-/* Empuja las acciones al final del contenedor (abajo del todo) */
-.box .actions,
-.exercise .actions {
+/* empuja las acciones al fondo del contenedor */
+.box>.actions,
+.exercise>.actions {
   margin-top: auto;
 }
 
-/* Si en algún caso quieres centrar los botones dentro del área de acciones,
-   añade la clase .center (ej: <div class="actions center">) */
-.actions.center {
-  justify-content: center;
-}
-
-/* Botones azules principales */
-button,
-a.btn,
-input[type="button"],
-input[type="submit"] {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 0;
-  background: var(--accent);
-  color: #fff;
-  cursor: pointer;
-  font-weight: 400;
-  font-size: 0.99rem;
-  min-height: 40px;
-  /* área táctil cómoda */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-/* Botón alternativo (outline) */
-button.alt,
-a.btn.alt {
-  background: #fff;
-  color: var(--accent);
-  border: 1px solid rgba(37, 99, 235, .12);
-}
-
-/* Hover / active */
-button:hover,
-a.btn:hover {
-  filter: brightness(.96);
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-/* Resultados y mensajes */
-.res,
-.out {
-  font-weight: 700;
-  margin-top: 8px;
-  color: var(--text);
-}
-
-/* Mensajes de ayuda / muted */
-.mut,
-.hint {
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 6px;
-}
-
-/* Mensajes de error y éxito */
-.msg-error {
-  color: var(--error);
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-.msg-ok {
-  color: var(--success);
-  font-weight: 600;
-  margin-top: 6px;
-}
-
-/* Focus visible accesible */
-:focus {
-  outline: none;
-}
-
-:focus-visible {
-  outline: 3px solid rgba(37, 99, 235, 0.18);
-  border-radius: 6px;
-}
-
-/* Accessibility: aria-live container styling */
-[aria-live] {
-  margin-top: 8px;
-}
-
-/* Responsive tweaks */
-@media (max-width: 520px) {
-
-  /* En pantallas pequeñas queremos centrar también horizontalmente */
+/* (opcional) en móvil centramos horizontalmente */
+@media (max-width:520px) {
   body {
     justify-content: center;
-  }
-
-  /* cajas más compactas en móvil: quita altura mínima para ajustarse al contenido */
-  .box,
-  .exercise {
-    padding: 12px;
-    width: calc(100% - 24px);
-    min-height: auto;
-  }
-
-  .row,
-  .actions {
-    flex-direction: column-reverse;
-    gap: 10px;
-  }
-
-  /* Botones ocupan toda la fila en móvil */
-  button {
-    width: 100%;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none !important;
-    animation: none !important;
   }
 }
