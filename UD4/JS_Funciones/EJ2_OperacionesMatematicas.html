@@ -39,20 +39,19 @@
             <button id="btn2" type="button">Calcular</button>
         </div>
     </main>
-
     <script>
-        // Operador de orden superior: aplica una función de operación a a y b
+        // Función principal que aplica la operación seleccionada
         function operar(a, b, operacion) {
             return operacion(a, b);
         }
 
-        // Operaciones disponibles
+        // Const de operaciones
         const suma = (x, y) => x + y;
         const resta = (x, y) => x - y;
         const multiplicacion = (x, y) => x * y;
         const suma_mul = (x, y) => (x + y) + (x * y);
 
-        // Mapeo simple para seleccionar función
+        // Mapea la opción seleccionada
         const operaciones = {
             suma,
             resta,
@@ -60,14 +59,24 @@
             suma_mul
         };
 
-        document.getElementById('btn2').addEventListener('click', () => {
-            const a = Number(document.getElementById('op_a').value);
-            const b = Number(document.getElementById('op_b').value);
-            const sel = document.getElementById('op_sel').value;
-            const fn = operaciones[sel] ?? suma; // fallback a suma
+        // Cogemos los elementos importantes
+        const inputA = document.getElementById('op_a');
+        const inputB = document.getElementById('op_b');
+        const selectOp = document.getElementById('op_sel');
+        const output = document.getElementById('out2');        // Contenedor de salida
+        const btnCalcular = document.getElementById('btn2');
 
+        // Botón calcular y valores a y b obtenidos
+        btnCalcular.addEventListener('click', () => {
+            const a = Number(inputA.value);
+            const b = Number(inputB.value);
+
+            // Vemos la función seleccionada y la aplicamos
+            const fn = operaciones[selectOp.value] ?? suma;
             const res = operar(a, b, fn);
-            document.getElementById('out2').textContent = `Resultado: ${res}`;
+
+            // Mostrar resultado
+            output.textContent = `Resultado: ${res}`;
         });
     </script>
 </body>
