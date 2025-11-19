@@ -28,13 +28,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Centrado vertical (no horizontal) */
+/* Centrado vertical (no horizontal) y apilado en columna */
 body {
   display: flex;
-  align-items: center;
-  /* CENTRA verticalmente */
-  justify-content: flex-start;
+  flex-direction: column;
+  /* apila los ejercicios en columna */
+  justify-content: center;
+  /* CENTRA verticalmente el conjunto */
+  align-items: flex-start;
   /* NO centra horizontalmente (queda a la izquierda) */
+  gap: 20px;
+  /* separación entre ejercicios si hay varios */
   min-height: 100vh;
   padding: 24px;
 }
@@ -131,6 +135,8 @@ pre {
   body {
     justify-content: center;
     padding: 12px;
+    align-items: center;
+    /* en móvil centramos horizontalmente */
   }
 
   main.exercise {
