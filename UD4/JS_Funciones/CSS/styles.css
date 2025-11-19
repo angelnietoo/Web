@@ -1,14 +1,15 @@
 /* styles.css 
 */
 
-:root{
+:root {
   --bg: #f3f4f6;
   --card-bg: #ffffff;
-  --accent: #2563eb;      /* azul principal (button) */
+  --accent: #2563eb;
+  /* azul principal (button) */
   --accent-strong: #1d4ed8;
   --muted: #6b7280;
   --border: #e6eef9;
-  --shadow: 0 6px 18px rgba(2,6,23,.06);
+  --shadow: 0 6px 18px rgba(2, 6, 23, .06);
   --radius: 8px;
   --pad: 14px;
   --max-w: min(520px, 94vw);
@@ -19,41 +20,67 @@
 }
 
 /* Reseteo sencillo */
-* { box-sizing: border-box; }
-html,body { height: 100%; margin: 0; font-family: var(--font); background: var(--bg); color: var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+* {
+  box-sizing: border-box;
+}
 
-/* Centrado de la página */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Centrado de la página (verticalmente) */
 body {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* centra verticalmente */
+  justify-content: flex-start;
+  /* NO centra horizontalmente (se queda a la izquierda/inicio) */
   padding: 20px;
+  min-height: 100vh;
+  /* asegura que el body ocupe toda la altura disponible */
 }
 
 /* Caja principal: puedes usar .box (ejemplo) o .exercise (mi estilo anterior) */
-.box, .exercise {
+.box,
+.exercise {
   background: var(--card-bg);
   padding: var(--pad);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   width: var(--max-w);
   min-width: 260px;
-  border: 1px solid rgba(2,6,23,0.02);
+  border: 1px solid rgba(2, 6, 23, 0.02);
   display: block;
   line-height: 1.4;
 }
 
 /* Título: en negrita */
-.box h1, .box h2, .box h3,
-.exercise h1, .exercise h2, .exercise h3 {
+.box h1,
+.box h2,
+.box h3,
+.exercise h1,
+.exercise h2,
+.exercise h3 {
   margin: 0 0 8px 0;
-  font-weight: 700; /* negrita */
+  font-weight: 700;
+  /* negrita */
   color: var(--text);
 }
 
 /* Texto normal por defecto */
-.box p, .box label, .box small,
-.exercise p, .exercise label, .exercise small {
+.box p,
+.box label,
+.box small,
+.exercise p,
+.exercise label,
+.exercise small {
   margin: 0 0 8px 0;
   font-weight: 400;
   color: var(--text);
@@ -74,7 +101,8 @@ select {
 }
 
 /* Pequeña fila (botones) */
-.row, .actions {
+.row,
+.actions {
   display: flex;
   gap: 8px;
   margin-top: 6px;
@@ -82,7 +110,9 @@ select {
 }
 
 /* Si quieres que los botones estén centrados por defecto: */
-.actions { justify-content: center; }
+.actions {
+  justify-content: center;
+}
 
 /* Botones azules principales */
 button,
@@ -97,7 +127,8 @@ input[type="submit"] {
   cursor: pointer;
   font-weight: 400;
   font-size: 0.99rem;
-  min-height: 40px;           /* área táctil cómoda */
+  min-height: 40px;
+  /* área táctil cómoda */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -109,51 +140,93 @@ button.alt,
 a.btn.alt {
   background: #fff;
   color: var(--accent);
-  border: 1px solid rgba(37,99,235,.12);
+  border: 1px solid rgba(37, 99, 235, .12);
 }
 
 /* Hover / active */
-button:hover, a.btn:hover { filter: brightness(.96); transform: translateY(-1px); }
-button:active { transform: translateY(0); }
+button:hover,
+a.btn:hover {
+  filter: brightness(.96);
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
 
 /* Resultados y mensajes */
-.res, .out {
+.res,
+.out {
   font-weight: 700;
   margin-top: 8px;
   color: var(--text);
 }
 
 /* Mensajes de ayuda / muted */
-.mut, .hint {
+.mut,
+.hint {
   color: var(--muted);
   font-size: 13px;
   margin-top: 6px;
 }
 
 /* Mensajes de error y éxito */
-.msg-error { color: var(--error); font-weight:600; margin-top:6px; }
-.msg-ok    { color: var(--success); font-weight:600; margin-top:6px; }
+.msg-error {
+  color: var(--error);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.msg-ok {
+  color: var(--success);
+  font-weight: 600;
+  margin-top: 6px;
+}
 
 /* Focus visible accesible */
 :focus {
   outline: none;
 }
+
 :focus-visible {
-  outline: 3px solid rgba(37,99,235,0.18);
+  outline: 3px solid rgba(37, 99, 235, 0.18);
   border-radius: 6px;
 }
 
 /* Accessibility: aria-live container styling */
-[aria-live] { margin-top:8px; }
+[aria-live] {
+  margin-top: 8px;
+}
 
 /* Responsive tweaks */
 @media (max-width: 520px) {
-  .box, .exercise { padding: 12px; width: calc(100% - 24px); }
-  .row, .actions { flex-direction: column-reverse; gap: 10px; }
-  button { width: 100%; }
+
+  /* En pantallas pequeñas queremos centrar también horizontalmente */
+  body {
+    justify-content: center;
+  }
+
+  .box,
+  .exercise {
+    padding: 12px;
+    width: calc(100% - 24px);
+  }
+
+  .row,
+  .actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
