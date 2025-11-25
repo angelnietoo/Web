@@ -15,11 +15,11 @@
         <div class="content">
             <p>Pega un array en formato JSON (por ejemplo: <code>[1, [2, [3, 4]], 5]</code>).</p>
 
-            <label for="flat_input">Array JSON:
-                <textarea id="flat_input" name="flat_input" rows="4">[1, [2, [3, 4]], 5]</textarea>
+            <label for="TextoUsuario">Array JSON:
+                <textarea id="TextoUsuario" name="TextoUsuario" rows="4">[1, [2, [3, 4]], 5]</textarea>
             </label>
 
-            <pre id="out3" aria-live="polite">Salida...</pre>
+            <pre id="Resultado" aria-live="polite">Salida...</pre>
         </div>
 
         <div class="actions">
@@ -38,8 +38,8 @@
 
         // Manejo del evento
         document.getElementById('btn3').addEventListener('click', () => {
-            const txt = document.getElementById('flat_input').value.trim();
-            const out = document.getElementById('out3');
+            const txt = document.getElementById('TextoUsuario').value.trim();
+            const out = document.getElementById('Resultado');
 
             try {
                 const arr = JSON.parse(txt);
