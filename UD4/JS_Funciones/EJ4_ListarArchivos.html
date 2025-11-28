@@ -15,8 +15,8 @@
         <div class="content">
             <p>Pega un objeto en formato JSON que represente carpetas y archivos (ver ejemplo por defecto).</p>
 
-            <label for="fs_input">Estructura (JSON):
-                <textarea id="fs_input" name="fs_input" rows="8">{
+            <label for="TextoIntroducido">Estructura (JSON):
+                <textarea id="TextoIntroducido" name="TextoIntroducido" rows="8">{
   "carpeta1": {
     "archivo1": "contenido1",
     "archivo2": "contenido2",
@@ -26,7 +26,7 @@
 }</textarea>
             </label>
 
-            <pre id="out4" aria-live="polite">Salida...</pre>
+            <pre id="Resultado" aria-live="polite">Salida...</pre>
         </div>
 
         <div class="actions">
@@ -51,8 +51,8 @@
 
         // Evento del botón y obtenemos el valor JSON ingresado del usuario y la salida
         document.getElementById('btn4').addEventListener('click', () => {
-            const txt = document.getElementById('fs_input').value.trim();
-            const out = document.getElementById('out4');
+            const txt = document.getElementById('TextoIntroducido').value.trim();
+            const out = document.getElementById('Resultado');
 
             // Analizamos el JSON ingresado por el usuario
             try {

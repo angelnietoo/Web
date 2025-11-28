@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ej2 - addFixed</title>
+</head>
+
+<body>
+    <h2>Ejercicio 2 — addFixed(fixed)</h2>
+    Valor fijo: <input id="fixed" type="number" value="5">
+    Número: <input id="num" type="number" value="10">
+    <button id="run">Crear y ejecutar</button>
+    <div id="out">Resultado: —</div>
+
+    <script>
+        function addFixed(fixed) {
+            if (typeof fixed !== 'number') throw new TypeError('fixed debe ser número');
+            return function (n) {
+                if (typeof n !== 'number') throw new TypeError('n debe ser número');
+                return fixed + n;
+            };
+        }
+
+        document.getElementById('run').addEventListener('click', () => {
+            try {
+                const fixed = Number(document.getElementById('fixed').value);
+                const n = Number(document.getElementById('num').value);
+                const add = addFixed(fixed);
+                document.getElementById('out').textContent = `Resultado: ${add(n)}  ( ${fixed} + ${n} )`;
+            } catch (e) {
+                document.getElementById('out').textContent = `Error: ${e.message}`;
+            }
+        });
+    </script>
+</body>
+
+</html>

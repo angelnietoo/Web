@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ej4 - greet</title>
+</head>
+
+<body>
+    <h2>Ejercicio 4 — greet como expresión de función</h2>
+    <button id="run">Llamar greet()</button>
+    <div id="out">Resultado: —</div>
+
+    <script>
+        // expresión de función
+        const greet = function () {
+            return 'Hola';
+        };
+        // alternativa moderna: const greet = () => 'Hola';
+
+        document.getElementById('run').addEventListener('click', () => {
+            document.getElementById('out').textContent = `greet() -> ${greet()}`;
+        });
+    </script>
+</body>
+
+</html>
