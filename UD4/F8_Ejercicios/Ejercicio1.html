@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ejercicio 1 — capitalizarYContarVocales</title>
+    <style>
+        body {
+            font-family: system-ui, Arial;
+            padding: 16px;
+            background: #f7fafc
+        }
+
+        .card {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e6eef3;
+            max-width: 760px
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            font-family: monospace;
+            margin-top: 8px
+        }
+
+        button {
+            margin-top: 8px;
+            padding: 8px 12px
+        }
+
+        pre {
+            background: #0b1220;
+            color: #e6eef8;
+            padding: 10px;
+            border-radius: 6px;
+            min-height: 80px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Ejercicio 1 — capitalizarYContarVocales</h2>
+        <p>Introduce palabras separadas por comas (incluye acentos).</p>
+        <input id="inputWords" value="hola, mUndo, árbol, PIrrAmiDe">
+        <button id="run">Ejecutar</button>
+        <h3>Salida</h3>
+        <pre id="out"></pre>
+    </div>
+
+    <script>
+        function capitalizarYContarVocales(words) {
+            const vowelRegex = /[aeiouáéíóúü]/i;
+            let totalVocales = 0;
+            const palabras = words.map(w => {
+                if (!w || typeof w !== 'string') return w;
+                const lower = w.trim().toLowerCase();
+                for (const ch of lower) if (vowelRegex.test(ch)) totalVocales++;
+                return lower.charAt(0).toUpperCase() + lower.slice(1);
+            });
+            return { palabras, totalVocales };
+        }
+
+        document.getElementById('run').addEventListener('click', () => {
+            const raw = document.getElementById('inputWords').value;
+            const arr = raw.split(',').map(s => s.trim()).filter(Boolean);
+            const res = capitalizarYContarVocales(arr);
+            document.getElementById('out').textContent =
+                'Entrada: ' + JSON.stringify(arr) + '\n\n' +
+                'Palabras capitalizadas: ' + res.palabras.join(', ') + '\n' +
+                'Total de vocales: ' + res.totalVocales;
+        });
+    </script>
+</body>
+
+</html>

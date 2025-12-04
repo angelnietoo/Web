@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ejercicio 2 — sumarHasta</title>
+    <style>
+        body {
+            font-family: system-ui, Arial;
+            padding: 16px;
+            background: #f7fafc
+        }
+
+        .card {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #e6eef3;
+            max-width: 480px
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            font-family: monospace;
+            margin-top: 8px
+        }
+
+        button {
+            margin-top: 8px;
+            padding: 8px 12px
+        }
+
+        pre {
+            background: #0b1220;
+            color: #e6eef8;
+            padding: 10px;
+            border-radius: 6px;
+            min-height: 48px
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Ejercicio 2 — sumarHasta (recursivo)</h2>
+        <p>Introduce un entero positivo (n). Suma 1..n usando recursión.</p>
+        <input id="n" type="number" value="5" min="0">
+        <button id="run">Ejecutar</button>
+        <h3>Salida</h3>
+        <pre id="out"></pre>
+    </div>
+
+    <script>
+        function sumarHasta(n) {
+            n = Math.floor(Number(n));
+            if (isNaN(n) || n <= 0) return 0;
+            if (n === 1) return 1;
+            return n + sumarHasta(n - 1);
+        }
+
+        document.getElementById('run').addEventListener('click', () => {
+            const n = Number(document.getElementById('n').value);
+            const res = sumarHasta(n);
+            document.getElementById('out').textContent =
+                `Entrada n = ${n}\nResultado suma 1..${n} = ${res}`;
+        });
+    </script>
+</body>
+
+</html>
