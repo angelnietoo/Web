@@ -59,10 +59,21 @@
     </div>
 
     <script>
+        /*
+          filtrarYTransformar(arr, filtro, transformacion)
+          - Recibe un array y dos funciones: una para filtrar y otra para transformar.
+          - Devuelve un nuevo array con los elementos que pasan el filtro, transformados.
+          - Es una composición minimalista de .filter + .map, ideal para callbacks/arrow functions.
+        */
         function filtrarYTransformar(arr, filtro, transformacion) {
             return arr.filter(filtro).map(transformacion);
         }
 
+        /*
+          Manejador UI:
+          - Parseo seguro de entrada (coma-separada) y selección del preset de comportamiento.
+          - Evita NaN y muestra la salida transformada para inspección rápida.
+        */
         document.getElementById('run').addEventListener('click', () => {
             const raw = document.getElementById('nums').value;
             const arr = raw.split(',').map(s => Number(s.trim())).filter(x => !isNaN(x));

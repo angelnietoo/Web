@@ -58,6 +58,12 @@
     </div>
 
     <script>
+        /*
+          procesarTareas(tareas, callbackFinal, onProgress)
+          - Ejecuta cada tarea "en paralelo" usando setTimeout con la duración indicada.
+          - Cuando una tarea termina hace log y, cuando todas terminan, llama a callbackFinal con el orden real de finalización.
+          - onProgress es opcional y se llama por cada tarea completada.
+        */
         function procesarTareas(tareas, callbackFinal, onProgress) {
             if (!Array.isArray(tareas)) throw new TypeError('tareas debe ser un array');
             const completadas = [];
@@ -76,9 +82,19 @@
             });
         }
 
-        const out = document.getElementById('out');
+        /*
+          append(s)
+          - Añade una línea al área de salida y mantiene el scroll abajo para ver la última línea.
+        */
         function append(s) { out.textContent += s + '\n'; out.scrollTop = out.scrollHeight; }
+
+        /*
+          clearOut()
+          - Limpia el área de salida; útil para reiniciar la prueba sin recargar la página.
+        */
         function clearOut() { out.textContent = ''; }
+
+        const out = document.getElementById('out');
 
         document.getElementById('run').addEventListener('click', () => {
             clearOut();
@@ -94,4 +110,5 @@
         document.getElementById('clear').addEventListener('click', clearOut);
     </script>
 </body>
+
 </html>

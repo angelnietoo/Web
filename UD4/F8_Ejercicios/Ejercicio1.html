@@ -53,6 +53,13 @@
     </div>
 
     <script>
+        /*
+          capitalizarYContarVocales(words)
+          - Recibe un array de strings, normaliza cada palabra y devuelve dos cosas:
+            1) un array con cada palabra capitalizada (Primera letra en mayúscula)
+            2) el total de vocales encontradas en todas las palabras (incluye acentos y 'ü').
+          - Uso: útil para sanitizar textos cortos y obtener métricas simples (vocales).
+        */
         function capitalizarYContarVocales(words) {
             const vowelRegex = /[aeiouáéíóúü]/i;
             let totalVocales = 0;
@@ -65,6 +72,11 @@
             return { palabras, totalVocales };
         }
 
+        /*
+          Evento del botón "Ejecutar":
+          - Parsea la entrada (coma-separada), llama a la función anterior y muestra el resultado.
+          - Maneja trimming y entradas vacías de forma segura.
+        */
         document.getElementById('run').addEventListener('click', () => {
             const raw = document.getElementById('inputWords').value;
             const arr = raw.split(',').map(s => s.trim()).filter(Boolean);

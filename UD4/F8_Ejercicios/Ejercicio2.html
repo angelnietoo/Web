@@ -53,6 +53,12 @@
     </div>
 
     <script>
+        /*
+          sumarHasta(n)
+          - Implementación recursiva que devuelve la suma de todos los enteros desde 1 hasta n.
+          - Casos bordes: si n <= 0 o no es número, devuelve 0; si n==1 devuelve 1.
+          - Ventaja didáctica: evita bucles explícitos y muestra la lógica de caso base+recursión.
+        */
         function sumarHasta(n) {
             n = Math.floor(Number(n));
             if (isNaN(n) || n <= 0) return 0;
@@ -60,6 +66,11 @@
             return n + sumarHasta(n - 1);
         }
 
+        /*
+          Handler del UI:
+          - Lee el valor del input, llama a sumarHasta y muestra el resultado formateado.
+          - No modifica el DOM fuera del área de salida.
+        */
         document.getElementById('run').addEventListener('click', () => {
             const n = Number(document.getElementById('n').value);
             const res = sumarHasta(n);
