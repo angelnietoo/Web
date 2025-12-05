@@ -1,0 +1,170 @@
+:root {
+  --bg: #f3f4f6;
+  --card-bg: #fff;
+  --accent: #2563eb;
+  --muted: #6b7280;
+  --border: #e6eef9;
+  --radius: 8px;
+  --pad: 14px;
+  --max-w: min(720px, 94vw);
+  --text: #0f1720;
+  --shadow: 0 6px 18px rgba(2, 6, 23, .06);
+  --font: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* reset */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* CENTRAR el ejercicio en el CENTRO de la web (vertical y horizontal) */
+body {
+  display: flex;
+  flex-direction: column;
+  /* permite varios ejercicios apilados si existen */
+  justify-content: center;
+  /* centra verticalmente */
+  align-items: center;
+  /* centra horizontalmente */
+  gap: 20px;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+/* Contenedor principal — se adapta al contenido */
+main.exercise {
+  background: var(--card-bg);
+  padding: var(--pad);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(2, 6, 23, 0.03);
+
+  display: flex;
+  flex-direction: column;
+  /* título -> contenido -> acciones */
+  gap: 12px;
+
+  /* se adapta al contenido pero no supera max-width */
+  width: fit-content;
+  max-width: var(--max-w);
+  /* opcional: un mínimo razonable para evitar que quede muy estrecho */
+  min-inline-size: 280px;
+}
+
+/* Título */
+main.exercise>h1 {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Área central que crece (pero dentro de los límites del cajón) */
+main.exercise>.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* no forzamos flex:1 aquí porque queremos que el cajón se adapte al contenido */
+}
+
+/* Acciones / botones (abajo) */
+main.exercise>.actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-start;
+  /* cambia a center si quieres que los botones estén centrados */
+  margin-top: 0;
+}
+
+/* Formularios: no dejes que inputs hagan el cajón infinito */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+/* Inputs se adaptan pero tienen límites */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  /* 100% relativo al ancho del contenedor; si el contenedor es fit-content, el input define ancho */
+  width: 100%;
+  /* límites para que no estiren demasiado el cajón */
+  min-width: 180px;
+  max-width: 560px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+/* Botones */
+button,
+.btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Salidas: evita overflow horizontal excesivo */
+pre {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 6px;
+  overflow: auto;
+  margin: 0;
+  max-width: calc(var(--max-w));
+  white-space: pre-wrap;
+  /* permite wrap de líneas largas */
+  word-break: break-word;
+}
+
+/* Responsive: en móvil usamos 100% ancho para legibilidad */
+@media (max-width: 520px) {
+  body {
+    padding: 12px;
+  }
+
+  main.exercise {
+    width: calc(100% - 24px);
+    max-width: 100%;
+    min-inline-size: auto;
+  }
+
+  main.exercise>.actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select,
+  textarea {
+    max-width: 100%;
+    min-width: auto;
+  }
+}
