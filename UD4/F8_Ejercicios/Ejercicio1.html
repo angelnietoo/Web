@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ejercicio 1 — capitalizarYContarVocales</title>
+    <title>Ejercicio 1 — Capitalizar y Contar vocales</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -45,8 +45,8 @@
 
 <body>
     <div class="card">
-        <h2>Ejercicio 1 — capitalizarYContarVocales</h2>
-        <p>Introduce palabras separadas por comas (incluye acentos).</p>
+        <h2>Ejercicio 1 — Capitalizar y Contar vocales</h2>
+        <p>Introduce palabras separadas por comas.</p>
         <input id="inputWords" value="hola, mUndo, árbol, PIrrAmiDe">
         <button id="run">Ejecutar</button>
         <h3>Salida</h3>
@@ -55,11 +55,8 @@
 
     <script>
         /*
-          capitalizarYContarVocales(words)
-          - Recibe un array de strings, normaliza cada palabra y devuelve dos cosas:
-            1) un array con cada palabra capitalizada (Primera letra en mayúscula)
-            2) el total de vocales encontradas en todas las palabras (incluye acentos y 'ü').
-          - Uso: útil para sanitizar textos cortos y obtener métricas simples (vocales).
+          Normaliza un array de palabras, devuelve las palabras capitalizadas y el total de vocales 
+          (incluyendo acentos); útil para limpiar textos y obtener una métrica básica.
         */
         function capitalizarYContarVocales(words) {
             const vowelRegex = /[aeiouáéíóúü]/i;
@@ -74,9 +71,8 @@
         }
 
         /*
-          Evento del botón "Ejecutar":
-          - Parsea la entrada (coma-separada), llama a la función anterior y muestra el resultado.
-          - Maneja trimming y entradas vacías de forma segura.
+          Ejecuta al pulsar el botón: procesa la entrada, llama a la función y muestra el resultado, 
+          manejando espacios y vacíos correctamente.
         */
         document.getElementById('run').addEventListener('click', () => {
             const raw = document.getElementById('inputWords').value;

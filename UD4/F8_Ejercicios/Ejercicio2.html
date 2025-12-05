@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ejercicio 2 — sumarHasta</title>
+    <title>Ejercicio 2 — Sumar hasta</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -55,10 +55,8 @@
 
     <script>
         /*
-          sumarHasta(n)
-          - Implementación recursiva que devuelve la suma de todos los enteros desde 1 hasta n.
-          - Casos bordes: si n <= 0 o no es número, devuelve 0; si n==1 devuelve 1.
-          - Ventaja didáctica: evita bucles explícitos y muestra la lógica de caso base+recursión.
+          Función recursiva que suma los enteros de 1 a n. Maneja casos no válidos devolviendo 0 y 
+          usa el patrón clásico de caso base más llamada recursiva para evitar bucles.
         */
         function sumarHasta(n) {
             n = Math.floor(Number(n));
@@ -68,9 +66,8 @@
         }
 
         /*
-          Handler del UI:
-          - Lee el valor del input, llama a sumarHasta y muestra el resultado formateado.
-          - No modifica el DOM fuera del área de salida.
+          Handler del UI que toma el valor del input, ejecuta sumarHasta y muestra 
+          el resultado sin alterar otras partes del DOM.
         */
         document.getElementById('run').addEventListener('click', () => {
             const n = Number(document.getElementById('n').value);

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ejercicio 4 — procesarTareas</title>
+    <title>Ejercicio 4 — Procesar Tareas</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -47,7 +47,7 @@
 
 <body>
     <div class="card">
-        <h2>Ejercicio 4 — procesarTareas (callbacks)</h2>
+        <h2>Ejercicio 4 — Procesar Tareas</h2>
         <p>Introduce JSON: array de tareas {id, duracion(ms)}. El procesamiento simula asincronía con setTimeout.</p>
         <textarea id="tasks">[{"id":"A","duracion":300},{"id":"B","duracion":100},{"id":"C","duracion":200}]</textarea>
         <div style="display:flex;gap:8px">
@@ -60,10 +60,8 @@
 
     <script>
         /*
-          procesarTareas(tareas, callbackFinal, onProgress)
-          - Ejecuta cada tarea "en paralelo" usando setTimeout con la duración indicada.
-          - Cuando una tarea termina hace log y, cuando todas terminan, llama a callbackFinal con el orden real de finalización.
-          - onProgress es opcional y se llama por cada tarea completada.
+          procesarTareas ejecuta tareas en paralelo simuladas con setTimeout, registra su finalización, 
+          llama a onProgress opcional y callbackFinal con el orden real de término.
         */
         function procesarTareas(tareas, callbackFinal, onProgress) {
             if (!Array.isArray(tareas)) throw new TypeError('tareas debe ser un array');
@@ -84,14 +82,12 @@
         }
 
         /*
-          append(s)
-          - Añade una línea al área de salida y mantiene el scroll abajo para ver la última línea.
+          append(s) Añade una línea al área de salida y mantiene el scroll abajo para ver la última línea.
         */
         function append(s) { out.textContent += s + '\n'; out.scrollTop = out.scrollHeight; }
 
         /*
-          clearOut()
-          - Limpia el área de salida; útil para reiniciar la prueba sin recargar la página.
+          clearOut() Limpia el área de salida; útil para reiniciar la prueba sin recargar la página.
         */
         function clearOut() { out.textContent = ''; }
 

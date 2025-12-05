@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Ejercicio 3 — filtrarYTransformar</title>
+    <title>Ejercicio 3 — Filtrar y Transformar</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
@@ -46,7 +46,7 @@
 
 <body>
     <div class="card">
-        <h2>Ejercicio 3 — filtrarYTransformar</h2>
+        <h2>Ejercicio 3 — Filtrar y Transformar</h2>
         <p>Introduce números separados por comas y selecciona un preset.</p>
         <input id="nums" value="1,2,3,4,5,6">
         <select id="preset">
@@ -61,19 +61,16 @@
 
     <script>
         /*
-          filtrarYTransformar(arr, filtro, transformacion)
-          - Recibe un array y dos funciones: una para filtrar y otra para transformar.
-          - Devuelve un nuevo array con los elementos que pasan el filtro, transformados.
-          - Es una composición minimalista de .filter + .map, ideal para callbacks/arrow functions.
+          filtrarYTransformar devuelve un nuevo array con los elementos de entrada 
+          que pasan un filtro y se transforman, combinando .filter() y .map().
         */
         function filtrarYTransformar(arr, filtro, transformacion) {
             return arr.filter(filtro).map(transformacion);
         }
 
         /*
-          Manejador UI:
-          - Parseo seguro de entrada (coma-separada) y selección del preset de comportamiento.
-          - Evita NaN y muestra la salida transformada para inspección rápida.
+          Manejador UI que parsea entradas de forma segura, selecciona presets 
+          y muestra la salida transformada evitando NaN.
         */
         document.getElementById('run').addEventListener('click', () => {
             const raw = document.getElementById('nums').value;
