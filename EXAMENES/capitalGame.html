@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Juego sencillo: Adivina la capital</title>
+</head>
+
+<body>
+    <script>
+        // script
+        var NUM_CAPITALES = 6;
+        var letras = "abcdefghijklmnopqrstuvwxyzáéíóúñü";
+
+        function contarLetras(s) {
+            var c = 0;
+            s = s.toLowerCase();
+            for (var i = 0; i < s.length; i++) {
+                var ch = s[i];
+                if (letras.indexOf(ch) !== -1) c++;
+            }
+            return c;
+        }
+
+        function formatoValido(s) {
+            s = s.toLowerCase();
+            for (var i = 0; i < s.length; i++) {
+                var ch = s[i];
+                if (letras.indexOf(ch) !== -1) continue;
+                if (ch === ' ' || ch === '-' || ch === "'") continue;
+                return false;
+            }
+            return true;
+        }
+
+        function pedirCapital(indice) {
+            while (true) {
+                var entrada = prompt("Introduce la capital nº " + (indice + 1) + " (mínimo 5 letras):");
+                if (entrada === null) {
+                    var confirmar = confirm("¿Cancelar la creación de la lista? (Aceptar = cancelar)");
+                    if (confirmar) return null;
+                    else continue;
+                }
+                entrada = entrada.trim();
+                if (entrada.length === 0) { alert("No has escrito nada."); continue; }
+                if (!formatoValido(entrada)) { alert("Usa sólo letras, espacios, '-' o apóstrofe."); continue; }
+                if (contarLetras(entrada) < 5) { alert("La capital debe tener al menos 5 letras."); continue; }
+                return entrada.toLowerCase();
+            }
+        }
+
+        function construirPista(palabra, reveladas) {
+            var salida = "";
+            var mostradas = 0;
+            for (var i = 0; i < palabra.length; i++) {
+                var ch = palabra[i];
+                if (letras.indexOf(ch) !== -1) {
+                    if (mostradas < reveladas) { salida += ch; mostradas++; }
+                    else salida += "_";
+                } else {
+                    salida += ch;
+                }
+                if (i < palabra.length - 1) salida += " ";
+            }
+            return salida;
+        }
+
+        (function () {
+            alert("Juego: Adivina la capital - versión simple\nVas a introducir " + NUM_CAPITALES + " capitales.");
+            var lista = [];
+            for (var i = 0; i < NUM_CAPITALES; i++) {
+                var capital = pedirCapital(i);
+                if (capital === null) { alert("Creación cancelada. Fin."); return; }
+                lista.push(capital);
+            }
+
+            var indiceAleatorio = Math.floor(Math.random() * lista.length);
+            var capitalSecreta = lista[indiceAleatorio];
+            var totalLetras = contarLetras(capitalSecreta);
+
+            var reveladas = 1;
+            var intentos = 0;
+
+            while (true) {
+                var pista = construirPista(capitalSecreta, reveladas);
+                var intento = prompt("Pista:\n" + pista + "\n\nIntroduce la capital completa:");
+                if (intento === null) {
+                    var abandonar = confirm("¿Deseas abandonar la partida? (Aceptar = abandonar)");
+                    if (abandonar) { alert("Fin. La capital era: " + capitalSecreta); return; }
+                    else continue;
+                }
+                intento = intento.trim().toLowerCase();
+                intentos++;
+                if (intento === capitalSecreta) {
+                    alert("¡Has ganado en " + intentos + " intento(s)! La capital era: " + capitalSecreta);
+                    return;
+                } else {
+                    reveladas++;
+                    if (reveladas > totalLetras) {
+                        var pistaFinal = construirPista(capitalSecreta, totalLetras);
+                        alert("Has perdido. Se han revelado todas las letras:\n" + pistaFinal + "\nLa capital era: " + capitalSecreta);
+                        return;
+                    } else {
+                        alert("No es correcto. Revelaré una letra más (ahora " + reveladas + " letra(s)).");
+                    }
+                }
+            }
+        })();
+    </script>
+</body>
+
+</html>
