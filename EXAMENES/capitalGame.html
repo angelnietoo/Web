@@ -2,13 +2,49 @@
 <html lang="es">
 
 <head>
-    <meta charset="utf-8">
-    <title>Juego sencillo: Adivina la capital</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Adivina la capital - versión básica</title>
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <div class="contenedor">
+        <h1>Adivina la capital (básico)</h1>
+        <p>Introduce 6 capitales válidas (mín. 5 letras). Luego adivina con pistas que revelan letras.</p>
+
+        <div id="zona-entrada">
+            <div id="inputs"></div>
+
+            <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
+                <button id="btn-iniciar" disabled>Iniciar</button>
+                <button id="btn-limpiar" type="button">Limpiar</button>
+                <div id="estado" style="margin-left:auto;font-size:13px;">0/6 válidas</div>
+            </div>
+        </div>
+
+        <div id="zona-juego">
+            <div class="pista" id="pista">_ _ _ _ _</div>
+            <div class="info" id="info">Letras reveladas: 1 · Intentos: 0 · Total letras: 0</div>
+
+            <div style="display:flex;gap:8px;">
+                <input type="text" id="campo-adivinar" placeholder="Escribe la capital" />
+                <button id="btn-adivinar">Adivinar</button>
+                <button id="btn-abandonar" type="button">Abandonar</button>
+            </div>
+
+            <div id="zona-resultado"></div>
+
+            <div style="margin-top:8px;">
+                <button id="btn-reiniciar" type="button" style="display:none;">Reiniciar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
-        // script
         var NUM_CAPITALES = 6;
         var letras = "abcdefghijklmnopqrstuvwxyzáéíóúñü";
 
@@ -16,8 +52,7 @@
             var c = 0;
             s = s.toLowerCase();
             for (var i = 0; i < s.length; i++) {
-                var ch = s[i];
-                if (letras.indexOf(ch) !== -1) c++;
+                if (letras.indexOf(s[i]) !== -1) c++;
             }
             return c;
         }
@@ -31,22 +66,6 @@
                 return false;
             }
             return true;
-        }
-
-        function pedirCapital(indice) {
-            while (true) {
-                var entrada = prompt("Introduce la capital nº " + (indice + 1) + " (mínimo 5 letras):");
-                if (entrada === null) {
-                    var confirmar = confirm("¿Cancelar la creación de la lista? (Aceptar = cancelar)");
-                    if (confirmar) return null;
-                    else continue;
-                }
-                entrada = entrada.trim();
-                if (entrada.length === 0) { alert("No has escrito nada."); continue; }
-                if (!formatoValido(entrada)) { alert("Usa sólo letras, espacios, '-' o apóstrofe."); continue; }
-                if (contarLetras(entrada) < 5) { alert("La capital debe tener al menos 5 letras."); continue; }
-                return entrada.toLowerCase();
-            }
         }
 
         function construirPista(palabra, reveladas) {
@@ -65,48 +84,101 @@
             return salida;
         }
 
-        (function () {
-            alert("Juego: Adivina la capital - versión simple\nVas a introducir " + NUM_CAPITALES + " capitales.");
-            var lista = [];
+        var contenedorInputs = document.getElementById("inputs");
+        var btnIniciar = document.getElementById("btn-iniciar");
+        var btnLimpiar = document.getElementById("btn-limpiar");
+        var estado = document.getElementById("estado");
+        var zonaJuego = document.getElementById("zona-juego");
+        var pistaElem = document.getElementById("pista");
+        var infoElem = document.getElementById("info");
+        var campoAdivinar = document.getElementById("campo-adivinar");
+        var btnAdivinar = document.getElementById("btn-adivinar");
+        var btnAbandonar = document.getElementById("btn-abandonar");
+        var zonaResultado = document.getElementById("zona-resultado");
+        var btnReiniciar = document.getElementById("btn-reiniciar");
+
+        var inputs = [];
+
+        function crearInputs() {
+            contenedorInputs.innerHTML = "";
+            inputs = [];
             for (var i = 0; i < NUM_CAPITALES; i++) {
-                var capital = pedirCapital(i);
-                if (capital === null) { alert("Creación cancelada. Fin."); return; }
-                lista.push(capital);
+                var fila = document.createElement("div");
+                fila.className = "fila";
+
+                var lbl = document.createElement("label");
+                lbl.textContent = (i + 1) + ".";
+
+                var inp = document.createElement("input");
+                inp.type = "text";
+                inp.placeholder = "Capital " + (i + 1);
+                inp.addEventListener("input", actualizarValidacion);
+
+                fila.appendChild(lbl);
+                fila.appendChild(inp);
+                contenedorInputs.appendChild(fila);
+                inputs.push(inp);
+            }
+            actualizarValidacion();
+        }
+
+        function actualizarValidacion() {
+            var ok = 0;
+            for (var i = 0; i < inputs.length; i++) {
+                var v = inputs[i].value.trim();
+                if (v && formatoValido(v) && contarLetras(v) >= 5) ok++;
+            }
+            estado.textContent = ok + "/" + NUM_CAPITALES + " válidas";
+            btnIniciar.disabled = ok !== NUM_CAPITALES;
+        }
+
+        btnLimpiar.onclick = function () {
+            inputs.forEach(i => i.value = "");
+            actualizarValidacion();
+        };
+
+        var capitalSecreta = "";
+        var totalLetras = 0;
+        var reveladas = 1;
+        var intentos = 0;
+
+        btnIniciar.onclick = function () {
+            var lista = inputs.map(i => i.value.trim().toLowerCase());
+            capitalSecreta = lista[Math.floor(Math.random() * lista.length)];
+            totalLetras = contarLetras(capitalSecreta);
+            reveladas = 1;
+            intentos = 0;
+
+            pistaElem.textContent = construirPista(capitalSecreta, reveladas);
+            zonaJuego.style.display = "block";
+            document.getElementById("zona-entrada").style.display = "none";
+            btnReiniciar.style.display = "inline-block";
+        };
+
+        btnAdivinar.onclick = function () {
+            var intento = campoAdivinar.value.trim().toLowerCase();
+            if (!intento) return;
+            intentos++;
+
+            if (intento === capitalSecreta) {
+                pistaElem.textContent = capitalSecreta.split("").join(" ");
+                zonaResultado.innerHTML = "<div class='resultado exito'>¡Has ganado! La capital era " + capitalSecreta + "</div>";
+                return;
             }
 
-            var indiceAleatorio = Math.floor(Math.random() * lista.length);
-            var capitalSecreta = lista[indiceAleatorio];
-            var totalLetras = contarLetras(capitalSecreta);
-
-            var reveladas = 1;
-            var intentos = 0;
-
-            while (true) {
-                var pista = construirPista(capitalSecreta, reveladas);
-                var intento = prompt("Pista:\n" + pista + "\n\nIntroduce la capital completa:");
-                if (intento === null) {
-                    var abandonar = confirm("¿Deseas abandonar la partida? (Aceptar = abandonar)");
-                    if (abandonar) { alert("Fin. La capital era: " + capitalSecreta); return; }
-                    else continue;
-                }
-                intento = intento.trim().toLowerCase();
-                intentos++;
-                if (intento === capitalSecreta) {
-                    alert("¡Has ganado en " + intentos + " intento(s)! La capital era: " + capitalSecreta);
-                    return;
-                } else {
-                    reveladas++;
-                    if (reveladas > totalLetras) {
-                        var pistaFinal = construirPista(capitalSecreta, totalLetras);
-                        alert("Has perdido. Se han revelado todas las letras:\n" + pistaFinal + "\nLa capital era: " + capitalSecreta);
-                        return;
-                    } else {
-                        alert("No es correcto. Revelaré una letra más (ahora " + reveladas + " letra(s)).");
-                    }
-                }
+            reveladas++;
+            if (reveladas > totalLetras) {
+                zonaResultado.innerHTML = "<div class='resultado fallo'>Has perdido. La capital era " + capitalSecreta + "</div>";
+            } else {
+                pistaElem.textContent = construirPista(capitalSecreta, reveladas);
             }
-        })();
+        };
+
+        btnReiniciar.onclick = function () {
+            location.reload();
+        };
+
+        crearInputs();
     </script>
 </body>
-
 </html>
