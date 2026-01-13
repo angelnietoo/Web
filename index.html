@@ -1,439 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Índice de Ejercicios — Ángel Nieto C.</title>
 
   <!-- Tipografías -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@600;800&display=swap"
+    rel="stylesheet">
 
-  <style>
-    :root{
-      --bg-1: #0f1720;
-      --bg-2: #0b1220;
-      --accent: #00b0ff;
-      --accent-2: #007acb;
-      --muted: #bfc9d6;
-      --glass: rgba(255,255,255,0.04);
-      --card-radius: 18px;
-      --max-w: 1200px;
-      --gap: 18px;
-      --glass-border: rgba(255,255,255,0.04);
-      --shadow-1: 0 8px 30px rgba(2,6,23,0.7);
-      --soft: 0.18s;
-      --base: 16px;
-    }
-
-    html { font-size: 16px; box-sizing: border-box; }
-    *,*::before,*::after{ box-sizing: inherit; }
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% 10%, rgba(0,176,255,0.04), transparent),
-                  linear-gradient(135deg, var(--bg-1), var(--bg-2));
-      color: #e6eef7;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:36px 20px;
-    }
-
-    .wrap {
-      width:100%;
-      max-width: var(--max-w);
-      display:grid;
-      grid-template-columns: 1fr 340px;
-      gap: 28px;
-      align-items:start;
-    }
-
-    /* CARD PRINCIPAL */
-    .card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: var(--card-radius);
-      padding: 28px;
-      box-shadow: var(--shadow-1);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(6px);
-      overflow: visible;
-    }
-
-    header.top {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .title {
-      display:flex;
-      gap:16px;
-      align-items:center;
-    }
-
-    .logo {
-      width:68px;
-      height:68px;
-      border-radius:14px;
-      display:grid;
-      place-items:center;
-      background: linear-gradient(135deg, rgba(0,176,255,0.15), rgba(0,122,203,0.08));
-      box-shadow: 0 6px 18px rgba(0,112,200,0.07);
-      border: 1px solid rgba(255,255,255,0.03);
-      font-weight:800;
-      color:var(--accent);
-      font-family: Montserrat, Inter, sans-serif;
-      font-size:18px;
-      letter-spacing:1px;
-      overflow: hidden;
-    }
-
-    /* Imagen dentro del logo */
-    .logo img {
-      width:48px;
-      height:48px;
-      object-fit:contain;
-      display:block;
-      border-radius:8px;
-    }
-
-    h1 {
-      margin:0;
-      font-family: Montserrat, Inter, sans-serif;
-      font-size:1.6rem;
-      line-height:1;
-      color: white;
-      text-transform:uppercase;
-      letter-spacing:1px;
-    }
-    p.lead {
-      margin:0;
-      color:var(--muted);
-      font-size:0.95rem;
-      font-weight:500;
-    }
-
-    /* module controls */
-    .modules {
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:18px;
-    }
-
-    .module {
-      position:relative;
-    }
-
-    .module button.toggle {
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,247,250,0.92));
-      color: #071125;
-      border: none;
-      padding: 12px 18px;
-      font-weight:700;
-      border-radius: 12px;
-      cursor:pointer;
-      box-shadow: 0 10px 20px rgba(7,17,37,0.35);
-      transition: transform var(--soft), box-shadow var(--soft);
-      min-width: 300px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      font-size:0.98rem;
-    }
-    .module button.toggle:hover { transform: translateY(-4px); }
-    .module button.toggle[aria-expanded="true"]{
-      outline: 3px solid rgba(0,176,255,0.12);
-      box-shadow: 0 14px 36px rgba(0,176,255,0.06);
-    }
-
-    /* chevron */
-    .chev {
-      width:18px;
-      height:18px;
-      display:inline-block;
-      transform:rotate(0);
-      transition: transform var(--soft);
-    }
-    .module button.toggle[aria-expanded="true"] .chev { transform: rotate(180deg); }
-
-    /* dropdown */
-    .dropdown {
-      position:absolute;
-      left: 0;
-      top:calc(100% + 12px);
-      min-width: 320px;
-      background: linear-gradient(180deg, rgba(10,14,22,0.95), rgba(6,9,14,0.96));
-      border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 18px 50px rgba(2,6,23,0.6);
-      border: 1px solid rgba(255,255,255,0.03);
-      z-index:40;
-      display:none;
-      transform-origin: top center;
-      animation: pop .16s ease;
-    }
-    .dropdown.show { display:block; }
-
-    @keyframes pop { from { transform: scale(.98) translateY(-6px); opacity:0 } to { transform: scale(1) translateY(0); opacity:1 } }
-
-    .dropdown .item {
-      display:flex;
-      gap:12px;
-      align-items:center;
-      padding:12px;
-      border-radius:10px;
-      cursor:pointer;
-      font-weight:700;
-      color:var(--muted);
-      transition: background var(--soft), color var(--soft), transform .12s;
-      background:transparent;
-      border: 1px solid transparent;
-    }
-    .dropdown .item:hover, .dropdown .item:focus {
-      background: linear-gradient(90deg, rgba(0,176,255,0.04), rgba(0,176,255,0.02));
-      color: #fff;
-      transform: translateY(-3px);
-      outline: none;
-      border-color: rgba(0,176,255,0.05);
-    }
-    .dropdown .item .dot {
-      width:12px;
-      height:12px;
-      border-radius:3px;
-      background: linear-gradient(180deg,var(--accent),var(--accent-2));
-      box-shadow: 0 6px 18px rgba(0,176,255,0.1);
-      flex-shrink:0;
-    }
-
-    /* --- seleccionado (fondo más claro) --- */
-    .dropdown .item.selected {
-      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,176,255,0.03));
-      color: #eaf6ff;
-      border-color: rgba(0,176,255,0.08);
-      transform: none;
-    }
-    .dropdown .item.selected .dot {
-      box-shadow: 0 8px 20px rgba(0,176,255,0.16);
-    }
-
-    /* content area (temas / ejercicios) */
-    .content {
-      margin-top: 8px;
-      padding-top: 12px;
-      border-top: 1px dashed rgba(255,255,255,0.02);
-    }
-
-    .tema {
-      display:none;
-      margin-top: 18px;
-      animation: fadeSlide .28s ease both;
-      transition: background var(--soft), border-color var(--soft), box-shadow var(--soft);
-    }
-    .tema.active { display:block; }
-
-    /* ligero resalte del panel del tema activo */
-    .tema.active.highlight {
-      background: linear-gradient(180deg, rgba(255,255,255,0.012), rgba(255,255,255,0.006));
-      border: 1px solid rgba(255,255,255,0.02);
-      padding: 12px;
-      border-radius: 10px;
-    }
-
-    @keyframes fadeSlide { from { opacity:0; transform: translateY(6px) } to { opacity:1; transform: translateY(0) } }
-
-    .tema h2 { margin:0 0 12px 0; color: #fff; font-size:1.15rem; font-weight:800; }
-    .grid {
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:14px;
-    }
-
-    /* Botones de ejercicios: ahora unificados y "pixel-perfect" iguales entre módulos */
-    .ej-btn {
-      display:block;
-      text-decoration:none;
-      padding:12px 14px;
-      border-radius:12px;
-      font-weight:800;
-      background: linear-gradient(180deg, rgba(0,176,255,0.08), rgba(0,176,255,0.02));
-      color: #eaf6ff;
-      border: 1px solid rgba(0,176,255,0.06);
-      text-align:center;
-      transition: transform var(--soft) cubic-bezier(0.22,1,0.36,1), box-shadow var(--soft), background var(--soft);
-      will-change: transform, box-shadow;
-      backface-visibility: hidden;
-    }
-    .ej-btn:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(0,176,255,0.04); }
-    .ej-btn:active { transform: translateY(-2px) scale(.997); }
-    .ej-btn:focus-visible { box-shadow: 0 18px 40px rgba(0,176,255,0.10); transform: translateY(-5px); outline: none; }
-
-    /* cliente (sin ejercicios) — ahora actúa como grid cuando hay botones */
-    .cliente-empty {
-      padding:14px;
-      border-radius:10px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      color: var(--muted);
-      border: 1px dashed rgba(255,255,255,0.03);
-      font-style: italic;
-      grid-column: 1 / -1;
-
-      /* <-- Cambios: hacemos que .cliente-empty también sea un grid,
-         de forma que sus botones (.ej-btn) se coloquen en columnas igual que .grid */
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      align-items: start;
-    }
-
-    /* Asegurar que los enlaces llenen la celda correctamente */
-    .cliente-empty .ej-btn {
-      width: 100%;
-      display: block;
-    }
-
-    /* Si .cliente-empty NO contiene botones, mejor centrar el texto */
-    /* Uso de :has() para mejorar la UX en navegadores modernos; si tu público usa navegadores antiguos, puedes eliminar esta regla */
-    .cliente-empty:not(:has(.ej-btn)) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-style: italic;
-      padding: 20px;
-    }
-
-    /* right sidebar: perfil */
-    .profile {
-      padding:20px;
-      border-radius: var(--card-radius);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid rgba(255,255,255,0.03);
-      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      align-items:stretch;
-      height:fit-content;
-    }
-
-    .avatar {
-      width:100%;
-      height:160px;
-      border-radius:12px;
-      background: linear-gradient(90deg, rgba(0,176,255,0.06), rgba(0,122,203,0.03));
-      display:grid;
-      place-items:center;
-      color: var(--accent);
-      font-weight:800;
-      font-family: Montserrat, Inter, sans-serif;
-      font-size:22px;
-
-      /* <-- Cambio seguro: recortar lo que sobresalga */
-      overflow: hidden;
-      position: relative;
-    }
-
-    /* NUEVO: asegurar que la imagen se ajuste al contenedor sin salirse */
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;         /* uso default: cover para rellenar y recortar centrado */
-      object-position: center;
-      display: block;
-      border-radius: 12px;
-      margin: 0;
-      padding: 0;
-      max-width: none;
-    }
-
-    .name { font-weight:800; font-size:1.05rem; color:#fff; margin:6px 0 0 0; }
-    .role { color: var(--muted); font-size:0.9rem; margin:0; }
-
-    .badges { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
-    .badge{
-      font-weight:700;
-      padding:8px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.02);
-      border: 1px solid rgba(255,255,255,0.02);
-      color: var(--muted);
-      font-size:0.85rem;
-    }
-
-    .cta {
-      display:flex;
-      gap:10px;
-      margin-top:12px;
-      flex-wrap:wrap;
-    }
-    .cta a{
-      flex:1 1 auto;
-      text-decoration:none;
-      padding:12px 14px;
-      border-radius:10px;
-      text-align:center;
-      font-weight:800;
-      background: linear-gradient(90deg,var(--accent),var(--accent-2));
-      color:#04202c;
-      box-shadow: 0 10px 28px rgba(0,176,255,0.08);
-    }
-
-    .note { margin-top:12px; color:var(--muted); font-size:0.88rem; }
-
-    /* Styles para fases dentro de un tema */
-    .fase {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 10px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border: 1px solid rgba(255,255,255,0.02);
-    }
-
-    .fase h3 {
-      margin: 0 0 10px 0;
-      color: var(--muted);
-      font-size: 0.98rem;
-      font-weight: 800;
-    }
-
-    .fase .grid {
-      gap: 12px;
-    }
-
-    /* responsive */
-    @media (max-width: 980px){
-      .wrap { grid-template-columns: 1fr; }
-      .module button.toggle { min-width: unset; width:100%; }
-      .dropdown { min-width: 100%; left:0; right:0; }
-      .grid { grid-template-columns: repeat(2,1fr); }
-
-      /* ajuste responsive para cliente-empty */
-      .cliente-empty {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 520px){
-      .grid { grid-template-columns: 1fr; }
-      .logo { width:56px; height:56px; font-size:16px; }
-      .avatar { height:120px; }
-
-      .cliente-empty {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* focus visible */
-    :focus { outline: none; }
-    .focus-visible { outline: 3px solid rgba(0,176,255,0.16); border-radius:8px; }
-  </style>
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
   <main class="wrap" aria-label="Índice de ejercicios y perfil">
     <!-- Lado izquierdo: contenido principal -->
@@ -458,37 +39,51 @@
       <!-- módulos -->
       <nav class="modules" aria-label="Selector de módulos">
         <div class="module" id="lenguajeWrapper">
-          <button class="toggle" id="btnLenguaje" aria-haspopup="menu" aria-expanded="false" aria-controls="dropdownLenguaje">
+          <button class="toggle" id="btnLenguaje" aria-haspopup="menu" aria-expanded="false"
+            aria-controls="dropdownLenguaje">
             <span>LENGUAJE DE MARCAS — 1º DAW</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </button>
 
           <div id="dropdownLenguaje" class="dropdown" role="menu" aria-label="Temas Lenguaje">
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 — Introducción</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema2"><span class="dot"></span><span> Tema 2 — HTML</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema3"><span class="dot"></span><span> Tema 3 — CSS & Grid</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema4"><span class="dot"></span><span> Tema 4 — JavaScript</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 — Extras</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 —
+                Introducción</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema2"><span class="dot"></span><span> Tema 2 —
+                HTML</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema3"><span class="dot"></span><span> Tema 3 —
+                CSS & Grid</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema4"><span class="dot"></span><span> Tema 4 —
+                JavaScript</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 —
+                Extras</span></div>
           </div>
         </div>
 
         <div class="module" id="clienteWrapper">
-          <button class="toggle" id="btnCliente" aria-haspopup="menu" aria-expanded="false" aria-controls="dropdownCliente">
+          <button class="toggle" id="btnCliente" aria-haspopup="menu" aria-expanded="false"
+            aria-controls="dropdownCliente">
             <span>DESARROLLO WEB EN ENTORNO CLIENTE — 2º DAW</span>
             <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
             </svg>
           </button>
 
           <div id="dropdownCliente" class="dropdown" role="menu" aria-label="Temas Cliente">
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 — JavaScript</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema2"><span class="dot"></span><span> Tema 2 — Manejo y Sintaxis de Javascript</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema3"><span class="dot"></span><span> Tema 3 — Objetos predefinidos</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 —
+                JavaScript</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema2"><span class="dot"></span><span> Tema 2 —
+                Manejo y Sintaxis de Javascript</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema3"><span class="dot"></span><span> Tema 3 —
+                Objetos predefinidos</span></div>
             <!-- Actualizado: dejamos Tema 4 con título más descriptivo -->
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema4"><span class="dot"></span><span> Tema 4 — Eventos & Funciones</span></div>
-            <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 — Extras</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema4"><span class="dot"></span><span> Tema 4 —
+                Eventos & Funciones</span></div>
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 —
+                Extras</span></div>
           </div>
         </div>
       </nav>
@@ -503,14 +98,16 @@
       <!-- área de contenido: temas y ejercicios -->
       <section class="content" id="contentArea" aria-live="polite">
         <!-- LENGUAJE contenidos (con ejercicios) -->
-        <article id="tema1" class="tema" aria-labelledby="t1h"><h2 id="t1h">TEMA 1: Introducción al lenguaje de marcas</h2>
+        <article id="tema1" class="tema" aria-labelledby="t1h">
+          <h2 id="t1h">TEMA 1: Introducción al lenguaje de marcas</h2>
           <div class="grid">
             <a class="ej-btn" href="ciudades.xml">Ejercicio 1 — Ciudades (XML)</a>
             <a class="ej-btn" href="hechos_historicos.xml">Ejercicio 2 — Hechos históricos (XML)</a>
           </div>
         </article>
 
-        <article id="tema2" class="tema" aria-labelledby="t2h"><h2 id="t2h">TEMA 2: HTML</h2>
+        <article id="tema2" class="tema" aria-labelledby="t2h">
+          <h2 id="t2h">TEMA 2: HTML</h2>
           <div class="grid">
             <a class="ej-btn" href="EJ1_Listas.html">Ejercicio 1 — Listas</a>
             <a class="ej-btn" href="EJ2_Imagenes.html">Ejercicio 2 — Imágenes</a>
@@ -533,7 +130,8 @@
           </div>
         </article>
 
-        <article id="tema4" class="tema" aria-labelledby="t4h"><h2 id="t4h">TEMA 4: JavaScript</h2>
+        <article id="tema4" class="tema" aria-labelledby="t4h">
+          <h2 id="t4h">TEMA 4: JavaScript</h2>
           <div class="grid">
             <a class="ej-btn" href="Tema4/JavaScript.html">Ejercicio 1 — JS</a>
             <a class="ej-btn" href="Tema4/JavaScript2.html">Ejercicio 2 — Sumatorio</a>
@@ -550,7 +148,8 @@
           </div>
         </article>
 
-        <article id="tema5" class="tema" aria-labelledby="t5h"><h2 id="t5h">TEMA 5: Animaciones & Utilidades</h2>
+        <article id="tema5" class="tema" aria-labelledby="t5h">
+          <h2 id="t5h">TEMA 5: Animaciones & Utilidades</h2>
           <div class="grid">
             <a class="ej-btn" href="AnimationQuery.html">Animación JQuery</a>
             <a class="ej-btn" href="Nota_JS.html">Cálculo de nota</a>
@@ -574,7 +173,8 @@
             <a class="ej-btn" href="UD2/Ejemplos_Clase/Ejemplo_Clase1.html">Ejercicio Ejemplo 1</a>
             <a class="ej-btn" href="UD2/Ejercicios/EJ1_NumRandom.html">Ejercicio 1 - Aproximación a número Random</a>
             <a class="ej-btn" href="UD2/Ejercicios/EJ2_DiasNavidad.html">Ejercicio 2 - Días hasta Navidad</a>
-            <a class="ej-btn" href="UD2/Ejercicios/EJ3_ConversorTemperaturas.html">Ejercicio 3 - Conversor Temperaturas</a>
+            <a class="ej-btn" href="UD2/Ejercicios/EJ3_ConversorTemperaturas.html">Ejercicio 3 - Conversor
+              Temperaturas</a>
             <a class="ej-btn" href="UD2/Ejercicios/EJ4_URLweb.html">Ejercicio 4 - Copiar URL web</a>
             <a class="ej-btn" href="UD2/Ejercicios/EjercicioExtra.html">Ejercicio extra</a>
           </div>
@@ -588,13 +188,15 @@
           <div class="fase" id="cliente_tema3-fase3" aria-labelledby="cliente_tema3-fase3-h">
             <h3 id="cliente_tema3-fase3-h">Fase 3 — JavaScript</h3>
             <div class="grid">
-              <a class="ej-btn" href="UD3/Fase3/EJ1_ExtraerNumCaracteres.html">Ejercicio 1 - Extraer Número de Carácteres</a>
-            <a class="ej-btn" href="UD3/Fase3/EJ2_OcultarCorreo.html">Ejercicio 2 - Ocultar direcciones</a>
-            <a class="ej-btn" href="UD3/Fase3/EJ3_Mayusculas.html">Ejercicio 3 - Mayúsculas al principio</a>
-            <a class="ej-btn" href="UD3/Fase3/EJ4_InsertarCadena.html">Ejercicio 4 - Insertar cadena en otra cadena</a>
-            <a class="ej-btn" href="UD3/Fase3/EJ5_ContarAparicion.html">Ejercicio 5 - Contar aparición</a>
-            <a class="ej-btn" href="UD3/Fase3/EJ6_EncontrarPalabra.html">Ejercicio 6 - Encontrar palabra en cadena</a>
-            <a class="ej-btn" href="UD3/Fase3/JuegoDeCadenas.html">Juego de Cadenas - Ahorcado</a>
+              <a class="ej-btn" href="UD3/Fase3/EJ1_ExtraerNumCaracteres.html">Ejercicio 1 - Extraer Número de
+                Carácteres</a>
+              <a class="ej-btn" href="UD3/Fase3/EJ2_OcultarCorreo.html">Ejercicio 2 - Ocultar direcciones</a>
+              <a class="ej-btn" href="UD3/Fase3/EJ3_Mayusculas.html">Ejercicio 3 - Mayúsculas al principio</a>
+              <a class="ej-btn" href="UD3/Fase3/EJ4_InsertarCadena.html">Ejercicio 4 - Insertar cadena en otra
+                cadena</a>
+              <a class="ej-btn" href="UD3/Fase3/EJ5_ContarAparicion.html">Ejercicio 5 - Contar aparición</a>
+              <a class="ej-btn" href="UD3/Fase3/EJ6_EncontrarPalabra.html">Ejercicio 6 - Encontrar palabra en cadena</a>
+              <a class="ej-btn" href="UD3/Fase3/JuegoDeCadenas.html">Juego de Cadenas - Ahorcado</a>
             </div>
           </div>
 
@@ -603,14 +205,20 @@
             <h3 id="cliente_tema3-fase4-h">Fase 4 — JavaScript</h3>
             <div class="grid">
               <a class="ej-btn" href="UD3/Fase4/EJ4a_SumaMatriz.html">Ejercicio 4a - Suma de una Matríz de Números</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ4b_ObtenerMes.html">Ejercicio 4b - Obtener nombre de mes</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ5_UnirElementos.html">Ejercicio 5 - Unir elementos en cadena</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ6_EncontrarValorAlto.html">Ejercicio 6 - Obtener valor más alto de una matríz</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ8a_ObtenerDiferencia.html">Ejercicio 8a - Obtener diferencia entre dos fechas</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ8b_EncontrarElemento.html">Ejercicio 8b - Encontrar elemento más frecuente</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ18_CalcularProducto.html">Ejercicio 18 - Calcular producto de valores</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ31_NumeroMasAlto.html">Ejercicio 31 - Obtener número más alto entre tres</a>
-            <a class="ej-btn" href="UD3/Fase4/EJ31b_EliminarElemento.html">Ejercicio 31b - Eliminar elemento específico</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ4b_ObtenerMes.html">Ejercicio 4b - Obtener nombre de mes</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ5_UnirElementos.html">Ejercicio 5 - Unir elementos en cadena</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ6_EncontrarValorAlto.html">Ejercicio 6 - Obtener valor más alto de una
+                matríz</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ8a_ObtenerDiferencia.html">Ejercicio 8a - Obtener diferencia entre dos
+                fechas</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ8b_EncontrarElemento.html">Ejercicio 8b - Encontrar elemento más
+                frecuente</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ18_CalcularProducto.html">Ejercicio 18 - Calcular producto de
+                valores</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ31_NumeroMasAlto.html">Ejercicio 31 - Obtener número más alto entre
+                tres</a>
+              <a class="ej-btn" href="UD3/Fase4/EJ31b_EliminarElemento.html">Ejercicio 31b - Eliminar elemento
+                específico</a>
             </div>
           </div>
         </article>
@@ -623,43 +231,59 @@
           <div class="fase" id="cliente_tema4-eventos" aria-labelledby="cliente_tema4-eventos-h">
             <h3 id="cliente_tema4-eventos-h">JS Eventos</h3>
             <div class="grid">
-              <a class="ej-btn" href="UD4/JS_Eventos/EJ1_ImagenTocar.html">Ejercicio 1 - Cambiar imágen al hacer click</a>
+              <a class="ej-btn" href="UD4/JS_Eventos/EJ1_ImagenTocar.html">Ejercicio 1 - Cambiar imágen al hacer
+                click</a>
               <a class="ej-btn" href="UD4/JS_Eventos/EJ2_ColorFondo.html">Ejercicio 2 - Cambiar color de fondos</a>
               <a class="ej-btn" href="UD4/JS_Eventos/EJ3_DeshabilitarBoton.html">Ejercicio 3 - Deshabilitar botón</a>
               <a class="ej-btn" href="UD4/JS_Eventos/EJ4_BotonIdentificado.html">Ejercicio 4 - Obtener botón pulsado</a>
               <a class="ej-btn" href="UD4/JS_Eventos/EJ5_ImagenURL.html">Ejercicio 5 - Obtener url imágen</a>
               <a class="ej-btn" href="UD4/JS_Eventos/EJ6_TeclasPulsadas.html">Ejercicio 6 - Obtener teclas pulsadas</a>
-              <a class="ej-btn" href="UD4/JS_Eventos/EJ7_MoverCaja.html">Ejercicio 7 - Mover caja dentro de una ventana</a>
+              <a class="ej-btn" href="UD4/JS_Eventos/EJ7_MoverCaja.html">Ejercicio 7 - Mover caja dentro de una
+                ventana</a>
               <a class="ej-btn" href="UD4/WebFlamenco.html">Web Flamenco - Compás y palos</a>
             </div>
           </div>
 
           <!-- Fase: JS Funciones (nueva sección, sin ejercicios por defecto) -->
-          <div class="fase" id="cliente_tema4-funciones" aria-labelledby="cliente_tema4-funciones-h" style="margin-top:14px">
+          <div class="fase" id="cliente_tema4-funciones" aria-labelledby="cliente_tema4-funciones-h"
+            style="margin-top:14px">
             <h3 id="cliente_tema4-funciones-h">JS Funciones</h3>
             <div class="grid">
-              <a class="ej-btn" href="UD4/JS_Funciones/EJ1_CrearUsuario.html">Ejercicio 1 - Crear usuario con sus datos</a>
-              <a class="ej-btn" href="UD4/JS_Funciones/EJ2_OperacionesMatematicas.html">Ejercicio 2 - Operar dos números con función</a>
-              <a class="ej-btn" href="UD4/JS_Funciones/EJ3_AplanarArreglo.html">Ejercicio 3 - Convertir array anidado a plano</a>
-              <a class="ej-btn" href="UD4/JS_Funciones/EJ4_ListarArchivos.html">Ejercicio 4 - Listar archivos recursivamente</a>
-              <a class="ej-btn" href="UD4/JS_Funciones/EJ5_RutasArchivos.html">Ejercicio 5 - Listar archivos con ruta completa</a>
-              <a class="ej-btn" href="UD4/JS_Funciones/EJ6_PermutarElementos.html">Ejercicio 6 - Generar permutaciones de un array</a>
+              <a class="ej-btn" href="UD4/JS_Funciones/EJ1_CrearUsuario.html">Ejercicio 1 - Crear usuario con sus
+                datos</a>
+              <a class="ej-btn" href="UD4/JS_Funciones/EJ2_OperacionesMatematicas.html">Ejercicio 2 - Operar dos números
+                con función</a>
+              <a class="ej-btn" href="UD4/JS_Funciones/EJ3_AplanarArreglo.html">Ejercicio 3 - Convertir array anidado a
+                plano</a>
+              <a class="ej-btn" href="UD4/JS_Funciones/EJ4_ListarArchivos.html">Ejercicio 4 - Listar archivos
+                recursivamente</a>
+              <a class="ej-btn" href="UD4/JS_Funciones/EJ5_RutasArchivos.html">Ejercicio 5 - Listar archivos con ruta
+                completa</a>
+              <a class="ej-btn" href="UD4/JS_Funciones/EJ6_PermutarElementos.html">Ejercicio 6 - Generar permutaciones
+                de un array</a>
               <a class="ej-btn" href="UD4/JS_Funciones/JuegoEvaluativo.html">Ejercicio 7 - Resolver Laberinto</a>
               <a class="ej-btn" href="UD4/F7_CarritoReparado.html">F7 - Reparar código del carrito de compras</a>
-              <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio1.html">F8 Ejercicio 1 - Capitalizar y contar vocales</a>
-                <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio2.html">F8 Ejercicio 2 - Suma recursiva simple</a>
-                <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio3.html">F8 Ejercicio 3 - Filtrar y transformar arrays</a>
-                <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio4.html">F8 Ejercicio 4 - Procesamiento de tareas asíncronas</a>
+              <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio1.html">F8 Ejercicio 1 - Capitalizar y contar
+                vocales</a>
+              <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio2.html">F8 Ejercicio 2 - Suma recursiva simple</a>
+              <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio3.html">F8 Ejercicio 3 - Filtrar y transformar
+                arrays</a>
+              <a class="ej-btn" href="UD4/F8_Ejercicios/Ejercicio4.html">F8 Ejercicio 4 - Procesamiento de tareas
+                asíncronas</a>
             </div>
 
             <!-- Mini-apartado solicitado: Ampliación -->
             <div class="fase" id="cliente_tema4-funciones-ampliacion" style="margin-top:12px">
               <h3 id="cliente_tema4-funciones-ampliacion-h">Ampliación</h3>
               <div class="grid">
-                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio1.html">Ampliación 1 - Operar con callback</a>
-                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio2.html">Ampliación 2 - Sumador número fijo</a>
-                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio3.html">Ampliación 3 - Validador de longitud</a>
-                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio4.html">Ampliación 4 - Saludo en expresión</a>
+                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio1.html">Ampliación 1 - Operar con
+                  callback</a>
+                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio2.html">Ampliación 2 - Sumador número
+                  fijo</a>
+                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio3.html">Ampliación 3 - Validador de
+                  longitud</a>
+                <a class="ej-btn" href="UD4/JS_Funciones/AMPLIACION/Ejercicio4.html">Ampliación 4 - Saludo en
+                  expresión</a>
               </div>
             </div>
           </div>
@@ -677,9 +301,8 @@
     <!-- Lado derecho: perfil / CTA -->
     <aside class="profile" aria-label="Tarjeta de presentación">
       <div class="avatar">
-        <img src="fotoconlamoto.PNG" alt="Foto de Ángel Nieto Cordero"
-             loading="lazy"
-             onerror="this.style.display='none'; /* o this.src='fallback.png' */">
+        <img src="fotoconlamoto.PNG" alt="Foto de Ángel Nieto Cordero" loading="lazy"
+          onerror="this.style.display='none'; /* o this.src='fallback.png' */">
       </div>
 
       <div>
@@ -704,159 +327,7 @@
     </aside>
   </main>
 
-  <script>
-    /* ---------- Helpers & elemento raíz ---------- */
-    const qs = (s, ctx=document) => ctx.querySelector(s);
-    const qsa = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
-
-    /* Dropdowns y accesibilidad (teclado) */
-    const modules = [
-      { btn: qs('#btnLenguaje'), dropdown: qs('#dropdownLenguaje'), prefix: '', name: 'lenguaje' },
-      { btn: qs('#btnCliente'), dropdown: qs('#dropdownCliente'), prefix: 'cliente_', name: 'cliente' }
-    ];
-
-    // carga selección previa (persistencia)
-    const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes') || '{}');
-
-    // función para actualizar visuales en dropdowns (clase .selected)
-    function refreshDropdownVisuals() {
-      modules.forEach(({dropdown, name}) => {
-        const items = qsa('.item', dropdown);
-        items.forEach(it => {
-          it.classList.toggle('selected', selectedThemes[name] === it.dataset.tema);
-        });
-      });
-    }
-
-    modules.forEach(({btn, dropdown, prefix, name}) => {
-      const items = qsa('.item', dropdown);
-
-      // toggle function
-      function setOpen(open){
-        dropdown.classList.toggle('show', open);
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-
-        // si abrimos, enfocamos el item seleccionado si existe, si no el primero
-        if (open) {
-          const selectedTema = selectedThemes[name];
-          const selItem = items.find(i => i.dataset.tema === selectedTema);
-          (selItem || items[0])?.focus();
-        }
-      }
-
-      btn.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        const willOpen = !dropdown.classList.contains('show');
-        // close others
-        modules.forEach(m => { if(m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded','false'); }}); 
-        setOpen(willOpen);
-      });
-
-      // keyboard navigation within dropdown
-      dropdown.addEventListener('keydown', (e) => {
-        const idx = items.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') { e.preventDefault(); const next = items[(idx+1) % items.length]; next.focus(); }
-        if (e.key === 'ArrowUp')   { e.preventDefault(); const prev = items[(idx-1 + items.length) % items.length]; prev.focus(); }
-        if (e.key === 'Escape')    { setOpen(false); btn.focus(); }
-        if (e.key === 'Enter')     { document.activeElement.click(); }
-      });
-
-      // click on item: show corresponding tema
-      items.forEach(it => {
-        it.addEventListener('click', () => {
-          const tema = it.dataset.tema;
-
-          // guardar selección para este módulo
-          selectedThemes[name] = tema;
-
-          // <-- LIMPIA la selección de los demás módulos para que no queden marcados -->
-          modules.forEach(m => {
-            if (m.name !== name) {
-              delete selectedThemes[m.name];
-            }
-          });
-
-          // persistir y refrescar visuales
-          localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
-          refreshDropdownVisuals();
-
-          // mostrar contenido correspondiente y cerrar dropdown
-          showTema(tema, name);
-          setOpen(false);
-        });
-      });
-    });
-
-    // close dropdowns al hacer click fuera
-    document.addEventListener('click', (e) => {
-      modules.forEach(({btn, dropdown}) => {
-        if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
-          dropdown.classList.remove('show');
-          btn.setAttribute('aria-expanded','false');
-        }
-      });
-    });
-
-    // cerrar con ESC global
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modules.forEach(({btn, dropdown}) => { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded','false'); });
-      }
-    });
-
-    /* Mostrar tema (activa/desactiva artículos) */
-    function showTema(temaId, module) {
-      const temas = ['tema1','tema2','tema3','tema4','tema5'];
-      temas.forEach(t => {
-        const elLang = document.getElementById(t);
-        const elCli = document.getElementById('cliente_' + t);
-        if (elLang) elLang.classList.toggle('active', module === 'lenguaje' && t === temaId);
-        if (elCli)  elCli.classList.toggle('active', module === 'cliente' && t === temaId);
-
-        // además aplicamos un ligero highlight al panel activo
-        if (elLang) elLang.classList.toggle('highlight', module === 'lenguaje' && t === temaId);
-        if (elCli)  elCli.classList.toggle('highlight', module === 'cliente' && t === temaId);
-      });
-
-      // hacer scroll suave al contenido
-      const active = document.getElementById((module === 'cliente' ? 'cliente_' : '') + temaId);
-      if (active) active.scrollIntoView({behavior:'smooth', block:'start'});
-
-      // marca visual en botones principales (si quieres añadir estilos CSS a .toggle.active puedes hacerlo)
-      qs('#btnLenguaje').classList.toggle('active', module === 'lenguaje');
-      qs('#btnCliente').classList.toggle('active', module === 'cliente');
-    }
-
-    // Inicialización: aplicar selección guardada en dropdowns y en paneles
-    document.addEventListener('DOMContentLoaded', () => {
-      refreshDropdownVisuals();
-
-      // si había selección previa, mostramos el tema correspondiente (opcional: comentar si no quieres autoabrir)
-      // aqui solo mostramos el panel seleccionado (sin abrir dropdown)
-      if (selectedThemes['lenguaje']) showTema(selectedThemes['lenguaje'], 'lenguaje');
-      if (selectedThemes['cliente'])  showTema(selectedThemes['cliente'], 'cliente');
-    });
-
-    // CTA / shortcuts
-    qs('#githubBtn').addEventListener('click', function(e){ /*Puedes añadir enlace a tu repo*/ e.preventDefault(); alert('Sustituye este comportamiento por tu enlace a GitHub o proyecto.'); });
-    qs('#contactBtn').addEventListener('click', function(e){ e.preventDefault(); window.location.href = 'mailto:tu-email@ejemplo.com'; });
-
-    // Mejora accesibilidad: mostrar estilo focus cuando se navega por teclado
-    (function(){
-      function handleFirstTab(e) {
-        if (e.key === 'Tab') document.body.classList.add('show-focus');
-        window.removeEventListener('keydown', handleFirstTab);
-      }
-      window.addEventListener('keydown', handleFirstTab);
-      document.addEventListener('focusin', (ev) => {
-        if (document.body.classList.contains('show-focus')) {
-          if (ev.target) ev.target.classList.add('focus-visible');
-        }
-      });
-      document.addEventListener('focusout', (ev) => {
-        if (ev.target) ev.target.classList.remove('focus-visible');
-      });
-    })();
-  </script>
+  <!-- JS externo -->
+  <script src="index.js" defer></script>
 </body>
 </html>
