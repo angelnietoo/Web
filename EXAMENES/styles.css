@@ -1,48 +1,31 @@
-/* =========================
-   estilos.css (optimizado)
-   ========================= */
+/* =========
+   estilos.css (simple)
+   ========= */
 
-/* Variables */
+/* Variables básicas */
 :root {
     --bg: #f5f7fb;
     --surface: #fff;
     --text: #111827;
     --muted: #6b7280;
     --accent: #2b8cff;
-    --accent-2: #2563eb;
     --success: #10b981;
     --danger: #ef4444;
     --border: #e6eef8;
     --radius: 8px;
-    --max-width: 1200px;
-    --shadow-xs: 0 1px 2px rgba(2, 6, 23, .04);
-    --shadow-sm: 0 6px 18px rgba(2, 6, 23, .08);
-    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-    --page-padding: 24px;
-    --container-padding: 20px;
+    --font: system-ui, Arial, sans-serif;
 }
 
-/* Tema oscuro */
-.theme-dark {
-    --bg: #0b1220;
-    --surface: #081026;
-    --text: #e6eef8;
-    --muted: #9fb0c8;
-    --accent: #60a5fa;
-    --accent-2: #6ee7b7;
-    --success: #7ee787;
-    --danger: #ff8a8a;
-    --border: rgba(255, 255, 255, .06);
-}
-
-/* Reset */
+/* Reset mínimo */
 * {
     box-sizing: border-box;
 }
 
-html,
-body {
-    height: 100%;
+body,
+h1,
+h2,
+h3,
+p {
     margin: 0;
 }
 
@@ -52,368 +35,111 @@ img {
 }
 
 button,
-input,
-select,
-textarea {
+input {
     font: inherit;
 }
 
 /* Base */
 body {
-    font-family: var(--font-sans);
-    font-size: 16px;
-    line-height: 1.45;
+    font-family: var(--font);
     background: var(--bg);
     color: var(--text);
-    padding: var(--page-padding);
+    padding: 20px;
 }
 
 /* Contenedor */
-.container {
-    max-width: var(--max-width);
-    margin: auto;
-    padding: var(--container-padding);
-    background: var(--surface);
-    border-radius: calc(var(--radius) - 2px);
-    box-shadow: var(--shadow-xs);
-}
-
-/* Tipografía */
-h1,
-h2,
-h3,
-h4,
-h5 {
-    margin: 0 0 .5rem;
-    font-weight: 600;
-}
-
-p {
-    margin: 0 0 1rem;
-    color: var(--muted);
-}
-
-.small {
-    font-size: .875rem;
-    color: var(--muted);
-}
-
-/* Grid */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -.5rem;
-}
-
-.col {
-    padding: 0 .5rem;
-}
-
-.col-1 {
-    flex: 0 0 8.33%;
-}
-
-.col-2 {
-    flex: 0 0 16.66%;
-}
-
-.col-3 {
-    flex: 0 0 25%;
-}
-
-.col-4 {
-    flex: 0 0 33.33%;
-}
-
-.col-6 {
-    flex: 0 0 50%;
-}
-
-.col-12 {
-    flex: 0 0 100%;
-}
-
-/* Formularios */
-.form-group {
-    margin-bottom: .75rem;
-}
-
-label {
-    display: block;
-    margin-bottom: .375rem;
-    font-weight: 600;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea,
-select {
-    width: 100%;
-    padding: .5rem .75rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text);
-}
-
-textarea {
-    min-height: 90px;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    outline: none;
-    border-color: var(--accent-2);
-    box-shadow: 0 0 0 4px rgba(43, 140, 255, .08);
-}
-
-/* Botones */
-.btn,
-button {
-    padding: .5rem .75rem;
-    border-radius: 6px;
-    border: 1px solid rgba(0, 0, 0, .08);
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.btn {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-}
-
-.btn.secondary {
-    background: none;
-    color: var(--text);
-    border: 1px solid var(--border);
-}
-
-.btn.ghost {
-    background: none;
-    border: none;
-    color: var(--accent);
-}
-
-.btn[disabled],
-button:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-}
-
-/* Cards */
-.card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1rem;
-    box-shadow: var(--shadow-xs);
-}
-
-.card.halo {
-    box-shadow: var(--shadow-sm);
-}
-
-/* Badges */
-.badge {
-    padding: .2rem .45rem;
-    border-radius: 999px;
-    font-size: .75rem;
-    background: var(--accent);
-    color: #fff;
-}
-
-.badge.muted {
-    background: var(--border);
-    color: var(--text);
-}
-
-/* Tabla */
-.table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.table th,
-.table td {
-    padding: .5rem;
-    border: 1px solid var(--border);
-}
-
-.table th {
-    background: linear-gradient(180deg, rgba(0, 0, 0, .02), transparent);
-}
-
-/* Utilidades */
-.u-center {
-    text-align: center;
-}
-
-.u-hidden,
-.hidden {
-    display: none;
-}
-
-.flex {
-    display: flex;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.u-inline {
-    display: inline-block;
-}
-
-.mt-1 {
-    margin-top: .25rem;
-}
-
-.mt-2 {
-    margin-top: .5rem;
-}
-
-.mt-3 {
-    margin-top: 1rem;
-}
-
-.mb-1 {
-    margin-bottom: .25rem;
-}
-
-.mb-2 {
-    margin-bottom: .5rem;
-}
-
-.mb-3 {
-    margin-bottom: 1rem;
-}
-
-.gap-1 {
-    gap: .5rem;
-}
-
-/* Accesibilidad */
-:focus-visible {
-    outline: 3px solid rgba(43, 140, 255, .18);
-    border-radius: 4px;
-}
-
-/* Transiciones */
-.fade {
-    transition: opacity .18s ease;
-}
-
-.fade.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* =========================
-   Juego: Adivina la capital
-   ========================= */
-
+.container,
 .contenedor {
     max-width: 720px;
     margin: auto;
-    padding: 18px;
+    padding: 16px;
     background: var(--surface);
-    border-radius: 6px;
-    box-shadow: var(--shadow-sm);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
 }
 
+/* Texto */
+h1,
+h2,
+h3 {
+    margin-bottom: .5rem;
+}
+
+p,
+.info,
+.estado {
+    margin-bottom: .75rem;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* Formularios */
+label {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+input[type="text"] {
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    flex: 1;
+}
+
+/* Botones */
+button,
+.btn {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: .5;
+}
+
+/* Layout simple */
 .fila,
 .controls-row,
 .input-row {
     display: flex;
     gap: 8px;
     align-items: center;
-}
-
-.fila {
     margin-bottom: 6px;
 }
 
-.fila label {
-    width: 28px;
-    text-align: right;
-    color: var(--muted);
-}
-
+/* Juego */
 .pista {
     font-family: monospace;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.2rem;
     letter-spacing: .4rem;
     margin: 12px 0;
-    text-transform: lowercase;
-}
-
-.info,
-.estado {
-    font-size: 13px;
-    color: var(--muted);
-}
-
-.resultado.exito,
-.resultado.fallo {
-    font-weight: 700;
-    padding: 8px;
 }
 
 .resultado.exito {
     color: var(--success);
+    font-weight: 700;
 }
 
 .resultado.fallo {
     color: var(--danger);
+    font-weight: 700;
 }
 
-.zona-juego,
-.zona-resultado,
-.actions-row {
-    margin-top: 8px;
+.hidden {
+    display: none;
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-    .row {
-        display: block;
-    }
-
-    .col {
-        width: 100%;
-        padding: 0;
-    }
-
-    .container {
-        padding: .75rem;
-    }
-}
-
 @media (max-width: 520px) {
-    .pista {
-        font-size: 1.1rem;
-    }
-}
-
-/* Print */
-@media print {
     body {
-        background: #fff;
-        color: #000;
+        padding: 12px;
     }
 
-    .btn,
-    .badge {
-        display: none;
-    }
-
-    .container {
-        max-width: 100%;
-        padding: 0;
+    .pista {
+        font-size: 1rem;
     }
 }
