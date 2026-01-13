@@ -8,114 +8,44 @@
 
     <!-- CSS externo -->
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* estilos mínimos para que se vea aceptable sin depender de archivo */
-        body {
-            font-family: Inter, system-ui, Arial;
-            padding: 20px;
-            background: #f7f7fb;
-            color: #111;
-        }
 
-        .contenedor {
-            max-width: 720px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 18px;
-            border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, .06);
-        }
-
-        .fila {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 6px;
-            align-items: center;
-        }
-
-        .fila label {
-            width: 28px;
-            text-align: right;
-            color: #555;
-        }
-
-        input[type=text] {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            flex: 1;
-        }
-
-        button {
-            padding: 8px 12px;
-            border-radius: 6px;
-            border: 1px solid #bbb;
-            background: #fff;
-            cursor: pointer;
-        }
-
-        .pista {
-            font-weight: 700;
-            font-size: 20px;
-            margin: 12px 0;
-            letter-spacing: 2px;
-        }
-
-        .info {
-            font-size: 13px;
-            color: #444;
-            margin-bottom: 8px;
-        }
-
-        .resultado.exito {
-            color: green;
-            font-weight: 700;
-            padding: 8px;
-        }
-
-        .resultado.fallo {
-            color: #b00020;
-            font-weight: 700;
-            padding: 8px;
-        }
-    </style>
 </head>
 
 <body>
     <div class="contenedor">
-        <h1>Adivina la capital (adaptado al examen)</h1>
+        <h1>Adivina la capital</h1>
         <p>Introduce 6 capitales válidas (mín. 5 letras). Luego adivina con pistas que revelan letras (una más por
             fallo).</p>
 
         <div id="zona-entrada">
             <div id="inputs"></div>
 
-            <div style="display:flex;gap:8px;margin-top:8px;align-items:center;">
+            <div class="controls-row">
                 <button id="btn-iniciar" disabled>Iniciar</button>
                 <button id="btn-limpiar" type="button">Limpiar</button>
-                <div id="estado" style="margin-left:auto;font-size:13px;">0/6 válidas</div>
+                <div id="estado" class="estado">0/6 válidas</div>
             </div>
         </div>
 
-        <div id="zona-juego" style="display:none;margin-top:12px;">
+        <div id="zona-juego" class="zona-juego hidden">
             <div class="pista" id="pista">_ _ _ _ _</div>
             <div class="info" id="info">Letras reveladas: 0 · Intentos: 0 · Total letras: 0</div>
 
-            <div style="display:flex;gap:8px;">
+            <div class="input-row">
                 <input type="text" id="campo-adivinar" placeholder="Escribe la capital" />
                 <button id="btn-adivinar">Adivinar</button>
                 <button id="btn-abandonar" type="button">Abandonar</button>
             </div>
 
-            <div id="zona-resultado" style="margin-top:10px;"></div>
+            <div id="zona-resultado" class="zona-resultado"></div>
 
-            <div style="margin-top:8px;">
-                <button id="btn-reiniciar" type="button" style="display:none;">Reiniciar</button>
+            <div class="actions-row">
+                <button id="btn-reiniciar" type="button" class="hidden">Reiniciar</button>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- JS -->
     <script>
         var NUM_CAPITALES = 6;
         var letras = "abcdefghijklmnopqrstuvwxyzáéíóúñü";
@@ -270,7 +200,7 @@
             pistaElem.textContent = construirPista(capitalSecreta, reveladas);
             actualizarInfo();
 
-            zonaJuego.style.display = "block";
+            zonaJuego.classList.remove('hidden');
             document.getElementById("zona-entrada").style.display = "none";
             btnReiniciar.style.display = "inline-block";
             campoAdivinar.value = "";
@@ -345,5 +275,4 @@
         crearInputs();
     </script>
 </body>
-
 </html>
