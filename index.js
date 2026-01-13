@@ -99,7 +99,8 @@ document.addEventListener('keydown', (e) => {
 
 /* Mostrar tema (activa/desactiva artículos) */
 function showTema(temaId, module) {
-    const temas = ['tema1', 'tema2', 'tema3', 'tema4', 'tema5'];
+    // añadimos 'examenes' para que el nuevo panel sea manejado
+    const temas = ['tema1', 'tema2', 'tema3', 'tema4', 'tema5', 'examenes'];
     temas.forEach(t => {
         const elLang = document.getElementById(t);
         const elCli = document.getElementById('cliente_' + t);
