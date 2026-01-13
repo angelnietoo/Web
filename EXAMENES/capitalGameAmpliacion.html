@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Adivina la capital - versión adaptada</title>
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <div class="contenedor">
+        <h1>Adivina la capital</h1>
+        <p>Introduce 6 capitales válidas (mín. 5 letras). Luego adivina con pistas que revelan letras (una más por
+            fallo).</p>
+
+        <div id="zona-entrada">
+            <div id="inputs"></div>
+
+            <div class="controls-row">
+                <button id="btn-iniciar" disabled>Iniciar</button>
+                <button id="btn-limpiar" type="button">Limpiar</button>
+                <div id="estado" class="estado">0/6 válidas</div>
+            </div>
+        </div>
+
+        <div id="zona-juego" class="zona-juego hidden">
+            <div class="pista" id="pista">_ _ _ _ _</div>
+            <div class="info" id="info">Letras reveladas: 0 · Intentos: 0 · Total letras: 0</div>
+
+            <div class="input-row">
+                <input type="text" id="campo-adivinar" placeholder="Escribe la capital" />
+                <button id="btn-adivinar">Adivinar</button>
+                <button id="btn-abandonar" type="button">Abandonar</button>
+            </div>
+
+            <div id="zona-resultado" class="zona-resultado"></div>
+
+            <div class="actions-row">
+                <button id="btn-reiniciar" type="button" class="hidden">Reiniciar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script>
+        var NUM_CAPITALES = 6;
+        var letras = "abcdefghijklmnopqrstuvwxyzáéíóúñü";
+
+        function contarLetras(s) {
+            var c = 0;
+            if (!s) return 0;
+            s = s.toLowerCase();
+            for (var i = 0; i < s.length; i++) {
+                if (letras.indexOf(s[i]) !== -1) c++;
+            }
+            return c;
+        }
+
+        function formatoValido(s) {
+            if (!s) return false;
+            s = s.toLowerCase();
+            for (var i = 0; i < s.length; i++) {
+                var ch = s[i];
+                if (letras.indexOf(ch) !== -1) continue;
+                if (ch === ' ' || ch === '-' || ch === "'") continue;
+                return false;
+            }
+            return true;
+        }
+
+        function construirPista(palabra, reveladas) {
+            var salida = "";
+            var mostradas = 0;
+            for (var i = 0; i < palabra.length; i++) {
+                var ch = palabra[i];
+                if (letras.indexOf(ch) !== -1) {
+                    if (mostradas < reveladas) { salida += ch; mostradas++; }
+                    else salida += "_";
+                } else {
+                    salida += ch; // espacios, guiones, apóstrofes se muestran tal cual
+                }
+                if (i < palabra.length - 1) salida += " ";
+            }
+            return salida;
+        }
+
+        // --- DOM ---
+        var contenedorInputs = document.getElementById("inputs");
+        var btnIniciar = document.getElementById("btn-iniciar");
+        var btnLimpiar = document.getElementById("btn-limpiar");
+        var estado = document.getElementById("estado");
+        var zonaJuego = document.getElementById("zona-juego");
+        var pistaElem = document.getElementById("pista");
+        var infoElem = document.getElementById("info");
+        var campoAdivinar = document.getElementById("campo-adivinar");
+        var btnAdivinar = document.getElementById("btn-adivinar");
+        var btnAbandonar = document.getElementById("btn-abandonar");
+        var zonaResultado = document.getElementById("zona-resultado");
+        var btnReiniciar = document.getElementById("btn-reiniciar");
+
+        var inputs = [];
+
+        function crearInputs() {
+            contenedorInputs.innerHTML = "";
+            inputs = [];
+            for (var i = 0; i < NUM_CAPITALES; i++) {
+                var fila = document.createElement("div");
+                fila.className = "fila";
+
+                var lbl = document.createElement("label");
+                lbl.textContent = (i + 1) + ".";
+
+                var inp = document.createElement("input");
+                inp.type = "text";
+                inp.placeholder = "Capital " + (i + 1);
+                inp.addEventListener("input", actualizarValidacion);
+
+                fila.appendChild(lbl);
+                fila.appendChild(inp);
+                contenedorInputs.appendChild(fila);
+                inputs.push(inp);
+            }
+            actualizarValidacion();
+        }
+
+        function actualizarValidacion() {
+            var ok = 0;
+            for (var i = 0; i < inputs.length; i++) {
+                var v = inputs[i].value.trim();
+                if (v && formatoValido(v) && contarLetras(v) >= 5) ok++;
+            }
+            estado.textContent = ok + "/" + NUM_CAPITALES + " válidas";
+            btnIniciar.disabled = ok !== NUM_CAPITALES;
+        }
+
+        btnLimpiar.onclick = function () {
+            inputs.forEach(i => i.value = "");
+            actualizarValidacion();
+        };
+
+        // --- Validación forzada tal como pide el examen: pedir reentrada hasta correcto ---
+        function regularizarEntradasConPrompt() {
+            var lista = [];
+            for (var i = 0; i < inputs.length; i++) {
+                var val = (inputs[i].value || "").trim();
+                // solicitar continuamente si no válido
+                while (true) {
+                    if (!val || !formatoValido(val) || contarLetras(val) < 5) {
+                        // pedimos al usuario la nueva palabra para esa posición
+                        val = prompt("Entrada no válida para la posición " + (i + 1) + ". Debe tener al menos 5 letras y usar solo letras, espacios, guiones o apóstrofes.\nIntroduce una nueva capital para la posición " + (i + 1) + ":", val || "");
+                        // si el usuario cancela el prompt, abortamos el inicio
+                        if (val === null) {
+                            return null;
+                        }
+                        val = val.trim();
+                        // si ahora es válida, se guardará, si no se repite el bucle
+                        continue;
+                    }
+                    // válida -> normalizamos a minúsculas y guardamos en el input también
+                    val = val.toLowerCase();
+                    inputs[i].value = val;
+                    lista.push(val);
+                    break;
+                }
+            }
+            return lista;
+        }
+
+        // --- Juego ---
+        var capitalSecreta = "";
+        var totalLetras = 0;
+        var reveladas = 0;
+        var intentos = 0;
+        var juegoTerminado = false;
+
+        function actualizarInfo() {
+            infoElem.textContent = "Letras reveladas: " + reveladas + " · Intentos: " + intentos + " · Total letras: " + totalLetras;
+        }
+
+        btnIniciar.onclick = function () {
+            // regularizamos según el PDF: pedir por prompt cada entrada errónea hasta que sea correcta
+            var lista = regularizarEntradasConPrompt();
+            if (lista === null) {
+                // el usuario canceló la reentrada: no iniciar
+                alert("Inicio cancelado. Completa las entradas válidas para iniciar.");
+                actualizarValidacion();
+                return;
+            }
+            // ahora lista contiene 6 cadenas en minúsculas válidas
+            capitalSecreta = lista[Math.floor(Math.random() * lista.length)];
+            totalLetras = contarLetras(capitalSecreta);
+            reveladas = 1; // empezamos mostrando la primera letra según enunciado
+            intentos = 0;
+            juegoTerminado = false;
+
+            pistaElem.textContent = construirPista(capitalSecreta, reveladas);
+            actualizarInfo();
+
+            zonaJuego.classList.remove('hidden');
+            document.getElementById("zona-entrada").style.display = "none";
+            btnReiniciar.style.display = "inline-block";
+            campoAdivinar.value = "";
+            campoAdivinar.focus();
+            zonaResultado.innerHTML = "";
+        };
+
+        function terminarJuego(gana, mensaje) {
+            juegoTerminado = true;
+            if (gana) {
+                zonaResultado.innerHTML = "<div class='resultado exito'>" + mensaje + "</div>";
+            } else {
+                zonaResultado.innerHTML = "<div class='resultado fallo'>" + mensaje + "</div>";
+            }
+            // desactivar controles de juego
+            btnAdivinar.disabled = true;
+            campoAdivinar.disabled = true;
+            btnAbandonar.disabled = true;
+            // mostrar botón reiniciar (si no estaba visible)
+            btnReiniciar.classList.remove('hidden');
+            btnReiniciar.style.display = "inline-block";
+        }
+
+        btnAdivinar.onclick = function () {
+            if (juegoTerminado) return;
+            var intento = campoAdivinar.value.trim().toLowerCase();
+            if (!intento) return;
+
+            // contar este intento
+            intentos++;
+
+            if (intento === capitalSecreta) {
+                // calcular premio según el número de intento (1 => 500€, 2 => 300€, 3 => 100€)
+                var premio = 0;
+                if (intentos === 1) premio = 500;
+                else if (intentos === 2) premio = 300;
+                else if (intentos === 3) premio = 100;
+                // construir mensaje
+                var mensajePremio = "¡Has ganado! La capital era " + capitalSecreta + ".";
+                if (premio > 0) {
+                    mensajePremio += " Premio: " + premio + "€ (por acertar en el intento " + intentos + ").";
+                } else {
+                    mensajePremio += " No hay premio disponible para este intento, pero ¡enhorabuena!";
+                }
+
+                pistaElem.textContent = construirPista(capitalSecreta, totalLetras); // mostrar completa
+                actualizarInfo();
+                terminarJuego(true, mensajePremio);
+                return;
+            }
+
+            // intento fallido: revelar una letra más
+            reveladas++;
+            // Si al revelar se completa la palabra, según enunciado -> el usuario pierde (la palabra se ha completado mediante pistas)
+            if (reveladas >= totalLetras) {
+                // mostramos la pista completa (última revelación) y perdemos
+                pistaElem.textContent = construirPista(capitalSecreta, totalLetras);
+                actualizarInfo();
+                terminarJuego(false, "Has perdido. La capital era " + capitalSecreta + ".");
+                return;
+            } else {
+                pistaElem.textContent = construirPista(capitalSecreta, reveladas);
+            }
+
+            actualizarInfo();
+            campoAdivinar.value = "";
+            campoAdivinar.focus();
+        };
+
+        // permitir tecla Enter en el campo para adivinar
+        campoAdivinar.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                btnAdivinar.click();
+            }
+        });
+
+        btnAbandonar.onclick = function () {
+            if (juegoTerminado) return;
+            pistaElem.textContent = construirPista(capitalSecreta, totalLetras);
+            actualizarInfo();
+            terminarJuego(false, "Has abandonado. La capital era " + capitalSecreta + ".");
+        };
+
+        btnReiniciar.onclick = function () {
+            location.reload();
+        };
+
+        crearInputs();
+    </script>
+</body>
+</html>
