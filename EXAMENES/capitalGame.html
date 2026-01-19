@@ -50,6 +50,7 @@
         var NUM_CAPITALES = 6;
         var letras = "abcdefghijklmnopqrstuvwxyzáéíóúñü";
 
+        // Contamos cuántas letras válidas hay en una cadena, ignorando mayúsculas y devolviendo 0 si está vacía.
         function contarLetras(s) {
             var c = 0;
             if (!s) return 0;
@@ -60,6 +61,7 @@
             return c;
         }
 
+        // Verificamos que la cadena solo contenga letras, espacios, guiones o apóstrofes.
         function formatoValido(s) {
             if (!s) return false;
             s = s.toLowerCase();
@@ -72,6 +74,7 @@
             return true;
         }
 
+        // Construimos una pista mostrando las letras reveladas y ocultando el resto con guiones bajos.
         function construirPista(palabra, reveladas) {
             var salida = "";
             var mostradas = 0;
@@ -104,6 +107,7 @@
 
         var inputs = [];
 
+        // Creamos dinámicamente los campos de entrada para las capitales y actualiza su validación.
         function crearInputs() {
             contenedorInputs.innerHTML = "";
             inputs = [];
@@ -127,6 +131,7 @@
             actualizarValidacion();
         }
 
+        // Valida las entradas, actualiza el contador y controla los botones.
         function actualizarValidacion() {
             var ok = 0;
             for (var i = 0; i < inputs.length; i++) {
@@ -142,12 +147,12 @@
             actualizarValidacion();
         };
 
-        // --- Validación forzada tal como pide el examen: pedir reentrada hasta correcto ---
+        // Pedir reentrada hasta correcto
         function regularizarEntradasConPrompt() {
             var lista = [];
             for (var i = 0; i < inputs.length; i++) {
                 var val = (inputs[i].value || "").trim();
-                // solicitar continuamente si no válido
+                // solicitar continuamente si no es válido
                 while (true) {
                     if (!val || !formatoValido(val) || contarLetras(val) < 5) {
                         // pedimos al usuario la nueva palabra para esa posición
@@ -160,7 +165,7 @@
                         // si ahora es válida, se guardará, si no se repite el bucle
                         continue;
                     }
-                    // válida -> normalizamos a minúsculas y guardamos en el input también
+                    // válida, normalizamos a minúsculas y guardamos en el input también
                     val = val.toLowerCase();
                     inputs[i].value = val;
                     lista.push(val);
