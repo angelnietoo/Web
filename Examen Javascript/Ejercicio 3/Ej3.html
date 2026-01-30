@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Matrícula Flexible</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f7f7;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        button {
+            background: #4dca41;
+            border: none;
+            border-radius: 4px;
+            margin-top: 12px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            font-weight: bold;
+            /* ← Texto en negrita */
+        }
+
+        button:hover {
+            background: #379e3c;
+        }
+
+        fieldset.subjects {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 10px;
+        }
+
+        fieldset.subjects legend {
+            color: #333;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        input[type="number"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 8px;
+            width: 100%;
+        }
+
+        label {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 12px;
+        }
+
+        .checkboxes label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Solicitar 6 elementos</h1>
+
+        <div class="form-group">
+            <label for="hours">Valores booleanos:</label>
+            <input type="text" id="boolean1" value="">
+            <input type="text" id="boolean2" value="">
+        </div>
+
+        <div class="form-group">
+            <label for="hours">Valores numéricos:</label>
+            <input type="number" id="hours" min="0" value="0">
+            <input type="number" id="hours" min="0" value="0">
+        </div>
+
+        <label>Cadenas a insertar:</label>
+        <input id="cadena1" type="text" value="" />
+        <input id="cadena2" type="text" value="" />
+
+        <button onclick="calcular()">Calcular datos</button>
+    </div>
+
+    <script>
+        function calcular() {
+            const hours = parseFloat(document.getElementById('hours').value) || 0;
+            const boolean1 = document.getElementById('boolean1').checked;
+            const boolean2 = document.getElementById('boolean2').checked;
+            const cadena1 = document.getElementById('cadena1').checked;
+            const cadena2 = document.getElementById('cadena2').checked;
+            let textoMasGrande;
+
+            // Validación de datos
+            if (boolean1 || boolean2 || hours || cadena1 || cadena2 == null) {
+                alert('Error: Vuelva a introducir los datos de nuevo');
+                return;
+            }
+
+            // Determinar cuál de los dos elementos de texto es mayor
+            if (cadena1 > cadena2) {
+                textoMasGrande("La cadena de texto más grande es la primera: ", cadena1);
+                return;
+            }
+            else {
+                textoMasGrande("La cadena de texto más grande es la segunda: ", cadena2);
+                return;
+            }
+
+            // Determinar el resultado de dos operaciones lógicas realizadas con los elementos booleanos
+
+
+            // Mostrar mensaje como alerta
+            alert(mensaje);
+        }
+    </script>
+</body>
+</html>

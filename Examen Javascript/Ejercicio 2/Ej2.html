@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ej 3 — Ciudades (Map)</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+            background: #fff;
+            color: #000
+        }
+
+        label {
+            display: block;
+            margin-top: 8px
+        }
+
+        input {
+            padding: 8px;
+            width: 100%
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap
+        }
+
+        button {
+            padding: 8px 10px
+        }
+
+        .list {
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            min-height: 60px;
+            max-height: 360px;
+            overflow: auto;
+            background: #fff
+        }
+
+        .city-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px;
+            border-bottom: 1px solid #f0f0f0
+        }
+
+        .city-name {
+            font-weight: 700
+        }
+
+        .muted {
+            color: #555
+        }
+
+        .max {
+            color: #c00
+        }
+
+        .min {
+            color: #0a7f3b
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Ejercicio 3 — Almacenar información sobre módulos impartidos en segundo de DAW</h1>
+
+    <label>Agregar módulo</label>
+    <input id="cityName" type="text" placeholder="Nombre módulo" />
+    <input id="cityPop" type="number" placeholder="Abreviatura" style="margin-top:6px" />
+    <div class="row">
+        <button id="addModulo">Añadir</button>
+        <button id="clearModulosBtn">Vaciar</button>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+        <button id="showAllBtn">Ver todos</button>
+        <button id="countBtn">Mostrar módulos almacenados</button>
+        <button id="maxBtn">Más poblada</button>
+        <button id="minBtn">Menos poblada</button>
+    </div>
+
+    <div style="margin-top:8px">Módulos: <span id="cityCount" class="muted">0</span></div>
+
+    <div class="list" id="citiesList" aria-live="polite"></div>
+
+    <p class="muted">Pulsa "Más poblada" o "Menos poblada" para resaltar.</p>
+
+    <script>
+        const STORAGE_KEY = 'ciudades_map_v1';
+        const defaultCities = new Map([['Ingles', 3223000], ['Diseño de Interfaces Web', 1620000], ['Despliegue de aplicaciones web', 688711], ['Optativa', 794288]]);
+        const loadMapFromStorage = () => {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) return new Map(defaultCities);
+            try { return new Map(JSON.parse(raw)); } catch { return new Map(defaultCities); }
+        };
+        const saveMapToStorage = map => localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(map.entries())));
+        const citiesMap = loadMapFromStorage();
+
+        const cityNameInput = document.getElementById('cityName');
+        const cityPopInput = document.getElementById('cityPop');
+        const addModulo = document.getElementById('addModulo');
+        const clearModulosBtn = document.getElementById('clearModulosBtn');
+        const citiesList = document.getElementById('citiesList');
+        const cityCount = document.getElementById('cityCount');
+        const showAllBtn = document.getElementById('showAllBtn');
+        const countBtn = document.getElementById('countBtn');
+        const maxBtn = document.getElementById('maxBtn');
+        const minBtn = document.getElementById('minBtn');
+
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": "&#39;" }[m]));
+        }
+        function formatNumber(n) { return Number(n).toLocaleString('es-ES'); }
+
+        function renderCities(highlight = { type: null, key: null }) {
+            citiesList.innerHTML = '';
+            if (citiesMap.size === 0) {
+                citiesList.textContent = 'No hay módulos añadidos.';
+                return;
+            }
+            citiesMap.forEach((pop, name) => {
+                const item = document.createElement('div'); item.className = 'city-item';
+                const left = document.createElement('div');
+                const nameSpan = document.createElement('div'); nameSpan.className = 'city-name';
+                nameSpan.textContent = name;
+                if (highlight.type === 'max' && highlight.key === name) nameSpan.classList.add('max');
+                if (highlight.type === 'min' && highlight.key === name) nameSpan.classList.add('min');
+                const popSpan = document.createElement('div'); popSpan.className = 'muted'; popSpan.textContent = formatNumber(pop) + ' hab.';
+                left.appendChild(nameSpan); left.appendChild(popSpan);
+
+                const right = document.createElement('div');
+                const del = document.createElement('button'); del.textContent = 'Borrar';
+                del.addEventListener('click', () => {
+                    if (!confirm(`¿Borrar el módulo "${name}"?`)) return;
+                    citiesMap.delete(name); saveMapToStorage(citiesMap); renderCities(); updateCount();
+                });
+                right.appendChild(del);
+                item.appendChild(left); item.appendChild(right); citiesList.appendChild(item);
+            });
+        }
+
+        function updateCount() { cityCount.textContent = citiesMap.size; }
+
+        addModulo.addEventListener('click', () => {
+            const name = (cityNameInput.value || '').trim();
+            const pop = Number(cityPopInput.value);
+            if (!name) return alert('Introduce un nombre de un módulo válido.');
+            if (!Number.isFinite(pop) || pop < 0) return alert('Introduce una abreviatura de módulo válido (>= 0).');
+            citiesMap.set(name, Math.floor(pop));
+            saveMapToStorage(citiesMap);
+            cityNameInput.value = ''; cityPopInput.value = '';
+            renderCities(); updateCount();
+        });
+
+        clearModulosBtn.addEventListener('click', () => {
+            if (!confirm('¿Vaciar todos los módulos?')) return;
+            citiesMap.clear(); saveMapToStorage(citiesMap); renderCities(); updateCount();
+        });
+
+        showAllBtn.addEventListener('click', () => renderCities());
+        countBtn.addEventListener('click', () => { alert(`Hay ${citiesMap.size} módulo(s) almacenado(s).`); updateCount(); });
+
+        const findMaxCity = () => {
+            if (citiesMap.size === 0) return null;
+            let maxKey = null, maxVal = -Infinity;
+            for (const [k, v] of citiesMap) if (v > maxVal) { maxVal = v; maxKey = k; }
+            return { key: maxKey, value: maxVal };
+        };
+        const findMinCity = () => {
+            if (citiesMap.size === 0) return null;
+            let minKey = null, minVal = Infinity;
+            for (const [k, v] of citiesMap) if (v < minVal) { minVal = v; minKey = k; }
+            return { key: minKey, value: minVal };
+        };
+
+        maxBtn.addEventListener('click', () => {
+            const max = findMaxCity(); if (!max) return alert('No hay módulos.');
+        });
+        minBtn.addEventListener('click', () => {
+            const min = findMinCity(); if (!min) return alert('No hay módulos.');
+        });
+
+        // init
+        renderCities(); updateCount();
+
+        // sync si cambian en otra pestaña
+        window.addEventListener('storage', e => {
+            if (e.key === STORAGE_KEY) {
+                const newMap = loadMapFromStorage();
+                citiesMap.clear(); for (const [k, v] of newMap) citiesMap.set(k, v);
+                renderCities(); updateCount();
+            }
+        });
+    </script>
+</body>
+
+</html>
