@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestor JSON Avanzado</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Gestor de Notas (JSON)</h2>
+
+        <form id="formAlumno">
+            <div class="form-group" style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Nombre del alumno" required>
+                </div>
+                <div style="flex:1;">
+                    <label for="apellidos">Apellidos</label>
+                    <input type="text" id="apellidos" placeholder="Apellidos" required>
+                </div>
+            </div>
+
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <div style="flex:1;">
+                    <label for="edad">Edad</label>
+                    <input type="number" id="edad" placeholder="Edad" min="0" max="120" required>
+                </div>
+                <div style="flex:1;">
+                    <label for="nota">Nota (0-10)</label>
+                    <input type="number" id="nota" placeholder="Nota (0-10)" min="0" max="10" step="0.1" required>
+                </div>
+                <div style="flex:1;">
+                    <label for="movil">Móvil (9 dígitos, empieza por 6)</label>
+                    <input type="tel" id="movil" placeholder="6XXXXXXXX" required>
+                    <div id="errorMovil" class="error">El móvil debe tener 9 dígitos y empezar por 6.</div>
+                </div>
+            </div>
+
+            <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+                <label style="display:flex; gap:8px; align-items:center;">
+                    <input type="checkbox" id="repetidor"> Repetidor
+                </label>
+                <div style="margin-left:auto; display:flex; gap:10px;">
+                    <button type="submit" class="btn-add">💾 Guardar</button>
+                    <button type="button" id="btnBorrarTodo" class="btn-clear">🗑️ Borrar Todo</button>
+                </div>
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="botones">
+            <button type="button" id="btnDescargar" class="btn-download">⬇️ Descargar JSON</button>
+            <button type="button" id="btnCargar" class="btn-upload">⬆️ Cargar JSON</button>
+            <input type="file" id="inputArchivo" accept=".json">
+        </div>
+
+        <table id="tabla">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Nota</th>
+                    <th>Móvil</th>
+                    <th>Repetidor</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody id="cuerpo"></tbody>
+        </table>
+    </div>
+
+    <script>
+        // Mantengo la lógica aquí sin tocar estilos.
+        let alumnos = JSON.parse(localStorage.getItem('alumnos_db')) || [];
+        const cuerpo = document.getElementById('cuerpo');
+
+        function validarMovil(movil) {
+            return /^[6]\d{8}$/.test(String(movil).trim());
+        }
+
+        function guardarYSincronizar() {
+            localStorage.setItem('alumnos_db', JSON.stringify(alumnos));
+            renderizar();
+        }
+
+        function mostrarErrorMovil(show) {
+            document.getElementById('errorMovil').style.display = show ? 'block' : 'none';
+        }
+
+        function renderizar() {
+            cuerpo.innerHTML = "";
+            if (alumnos.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = '<td colspan="7" style="text-align:center;color:#666;padding:20px">No hay alumnos. Añade uno mediante el formulario.</td>';
+                cuerpo.appendChild(tr);
+                return;
+            }
+
+            alumnos.forEach((alum) => {
+                const tr = document.createElement('tr');
+                const claseNota = (parseFloat(alum.nota) < 5) ? 'suspenso' : '';
+                const badge = alum.repetidor ? '<span class="repetidor-badge">Rep</span>' : '';
+                tr.innerHTML = `
+                <td>${escapeHtml(alum.nombre)}</td>
+                <td>${escapeHtml(alum.apellidos)}</td>
+                <td>${escapeHtml(alum.edad)}</td>
+                <td class="${claseNota}">${escapeHtml(alum.nota)}</td>
+                <td>${escapeHtml(alum.movil || '')}</td>
+                <td>${badge}</td>
+                <td>${(parseFloat(alum.nota) >= 5) ? 'Aprobado' : 'Suspenso'}</td>
+            `;
+                cuerpo.appendChild(tr);
+            });
+        }
+
+        function escapeHtml(text) {
+            if (text === undefined || text === null) return '';
+            return String(text)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        // Guardar desde formulario (merge por nombre+apellidos)
+        document.getElementById('formAlumno').addEventListener('submit', (e) => {
+            e.preventDefault();
+            mostrarErrorMovil(false);
+
+            const nombre = document.getElementById('nombre').value.trim();
+            const apellidos = document.getElementById('apellidos').value.trim();
+            const edad = parseInt(document.getElementById('edad').value, 10);
+            const nota = parseFloat(document.getElementById('nota').value);
+            const movil = document.getElementById('movil').value.trim();
+            const repetidor = document.getElementById('repetidor').checked;
+
+            if (!nombre || !apellidos) { alert('Rellena nombre y apellidos.'); return; }
+            if (Number.isNaN(edad) || edad < 0 || edad > 120) { alert('Edad inválida.'); return; }
+            if (Number.isNaN(nota) || nota < 0 || nota > 10) { alert('Nota inválida (0-10).'); return; }
+            if (!validarMovil(movil)) { mostrarErrorMovil(true); return; }
+
+            const nuevo = { nombre, apellidos, edad, nota, movil, repetidor };
+            const idx = alumnos.findIndex(a => a.nombre === nombre && a.apellidos === apellidos);
+            if (idx >= 0) {
+                alumnos[idx] = nuevo;
+            } else {
+                alumnos.push(nuevo);
+            }
+
+            guardarYSincronizar();
+            e.target.reset();
+            mostrarErrorMovil(false);
+        });
+
+        // Borrar todo
+        document.getElementById('btnBorrarTodo').addEventListener('click', () => {
+            if (confirm("¿Borrar todo?")) {
+                alumnos = [];
+                guardarYSincronizar();
+            }
+        });
+
+        // Descargar JSON
+        document.getElementById('btnDescargar').addEventListener('click', () => {
+            const datosStr = JSON.stringify(alumnos, null, 2);
+            const blob = new Blob([datosStr], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            const ts = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-');
+            a.href = url;
+            a.download = `notas_curso_${ts}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Cargar JSON (merge por nombre+apellidos)
+        document.getElementById('btnCargar').addEventListener('click', () => {
+            document.getElementById('inputArchivo').click();
+        });
+
+        document.getElementById('inputArchivo').addEventListener('change', (e) => {
+            const archivo = e.target.files[0];
+            if (!archivo) return;
+
+            const lector = new FileReader();
+            lector.onload = function (evento) {
+                try {
+                    let parsed = JSON.parse(evento.target.result);
+
+                    if (!Array.isArray(parsed)) {
+                        if (parsed.alumnos && Array.isArray(parsed.alumnos)) parsed = parsed.alumnos;
+                        else if (parsed.data && Array.isArray(parsed.data)) parsed = parsed.data;
+                        else parsed = [parsed];
+                    }
+
+                    let added = 0, updated = 0, invalid = 0;
+                    parsed.forEach(item => {
+                        const nombre = item.nombre ? String(item.nombre).trim() : '';
+                        const apellidos = item.apellidos ? String(item.apellidos).trim() : '';
+                        const edad = item.edad !== undefined ? parseInt(item.edad, 10) : (item.age !== undefined ? parseInt(item.age, 10) : null);
+                        const nota = item.nota !== undefined ? parseFloat(item.nota) : (item.grade !== undefined ? parseFloat(item.grade) : null);
+                        const movil = item.movil || item.telefono || item.phone || '';
+
+                        if (!nombre || !apellidos) { invalid++; return; }
+                        if (!validarMovil(movil)) { invalid++; return; }
+
+                        const repetidor = !!item.repetidor || !!item.repeat || !!item.repeater;
+
+                        const nuevo = {
+                            nombre,
+                            apellidos,
+                            edad: Number.isNaN(edad) ? '' : edad,
+                            nota: Number.isNaN(nota) ? '' : nota,
+                            movil: String(movil),
+                            repetidor
+                        };
+
+                        const idx = alumnos.findIndex(a => a.nombre === nombre && a.apellidos === apellidos);
+                        if (idx >= 0) {
+                            alumnos[idx] = Object.assign({}, alumnos[idx], nuevo);
+                            updated++;
+                        } else {
+                            alumnos.push(nuevo);
+                            added++;
+                        }
+                    });
+
+                    guardarYSincronizar();
+
+                    let mensaje = `Importación finalizada. Añadidos: ${added}. Actualizados: ${updated}. Ignorados (inválidos): ${invalid}.`;
+                    if (invalid > 0) mensaje += ' Comprueba el formato de los móviles y los nombres.';
+                    alert(mensaje);
+
+                } catch (err) {
+                    alert("Error: El archivo no es un JSON válido.");
+                }
+            };
+            lector.readAsText(archivo);
+            e.target.value = '';
+        });
+
+        // Inicial render
+        renderizar();
+    </script>
+</body>
+</html>

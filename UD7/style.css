@@ -1,0 +1,121 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 30px;
+    background-color: #f4f7f6;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+/* Estilos del Formulario */
+.form-group {
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+label {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+    display: block;
+}
+
+/* Botones */
+.botones {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    min-width: 120px;
+}
+
+.btn-add {
+    background-color: #007bff;
+}
+
+.btn-clear {
+    background-color: #dc3545;
+}
+
+.btn-download {
+    background-color: #28a745;
+}
+
+/* Verde para descargar */
+.btn-upload {
+    background-color: #fd7e14;
+}
+
+/* Naranja para subir */
+
+/* Input de archivo oculto */
+#inputArchivo {
+    display: none;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+/* Estilos condicionales */
+.suspenso {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Texto rojo si suspende */
+.repetidor-badge {
+    background: #6c757d;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+}
+
+.error {
+    color: #dc3545;
+    font-size: 0.9em;
+    margin-top: 4px;
+    display: none;
+}
