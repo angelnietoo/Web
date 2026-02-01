@@ -1,0 +1,115 @@
+/* equipo-pokemon.css */
+/* Variables */
+:root {
+  --bg: #f6f9fc;
+  --accent: #00b0ff;
+  --muted: #666;
+}
+
+/* Reset / base */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Inter, system-ui, Arial;
+  background: var(--bg);
+  color: #04313f;
+}
+
+/* Layout */
+main {
+  max-width: 900px;
+  margin: 28px auto;
+  padding: 18px;
+}
+
+/* Tipografía / títulos */
+h1 {
+  margin: 0 0 10px 0;
+}
+
+/* Controles (barra principal) */
+.controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+/* Inputs */
+input#ids {
+  padding: 8px;
+  min-width: 160px;
+  border-radius: 6px;
+  border: 1px solid #cfdde8;
+}
+
+/* Botones */
+button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Estado / mensajes */
+.status {
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Tabla de resultados */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+}
+
+th,
+td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eef6fb;
+}
+
+th {
+  background: #eaf6ff;
+  font-weight: 800;
+  color: #04202c;
+}
+
+/* Imágenes de Pokémon */
+img.pkm {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  background: white;
+  border-radius: 8px;
+  padding: 6px;
+}
+
+/* Errores y utilidades */
+.error {
+  color: crimson;
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

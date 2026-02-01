@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ejercicio 1 — Equipo Pokémon</title>
+  <link rel="stylesheet" href="CSS/EJ1.css">
+</head>
+<body>
+  <main>
+    <h1>Ejercicio 1 — Equipo Pokémon</h1>
+
+    <p>Introduce IDs separados por coma y pulsa <strong>Cargar equipo</strong>. Se harán peticiones secuenciales.</p>
+
+    <div class="controls">
+      <label for="ids">IDs (coma separadas):</label>
+      <input id="ids" value="1,4,7" aria-label="IDs de Pokemon">
+      <button id="loadBtn">Cargar equipo</button>
+      <span id="status" class="status" aria-live="polite"></span>
+    </div>
+
+    <table id="tbl" aria-describedby="tbl-desc">
+      <caption id="tbl-desc" class="visually-hidden">Tabla de Pokémon cargados</caption>
+      <thead>
+        <tr><th>Foto</th><th>Nombre</th><th>Base Experience</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div id="error" class="error" role="alert" aria-live="assertive"></div>
+  </main>
+
+  <script src="JS/EJ1.js" defer></script>
+</body>
+</html>

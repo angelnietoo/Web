@@ -1,0 +1,98 @@
+/* buscador-productos.css */
+/* Variables */
+:root {
+  --accent: #0b84d6;
+  --muted: #666;
+  --bg: #fff;
+}
+
+/* Reset / base */
+html,
+body {
+  margin: 0;
+  font-family: Inter, system-ui, Arial;
+  background: var(--bg);
+  color: #04202c;
+}
+
+/* Layout */
+main {
+  max-width: 980px;
+  margin: 28px auto;
+  padding: 18px;
+}
+
+/* Tipografía / títulos */
+h1 {
+  margin: 0 0 8px 0;
+}
+
+/* Helpers / small text */
+.small {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Controles (barra de búsqueda, botones) */
+.controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+input[type="search"] {
+  padding: 8px;
+  min-width: 220px;
+  border-radius: 8px;
+  border: 1px solid #cfdde8;
+}
+
+button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* Resultados: tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.04);
+}
+
+th,
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f1f6fb;
+  vertical-align: top;
+}
+
+th {
+  background: #f3fbff;
+  font-weight: 800;
+  color: #04202c;
+}
+
+/* Imágenes miniatura */
+img.thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Mensaje cuando no hay resultados */
+.no-results {
+  margin-top: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}

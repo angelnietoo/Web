@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ejercicio 3 — Buscador de Productos</title>
+  <link rel="stylesheet" href="CSS/EJ3.css">
+</head>
+<body>
+  <main>
+    <h1>Ejercicio 3 — Buscador de Productos</h1>
+    <p class="small">Usa <code>https://dummyjson.com/products/search?q={valor}</code>. Si no hay resultados, muestra un mensaje.</p>
+
+    <div class="controls">
+      <input id="q" type="search" placeholder="Ej: phone" aria-label="Buscar productos">
+      <button id="searchBtn">Buscar</button>
+      <span id="status" class="small" aria-live="polite"></span>
+    </div>
+
+    <div id="container">
+      <table id="tbl" style="display:none;" aria-describedby="results-desc">
+        <caption id="results-desc" class="visually-hidden">Resultados de búsqueda</caption>
+        <thead>
+          <tr><th>Imagen</th><th>Nombre</th><th>Descripción</th><th>Descuento (%)</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div id="noResults" class="no-results" style="display:none;" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <script src="JS/EJ3.js" defer></script>
+</body>
+</html>
