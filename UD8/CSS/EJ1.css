@@ -1,115 +1,214 @@
-/* equipo-pokemon.css */
-/* Variables */
-:root {
-  --bg: #f6f9fc;
-  --accent: #00b0ff;
-  --muted: #666;
+/* equipo-pokemon.css — Estilo tipo Pokédex */
+
+/* Variables (fácil ajuste de tema) */
+:root{
+  --p-red: #d62828;
+  --p-deep-red: #b11f1f;
+  --p-black: #0b0b0d;
+  --p-screen: linear-gradient(180deg,#cfead0,#bfe0c2);
+  --glass: rgba(255,255,255,0.06);
+  --muted: #7b7b7b;
+  --accent: #00b0ff; /* usado en botones secundarios */
+  --bg: linear-gradient(180deg,#0c0f12 0%, #071018 60%);
+  --card-radius: 16px;
+  --shadow-lg: 0 18px 50px rgba(2,6,23,0.6);
+  --shadow-sm: 0 6px 18px rgba(2,6,23,0.25);
+  --gap: 12px;
 }
 
 /* Reset / base */
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: Inter, system-ui, Arial;
+html,body{
+  height:100%;
+  margin:0;
+  font-family: Inter, system-ui, Arial, "Helvetica Neue", sans-serif;
   background: var(--bg);
-  color: #04313f;
+  color:#e9f6ef; /* texto claro sobre el fondo oscuro */
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* Layout */
-main {
-  max-width: 900px;
-  margin: 28px auto;
-  padding: 18px;
+/* Contenedor principal: dispositivo Pokédex */
+main{
+  max-width:940px;
+  margin:36px auto;
+  padding:20px;
+  border-radius:20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)),
+    linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.05));
+  box-shadow: var(--shadow-lg);
+  position:relative;
+  display:block;
+  overflow:hidden;
+  border: 6px solid var(--p-deep-red);
+  /* to make it feel like a device with a faint metallic border */
 }
 
-/* Tipografía / títulos */
-h1 {
-  margin: 0 0 10px 0;
+/* Top title */
+h1{
+  margin:0 0 14px 0;
+  font-size:1.25rem;
+  color:#fff;
+  letter-spacing:0.6px;
+  text-shadow:0 1px 0 rgba(0,0,0,0.6);
 }
 
-/* Controles (barra principal) */
-.controls {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  flex-wrap: wrap;
+/* Controls area (simula la parte con botones del Pokedex) */
+.controls{
+  display:flex;
+  gap:var(--gap);
+  align-items:center;
+  margin-top:12px;
+  margin-bottom:14px;
+  flex-wrap:wrap;
 }
 
-/* Inputs */
-input#ids {
-  padding: 8px;
-  min-width: 160px;
-  border-radius: 6px;
-  border: 1px solid #cfdde8;
+/* Input estilo compacto, con "pantalla" interna */
+input#ids{
+  padding:10px 12px;
+  min-width:200px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, #0b1620, #071018);
+  color: #eaf6ff;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+  outline: none;
 }
 
-/* Botones */
-button {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: none;
-  background: var(--accent);
-  color: #fff;
-  font-weight: 700;
-  cursor: pointer;
+/* Botón principal estilo POKÉDEX (grande, rojo, con relieve) */
+button{
+  padding:10px 14px;
+  border-radius:10px;
+  border:none;
+  background: linear-gradient(180deg,var(--p-red),var(--p-deep-red));
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-transform:uppercase;
+  font-size:0.92rem;
 }
 
-/* Estado / mensajes */
-.status {
-  margin-left: 8px;
-  color: var(--muted);
-  font-size: 0.95rem;
+/* efecto pulsar */
+button:active{ transform: translateY(1px) scale(.999); box-shadow: 0 6px 12px rgba(0,0,0,0.45); }
+
+/* Botón secundario (azul, para acciones adicionales) */
+button.secondary{
+  background: linear-gradient(180deg,var(--accent),#0074b8);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+  font-weight:700;
 }
 
-/* Tabla de resultados */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 12px;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(2, 6, 23, 0.06);
+/* indicadores tipo "knobs" (añade con pseudo-elementos si quieres) */
+.controls > .knob{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.2) 10%, #6b0000 70%);
+  border:2px solid rgba(0,0,0,0.6);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.12);
 }
 
-th,
-td {
-  padding: 10px 12px;
-  text-align: left;
-  border-bottom: 1px solid #eef6fb;
+/* Estado textual */
+.status{
+  margin-left:8px;
+  color:var(--muted);
+  font-size:0.95rem;
+  opacity:0.95;
 }
 
-th {
-  background: #eaf6ff;
-  font-weight: 800;
-  color: #04202c;
+/* Pantalla principal: hacemos que la tabla parezca una pantalla integrada */
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:18px;
+  background: linear-gradient(180deg,#0e2818 0%, #052018 100%); /* pantalla oscura */
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow: inset 0 8px 30px rgba(0,0,0,0.6);
+  color: #eaf6ef;
 }
 
-/* Imágenes de Pokémon */
-img.pkm {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  background: white;
-  border-radius: 8px;
-  padding: 6px;
+/* Cabecera tipo barra superior de la pantalla */
+th, td{
+  padding:14px 12px;
+  vertical-align:middle;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
 }
 
-/* Errores y utilidades */
-.error {
-  color: crimson;
-  margin-top: 12px;
-  font-weight: 700;
+/* ocultamos fondo claro de th y usamos barra sutil */
+th{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+  font-weight:700;
+  color:#cfead0;
+  text-transform:uppercase;
+  letter-spacing:0.6px;
+  font-size:0.85rem;
 }
 
-.visually-hidden {
-  position: absolute;
-  left: -9999px;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+/* las filas se ven como tarjetas dentro de la pantalla */
+tbody tr{
+  transition: transform .12s ease, background .12s ease;
+  background: linear-gradient(180deg, rgba(255,255,255,0.008), rgba(0,0,0,0.02));
+}
+tbody tr:hover{
+  transform: translateY(-4px);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+}
+
+/* Nombre y metadatos más legibles */
+td:nth-child(2){
+  font-weight:800;
+  color:#f1ffe8;
+  font-size:1rem;
+}
+
+/* Imágenes estilo Pokéball frame: círculo con borde y glow suave */
+img.pkm{
+  width:96px;
+  height:96px;
+  object-fit:contain;
+  background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,0.85) 8%, rgba(250,250,250,0.02) 30%);
+  border-radius:50%;
+  padding:8px;
+  border:6px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.6), 0 0 18px rgba(0,176,255,0.06);
+  display:block;
+  margin:auto;
+}
+
+/* Base Experience cell */
+td:nth-child(3){
+  color:#cfead0;
+  font-weight:700;
+  text-align:center;
+}
+
+/* Mensajes de error */
+.error{
+  color:#ff6b6b;
+  margin-top:12px;
+  font-weight:800;
+}
+
+/* Utilidades accesibles */
+.visually-hidden{
+  position:absolute;
+  left:-9999px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+/* Responsivo: reducir imagen y espaciado en pantallas pequeñas */
+@media (max-width:720px){
+  img.pkm{ width:72px; height:72px; padding:6px; }
+  td, th{ padding:10px 8px; }
+  main{ padding:14px; margin:18px auto; border-width:5px; }
+  button{ padding:8px 10px; font-size:0.88rem; }
 }
