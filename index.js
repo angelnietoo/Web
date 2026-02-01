@@ -11,7 +11,7 @@ const modules = [
 // carga selección previa (persistencia)
 const selectedThemes = JSON.parse(localStorage.getItem('selectedThemes') || '{}');
 
-/* función para actualizar visuales en dropdowns (clase .selected) */
+/* --- Helpers específicos --- */
 function refreshDropdownVisuals() {
     modules.forEach(({ dropdown, name }) => {
         if (!dropdown) return;
@@ -22,9 +22,60 @@ function refreshDropdownVisuals() {
     });
 }
 
-/* --- Inicialización de dropdowns y manejadores --- */
+/**
+ * Asegura que exista un item con data-tema=temaId dentro del dropdown.
+ * Si no existe, lo crea y lo inserta antes del item 'examenes' si existe.
+ */
+function ensureTemaItem(dropdown, temaId, labelText) {
+    if (!dropdown) return null;
+    const exists = dropdown.querySelector(`.item[data-tema="${temaId}"]`);
+    if (exists) return exists;
+
+    // crear item nuevo
+    const div = document.createElement('div');
+    div.setAttribute('tabindex', '0');
+    div.className = 'item';
+    div.setAttribute('role', 'menuitem');
+    div.dataset.tema = temaId;
+    div.innerHTML = `<span class="dot"></span><span> ${labelText}</span>`;
+
+    // intentar insertar antes de 'examenes' si hay uno
+    const exam = dropdown.querySelector('.item[data-tema="examenes"]');
+    if (exam) dropdown.insertBefore(div, exam);
+    else dropdown.appendChild(div);
+
+    return div;
+}
+
+/**
+ * Asegura que un elemento .item esté visible dentro de su contenedor .dropdown:
+ * calcula offset y ajusta dropdown.scrollTop si hace falta.
+ */
+function ensureItemVisibleInDropdown(dropdown, item) {
+    if (!dropdown || !item) return;
+    // usar requestAnimationFrame para esperar a que el DOM haya pintado
+    requestAnimationFrame(() => {
+        const itemTop = item.offsetTop;
+        const itemBottom = itemTop + item.offsetHeight;
+        const viewTop = dropdown.scrollTop;
+        const viewBottom = viewTop + dropdown.clientHeight;
+
+        if (itemTop < viewTop) {
+            dropdown.scrollTop = itemTop - 8;
+        } else if (itemBottom > viewBottom) {
+            dropdown.scrollTop = itemBottom - dropdown.clientHeight + 8;
+        }
+    });
+}
+
+/* --- Inicialización de dropdowns y manejadores (robusto) --- */
 modules.forEach(({ btn, dropdown, prefix, name }) => {
     if (!btn || !dropdown) return;
+
+    // Al iniciar, inyectamos Tema 8 si es el dropdownCliente
+    if (name === 'cliente') {
+        ensureTemaItem(dropdown, 'tema8', 'Tema 8 — APIs & Fetch');
+    }
 
     // Abre/cierra el dropdown. Recalcula items al abrir para incluir items nuevos.
     function setOpen(open) {
@@ -40,29 +91,45 @@ modules.forEach(({ btn, dropdown, prefix, name }) => {
             (selItem || currentItems[0])?.focus();
 
             // Forzar visibilidad/scroll del dropdown mediante maxHeight inline
-            // (si el CSS limita la altura, esto permite ver el contenido; si no, no rompe)
             try {
-                // usa scrollHeight para adaptarse al contenido
                 const sh = dropdown.scrollHeight;
-                // si el dropdown ya tiene maxHeight mayor, no lo reduzcamos
-                dropdown.style.maxHeight = (sh > 0 ? sh + 'px' : 'none');
+                // Limitar a un máximo razonable para no romper layout (por ejemplo 70vh)
+                const maxPx = Math.min(sh, Math.round(window.innerHeight * 0.7));
+                dropdown.style.maxHeight = (maxPx > 0 ? (maxPx + 'px') : '');
                 dropdown.style.overflowY = 'auto';
+                // eleva z-index momentáneamente para evitar clipping por stacking context
+                dropdown.style.zIndex = 9999;
             } catch (e) {
-                // no crítico
                 dropdown.style.maxHeight = '';
                 dropdown.style.overflowY = '';
+                dropdown.style.zIndex = '';
             }
+
+            // Asegurar que el último elemento (o tema8) sea visible
+            const want = dropdown.querySelector('.item[data-tema="tema8"]') || currentItems[currentItems.length - 1];
+            if (want) ensureItemVisibleInDropdown(dropdown, want);
         } else {
             // revertimos estilos inline para no interferir con CSS permanente
             dropdown.style.maxHeight = '';
             dropdown.style.overflowY = '';
+            dropdown.style.zIndex = '';
         }
     }
 
     btn.addEventListener('click', (ev) => {
         ev.stopPropagation();
         const willOpen = !dropdown.classList.contains('show');
-        modules.forEach(m => { if (m.dropdown && m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded', 'false'); m.dropdown.style.maxHeight = ''; m.dropdown.style.overflowY = ''; } });
+        modules.forEach(m => {
+            if (m.dropdown && m.dropdown !== dropdown) {
+                m.dropdown.classList.remove('show');
+                m.btn.setAttribute('aria-expanded', 'false');
+                m.dropdown.style.maxHeight = '';
+                m.dropdown.style.overflowY = '';
+                m.dropdown.style.zIndex = '';
+            }
+        });
+        // Antes de abrir, garantizar item tema8 (por si HTML no lo contiene)
+        if (name === 'cliente') ensureTemaItem(dropdown, 'tema8', 'Tema 8 — APIs & Fetch');
         setOpen(willOpen);
     });
 
@@ -70,9 +137,9 @@ modules.forEach(({ btn, dropdown, prefix, name }) => {
     dropdown.addEventListener('keydown', (e) => {
         const currentItems = qsa('.item', dropdown);
         const idx = currentItems.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') { e.preventDefault(); const next = currentItems[(idx + 1) % currentItems.length]; next?.focus(); }
-        if (e.key === 'ArrowUp') { e.preventDefault(); const prev = currentItems[(idx - 1 + currentItems.length) % currentItems.length]; prev?.focus(); }
-        if (e.key === 'Escape') { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); dropdown.style.maxHeight = ''; dropdown.style.overflowY = ''; }
+        if (e.key === 'ArrowDown') { e.preventDefault(); const next = currentItems[(idx + 1) % currentItems.length]; next?.focus(); ensureItemVisibleInDropdown(dropdown, next); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); const prev = currentItems[(idx - 1 + currentItems.length) % currentItems.length]; prev?.focus(); ensureItemVisibleInDropdown(dropdown, prev); }
+        if (e.key === 'Escape') { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); dropdown.style.maxHeight = ''; dropdown.style.overflowY = ''; dropdown.style.zIndex = ''; }
         if (e.key === 'Enter') { document.activeElement.click(); }
     });
 
@@ -103,6 +170,7 @@ modules.forEach(({ btn, dropdown, prefix, name }) => {
         btn.setAttribute('aria-expanded', 'false');
         dropdown.style.maxHeight = '';
         dropdown.style.overflowY = '';
+        dropdown.style.zIndex = '';
     });
 });
 
@@ -115,6 +183,7 @@ document.addEventListener('click', (e) => {
             btn.setAttribute('aria-expanded', 'false');
             dropdown.style.maxHeight = '';
             dropdown.style.overflowY = '';
+            dropdown.style.zIndex = '';
         }
     });
 });
@@ -122,32 +191,22 @@ document.addEventListener('click', (e) => {
 /* Cerrar con ESC global */
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        modules.forEach(({ btn, dropdown }) => { if (btn && dropdown) { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); dropdown.style.maxHeight = ''; dropdown.style.overflowY = ''; } });
+        modules.forEach(({ btn, dropdown }) => { if (btn && dropdown) { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); dropdown.style.maxHeight = ''; dropdown.style.overflowY = ''; dropdown.style.zIndex = ''; } });
     }
 });
 
 /* --------------------- showTema (robusta + debug) --------------------- */
-/*
-  Estrategia:
-  - No manipulamos display: none globalmente (evitamos romper CSS).
-  - Usamos/añadimos la clase .active (esperando que tu CSS muestre .tema.active).
-  - Si después de añadir .active el elemento sigue invisible, forzamos un inline style como fallback y avisamos en consola.
-  - Registramos en consola candidatos y resultado para depuración.
-*/
 function showTema(temaId, module) {
     console.groupCollapsed(`showTema: tema="${temaId}" module="${module}"`);
     try {
         const allTemas = Array.from(document.querySelectorAll('.content .tema'));
         if (!allTemas.length) console.warn('No se encontraron artículos con selector ".content .tema"');
 
-        // quitar clases de todos
         allTemas.forEach(el => {
             el.classList.remove('active', 'highlight');
             el.setAttribute('aria-hidden', 'true');
-            // No forzamos display aquí para respetar tu CSS
         });
 
-        // generar candidatos (stringify por seguridad)
         const cleanTema = String(temaId || '').trim();
         const candidates = [
             (module === 'cliente' ? 'cliente_' : '') + cleanTema,
@@ -172,25 +231,20 @@ function showTema(temaId, module) {
             return;
         }
 
-        // aplicamos clases que esperan la mayoría de estilos (activar / highlight)
         target.classList.add('active', 'highlight');
         target.removeAttribute('aria-hidden');
 
-        // scroll y focus
         try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) { /* ignore */ }
         target.focus?.();
 
-        // comprobación: ¿es visible según el navegador?
         const compStyle = window.getComputedStyle(target);
         console.debug('Elemento encontrado id="%s" — display=%s, visibility=%s, height=%s', foundId, compStyle.display, compStyle.visibility, compStyle.height);
 
-        // fallback: si sigue invisible (display: none o visibility:hidden) intentamos forzar
         if (compStyle.display === 'none' || compStyle.visibility === 'hidden' || parseFloat(compStyle.height) === 0) {
             console.warn('Elemento sigue invisible tras añadir .active — aplicando fallback inline style.');
-            target.style.display = '';      // intentar quitar display si estaba en inline
+            target.style.display = '';
             target.style.visibility = 'visible';
-            target.style.removeProperty('height'); // intentar quitar height forzado
-            // re-check
+            target.style.removeProperty('height');
             const after = window.getComputedStyle(target);
             console.debug('Después fallback — display=%s, visibility=%s, height=%s', after.display, after.visibility, after.height);
             if (after.display === 'none') {
@@ -198,7 +252,6 @@ function showTema(temaId, module) {
             }
         }
 
-        // marcar toggles principales
         if (qs('#btnLenguaje')) qs('#btnLenguaje').classList.toggle('active', module === 'lenguaje');
         if (qs('#btnCliente')) qs('#btnCliente').classList.toggle('active', module === 'cliente');
 
@@ -208,12 +261,11 @@ function showTema(temaId, module) {
     }
 }
 
-/* Inicialización: aplicar selección guardada en dropdowns y en paneles */
+/* Inicialización */
 (function init() {
     refreshDropdownVisuals();
 
-    // Si hay selección previa la mostramos (no abrimos dropdowns)
-    // Además: si la selección es cliente y el elemento no existe, dejamos log en consola
+    // Mostrar selección previa si la hay
     if (selectedThemes['lenguaje']) showTema(selectedThemes['lenguaje'], 'lenguaje');
     if (selectedThemes['cliente']) showTema(selectedThemes['cliente'], 'cliente');
 })();
