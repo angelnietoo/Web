@@ -25,56 +25,84 @@ function refreshDropdownVisuals() {
 /* --- Inicialización de dropdowns y manejadores --- */
 modules.forEach(({ btn, dropdown, prefix, name }) => {
     if (!btn || !dropdown) return;
-    const items = qsa('.item', dropdown);
 
+    // Abre/cierra el dropdown. Recalcula items al abrir para incluir items nuevos.
     function setOpen(open) {
         dropdown.classList.toggle('show', open);
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
 
+        // Recalcular items al abrir para que incluyan tema8 si existe
+        const currentItems = qsa('.item', dropdown);
+
         if (open) {
             const selectedTema = selectedThemes[name];
-            const selItem = items.find(i => i.dataset.tema === selectedTema);
-            (selItem || items[0])?.focus();
+            const selItem = currentItems.find(i => i.dataset.tema === selectedTema);
+            (selItem || currentItems[0])?.focus();
+
+            // Forzar visibilidad/scroll del dropdown mediante maxHeight inline
+            // (si el CSS limita la altura, esto permite ver el contenido; si no, no rompe)
+            try {
+                // usa scrollHeight para adaptarse al contenido
+                const sh = dropdown.scrollHeight;
+                // si el dropdown ya tiene maxHeight mayor, no lo reduzcamos
+                dropdown.style.maxHeight = (sh > 0 ? sh + 'px' : 'none');
+                dropdown.style.overflowY = 'auto';
+            } catch (e) {
+                // no crítico
+                dropdown.style.maxHeight = '';
+                dropdown.style.overflowY = '';
+            }
+        } else {
+            // revertimos estilos inline para no interferir con CSS permanente
+            dropdown.style.maxHeight = '';
+            dropdown.style.overflowY = '';
         }
     }
 
     btn.addEventListener('click', (ev) => {
         ev.stopPropagation();
         const willOpen = !dropdown.classList.contains('show');
-        modules.forEach(m => { if (m.dropdown && m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded', 'false'); } });
+        modules.forEach(m => { if (m.dropdown && m.dropdown !== dropdown) { m.dropdown.classList.remove('show'); m.btn.setAttribute('aria-expanded', 'false'); m.dropdown.style.maxHeight = ''; m.dropdown.style.overflowY = ''; } });
         setOpen(willOpen);
     });
 
-    // keyboard navigation within dropdown
+    // keyboard navigation within dropdown (reconsulta siempre los items)
     dropdown.addEventListener('keydown', (e) => {
-        const idx = items.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') { e.preventDefault(); const next = items[(idx + 1) % items.length]; next.focus(); }
-        if (e.key === 'ArrowUp') { e.preventDefault(); const prev = items[(idx - 1 + items.length) % items.length]; prev.focus(); }
-        if (e.key === 'Escape') { setOpen(false); btn.focus(); }
+        const currentItems = qsa('.item', dropdown);
+        const idx = currentItems.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); const next = currentItems[(idx + 1) % currentItems.length]; next?.focus(); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); const prev = currentItems[(idx - 1 + currentItems.length) % currentItems.length]; prev?.focus(); }
+        if (e.key === 'Escape') { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); btn.focus(); dropdown.style.maxHeight = ''; dropdown.style.overflowY = ''; }
         if (e.key === 'Enter') { document.activeElement.click(); }
     });
 
-    // click on item: show corresponding tema
-    items.forEach(it => {
-        it.addEventListener('click', () => {
-            const temaRaw = it.dataset.tema;
-            const tema = typeof temaRaw === 'string' ? temaRaw.trim() : temaRaw;
+    // Delegación: click en cualquier .item del dropdown (incluye tema8 aunque se añada después)
+    dropdown.addEventListener('click', (e) => {
+        const it = e.target.closest('.item');
+        if (!it || !dropdown.contains(it)) return;
 
-            // guardar selección para este módulo
-            selectedThemes[name] = tema;
+        const temaRaw = it.dataset.tema;
+        const tema = typeof temaRaw === 'string' ? temaRaw.trim() : temaRaw;
 
-            // limpiar la selección de otros módulos
-            modules.forEach(m => {
-                if (m.name !== name) delete selectedThemes[m.name];
-            });
+        // guardar selección para este módulo
+        selectedThemes[name] = tema;
 
-            localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
-            refreshDropdownVisuals();
-
-            // mostrar contenido correspondiente y cerrar dropdown
-            showTema(tema, name);
-            setOpen(false);
+        // limpiar la selección de otros módulos
+        modules.forEach(m => {
+            if (m.name !== name) delete selectedThemes[m.name];
         });
+
+        localStorage.setItem('selectedThemes', JSON.stringify(selectedThemes));
+        refreshDropdownVisuals();
+
+        // mostrar contenido correspondiente y cerrar dropdown
+        showTema(tema, name);
+
+        // cerrar y revertir estilos
+        dropdown.classList.remove('show');
+        btn.setAttribute('aria-expanded', 'false');
+        dropdown.style.maxHeight = '';
+        dropdown.style.overflowY = '';
     });
 });
 
@@ -85,6 +113,8 @@ document.addEventListener('click', (e) => {
         if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
             dropdown.classList.remove('show');
             btn.setAttribute('aria-expanded', 'false');
+            dropdown.style.maxHeight = '';
+            dropdown.style.overflowY = '';
         }
     });
 });
@@ -92,7 +122,7 @@ document.addEventListener('click', (e) => {
 /* Cerrar con ESC global */
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        modules.forEach(({ btn, dropdown }) => { if (btn && dropdown) { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); } });
+        modules.forEach(({ btn, dropdown }) => { if (btn && dropdown) { dropdown.classList.remove('show'); btn.setAttribute('aria-expanded', 'false'); dropdown.style.maxHeight = ''; dropdown.style.overflowY = ''; } });
     }
 });
 
