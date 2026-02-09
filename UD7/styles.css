@@ -78,7 +78,6 @@ button {
 }
 
 /* Naranja para subir */
-
 /* Input de archivo oculto */
 #inputArchivo {
     display: none;
@@ -118,4 +117,63 @@ td {
     font-size: 0.9em;
     margin-top: 4px;
     display: none;
+}
+
+/* ======================
+   Estilos añadidos para CRUD (acciones, editar, eliminar, cancelar)
+   ====================== */
+
+/* Celda de acciones: contenedor flexible para botones */
+.acciones-cell {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Botones de acción dentro de la tabla */
+.btn-accion {
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    min-width: 68px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Editar: amarillo suave */
+.btn-editar {
+    background: #ffc107;
+    color: #111;
+}
+
+/* Eliminar: rojo */
+.btn-eliminar {
+    background: #dc3545;
+    color: white;
+}
+
+/* Botón cancelar edición (cuando visible) */
+#btnCancelarEdicion {
+    background-color: #6c757d;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Ajustes responsivos pequeños */
+@media (max-width: 520px) {
+    .botones {
+        flex-direction: column;
+    }
+
+    button {
+        min-width: auto;
+    }
+
+    .acciones-cell {
+        gap: 6px;
+    }
 }

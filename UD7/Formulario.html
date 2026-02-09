@@ -3,15 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Gestor JSON Avanzado</title>
+    <title>Gestor JSON Avanzado - CRUD B</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <div class="container">
-        <h2>Gestor de Notas (JSON)</h2>
+        <h2>Gestor de Notas (JSON) — Proyecto B (CRUD)</h2>
 
         <form id="formAlumno">
+            <input type="hidden" id="alumnoId" value="">
             <div class="form-group" style="display:flex; gap:10px;">
                 <div style="flex:1;">
                     <label for="nombre">Nombre</label>
@@ -25,7 +26,7 @@
 
             <div class="form-group" style="display: flex; gap: 10px;">
                 <div style="flex:1;">
-                    <label for="edad">Edad</label>
+                    <label for="edad">Edad (mayores de 18)</label>
                     <input type="number" id="edad" placeholder="Edad" min="0" max="120" required>
                 </div>
                 <div style="flex:1;">
@@ -39,13 +40,28 @@
                 </div>
             </div>
 
-            <div class="form-group" style="display:flex; align-items:center; gap:10px;">
-                <label style="display:flex; gap:8px; align-items:center;">
-                    <input type="checkbox" id="repetidor"> Repetidor
-                </label>
-                <div style="margin-left:auto; display:flex; gap:10px;">
-                    <button type="submit" class="btn-add">💾 Guardar</button>
-                    <button type="button" id="btnBorrarTodo" class="btn-clear">🗑️ Borrar Todo</button>
+            <div class="form-group" style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <label for="idiomas">Idioma (nivel)</label>
+                    <select id="idiomas">
+                        <option value="">— Ninguno —</option>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="B1">B1</option>
+                        <option value="B2">B2</option>
+                        <option value="C1">C1</option>
+                        <option value="C2">C2</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; align-items:flex-end; gap:10px; margin-left:auto;">
+                    <label style="display:flex; gap:8px; align-items:center;">
+                        <input type="checkbox" id="repetidor"> Repetidor
+                    </label>
+                    <button type="submit" id="btnGuardar" class="btn-add">💾 Guardar</button>
+                    <button type="button" id="btnCancelarEdicion" class="btn-clear" style="display:none;">✖
+                        Cancelar</button>
                 </div>
             </div>
         </form>
@@ -66,14 +82,17 @@
                     <th>Edad</th>
                     <th>Nota</th>
                     <th>Móvil</th>
+                    <th>Idioma</th>
                     <th>Repetidor</th>
                     <th>Estado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody id="cuerpo"></tbody>
         </table>
     </div>
 
-    <script src="app.js"></script>
+    <script src="JS/app.js"></script>
 </body>
+
 </html>

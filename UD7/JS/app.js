@@ -1,6 +1,8 @@
 let alumnos = JSON.parse(localStorage.getItem('alumnos_db')) || [];
 const cuerpo = document.getElementById('cuerpo');
 
+let editingId = null; // id del alumno que se está editando (null si es nuevo)
+
 // --- VALIDACIONES ---
 function validarMovil(movil) {
     return /^[6]\d{8}$/.test(String(movil).trim());
@@ -29,7 +31,7 @@ function renderizar() {
     cuerpo.innerHTML = "";
     if (alumnos.length === 0) {
         const tr = document.createElement('tr');
-        tr.innerHTML = '<td colspan="7" style="text-align:center;color:#666;padding:20px">No hay alumnos. Añade uno mediante el formulario.</td>';
+        tr.innerHTML = '<td colspan="9" style="text-align:center;color:#666;padding:20px">No hay alumnos. Añade uno mediante el formulario.</td>';
         cuerpo.appendChild(tr);
         return;
     }
@@ -44,8 +46,13 @@ function renderizar() {
             <td>${escapeHtml(alum.edad)}</td>
             <td class="${claseNota}">${escapeHtml(alum.nota)}</td>
             <td>${escapeHtml(alum.movil || '')}</td>
+            <td>${escapeHtml(alum.idioma || '')}</td>
             <td>${badge}</td>
             <td>${(parseFloat(alum.nota) >= 5) ? 'Aprobado' : 'Suspenso'}</td>
+            <td class="acciones-cell">
+                <button class="btn-accion btn-editar" data-id="${alum.id}">✏️ Editar</button>
+                <button class="btn-accion btn-eliminar" data-id="${alum.id}">🗑️ Eliminar</button>
+            </td>
         `;
         cuerpo.appendChild(tr);
     });
@@ -58,37 +65,68 @@ document.getElementById('formAlumno').addEventListener('submit', (e) => {
 
     const nombre = document.getElementById('nombre').value.trim();
     const apellidos = document.getElementById('apellidos').value.trim();
-    const edad = parseInt(document.getElementById('edad').value, 10);
+    const edadVal = document.getElementById('edad').value;
+    const edad = edadVal === '' ? NaN : parseInt(edadVal, 10);
     const nota = parseFloat(document.getElementById('nota').value);
     const movil = document.getElementById('movil').value.trim();
     const repetidor = document.getElementById('repetidor').checked;
+    const idioma = document.getElementById('idiomas').value || '';
 
     if (!nombre || !apellidos) { alert('Rellena nombre y apellidos.'); return; }
-    if (Number.isNaN(edad) || edad < 0 || edad > 120) { alert('Edad inválida.'); return; }
+    if (Number.isNaN(edad) || edad < 18 || edad > 120) { alert('Edad inválida. Debe ser mayor o igual a 18.'); return; }
     if (Number.isNaN(nota) || nota < 0 || nota > 10) { alert('Nota inválida (0-10).'); return; }
     if (!validarMovil(movil)) { mostrarErrorMovil(true); return; }
 
-    const nuevo = { nombre, apellidos, edad, nota, movil, repetidor };
-    const idx = alumnos.findIndex(a => a.nombre === nombre && a.apellidos === apellidos);
+    const ahora = Date.now();
+    const nuevo = {
+        id: editingId || ahora,
+        nombre,
+        apellidos,
+        edad,
+        nota,
+        movil,
+        repetidor,
+        idioma
+    };
+
+    const idx = alumnos.findIndex(a => a.id === nuevo.id);
     if (idx >= 0) {
-        alumnos[idx] = nuevo;
+        // actualizar
+        alumnos[idx] = Object.assign({}, alumnos[idx], nuevo);
+        alert('Alumno actualizado.');
     } else {
+        // comprobar si existe por nombre+apellidos y advertir (opcional)
+        const existNameIdx = alumnos.findIndex(a => a.nombre === nombre && a.apellidos === apellidos);
+        if (existNameIdx >= 0) {
+            if (!confirm('Ya existe un alumno con ese nombre y apellidos. ¿Deseas añadir otro con ID distinto?')) {
+                return;
+            }
+        }
         alumnos.push(nuevo);
+        alert('Alumno añadido.');
     }
 
-    guardarYSincronizar();
+    // reset
+    editingId = null;
+    document.getElementById('alumnoId').value = '';
+    document.getElementById('btnGuardar').textContent = '💾 Guardar';
+    document.getElementById('btnCancelarEdicion').style.display = 'none';
     e.target.reset();
+
+    guardarYSincronizar();
     mostrarErrorMovil(false);
 });
 
 // --- BOTONES ---
-document.getElementById('btnBorrarTodo').addEventListener('click', () => {
+// Borrar todo
+document.getElementById('btnBorrarTodo')?.addEventListener('click', () => {
     if (confirm("¿Borrar todo?")) {
         alumnos = [];
         guardarYSincronizar();
     }
 });
 
+// Descargar
 document.getElementById('btnDescargar').addEventListener('click', () => {
     const datosStr = JSON.stringify(alumnos, null, 2);
     const blob = new Blob([datosStr], { type: "application/json" });
@@ -101,10 +139,12 @@ document.getElementById('btnDescargar').addEventListener('click', () => {
     URL.revokeObjectURL(url);
 });
 
+// Cargar (abre selector)
 document.getElementById('btnCargar').addEventListener('click', () => {
     document.getElementById('inputArchivo').click();
 });
 
+// Importar archivo JSON
 document.getElementById('inputArchivo').addEventListener('change', (e) => {
     const archivo = e.target.files[0];
     if (!archivo) return;
@@ -127,20 +167,24 @@ document.getElementById('inputArchivo').addEventListener('change', (e) => {
                 const edad = item.edad !== undefined ? parseInt(item.edad, 10) : (item.age !== undefined ? parseInt(item.age, 10) : null);
                 const nota = item.nota !== undefined ? parseFloat(item.nota) : (item.grade !== undefined ? parseFloat(item.grade) : null);
                 const movil = item.movil || item.telefono || item.phone || '';
-                if (!nombre || !apellidos || !validarMovil(movil)) { invalid++; return; }
+                const idioma = item.idioma || item.idiomas || item.language || '';
+                if (!nombre || !apellidos || !validarMovil(movil) || Number.isNaN(edad) || edad < 18) { invalid++; return; }
 
                 const repetidor = !!item.repetidor || !!item.repeat || !!item.repeater;
+                const id = item.id || Date.now() + Math.floor(Math.random() * 1000);
 
                 const nuevo = {
+                    id,
                     nombre,
                     apellidos,
                     edad: Number.isNaN(edad) ? '' : edad,
                     nota: Number.isNaN(nota) ? '' : nota,
                     movil: String(movil),
-                    repetidor
+                    repetidor,
+                    idioma
                 };
 
-                const idx = alumnos.findIndex(a => a.nombre === nombre && a.apellidos === apellidos);
+                const idx = alumnos.findIndex(a => a.id === id || (a.nombre === nombre && a.apellidos === apellidos));
                 if (idx >= 0) {
                     alumnos[idx] = Object.assign({}, alumnos[idx], nuevo);
                     updated++;
@@ -152,7 +196,7 @@ document.getElementById('inputArchivo').addEventListener('change', (e) => {
 
             guardarYSincronizar();
             let mensaje = `Importación finalizada. Añadidos: ${added}. Actualizados: ${updated}. Ignorados (inválidos): ${invalid}.`;
-            if (invalid > 0) mensaje += ' Comprueba el formato de los móviles y los nombres.';
+            if (invalid > 0) mensaje += ' Comprueba el formato de los móviles, la edad (>=18) y los nombres.';
             alert(mensaje);
         } catch (err) {
             alert("Error: El archivo no es un JSON válido.");
@@ -160,6 +204,52 @@ document.getElementById('inputArchivo').addEventListener('change', (e) => {
     };
     lector.readAsText(archivo);
     e.target.value = '';
+});
+
+// Delegación de eventos para Editar / Eliminar
+cuerpo.addEventListener('click', (e) => {
+    const editarBtn = e.target.closest('.btn-editar');
+    const eliminarBtn = e.target.closest('.btn-eliminar');
+
+    if (editarBtn) {
+        const id = Number(editarBtn.dataset.id);
+        const alumno = alumnos.find(a => a.id === id);
+        if (!alumno) { alert('Alumno no encontrado.'); return; }
+
+        // rellenar formulario
+        document.getElementById('nombre').value = alumno.nombre;
+        document.getElementById('apellidos').value = alumno.apellidos;
+        document.getElementById('edad').value = alumno.edad;
+        document.getElementById('nota').value = alumno.nota;
+        document.getElementById('movil').value = alumno.movil;
+        document.getElementById('repetidor').checked = !!alumno.repetidor;
+        document.getElementById('idiomas').value = alumno.idioma || '';
+        document.getElementById('alumnoId').value = alumno.id;
+
+        editingId = alumno.id;
+        document.getElementById('btnGuardar').textContent = '✅ Actualizar';
+        document.getElementById('btnCancelarEdicion').style.display = 'inline-block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+
+    if (eliminarBtn) {
+        const id = Number(eliminarBtn.dataset.id);
+        if (!confirm('¿Eliminar este registro?')) return;
+        alumnos = alumnos.filter(a => a.id !== id);
+        guardarYSincronizar();
+        alert('Alumno eliminado.');
+    }
+});
+
+// Cancelar edición
+document.getElementById('btnCancelarEdicion').addEventListener('click', () => {
+    editingId = null;
+    document.getElementById('alumnoId').value = '';
+    document.getElementById('formAlumno').reset();
+    document.getElementById('btnGuardar').textContent = '💾 Guardar';
+    document.getElementById('btnCancelarEdicion').style.display = 'none';
+    mostrarErrorMovil(false);
 });
 
 // Render inicial
