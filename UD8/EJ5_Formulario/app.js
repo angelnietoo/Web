@@ -1,4 +1,4 @@
-// app.js - frontend que sincroniza con servidor.php (si está disponible)
+// app.js - frontend que sincroniza con servidor.php
 
 let alumnos = JSON.parse(localStorage.getItem('alumnos_db')) || [];
 const cuerpo = document.getElementById('cuerpo');

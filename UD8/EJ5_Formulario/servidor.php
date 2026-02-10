@@ -44,7 +44,7 @@ switch ($action) {
         if ($json === null) {
             respondJson(false, 'JSON inválido en body');
         } else {
-            // Esperamos { alumnos: [...] } o directamente un array
+            // Esperamos alumnos o directamente un array
             $toSave = [];
             if (isset($json['alumnos']) && is_array($json['alumnos'])) $toSave = $json['alumnos'];
             else if (is_array($json)) {
