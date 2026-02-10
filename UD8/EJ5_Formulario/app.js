@@ -158,7 +158,7 @@ document.getElementById('formAlumno').addEventListener('submit', (e) => {
     // reset
     editingId = null;
     document.getElementById('alumnoId').value = '';
-    document.getElementById('btnGuardar').textContent = '💾 Guardar';
+    document.getElementById('btnGuardar').textContent = 'Guardar';
     document.getElementById('btnCancelarEdicion').style.display = 'none';
     e.target.reset();
 
@@ -320,7 +320,7 @@ cuerpo.addEventListener('click', (e) => {
         document.getElementById('alumnoId').value = alumno.id;
 
         editingId = alumno.id;
-        document.getElementById('btnGuardar').textContent = '✅ Actualizar';
+        document.getElementById('btnGuardar').textContent = 'Actualizar';
         document.getElementById('btnCancelarEdicion').style.display = 'inline-block';
         window.scrollTo({ top: 0, behavior: 'smooth' });
         return;
@@ -340,7 +340,7 @@ document.getElementById('btnCancelarEdicion').addEventListener('click', () => {
     editingId = null;
     document.getElementById('alumnoId').value = '';
     document.getElementById('formAlumno').reset();
-    document.getElementById('btnGuardar').textContent = '💾 Guardar';
+    document.getElementById('btnGuardar').textContent = 'Guardar';
     document.getElementById('btnCancelarEdicion').style.display = 'none';
     mostrarErrorMovil(false);
 });
