@@ -1,0 +1,337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #e8f7f0;
+    color: #333;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* Estilo común para todas las secciones */
+section {
+    padding: 60px 20px;
+}
+
+/* Estilo del header */
+header {
+    background-color: #4b8e8b;
+    padding: 20px 0;
+    color: white;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header nav .logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #ffbf00;
+    transition: transform 0.3s ease;
+    alt: "Logo de Brújula Social";
+    /* Asegurarse de agregar texto alternativo */
+}
+
+header nav .logo img:hover {
+    transform: scale(1.1);
+}
+
+header nav .menu {
+    list-style: none;
+    display: flex;
+}
+
+header nav .menu li {
+    margin: 0 15px;
+}
+
+header nav .menu li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+header nav .menu li a:hover {
+    background-color: #ffbf00;
+    color: #2b3d3e;
+    border-color: #ffbf00;
+    transform: scale(1.1);
+}
+
+/* Hero Section */
+.hero {
+    background: url('iam.jpg') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hero h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-btn {
+    padding: 12px 40px;
+    background-color: transparent;
+    color: #ffbf00;
+    text-decoration: none;
+    font-size: 1.2rem;
+    border: 2px solid #ffbf00;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #ffbf00;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Sección con sombra */
+.about,
+.services,
+.testimonials,
+.contact,
+.faq {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 40px;
+    border-radius: 8px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Títulos */
+h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+/* FAQ Estilo */
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.faq-item {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.faq-question {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.faq-answer {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Servicios */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+}
+
+.service-card {
+    background: linear-gradient(135deg, #63e0ff, #5b41f9);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    width: 100%;
+    max-width: 350px;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+.service-card h3 {
+    font-size: 1.8rem;
+    margin: 1rem 0;
+}
+
+.service-card p {
+    font-size: 1rem;
+    color: #eaeaea;
+}
+
+/* Testimonios */
+.testimonials-slider {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    flex-shrink: 0;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.testimonial-card p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.testimonial-card span {
+    font-size: 1rem;
+    font-style: italic;
+    color: #666;
+}
+
+/* Formulario de contacto */
+.contact form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contact form input,
+.contact form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.contact form button {
+    background-color: #4b8e8b;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact form button:hover {
+    background-color: #ffbf00;
+    transform: translateY(-3px);
+}
+
+/* Footer */
+footer {
+    background-color: #4b8e8b;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer .social-icons {
+    width: auto;
+    height: auto;
+    align-items: center;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+footer .social-icons li {
+    margin: 1px;
+}
+
+footer .social-icons li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+footer .social-icons li a:hover {
+    color: #ffbf00;
+}
+
+/* Mejora de la responsividad */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta-btn {
+        font-size: 1.1rem;
+        padding: 10px 30px;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        max-width: 90%;
+    }
+}
