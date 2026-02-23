@@ -94,21 +94,25 @@
                 EXÁMENES</span></div>
           </div>
         </div>
-      </nav>
 
-      <!-- Diseño de Interfaces Web -->
-      <div class="module" id="disenoWrapper">
-        <button class="toggle" id="btnDiseno" aria-haspopup="menu" aria-expanded="false" aria-controls="dropdownDiseno">
-          <span>DISEÑO DE INTERFACES WEB</span>
-          <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      
-        <div id="dropdownDiseno" class="dropdown" role="menu" aria-label="Temas Diseño de Interfaces Web">
-          <div tabindex="0" class="item" role="menuitem" data-tema="tema5"><span class="dot"></span><span> Tema 5 — Accesibilidad</span></div>
+        <!-- Módulo DISEÑO de Interfaces Web (movido dentro de .modules) -->
+        <div class="module" id="disenoWrapper">
+          <button class="toggle" id="btnDiseno" aria-haspopup="menu" aria-expanded="false"
+            aria-controls="dropdownDiseno">
+            <span>DISEÑO DE INTERFACES WEB</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <div id="dropdownDiseno" class="dropdown" role="menu" aria-label="Temas Diseño de Interfaces Web">
+            <!-- data-tema cambiado a "tema1" para mapear fácilmente a diseno_tema1 -->
+            <div tabindex="0" class="item" role="menuitem" data-tema="tema1"><span class="dot"></span><span> Tema 1 —
+                Accesibilidad</span></div>
+          </div>
         </div>
-      </div>
+      </nav>
 
       <!-- accesos rápidos -->
       <div style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
@@ -347,7 +351,7 @@
       </section>
     </section>
 
-    <!-- Diseño de Interfaces Web -->
+    <!-- Diseño de Interfaces Web: (ahora el artículo sigue aquí, con id="diseno_tema1") -->
     <article id="diseno_tema1" class="tema" aria-labelledby="d1h">
       <h2 id="d1h">TEMA 5: Accesibilidad</h2>
       <div class="grid">
@@ -375,7 +379,7 @@
         <span class="badge">Java</span>
         <span class="badge">React (próx.)</span>
       </div>
- 
+
       <div class="cta">
         <a href="Curriculum Vitae.html" id="cvSidebar">Currículum</a>
         <a href="#" id="contactBtn">Contactar</a>
