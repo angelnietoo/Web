@@ -40,7 +40,7 @@ header nav .logo img {
     border: 3px solid #ffbf00;
     transition: transform 0.3s ease;
     alt: "Logo de Brújula Social";
-    /* Asegurarse de agregar texto alternativo */
+    /* Asegúrate de agregar el texto alternativo en HTML */
 }
 
 header nav .logo img:hover {
@@ -65,6 +65,8 @@ header nav .menu li a {
     border-radius: 30px;
     border: 2px solid transparent;
     transition: all 0.3s ease;
+    background-color: #2b3d3e;
+    /* Asegura un buen contraste */
 }
 
 header nav .menu li a:hover {
