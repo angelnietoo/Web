@@ -17,6 +17,8 @@
 html {
     font-size: 16px;
     box-sizing: border-box;
+    /* ayuda a que los scrollIntoView+CSS sean más suaves a nivel global */
+    scroll-behavior: smooth;
 }
 
 *,
@@ -195,8 +197,16 @@ p.lead {
     /* pequeño hint para evitar saltos al abrir */
 }
 
+/* aseguramos que el dropdown no empuje layout si aparece: */
 .dropdown.show {
     display: block;
+    position: absolute;
+    /* ya lo es, solo reforzamos */
+}
+
+/* pequeña corrección para que el dropdown no provoque reflow del documento */
+.module {
+    isolation: isolate;
 }
 
 @keyframes pop {
@@ -264,17 +274,37 @@ p.lead {
     margin-top: 8px;
     padding-top: 12px;
     border-top: 1px dashed rgba(255, 255, 255, 0.02);
+    /* margen extra para scroll-margin (cuando se centra) */
+    scroll-padding-top: 28px;
 }
 
+/* -----------------------------------------------------
+   Nuevo enfoque: ocultar/mostrar .tema sin usar display:none
+   para permitir transiciones suaves y minimizar saltos.
+   ----------------------------------------------------- */
 .tema {
-    display: none;
-    margin-top: 18px;
-    animation: fadeSlide .28s ease both;
-    transition: background var(--soft), border-color var(--soft), box-shadow var(--soft);
+    /* ahora todos los .tema permanecen en el flujo, pero colapsados */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition:
+        max-height 0.32s cubic-bezier(.2, .9, .3, 1),
+        opacity 0.28s var(--soft),
+        transform 0.28s var(--soft);
+    margin-top: 0;
+    /* la separación la aplicaremos sólo cuando esté activo */
 }
 
+/* cuando se active mostramos con transición; max-height grande pero limitada */
 .tema.active {
-    display: block;
+    max-height: 1800px;
+    /* suficientemente grande para la mayoría de contenidos */
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    margin-top: 18px;
 }
 
 /* ligero resalte del panel del tema activo */
@@ -285,6 +315,21 @@ p.lead {
     border-radius: 10px;
 }
 
+/* si por alguna razón el contenido real excede max-height, permitimos overflow interno */
+.tema.active>.grid,
+.tema.active>.fase {
+    overflow: visible;
+}
+
+/* Ajuste para títulos dentro del tema */
+.tema h2 {
+    margin: 0 0 12px 0;
+    color: #fff;
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+/* Animación de introducción (complementaria) */
 @keyframes fadeSlide {
     from {
         opacity: 0;
@@ -295,13 +340,6 @@ p.lead {
         opacity: 1;
         transform: translateY(0)
     }
-}
-
-.tema h2 {
-    margin: 0 0 12px 0;
-    color: #fff;
-    font-size: 1.15rem;
-    font-weight: 800;
 }
 
 .grid {
@@ -541,6 +579,13 @@ p.lead {
     .cliente-empty {
         grid-template-columns: 1fr;
     }
+
+    /* dropdowns en móvil: evitar que queden fuera de viewport */
+    .dropdown {
+        left: 0 !important;
+        right: 0 !important;
+        min-width: unset;
+    }
 }
 
 /* focus visible */
@@ -629,4 +674,5 @@ p.lead {
 
 /* pequeño ajuste estético para el módulo de diseño (opcional — sutil) */
 #btnDiseno {
+    
 }

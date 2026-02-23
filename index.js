@@ -201,9 +201,11 @@ document.addEventListener('keydown', (e) => {
 function showTema(temaId, module) {
     console.groupCollapsed(`showTema: tema="${temaId}" module="${module}"`);
     try {
-        const allTemas = Array.from(document.querySelectorAll('.content .tema'));
-        if (!allTemas.length) console.warn('No se encontraron artículos con selector ".content .tema"');
+        // Buscar todos los temas en todo el documento (no sólo dentro de .content)
+        const allTemas = Array.from(document.querySelectorAll('.tema'));
+        if (!allTemas.length) console.warn('No se encontraron elementos con selector ".tema"');
 
+        // Ocultar/limpiar visual de todos los temas
         allTemas.forEach(el => {
             el.classList.remove('active', 'highlight');
             el.setAttribute('aria-hidden', 'true');
@@ -217,14 +219,16 @@ function showTema(temaId, module) {
         if (module === 'cliente') {
             candidates.push('cliente_' + cleanTema);
         } else if (module === 'diseno') {
-            // para diseño, preferimos ids que empiecen por diseno_ y además un fallback directo al artículo único
+            // para diseño, preferimos ids que empiecen por diseno_ y además un fallback directo
             candidates.push('diseno_' + cleanTema);
-            candidates.push('diseno_tema1'); // artículo único en el index para diseño
+            candidates.push('diseno_tema1');
+            // permitir también que el dropdown use 'tema1' directo
+            candidates.push(cleanTema);
         } else {
             if (cleanTema) candidates.push(cleanTema);
         }
 
-        // Añadimos otras heurísticas existentes
+        // heurísticas adicionales conservadas (no dañan)
         candidates.push(cleanTema.replace(/^cliente_/, ''));
         if (module === 'cliente') candidates.push('cliente_' + 'tema' + String(cleanTema).replace(/\D/g, ''));
         candidates.push('cliente_' + cleanTema.replace(/^tema/, ''));
@@ -242,32 +246,42 @@ function showTema(temaId, module) {
         }
 
         if (!target) {
-            console.error('showTema: NO encontrado ningún elemento con los ids candidatos. Asegúrate de que el id del artículo exista exactamente.');
+            console.error('showTema: NO encontrado ningún elemento con los ids candidatos. Asegúrate de que el id del artículo exista exactamente.', uniq);
             console.groupEnd();
             return;
         }
 
+        // Activar target
         target.classList.add('active', 'highlight');
         target.removeAttribute('aria-hidden');
 
-        try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) { /* ignore */ }
+        // Asegurar que sea focusable antes de focus()
+        if (!target.hasAttribute('tabindex') || target.getAttribute('tabindex') !== '-1') {
+            target.setAttribute('tabindex', '-1');
+        }
+
+        // Intento de scroll más "suave" que evita reflows bruscos: centramos el objetivo.
         try {
-            target.focus?.();
-        } catch (e) { /* ignore */ }
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } catch (e) {
+            // fallback sencillo
+            try { target.scrollIntoView(true); } catch (e2) { /* ignore */ }
+        }
+
+        // focus para accesibilidad (sin provocar scroll inmediato)
+        try { target.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
 
         const compStyle = window.getComputedStyle(target);
         console.debug('Elemento encontrado id="%s" — display=%s, visibility=%s, height=%s', foundId, compStyle.display, compStyle.visibility, compStyle.height);
 
+        // Si sigue invisible por CSS, aplicar fallback mínimo (no forzaremos rehacer todo el layout)
         if (compStyle.display === 'none' || compStyle.visibility === 'hidden' || parseFloat(compStyle.height) === 0) {
-            console.warn('Elemento sigue invisible tras añadir .active — aplicando fallback inline style.');
+            console.warn('Elemento parece invisible tras activar — aplicando fallback ligero (display/visibility).');
             target.style.display = '';
             target.style.visibility = 'visible';
             target.style.removeProperty('height');
             const after = window.getComputedStyle(target);
             console.debug('Después fallback — display=%s, visibility=%s, height=%s', after.display, after.visibility, after.height);
-            if (after.display === 'none') {
-                console.error('Aún invisible: puede haber reglas con !important. Comparte aquí tu CSS para que lo adaptemos.');
-            }
         }
 
         // marcar botones activos (incluimos btnDiseno)
