@@ -103,8 +103,10 @@ header nav .menu li a:hover {
 
 .cta-btn {
     padding: 12px 40px;
-    background-color: transparent;
-    color: #ffbf00;
+    background-color: #ffbf00;
+    /* Cambio en el fondo para mejorar el contraste */
+    color: #2b3d3e;
+    /* Texto oscuro para mejorar el contraste */
     text-decoration: none;
     font-size: 1.2rem;
     border: 2px solid #ffbf00;
