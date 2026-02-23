@@ -5,7 +5,9 @@ const qsa = (s, ctx = document) => Array.from(ctx.querySelectorAll(s));
 /* Dropdowns y accesibilidad (teclado) */
 const modules = [
     { btn: qs('#btnLenguaje'), dropdown: qs('#dropdownLenguaje'), prefix: '', name: 'lenguaje' },
-    { btn: qs('#btnCliente'), dropdown: qs('#dropdownCliente'), prefix: 'cliente_', name: 'cliente' }
+    { btn: qs('#btnCliente'), dropdown: qs('#dropdownCliente'), prefix: 'cliente_', name: 'cliente' },
+    // Nuevo módulo DISEÑO DE INTERFACES WEB
+    { btn: qs('#btnDiseno'), dropdown: qs('#dropdownDiseno'), prefix: 'diseno_', name: 'diseno' }
 ];
 
 // carga selección previa (persistencia)
@@ -208,19 +210,33 @@ function showTema(temaId, module) {
         });
 
         const cleanTema = String(temaId || '').trim();
-        const candidates = [
-            (module === 'cliente' ? 'cliente_' : '') + cleanTema,
-            cleanTema,
-            cleanTema.replace(/^cliente_/, ''),
-            (module === 'cliente' ? 'cliente_' : '') + 'tema' + String(cleanTema).replace(/\D/g,''),
-            'cliente_' + cleanTema.replace(/^tema/, '')
-        ].filter(Boolean).map(s => String(s));
 
-        console.debug('Candidatos de id:', candidates);
+        // Construir candidatos con tratamiento especial para 'cliente' y 'diseno'
+        const candidates = [];
+
+        if (module === 'cliente') {
+            candidates.push('cliente_' + cleanTema);
+        } else if (module === 'diseno') {
+            // para diseño, preferimos ids que empiecen por diseno_ y además un fallback directo al artículo único
+            candidates.push('diseno_' + cleanTema);
+            candidates.push('diseno_tema1'); // artículo único en el index para diseño
+        } else {
+            if (cleanTema) candidates.push(cleanTema);
+        }
+
+        // Añadimos otras heurísticas existentes
+        candidates.push(cleanTema.replace(/^cliente_/, ''));
+        if (module === 'cliente') candidates.push('cliente_' + 'tema' + String(cleanTema).replace(/\D/g, ''));
+        candidates.push('cliente_' + cleanTema.replace(/^tema/, ''));
+
+        // Filtrar nulos y duplicados
+        const uniq = Array.from(new Set(candidates.filter(Boolean)));
+
+        console.debug('Candidatos de id:', uniq);
 
         let target = null;
         let foundId = null;
-        for (const id of candidates) {
+        for (const id of uniq) {
             const el = document.getElementById(id);
             if (el) { target = el; foundId = id; break; }
         }
@@ -235,7 +251,9 @@ function showTema(temaId, module) {
         target.removeAttribute('aria-hidden');
 
         try { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) { /* ignore */ }
-        target.focus?.();
+        try {
+            target.focus?.();
+        } catch (e) { /* ignore */ }
 
         const compStyle = window.getComputedStyle(target);
         console.debug('Elemento encontrado id="%s" — display=%s, visibility=%s, height=%s', foundId, compStyle.display, compStyle.visibility, compStyle.height);
@@ -252,8 +270,10 @@ function showTema(temaId, module) {
             }
         }
 
+        // marcar botones activos (incluimos btnDiseno)
         if (qs('#btnLenguaje')) qs('#btnLenguaje').classList.toggle('active', module === 'lenguaje');
         if (qs('#btnCliente')) qs('#btnCliente').classList.toggle('active', module === 'cliente');
+        if (qs('#btnDiseno')) qs('#btnDiseno').classList.toggle('active', module === 'diseno');
 
         console.log('showTema: mostrado ->', foundId);
     } finally {
@@ -268,6 +288,7 @@ function showTema(temaId, module) {
     // Mostrar selección previa si la hay
     if (selectedThemes['lenguaje']) showTema(selectedThemes['lenguaje'], 'lenguaje');
     if (selectedThemes['cliente']) showTema(selectedThemes['cliente'], 'cliente');
+    if (selectedThemes['diseno']) showTema(selectedThemes['diseno'], 'diseno');
 })();
 
 /* CTA / shortcuts (guards) */
