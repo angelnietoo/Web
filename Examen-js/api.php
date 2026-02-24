@@ -5,6 +5,12 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 
+// Verificar si la solicitud se hace desde localhost o desde el entorno de desarrollo local
+if ($_SERVER['SERVER_ADDR'] == '127.0.0.1' || $_SERVER['SERVER_ADDR'] == 'localhost') {
+    respondJson(false, 'Este servicio solo está disponible en el servidor, no se puede acceder localmente.');
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
@@ -19,7 +25,7 @@ try {
     $pdo = new PDO(
         "mysql:host=localhost;dbname=tienda_ropa;charset=utf8mb4",  // Cambia a tu base de datos
         "root",  // Cambia a tu usuario de base de datos
-        "",  // Cambia a tu contraseña
+        "root",  // Cambia a tu contraseña
         [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
