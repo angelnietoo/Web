@@ -1,126 +1,117 @@
 <?php
-header('Content-Type: application/json');
-$servername = "localhost";
-$username = "root";  // Cambia a tu usuario de la base de datos
-$password = "";      // Cambia a tu contraseña
-$dbname = "tienda_ropa";
+// servidor.php — CRUD MySQL con PDO para productos
 
-// Conectar a la base de datos
-$conn = new mysqli($servername, $username, $password, $dbname);
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Conexión fallida: " . $conn->connect_error]));
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
 }
 
-// Operación que recibimos a través de GET o POST
-$method = $_SERVER['REQUEST_METHOD'];
+$action = $_GET['action'] ?? '';
 
-switch($method) {
-    case 'GET':
-        if (isset($_GET['id'])) {
-            // Obtener un solo producto
-            $id = $_GET['id'];
-            $sql = "SELECT * FROM productos WHERE id = $id";
-            $result = $conn->query($sql);
-            if ($result) {
-                echo json_encode($result->fetch_assoc());
-            } else {
-                echo json_encode(["error" => "Producto no encontrado."]);
-            }
-        } else {
-            // Obtener todos los productos
-            $sql = "SELECT * FROM productos";
-            $result = $conn->query($sql);
-            if ($result) {
-                $productos = [];
-                while($row = $result->fetch_assoc()) {
-                    $productos[] = $row;
-                }
-                echo json_encode($productos);
-            } else {
-                echo json_encode(["error" => "No se encontraron productos."]);
-            }
-        }
+/* =========================
+   CONEXIÓN A MYSQL (XAMPP)
+   ========================= */
+try {
+    $pdo = new PDO(
+        "mysql:host=localhost;dbname=tienda_ropa;charset=utf8mb4",  // Cambia a tu base de datos
+        "root",  // Cambia a tu usuario de base de datos
+        "",  // Cambia a tu contraseña
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]
+    );
+} catch (PDOException $e) {
+    respondJson(false, 'Error de conexión a MySQL');
+}
+
+/* =========================
+   ACCIONES CRUD
+   ========================= */
+switch ($action) {
+
+    /* ===== LISTAR ===== */
+    case 'list':
+        $stmt = $pdo->query("SELECT * FROM productos ORDER BY id DESC");
+        respondJson(true, 'Datos obtenidos', $stmt->fetchAll());
         break;
 
-    case 'POST':
-        // Crear producto
-        $data = json_decode(file_get_contents("php://input"));
-        
-        // Validar datos
-        if (!isset($data->codigo) || !isset($data->nombre) || !isset($data->talla) || !isset($data->precio) || !isset($data->email_creador)) {
-            echo json_encode(["error" => "Faltan datos para crear el producto"]);
-            break;
-        }
+    /* ===== INSERTAR ===== */
+    case 'save':
+        $data = json_decode(file_get_contents('php://input'), true);
 
-        $codigo = $data->codigo;
-        $nombre = $data->nombre;
-        $talla = $data->talla;
-        $precio = $data->precio;
-        $email_creador = $data->email_creador;
+        if (!$data) respondJson(false, 'JSON inválido');
 
-        // Insertar producto
-        $sql = "INSERT INTO productos (codigo, nombre, talla, precio, email_creador) 
-                VALUES ('$codigo', '$nombre', '$talla', '$precio', '$email_creador')";
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(["message" => "Producto creado con éxito."]);
-        } else {
-            echo json_encode(["error" => "Error al crear producto: " . $conn->error]);
-        }
+        // Insertar un producto
+        $sql = "INSERT INTO productos (codigo, nombre, talla, precio, email_creador)
+                VALUES (?, ?, ?, ?, ?)";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            $data['codigo'],
+            $data['nombre'],
+            $data['talla'],
+            $data['precio'],
+            $data['email_creador']
+        ]);
+
+        respondJson(true, 'Producto insertado');
         break;
 
-    case 'PUT':
-        // Actualizar producto
-        $data = json_decode(file_get_contents("php://input"));
+    /* ===== ACTUALIZAR ===== */
+    case 'update':
+        $data = json_decode(file_get_contents('php://input'), true);
 
-        if (!isset($data->id) || !isset($data->codigo) || !isset($data->nombre) || !isset($data->talla) || !isset($data->precio) || !isset($data->email_creador)) {
-            echo json_encode(["error" => "Faltan datos para actualizar el producto"]);
-            break;
-        }
-
-        $id = $data->id;
-        $codigo = $data->codigo;
-        $nombre = $data->nombre;
-        $talla = $data->talla;
-        $precio = $data->precio;
-        $email_creador = $data->email_creador;
+        if (!$data || empty($data['id'])) respondJson(false, 'Datos inválidos');
 
         // Actualizar producto
-        $sql = "UPDATE productos 
-                SET codigo='$codigo', nombre='$nombre', talla='$talla', precio='$precio', email_creador='$email_creador' 
-                WHERE id=$id";
+        $sql = "UPDATE productos SET
+                    codigo=?,
+                    nombre=?,
+                    talla=?,
+                    precio=?,
+                    email_creador=?
+                WHERE id=?";
 
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(["message" => "Producto actualizado con éxito."]);
-        } else {
-            echo json_encode(["error" => "Error al actualizar producto: " . $conn->error]);
-        }
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            $data['codigo'],
+            $data['nombre'],
+            $data['talla'],
+            $data['precio'],
+            $data['email_creador'],
+            $data['id']
+        ]);
+
+        respondJson(true, 'Producto actualizado');
         break;
 
-    case 'DELETE':
-        // Eliminar producto
-        if (!isset($_GET['id'])) {
-            echo json_encode(["error" => "ID del producto es requerido para eliminar"]);
-            break;
-        }
+    /* ===== BORRAR ===== */
+    case 'delete':
+        $id = $_GET['id'] ?? null;
+        if (!$id) respondJson(false, 'ID no recibido');
 
-        $id = $_GET['id'];
+        $stmt = $pdo->prepare("DELETE FROM productos WHERE id=?");
+        $stmt->execute([$id]);
 
-        // Eliminar producto
-        $sql = "DELETE FROM productos WHERE id=$id";
-        if ($conn->query($sql) === TRUE) {
-            echo json_encode(["message" => "Producto eliminado con éxito."]);
-        } else {
-            echo json_encode(["error" => "Error al eliminar producto: " . $conn->error]);
-        }
+        respondJson(true, 'Producto eliminado');
         break;
 
     default:
-        echo json_encode(["error" => "Método no soportado"]);
-        break;
+        respondJson(false, 'Acción no válida');
 }
 
-// Cerrar la conexión
-$conn->close();
-?>
+/* =========================
+   RESPUESTA JSON
+   ========================= */
+function respondJson($success, $msg = '', $data = null) {
+    header('Content-Type: application/json; charset=utf-8');
+    $resp = ['success' => $success, 'message' => $msg];
+    if ($data !== null) $resp['data'] = $data;
+    echo json_encode($resp, JSON_UNESCAPED_UNICODE);
+    exit;
+}
