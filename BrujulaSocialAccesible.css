@@ -269,7 +269,7 @@ h3 {
 }
 
 .contact form button {
-    background-color: #4b8e8b;
+    background-color: #00796b;  /* Fondo más oscuro para mejorar contraste */
     color: white;
     padding: 12px 20px;
     border: none;
